@@ -13,6 +13,8 @@ const { lang } = Astro.params as { lang: SupportedLocale; slug: string };
 const t = useTranslations(lang);
 const { post } = Astro.props as { post: CollectionEntry<'blog'> };
 const { Content, headings } = await render(post);
+type TocHeading = { depth: number; slug: string; text: string };
+const toc: TocHeading[] = (headings as TocHeading[]).filter((h) => h.depth <= 3);
 
 const all: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const related = all.filter((p) => p.slug !== post.slug && p.data.category === post.data.category).slice(0, 3);
