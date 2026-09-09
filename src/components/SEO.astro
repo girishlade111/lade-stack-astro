@@ -1,113 +1,167 @@
 ---
-// SEO.astro — Pre-rendered meta, canonical, hreflang x6 + x-default, OG/Twitter, JSON-LD (Step 04)
-import { languages, type SupportedLocale } from '../i18n/config';
-import { getLocalizedPath } from '../i18n/utils';
-
-interface ArticleMeta {
-  publishedTime: string;
-  modifiedTime?: string;
-  author?: string;
-  tags?: string[];
-}
+import { languages, defaultLocale, type SupportedLocale } from '@/i18n/config';
+import { getLocalizedPath } from '@/i18n/utils';
 
 interface Props {
   title: string;
-  description: string;
-  lang: SupportedLocale;
-  /** Canonical route without locale prefix, e.g. "/about" or "/blog/my-post". Defaults to current path. */
-  path?: string;
+  description?: string;
   keywords?: string;
+  canonicalUrl?: string;
+  /** Canonical route without locale prefix (e.g. "/about"). Preferred over Astro.url — static pathnames may carry trailing slashes. */
+  path?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
-  noIndex?: boolean;
-  article?: ArticleMeta;
+  article?: {
+    publishedTime: string;
+    modifiedTime?: string;
+    author: string;
+    tags?: string[];
+  };
   structuredData?: object | object[];
+  noIndex?: boolean;
+  lang?: SupportedLocale;
 }
 
-const SITE_URL = 'https://ladestack.in';
 const SITE_NAME = 'Lade Stack';
+const SITE_URL = 'https://ladestack.in';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
+const DEFAULT_DESCRIPTION =
+  "Transform your development workflow with Lade Stack's AI-powered tools. API testing platform, no-code website builder, secure file management & documentation summarizer. Boost productivity 10x.";
+const DEFAULT_KEYWORDS =
+  'AI developer tools, AI SaaS platform, AI code editor, API testing tool, developer automation tools, AI workflow automation, enterprise AI development platform, Lade Stack';
 
 const {
   title,
-  description,
-  lang,
+  description = DEFAULT_DESCRIPTION,
+  keywords = DEFAULT_KEYWORDS,
+  canonicalUrl,
   path = '/',
-  keywords,
-  ogImage = `${SITE_URL}/og-image.png`,
+  ogTitle,
+  ogDescription,
+  ogImage = DEFAULT_OG_IMAGE,
   ogType = 'website',
-  noIndex = false,
   article,
-  structuredData
+  structuredData,
+  noIndex = false,
+  lang = defaultLocale,
 } = Astro.props;
 
-const isoLocale = languages[lang].iso.replace('_', '-');
-// og:locale format: en_US, zh_CN...
-const ogLocale = languages[lang].iso;
-
 function canonicalFor(locale: SupportedLocale): string {
-  const localized = getLocalizedPath(path, locale);
-  return `${SITE_URL}${localized === '/' ? '/' : localized}`;
+  return `${SITE_URL}${getLocalizedPath(path, locale)}`;
 }
 
-const canonicalUrl = canonicalFor(lang);
-const hreflangs = (Object.keys(languages) as SupportedLocale[]).map((locale) => ({
-  hreflang: locale,
-  href: canonicalFor(locale)
-}));
-
-const robotsContent = noIndex
-  ? 'noindex, nofollow'
-  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
-
-const jsonLdArray = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
+const fullCanonical = canonicalUrl || canonicalFor(lang);
+const pageTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+const currentLangMeta = languages[lang];
 ---
-<title>{title}</title>
+
+<!-- Primary Meta Tags -->
+<title>{pageTitle}</title>
+<meta name="title" content={pageTitle} />
 <meta name="description" content={description} />
-{keywords && <meta name="keywords" content={keywords} />}
-<meta name="robots" content={robotsContent} />
-<link rel="canonical" href={canonicalUrl} />
+<meta name="keywords" content={keywords} />
+<meta name="author" content="Girish Lade - Full Stack Developer & AI Tools Creator" />
+<meta
+  name="robots"
+  content={noIndex
+    ? 'noindex, nofollow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+/>
 
-<!-- hreflang alternates: 6 locales + x-default -->
-{hreflangs.map(({ hreflang, href }) => (
-  <link rel="alternate" hreflang={hreflang} href={href} />
-))}
-<link rel="alternate" hreflang="x-default" href={canonicalFor('en')} />
+<!-- Canonical Tag -->
+<link rel="canonical" href={fullCanonical} />
 
-<!-- Open Graph -->
+<!-- International SEO: hreflang Alternates -->
+{
+  Object.keys(languages).map((loc) => {
+    const localizedHref = canonicalFor(loc as SupportedLocale);
+    return <link rel="alternate" hreflang={loc} href={localizedHref} />;
+  })
+}
+<!-- x-default points to default English route -->
+<link rel="alternate" hreflang="x-default" href={canonicalFor(defaultLocale)} />
+
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
-<meta property="og:site_name" content={SITE_NAME} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonicalUrl} />
+<meta property="og:url" content={fullCanonical} />
+<meta property="og:title" content={ogTitle || pageTitle} />
+<meta property="og:description" content={ogDescription || description} />
 <meta property="og:image" content={ogImage} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:locale" content={ogLocale} />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:locale" content={currentLangMeta.iso} />
 
-<!-- Twitter -->
+{
+  article && (
+    <>
+      <meta property="article:published_time" content={article.publishedTime} />
+      {article.modifiedTime && (
+        <meta property="article:modified_time" content={article.modifiedTime} />
+      )}
+      <meta property="article:author" content={article.author} />
+      {article.tags?.map((tag: string) => (
+        <meta property="article:tag" content={tag} />
+      ))}
+    </>
+  )
+}
+
+<!-- Twitter Cards -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={fullCanonical} />
+<meta name="twitter:title" content={ogTitle || pageTitle} />
+<meta name="twitter:description" content={ogDescription || description} />
+<meta name="twitter:image" content={ogImage} />
 <meta name="twitter:site" content="@ladestack" />
 <meta name="twitter:creator" content="@girishlade" />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
 
-<!-- Article meta -->
-{ogType === 'article' && article && (
-  <>
-    <meta property="article:published_time" content={article.publishedTime} />
-    {article.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
-    {article.author && <meta property="article:author" content={article.author} />}
-    {article.tags?.map((tag) => (
-      <meta property="article:tag" content={tag} />
-    ))}
-  </>
-)}
+<!-- Structured Data: Global Schemas (Organization + WebSite) -->
+<script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ladestack.in/#organization",
+        "name": "Lade Stack",
+        "url": "https://ladestack.in",
+        "logo": "https://ladestack.in/favicon.ico",
+        "description": "AI-powered developer tools and SaaS solutions for modern development teams.",
+        "founder": {
+          "@type": "Person",
+          "name": "Girish Lade",
+          "url": "https://github.com/girishlade111"
+        },
+        "sameAs": [
+          "https://github.com/girishlade111",
+          "https://www.linkedin.com/in/girish-lade-075bba201/",
+          "https://www.instagram.com/girish_lade_/",
+          "https://codepen.io/Girish-Lade-the-looper"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ladestack.in/#website",
+        "url": "https://ladestack.in",
+        "name": "Lade Stack",
+        "publisher": {
+          "@id": "https://ladestack.in/#organization"
+        }
+      }
+    ]
+  }
+</script>
 
-<!-- Schema.org JSON-LD -->
-{jsonLdArray.map((data) => (
-  <script type="application/ld+json" set:html={JSON.stringify(data)} />
-))}
-
-<!-- Lang hint for crawlers -->
-<meta name="language" content={isoLocale} />
+<!-- Additional Page-Specific Structured Data -->
+{
+  structuredData && (
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(structuredData)}
+    />
+  )
+}

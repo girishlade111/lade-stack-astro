@@ -13,10 +13,13 @@ interface Props {
   lang?: SupportedLocale;
   path?: string;
   keywords?: string;
+  canonicalUrl?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
   noIndex?: boolean;
-  article?: { publishedTime: string; modifiedTime?: string; author?: string; tags?: string[] };
+  article?: { publishedTime: string; modifiedTime?: string; author: string; tags?: string[] };
   structuredData?: object | object[];
 }
 
@@ -26,6 +29,9 @@ const {
   lang = defaultLocale,
   path = '/',
   keywords,
+  canonicalUrl,
+  ogTitle,
+  ogDescription,
   ogImage,
   ogType = 'website',
   noIndex = false,
@@ -49,6 +55,9 @@ const dir = languages[lang]?.dir ?? 'ltr';
       lang={lang}
       path={path}
       keywords={keywords}
+      canonicalUrl={canonicalUrl}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
       ogImage={ogImage}
       ogType={ogType}
       noIndex={noIndex}
