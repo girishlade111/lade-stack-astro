@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations, getLocalizedPath } from '../i18n/utils';
+
+const lang = 'en' as const;
+const t = useTranslations(lang);
+
+const cards = [
+  { title: 'Email us', text: 'admin@ladestack.in', href: 'mailto:admin@ladestack.in', icon: '✉️' },
+  { title: 'Support center', text: 'FAQs & troubleshooting', href: '/support', icon: '🛟' },
+  { title: 'Based in', text: 'Mumbai, India', href: undefined, icon: '📍' },
+  { title: 'Availability', text: '24/7 — replies in hours', href: undefined, icon: '🕐' }
+];
+const faqs = [
+  { q: 'Is Lade Stack really free?', a: 'Yes. Every tool is free forever — no tiers, trials, or credit cards. We optimize for developer access, not monetization.' },
+  { q: 'How fast is support?', a: 'We operate 24/7 and typically respond within hours. For urgent issues, email admin@ladestack.in directly.' },
+  { q: 'Can I request a feature?', a: 'Absolutely — open an issue on GitHub or send us a message below. Community requests drive our roadmap.' },
+  { q: 'Do you offer enterprise solutions?', a: 'Yes. Contact us with your requirements and we will scope custom integrations, SLAs, and onboarding.' }
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Lade Stack',
+  url: 'https://ladestack.in/contact',
+  description: 'Get in touch with Lade Stack for AI development support.',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Lade Stack',
+    address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressRegion: 'Maharashtra', addressCountry: 'IN' },
+    contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', email: 'admin@ladestack.in', availableLanguage: 'English' }
+  }
+};
+---
+<BaseLayout
+  lang={lang}
+  path="/contact"
+  title="Contact Lade Stack – Get in Touch for AI Development Support"
+  description="Contact Lade Stack for AI development support, technical assistance, and enterprise solutions. We operate 24/7 and respond within hours. Based in Mumbai, India."
+  structuredData={structuredData}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
+    <h1 class="font-serif text-4xl md:text-6xl font-bold">{t('contact.title')}</h1>
+    <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('contact.subtitle')}</p>
+
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {cards.map((c) => (
+        <div class="rounded-2xl border border-border bg-card/60 p-5">
+          <div class="text-2xl" aria-hidden="true">{c.icon}</div>
+          <h2 class="mt-2 font-semibold">{c.title}</h2>
+          {c.href ? (
+            <a href={c.href.startsWith('/') ? getLocalizedPath(c.href, lang) : c.href} class="text-sm text-sage-600 dark:text-sage-400 hover:underline">{c.text}</a>
+          ) : (
+            <p class="text-sm text-foreground/65">{c.text}</p>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10 grid lg:grid-cols-2 gap-6 items-start">
+      <form data-contact-form class="rounded-3xl border border-border bg-card/60 p-6 md:p-8 space-y-4" novalidate>
+        <h2 class="font-serif text-2xl font-bold">Send a message</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="cf-name" class="text-sm font-medium">{t('contact.formName')}</label>
+            <input id="cf-name" name="name" required autocomplete="name" class="mt-1.5 w-full h-11 px-4 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+          </div>
+          <div>
+            <label for="cf-email" class="text-sm font-medium">{t('contact.formEmail')}</label>
+            <input id="cf-email" name="email" type="email" required autocomplete="email" class="mt-1.5 w-full h-11 px-4 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+          </div>
+        </div>
+        <div>
+          <label for="cf-subject" class="text-sm font-medium">{t('contact.formSubject')}</label>
+          <input id="cf-subject" name="subject" required class="mt-1.5 w-full h-11 px-4 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+        </div>
+        <div>
+          <label for="cf-msg" class="text-sm font-medium">{t('contact.formMessage')}</label>
+          <textarea id="cf-msg" name="message" required rows="5" class="mt-1.5 w-full px-4 py-3 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500"></textarea>
+        </div>
+        <p data-contact-err class="hidden text-sm text-red-500" role="alert"></p>
+        <button type="submit" class="inline-flex h-12 px-7 items-center justify-center rounded-full bg-sage-500 text-white font-semibold hover:bg-sage-600 w-full sm:w-auto">{t('contact.formSubmit')}</button>
+        <p data-contact-ok class="hidden text-sm text-emerald-600 dark:text-emerald-400" role="status">{t('contact.formSuccess')}</p>
+      </form>
+
+      <div>
+        <h2 class="font-serif text-2xl font-bold">{t('contact.faqTitle')}</h2>
+        <div class="mt-4 space-y-3">
+          {faqs.map((f) => (
+            <details class="group rounded-2xl border border-border bg-card/60 px-5 py-4 open:border-sage-500/40">
+              <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3">
+                {f.q}
+                <span aria-hidden="true" class="text-sage-500 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+              </summary>
+              <p class="mt-3 text-sm text-foreground/65 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+        <div class="mt-6 rounded-2xl overflow-hidden border border-border">
+          <iframe title="Map — Mumbai, India" src="https://www.openstreetmap.org/export/embed.html?bbox=72.75%2C18.9%2C73.0%2C19.15&layer=mapnik&marker=19.076%2C72.8777" class="w-full h-56" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var form = document.querySelector('[data-contact-form]');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = form.querySelector('[data-contact-err]');
+      var ok = form.querySelector('[data-contact-ok]');
+      var name = form.querySelector('#cf-name');
+      var email = form.querySelector('#cf-email');
+      var subject = form.querySelector('#cf-subject');
+      var message = form.querySelector('#cf-msg');
+      function fail(text, el) {
+        if (err) { err.textContent = text; err.classList.remove('hidden'); }
+        if (ok) ok.classList.add('hidden');
+        if (el) { el.setAttribute('aria-invalid', 'true'); el.style.borderColor = '#ef4444'; el.focus(); }
+      }
+      if (err) err.classList.add('hidden');
+      [name, email, subject, message].forEach(function (el) {
+        if (el) { el.removeAttribute('aria-invalid'); el.style.borderColor = ''; }
+      });
+      if (!name || !name.value.trim()) return fail('Please enter your name.', name);
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) return fail('Please enter a valid email address.', email);
+      if (!subject || !subject.value.trim()) return fail('Please add a subject.', subject);
+      if (!message || message.value.trim().length < 10) return fail('Please describe your request (min 10 characters).', message);
+      form.reset();
+      if (ok) ok.classList.remove('hidden');
+      setTimeout(function () { if (ok) ok.classList.add('hidden'); }, 6000);
+    });
+  })();
+</script>

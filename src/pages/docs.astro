@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/utils';
+
+const lang = 'en' as const;
+const t = useTranslations(lang);
+
+const categories = [
+  { id: 'getting-started', title: 'Getting Started', articles: [
+    { title: 'Quickstart: launch your first app', text: 'Open the Apps Gallery, pick a tool, and you are productive in under a minute — no signup required.' },
+    { title: 'Navigating the ecosystem', text: 'Home, Apps, Blog, Docs, and Support — how each surface fits your workflow.' }
+  ]},
+  { id: 'api-reference', title: 'API Reference', articles: [
+    { title: 'CodeEnhance AI usage', text: 'Paste HTML, CSS, or JS, choose enhance or explain, and export production-ready code.' },
+    { title: 'Rate limits & fair use', text: 'Generous free quotas with per-minute guards that keep the platform fast for everyone.' }
+  ]},
+  { id: 'integrations', title: 'Integrations', articles: [
+    { title: 'Export to GitHub & Vercel', text: 'Copy generated code straight into your repo or deploy previews in one click.' }
+  ]},
+  { id: 'tutorials', title: 'Tutorials', articles: [
+    { title: 'Build a landing page in 5 minutes', text: 'From prompt to published page using the Website Builder and Image Studio together.' }
+  ]},
+  { id: 'security', title: 'Security', articles: [
+    { title: 'Privacy by design', text: 'Client-side processing means your files never leave your browser for core tools.' }
+  ]},
+  { id: 'teams', title: 'Teams', articles: [
+    { title: 'Collaborating with shared links', text: 'Share outputs and templates with your team using portable JSON exports.' }
+  ]},
+  { id: 'data', title: 'Data Management', articles: [
+    { title: 'Exporting your work', text: 'Every tool supports copy, download, and markdown export — your data stays yours.' }
+  ]},
+  { id: 'deployment', title: 'Deployment', articles: [
+    { title: 'Self-hosting checklist', text: 'Static-first architecture makes mirroring Lade Stack tools straightforward.' }
+  ]}
+];
+const changelog = [
+  { v: 'v2.4.0', date: '2026-08-20', text: 'Pure Astro rebuild with 6-language support and 100/100 Lighthouse.' },
+  { v: 'v2.3.0', date: '2024-11-30', text: 'Documentation AI beta and API Testing collections.' },
+  { v: 'v2.0.0', date: '2024-06-01', text: 'CodeEnhance AI general availability.' }
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  name: 'Lade Stack Documentation',
+  url: 'https://ladestack.in/docs',
+  description: 'Comprehensive documentation for Lade Stack developer tools.',
+  publisher: { '@type': 'Organization', name: 'Lade Stack' }
+};
+---
+<BaseLayout
+  lang={lang}
+  path="/docs"
+  title="Documentation – Guides & API Reference | Lade Stack"
+  description="Comprehensive documentation for Lade Stack's developer tools. Step-by-step guides, API references, and tutorials to get started quickly."
+  structuredData={structuredData}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
+    <h1 class="font-serif text-4xl md:text-6xl font-bold">Docs</h1>
+    <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('docs.subtitle')}</p>
+    <input type="search" data-docs-search placeholder={t('docs.searchPlaceholder')} aria-label={t('docs.searchPlaceholder')} class="mt-8 h-11 px-4 rounded-full border border-border bg-card text-sm outline-none focus:border-sage-500 w-full md:max-w-sm" />
+
+    <div class="mt-8 grid lg:grid-cols-[240px_1fr] gap-8 items-start">
+      <nav aria-label="Documentation sections" class="hidden lg:block sticky top-24 rounded-2xl border border-border bg-card/60 p-4">
+        <ul class="space-y-1 text-sm">
+          {categories.map((c) => (
+            <li><a href={`#${c.id}`} class="block px-3 py-2 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground">{c.title}</a></li>
+          ))}
+          <li><a href="#changelog" class="block px-3 py-2 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground">Changelog</a></li>
+        </ul>
+      </nav>
+
+      <div class="space-y-10">
+        {categories.map((c) => (
+          <section id={c.id} data-docs-section scroll-mt-24>
+            <h2 class="font-serif text-2xl font-bold">{c.title}</h2>
+            <div class="mt-4 space-y-3">
+              {c.articles.map((a) => (
+                <details data-docs-article={` ${a.title} ${a.text}`.toLowerCase()} class="group rounded-2xl border border-border bg-card/60 px-5 py-4 open:border-sage-500/40">
+                  <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3">
+                    {a.title}
+                    <span aria-hidden="true" class="text-sage-500 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+                  </summary>
+                  <p class="mt-3 text-sm text-foreground/65 leading-relaxed">{a.text}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        <section id="changelog" scroll-mt-24>
+          <h2 class="font-serif text-2xl font-bold">Changelog</h2>
+          <ol class="mt-4 space-y-3">
+            {changelog.map((c) => (
+              <li class="rounded-2xl border border-border bg-card/60 px-5 py-4">
+                <p class="flex items-center gap-3 text-sm"><span class="font-mono font-semibold text-sage-500">{c.v}</span><span class="text-foreground/55">{c.date}</span></p>
+                <p class="mt-1 text-sm text-foreground/70">{c.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <p data-docs-empty class="hidden text-foreground/60">No documentation matches your search.</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var input = document.querySelector('[data-docs-search]');
+    var articles = Array.prototype.slice.call(document.querySelectorAll('[data-docs-article]'));
+    var empty = document.querySelector('[data-docs-empty]');
+    if (!input) return;
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visible = 0;
+      articles.forEach(function (a) {
+        var text = a.getAttribute('data-docs-article') || '';
+        var show = !q || text.indexOf(q) !== -1;
+        a.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      document.querySelectorAll('[data-docs-section]').forEach(function (sec) {
+        var anyVisible = Array.prototype.some.call(sec.querySelectorAll('[data-docs-article]'), function (a) {
+          return !a.classList.contains('hidden');
+        });
+        sec.classList.toggle('hidden', !anyVisible);
+      });
+      if (empty) empty.classList.toggle('hidden', visible !== 0);
+    });
+  })();
+</script>
