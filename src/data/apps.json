@@ -5,7 +5,7 @@
     "title": "CodeEnhance AI",
     "tagline": "AI-powered frontend code editor",
     "description": "Edit, compile, and enhance HTML, CSS & JS with real-time AI assistance.",
-    "icon": "lucide:code-2",
+    "icon": "lucide:code-xml",
     "category": "AI Tools",
     "features": ["Real-time AI assistance", "Live preview", "One-click enhance"],
     "timeToValue": "Instant",
