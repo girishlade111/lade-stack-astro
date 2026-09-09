@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import apps from '../../data/apps.json';
+
+const lang = 'en' as const;
+const seed = JSON.stringify(apps, null, 2);
+---
+<BaseLayout
+  lang={lang}
+  path="/apps/admin"
+  title="Apps Admin Dashboard - Lade Stack"
+  description="Internal tool for editing the apps gallery database."
+  noIndex={true}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <p class="text-xs font-mono px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 inline-block">Internal · noindex</p>
+    <h1 class="font-serif text-3xl md:text-5xl font-bold mt-4">Apps Admin</h1>
+    <p class="mt-2 text-foreground/60">Add or edit entries, then export <code class="font-mono text-sm">apps.json</code> and commit it to <code class="font-mono text-sm">src/data/</code>.</p>
+
+    <div class="mt-8 grid lg:grid-cols-2 gap-4">
+      <form data-admin-form class="rounded-2xl border border-border bg-card/60 p-6 space-y-3">
+        <h2 class="font-semibold">New app entry</h2>
+        <input data-f="id" required placeholder="id (e.g. my-tool)" class="w-full h-10 px-3.5 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+        <input data-f="title" required placeholder="Title" class="w-full h-10 px-3.5 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+        <input data-f="tagline" required placeholder="Tagline" class="w-full h-10 px-3.5 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+        <textarea data-f="description" required placeholder="Description" rows="3" class="w-full px-3.5 py-2.5 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500"></textarea>
+        <div class="grid grid-cols-2 gap-3">
+          <input data-f="category" required placeholder="Category" class="h-10 px-3.5 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+          <input data-f="landingUrl" required placeholder="Landing URL or /apps" class="h-10 px-3.5 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+        </div>
+        <input data-f="features" placeholder="Features (comma separated)" class="w-full h-10 px-3.5 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+        <label class="flex items-center gap-2 text-sm text-foreground/70">
+          <input data-f="comingSoon" type="checkbox" class="h-4 w-4 accent-[#6E8F6A]" /> Coming soon
+        </label>
+        <div class="flex gap-2">
+          <button type="submit" class="h-10 px-5 rounded-full bg-sage-500 text-white text-sm font-semibold hover:bg-sage-600">Add entry</button>
+          <button type="button" data-admin-reset class="h-10 px-5 rounded-full border border-border text-sm font-medium hover:bg-muted">Reset</button>
+        </div>
+        <p data-admin-msg class="hidden text-sm text-emerald-600 dark:text-emerald-400" role="status"></p>
+      </form>
+
+      <div class="rounded-2xl border border-border bg-card/60 p-6 flex flex-col">
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold">apps.json preview</h2>
+          <div class="flex gap-2">
+            <button type="button" data-admin-copy class="h-9 px-4 rounded-full border border-border text-sm font-medium hover:bg-muted">Copy</button>
+            <button type="button" data-admin-export class="h-9 px-4 rounded-full bg-sage-500 text-white text-sm font-semibold hover:bg-sage-600">Export JSON</button>
+          </div>
+        </div>
+        <textarea data-admin-json rows="18" spellcheck="false" class="mt-4 flex-1 w-full font-mono text-xs p-4 rounded-xl border border-border bg-background outline-none focus:border-sage-500">{seed}</textarea>
+        <p data-admin-err class="hidden mt-2 text-sm text-red-500" role="alert"></p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline define:vars={{ seed }}>
+  (function () {
+    var form = document.querySelector('[data-admin-form]');
+    var jsonBox = document.querySelector('[data-admin-json]');
+    var msg = document.querySelector('[data-admin-msg]');
+    var err = document.querySelector('[data-admin-err]');
+    var original = seed;
+
+    function read() {
+      try { return JSON.parse(jsonBox.value); }
+      catch (e) { return null; }
+    }
+    function showMsg(text) {
+      if (!msg) return;
+      msg.textContent = text;
+      msg.classList.remove('hidden');
+      setTimeout(function () { if (msg) msg.classList.add('hidden'); }, 4000);
+    }
+    function showErr(text) {
+      if (!err) return;
+      if (!text) { err.classList.add('hidden'); return; }
+      err.textContent = text;
+      err.classList.remove('hidden');
+    }
+
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = read();
+      if (!data) { showErr('Invalid JSON — fix it before adding entries.'); return; }
+      showErr(null);
+      function val(name) {
+        var el = form.querySelector('[data-f="' + name + '"]');
+        if (!el) return '';
+        if (el.type === 'checkbox') return el.checked;
+        return el.value.trim();
+      }
+      var id = val('id');
+      if (!id) { showErr('id is required.'); return; }
+      var entry = {
+        id: id,
+        slug: id,
+        title: val('title'),
+        tagline: val('tagline'),
+        description: val('description'),
+        icon: 'lucide:sparkles',
+        category: val('category') || 'Utilities',
+        features: val('features') ? val('features').split(',').map(function (s) { return s.trim(); }).filter(Boolean) : [],
+        timeToValue: 'Instant',
+        integrations: ['Web'],
+        lifetimeFree: true,
+        landingUrl: val('landingUrl') || '/apps',
+        createdAt: new Date().toISOString().slice(0, 10),
+        popularityScore: 50,
+        iconAlt: val('title') + ' icon'
+      };
+      if (val('comingSoon')) entry.comingSoon = true;
+      data.push(entry);
+      jsonBox.value = JSON.stringify(data, null, 2);
+      form.reset();
+      showMsg('Entry added. Export apps.json and commit it.');
+    });
+
+    var resetBtn = document.querySelector('[data-admin-reset]');
+    if (resetBtn) resetBtn.addEventListener('click', function () {
+      jsonBox.value = original;
+      showErr(null);
+      showMsg('Reset to committed apps.json.');
+    });
+
+    var copyBtn = document.querySelector('[data-admin-copy]');
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      function done() { showMsg('Copied to clipboard.'); }
+      if (navigator.clipboard) navigator.clipboard.writeText(jsonBox.value).then(done).catch(done);
+      else done();
+    });
+
+    var exportBtn = document.querySelector('[data-admin-export]');
+    if (exportBtn) exportBtn.addEventListener('click', function () {
+      var data = read();
+      if (!data) { showErr('Invalid JSON — cannot export.'); return; }
+      showErr(null);
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'apps.json';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      showMsg('apps.json downloaded — replace src/data/apps.json and rebuild.');
+    });
+
+    if (jsonBox) jsonBox.addEventListener('input', function () {
+      showErr(read() ? null : 'Invalid JSON.');
+    });
+  })();
+</script>
