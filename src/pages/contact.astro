@@ -1,24 +1,25 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { useTranslations, getLocalizedPath } from '../i18n/utils';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
 
-const lang = 'en' as const;
-const t = useTranslations(lang);
+const defaultLang = 'en' as const;
 
-const cards = [
-  { title: 'Email us', text: 'admin@ladestack.in', href: 'mailto:admin@ladestack.in', icon: '✉️' },
-  { title: 'Support center', text: 'FAQs & troubleshooting', href: '/support', icon: '🛟' },
-  { title: 'Based in', text: 'Mumbai, India', href: undefined, icon: '📍' },
-  { title: 'Availability', text: '24/7 — replies in hours', href: undefined, icon: '🕐' }
-];
 const faqs = [
-  { q: 'Is Lade Stack really free?', a: 'Yes. Every tool is free forever — no tiers, trials, or credit cards. We optimize for developer access, not monetization.' },
-  { q: 'How fast is support?', a: 'We operate 24/7 and typically respond within hours. For urgent issues, email admin@ladestack.in directly.' },
-  { q: 'Can I request a feature?', a: 'Absolutely — open an issue on GitHub or send us a message below. Community requests drive our roadmap.' },
-  { q: 'Do you offer enterprise solutions?', a: 'Yes. Contact us with your requirements and we will scope custom integrations, SLAs, and onboarding.' }
+  {
+    q: 'How quickly can I expect a response from support?',
+    a: 'We operate 24/7 and typically respond within a few hours to email queries.',
+  },
+  {
+    q: 'Are all tools on Lade Stack really free forever?',
+    a: 'Yes! Every developer tool in our ecosystem is 100% free with no hidden credit card requirements or paywalls.',
+  },
+  {
+    q: 'Can I integrate Lade Stack APIs into my CI/CD pipeline?',
+    a: 'Absolutely. Our API testing and verification suites support native GitHub Actions and webhook integrations.',
+  },
 ];
 
-const structuredData = {
+const contactStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
   name: 'Contact Lade Stack',
@@ -32,106 +33,123 @@ const structuredData = {
   }
 };
 ---
-<BaseLayout
-  lang={lang}
-  path="/contact"
-  title="Contact Lade Stack – Get in Touch for AI Development Support"
-  description="Contact Lade Stack for AI development support, technical assistance, and enterprise solutions. We operate 24/7 and respond within hours. Based in Mumbai, India."
-  structuredData={structuredData}
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
-    <h1 class="font-serif text-4xl md:text-6xl font-bold">{t('contact.title')}</h1>
-    <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('contact.subtitle')}</p>
 
-    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {cards.map((c) => (
-        <div class="rounded-2xl border border-border bg-card/60 p-5">
-          <div class="text-2xl" aria-hidden="true">{c.icon}</div>
-          <h2 class="mt-2 font-semibold">{c.title}</h2>
-          {c.href ? (
-            <a href={c.href.startsWith('/') ? getLocalizedPath(c.href, lang) : c.href} class="text-sm text-sage-600 dark:text-sage-400 hover:underline">{c.text}</a>
-          ) : (
-            <p class="text-sm text-foreground/65">{c.text}</p>
-          )}
-        </div>
-      ))}
+<BaseLayout
+  title="Contact Lade Stack — 24/7 Developer Support"
+  description="Get in touch with Lade Stack for AI development assistance, platform inquiries, or technical support."
+  keywords="contact Lade Stack, developer support, AI help, Mumbai"
+  lang={defaultLang}
+  path="/contact"
+  structuredData={contactStructuredData}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <div class="text-center mb-16">
+      <span class="text-xs font-semibold text-primary uppercase tracking-widest">Get In Touch</span>
+      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground mt-2">
+        Let's Build Together
+      </h1>
+      <p class="mt-4 text-sm sm:text-base text-muted-foreground">
+        Reach out directly to the core engineering team. We are available around the clock.
+      </p>
     </div>
 
-    <div class="mt-10 grid lg:grid-cols-2 gap-6 items-start">
-      <form data-contact-form class="rounded-3xl border border-border bg-card/60 p-6 md:p-8 space-y-4" novalidate>
-        <h2 class="font-serif text-2xl font-bold">Send a message</h2>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label for="cf-name" class="text-sm font-medium">{t('contact.formName')}</label>
-            <input id="cf-name" name="name" required autocomplete="name" class="mt-1.5 w-full h-11 px-4 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+      <!-- Contact Info Cards -->
+      <div class="space-y-6">
+        <div class="p-6 rounded-3xl border border-border bg-card">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <Icon name="lucide:mail" class="w-5 h-5" />
           </div>
-          <div>
-            <label for="cf-email" class="text-sm font-medium">{t('contact.formEmail')}</label>
-            <input id="cf-email" name="email" type="email" required autocomplete="email" class="mt-1.5 w-full h-11 px-4 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
-          </div>
+          <h3 class="text-base font-bold text-foreground">Email Support</h3>
+          <p class="text-xs text-muted-foreground mt-1">Replies within a few hours</p>
+          <a href="mailto:admin@ladestack.in" class="mt-3 inline-block text-sm font-semibold text-primary hover:underline">
+            admin@ladestack.in
+          </a>
         </div>
-        <div>
-          <label for="cf-subject" class="text-sm font-medium">{t('contact.formSubject')}</label>
-          <input id="cf-subject" name="subject" required class="mt-1.5 w-full h-11 px-4 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500" />
-        </div>
-        <div>
-          <label for="cf-msg" class="text-sm font-medium">{t('contact.formMessage')}</label>
-          <textarea id="cf-msg" name="message" required rows="5" class="mt-1.5 w-full px-4 py-3 rounded-xl border border-border bg-background text-sm outline-none focus:border-sage-500"></textarea>
-        </div>
-        <p data-contact-err class="hidden text-sm text-red-500" role="alert"></p>
-        <button type="submit" class="inline-flex h-12 px-7 items-center justify-center rounded-full bg-sage-500 text-white font-semibold hover:bg-sage-600 w-full sm:w-auto">{t('contact.formSubmit')}</button>
-        <p data-contact-ok class="hidden text-sm text-emerald-600 dark:text-emerald-400" role="status">{t('contact.formSuccess')}</p>
-      </form>
 
-      <div>
-        <h2 class="font-serif text-2xl font-bold">{t('contact.faqTitle')}</h2>
-        <div class="mt-4 space-y-3">
-          {faqs.map((f) => (
-            <details class="group rounded-2xl border border-border bg-card/60 px-5 py-4 open:border-sage-500/40">
-              <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3">
-                {f.q}
-                <span aria-hidden="true" class="text-sage-500 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+        <div class="p-6 rounded-3xl border border-border bg-card">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <Icon name="lucide:map-pin" class="w-5 h-5" />
+          </div>
+          <h3 class="text-base font-bold text-foreground">Location</h3>
+          <p class="text-xs text-muted-foreground mt-1">Global remote headquarters</p>
+          <p class="mt-3 text-sm font-semibold text-foreground">Mumbai, India</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="p-8 rounded-3xl border border-border bg-card shadow-sm">
+        <h2 class="text-xl font-bold text-foreground mb-6">Send a Message</h2>
+        <form id="contact-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-foreground mb-1.5" for="c-name">Your Name</label>
+            <input type="text" id="c-name" required autocomplete="name" class="w-full px-3.5 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-foreground mb-1.5" for="c-email">Email Address</label>
+            <input type="email" id="c-email" required autocomplete="email" class="w-full px-3.5 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-foreground mb-1.5" for="c-msg">Message</label>
+            <textarea id="c-msg" rows="4" required class="w-full px-3.5 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:outline-none"></textarea>
+          </div>
+          <button
+            type="submit"
+            id="c-submit-btn"
+            class="w-full py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-all shadow-sm"
+          >
+            Send Message
+          </button>
+        </form>
+        <div id="c-success-msg" class="hidden mt-4 p-4 rounded-xl bg-primary/10 border border-primary/30 text-xs font-semibold text-primary text-center">
+          Thank you! Your message has been received. We will respond shortly.
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Accordion (Semantic details/summary styled with Tailwind) -->
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-foreground text-center mb-8">
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        {
+          faqs.map((faq) => (
+            <details class="group p-6 rounded-2xl border border-border bg-card transition-all [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex items-center justify-between cursor-pointer font-semibold text-foreground text-sm list-none">
+                <span>{faq.q}</span>
+                <Icon name="lucide:chevron-down" class="w-4 h-4 text-muted-foreground group-open:rotate-180 transition-transform" />
               </summary>
-              <p class="mt-3 text-sm text-foreground/65 leading-relaxed">{f.a}</p>
+              <p class="mt-4 text-sm text-muted-foreground leading-relaxed pt-4 border-t border-border/50">
+                {faq.a}
+              </p>
             </details>
-          ))}
-        </div>
-        <div class="mt-6 rounded-2xl overflow-hidden border border-border">
-          <iframe title="Map — Mumbai, India" src="https://www.openstreetmap.org/export/embed.html?bbox=72.75%2C18.9%2C73.0%2C19.15&layer=mapnik&marker=19.076%2C72.8777" class="w-full h-56" loading="lazy"></iframe>
-        </div>
+          ))
+        }
       </div>
     </div>
   </div>
 </BaseLayout>
 
 <script is:inline>
-  (function () {
-    var form = document.querySelector('[data-contact-form]');
-    if (!form) return;
+  /** @returns {void} */
+  function setupContactForm() {
+    var form = /** @type {HTMLFormElement | null} */ (document.getElementById('contact-form'));
+    var success = document.getElementById('c-success-msg');
+    var btn = /** @type {HTMLButtonElement | null} */ (document.getElementById('c-submit-btn'));
+    if (!form || !success || !btn) return;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var err = form.querySelector('[data-contact-err]');
-      var ok = form.querySelector('[data-contact-ok]');
-      var name = form.querySelector('#cf-name');
-      var email = form.querySelector('#cf-email');
-      var subject = form.querySelector('#cf-subject');
-      var message = form.querySelector('#cf-msg');
-      function fail(text, el) {
-        if (err) { err.textContent = text; err.classList.remove('hidden'); }
-        if (ok) ok.classList.add('hidden');
-        if (el) { el.setAttribute('aria-invalid', 'true'); el.style.borderColor = '#ef4444'; el.focus(); }
-      }
-      if (err) err.classList.add('hidden');
-      [name, email, subject, message].forEach(function (el) {
-        if (el) { el.removeAttribute('aria-invalid'); el.style.borderColor = ''; }
-      });
-      if (!name || !name.value.trim()) return fail('Please enter your name.', name);
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) return fail('Please enter a valid email address.', email);
-      if (!subject || !subject.value.trim()) return fail('Please add a subject.', subject);
-      if (!message || message.value.trim().length < 10) return fail('Please describe your request (min 10 characters).', message);
-      form.reset();
-      if (ok) ok.classList.remove('hidden');
-      setTimeout(function () { if (ok) ok.classList.add('hidden'); }, 6000);
+      btn.innerText = 'Sending...';
+      btn.disabled = true;
+      window.setTimeout(function () {
+        form.reset();
+        form.style.display = 'none';
+        success.classList.remove('hidden');
+      }, 1000);
     });
-  })();
+  }
+
+  setupContactForm();
+  document.addEventListener('astro:page-load', setupContactForm);
 </script>
