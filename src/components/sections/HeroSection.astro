@@ -1,50 +1,70 @@
 ---
-import type { SupportedLocale } from '../../i18n/config';
-import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { useTranslations, getLocalizedPath } from '@/i18n/utils';
+import type { SupportedLocale } from '@/i18n/config';
+import { Icon } from 'astro-icon/components';
 
-interface Props { lang: SupportedLocale; }
+interface Props {
+  lang: SupportedLocale;
+}
+
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
-<section class="relative overflow-hidden py-20 md:py-28">
-  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-sage-500/10 via-transparent to-transparent" aria-hidden="true"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <p class="inline-flex items-center gap-2 text-xs font-mono px-4 py-1.5 rounded-full bg-sage-500/10 text-sage-600 dark:text-sage-400 border border-sage-500/20">
-      <span class="relative flex h-2 w-2" aria-hidden="true">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-      </span>
-      {t('home.hero.badge')}
-    </p>
-    <h1 class="font-serif text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mt-6 leading-[1.05]">
-      {t('home.hero.title')}<br />
-      <span class="text-sage-500">{t('home.hero.titleAccent')}</span>
+
+<section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+  <!-- Subtle gradient background blur -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Announcement Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-xs font-semibold text-primary mb-8 hover:bg-primary/15 transition-colors">
+      <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+      {t('hero.badge')}
+    </div>
+
+    <!-- Editorial Main Heading -->
+    <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.1] mb-6">
+      {t('hero.title.part1')} <br class="hidden sm:inline" />
+      <span class="text-primary italic">{t('hero.title.part2')}</span>
     </h1>
-    <p class="mt-6 text-base md:text-xl text-foreground/70 max-w-2xl mx-auto">{t('home.hero.subtitle')}</p>
-    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-      <a href={getLocalizedPath('/apps', lang)} class="inline-flex items-center justify-center h-12 px-7 rounded-full bg-sage-500 text-white font-semibold hover:bg-sage-600 transition-colors w-full sm:w-auto">
-        {t('home.hero.ctaPrimary')}
+
+    <!-- Subtitle -->
+    <p class="max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed mb-10">
+      {t('hero.subtitle')}
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+      <a
+        href={getLocalizedPath('/apps', lang)}
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-all shadow-md hover:shadow-lg focus:ring-2 focus:ring-primary"
+      >
+        <span>{t('hero.cta.primary')}</span>
+        <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </a>
-      <a href={getLocalizedPath('/blog', lang)} class="inline-flex items-center justify-center h-12 px-7 rounded-full border border-border font-semibold hover:bg-muted transition-colors w-full sm:w-auto">
-        {t('home.hero.ctaSecondary')}
+      <a
+        href={getLocalizedPath('/blog', lang)}
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-border bg-card/60 hover:bg-muted text-foreground font-semibold text-sm transition-all"
+      >
+        <Icon name="lucide:book-open" class="w-4 h-4 text-muted-foreground" />
+        <span>{t('hero.cta.secondary')}</span>
       </a>
     </div>
-    <dl class="mt-12 grid grid-cols-3 gap-4 max-w-lg mx-auto">
-      <div class="rounded-2xl border border-border bg-card/60 px-4 py-5">
-        <dt class="sr-only">{t('home.hero.statToolsLabel')}</dt>
-        <dd class="font-serif text-2xl md:text-3xl font-bold text-sage-500">{t('home.hero.statTools')}</dd>
-        <dd class="mt-1 text-xs md:text-sm text-foreground/60">{t('home.hero.statToolsLabel')}</dd>
+
+    <!-- Key Metrics Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-border/60">
+      <div class="p-4 rounded-2xl bg-card/40 border border-border/40">
+        <div class="font-serif text-2xl sm:text-3xl font-bold text-foreground">8,000+</div>
+        <div class="text-xs text-muted-foreground mt-1">{t('hero.stats.users')}</div>
       </div>
-      <div class="rounded-2xl border border-border bg-card/60 px-4 py-5">
-        <dt class="sr-only">{t('home.hero.statUsersLabel')}</dt>
-        <dd class="font-serif text-2xl md:text-3xl font-bold text-sage-500">{t('home.hero.statUsers')}</dd>
-        <dd class="mt-1 text-xs md:text-sm text-foreground/60">{t('home.hero.statUsersLabel')}</dd>
+      <div class="p-4 rounded-2xl bg-card/40 border border-border/40">
+        <div class="font-serif text-2xl sm:text-3xl font-bold text-primary">99.9%</div>
+        <div class="text-xs text-muted-foreground mt-1">{t('hero.stats.uptime')}</div>
       </div>
-      <div class="rounded-2xl border border-border bg-card/60 px-4 py-5">
-        <dt class="sr-only">{t('home.hero.statFreeLabel')}</dt>
-        <dd class="font-serif text-2xl md:text-3xl font-bold text-sage-500">{t('home.hero.statFree')}</dd>
-        <dd class="mt-1 text-xs md:text-sm text-foreground/60">{t('home.hero.statFreeLabel')}</dd>
+      <div class="p-4 rounded-2xl bg-card/40 border border-border/40">
+        <div class="font-serif text-2xl sm:text-3xl font-bold text-foreground">$0</div>
+        <div class="text-xs text-muted-foreground mt-1">{t('hero.stats.cost')}</div>
       </div>
-    </dl>
+    </div>
   </div>
 </section>

@@ -33,7 +33,10 @@ export default defineConfig({
           'pt-BR': 'pt-BR'
         }
       },
-      filter: (page) => !page.includes('/apps/admin') && !page.includes('/404')
+      filter: (page) => {
+        const excluded = ['/apps/admin', '/404', '/api-testing-platform', '/website-builder-project', '/file-sharing-platform', '/projects'];
+        return !excluded.some((path) => page.includes(path));
+      }
     }),
     icon({
       include: {

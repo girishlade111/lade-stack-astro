@@ -1,15 +1,16 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSection from '../components/sections/HeroSection.astro';
-import AboutSection from '../components/sections/AboutSection.astro';
-import ValuesSection from '../components/sections/ValuesSection.astro';
-import ImpactSection from '../components/sections/ImpactSection.astro';
-import ProductsSection from '../components/sections/ProductsSection.astro';
-import FreeForeverSection from '../components/sections/FreeForeverSection.astro';
-import CommunitySection from '../components/sections/CommunitySection.astro';
-import Testimonials from '../components/sections/Testimonials.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HeroSection from '@/components/sections/HeroSection.astro';
+import AboutSection from '@/components/sections/AboutSection.astro';
+import ValuesSection from '@/components/sections/ValuesSection.astro';
+import ImpactSection from '@/components/sections/ImpactSection.astro';
+import ProductsSection from '@/components/sections/ProductsSection.astro';
+import FreeForeverSection from '@/components/sections/FreeForeverSection.astro';
+import CommunitySection from '@/components/sections/CommunitySection.astro';
+import Testimonials from '@/components/sections/Testimonials.astro';
 
-const lang = 'en' as const;
+const defaultLang = 'en' as const;
+
 const structuredData = [
   {
     '@context': 'https://schema.org',
@@ -59,20 +60,21 @@ const structuredData = [
   }
 ];
 ---
+
 <BaseLayout
-  lang={lang}
-  path="/"
-  title="Lade Stack – AI-Powered Developer Platform | Build Smarter, Ship Faster"
-  description="The complete AI-powered development ecosystem. Intelligent tools for coding, API testing, website building, file sharing, and documentation — all free. Built for modern developers."
+  title="Lade Stack — AI-Powered Developer Platform | Build Smarter, Ship Faster"
+  description="The complete AI-powered development ecosystem. Intelligent tools for coding, API testing, website building, file sharing, and documentation — all free."
   keywords="AI developer tools, code editor, API testing, website builder, file sharing, Lade Stack, Girish Lade"
+  lang={defaultLang}
+  path="/"
   structuredData={structuredData}
 >
-  <HeroSection lang={lang} />
-  <AboutSection lang={lang} />
-  <ValuesSection lang={lang} />
-  <ImpactSection lang={lang} />
-  <ProductsSection lang={lang} />
-  <FreeForeverSection lang={lang} />
-  <CommunitySection lang={lang} />
-  <Testimonials lang={lang} />
+  <HeroSection lang={defaultLang} />
+  <AboutSection lang={defaultLang} />
+  <ValuesSection lang={defaultLang} />
+  <ImpactSection lang={defaultLang} />
+  <ProductsSection lang={defaultLang} />
+  <FreeForeverSection lang={defaultLang} />
+  <CommunitySection lang={defaultLang} />
+  <Testimonials lang={defaultLang} />
 </BaseLayout>

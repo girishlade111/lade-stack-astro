@@ -1,0 +1,19 @@
+---
+// Legacy URL compat redirect → /apps (see migration-seo-manifest.json).
+// EN-only: linked by absolute URL from ProductsSection; excluded from sitemap.
+const target = 'https://ladestack.in/apps';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>API Testing Platform — Lade Stack</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={target} />
+    <meta http-equiv="refresh" content="0; url=https://ladestack.in/apps" />
+    <script is:inline>window.location.replace('https://ladestack.in/apps');</script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="https://ladestack.in/apps">Lade Stack Apps</a>…</p>
+  </body>
+</html>
