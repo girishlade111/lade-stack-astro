@@ -2,11 +2,10 @@ import { ui, type UIKeys } from './ui';
 import { defaultLocale, languages, type SupportedLocale } from './config';
 
 export function getLangFromUrl(url: URL): SupportedLocale {
-  const segments = url.pathname.split('/').filter(Boolean);
-  const first = segments[0] as SupportedLocale | undefined;
-  if (first && first in languages) return first;
-  // Handle pt-BR encoded? pathname keeps "pt-BR" literally
-  if (segments[0] === 'pt-BR') return 'pt-BR';
+  const [, lang] = url.pathname.split('/');
+  if (lang && lang in languages) {
+    return lang as SupportedLocale;
+  }
   return defaultLocale;
 }
 
@@ -20,8 +19,22 @@ export function useTranslations(lang: SupportedLocale) {
 
 export function getLocalizedPath(path: string, lang: SupportedLocale): string {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  if (lang === defaultLocale) return cleanPath === '/' ? '/' : cleanPath;
-  return cleanPath === '/' ? `/${lang}` : `/${lang}${cleanPath}`;
+
+  // Strip any existing locale prefix
+  const parts = cleanPath.split('/').filter(Boolean);
+  const firstPart = parts[0];
+  let subPath = cleanPath;
+  if (firstPart && firstPart in languages) {
+    subPath = '/' + parts.slice(1).join('/');
+    if (subPath === '/') subPath = '/';
+  }
+  if (subPath === '') subPath = '/';
+
+  if (lang === defaultLocale) {
+    return subPath;
+  }
+
+  return subPath === '/' ? `/${lang}` : `/${lang}${subPath}`;
 }
 
 /** Strip locale prefix to get the canonical route (e.g. /zh/blog/x -> /blog/x) */

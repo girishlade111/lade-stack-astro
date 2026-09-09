@@ -59,7 +59,7 @@ function isActive(path: string): boolean {
 
       <!-- Actions -->
       <div class="hidden md:flex items-center gap-2">
-        <LanguageSwitcher lang={lang} currentPath={currentPath} />
+        <LanguageSwitcher currentLang={lang} />
         <ThemeToggle />
         <a
           href={getLocalizedPath('/apps', lang)}
@@ -71,7 +71,7 @@ function isActive(path: string): boolean {
 
       <!-- Mobile hamburger -->
       <div class="flex md:hidden items-center gap-2">
-        <LanguageSwitcher lang={lang} currentPath={currentPath} />
+        <LanguageSwitcher currentLang={lang} />
         <ThemeToggle />
         <button
           type="button"

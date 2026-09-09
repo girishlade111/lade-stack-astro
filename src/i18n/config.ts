@@ -9,5 +9,6 @@ export const languages = {
 
 export type SupportedLocale = keyof typeof languages;
 export const defaultLocale: SupportedLocale = 'en';
-export const supportedLocales = Object.keys(languages) as SupportedLocale[];
+export const localeKeys = Object.keys(languages) as SupportedLocale[];
+export const supportedLocales = localeKeys;
 export const nonDefaultLocales = supportedLocales.filter((l) => l !== defaultLocale);
