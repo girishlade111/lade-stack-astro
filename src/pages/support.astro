@@ -1,24 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../i18n/utils';
+import { getContent } from '../i18n/content';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
+const c = getContent(lang);
 
-const topics = [
-  { title: 'Getting started', text: 'Launch any app from the gallery — no signup needed. Your work stays in your browser.' },
-  { title: 'File tools', text: 'PDF and image tools process files locally. Large files work best on desktop with a stable connection.' },
-  { title: 'CodeEnhance AI', text: 'Paste code, pick an action, review suggestions, then copy or download the result.' },
-  { title: 'Accounts & data', text: 'No accounts required. Clear site data anytime — exports keep your work portable.' }
-];
-const faqs = [
-  { q: 'A tool is not loading. What should I do?', a: 'Hard-refresh the page, disable aggressive ad-blockers for ladestack.in, and try a Chromium or Firefox build from the last year.' },
-  { q: 'Are my files uploaded anywhere?', a: 'No. Core tools run fully client-side; files never leave your device.' },
-  { q: 'How do I report a bug?', a: 'Email admin@ladestack.in with the tool name, browser version, and steps to reproduce. Screenshots help.' },
-  { q: 'Can I suggest a new tool?', a: 'Yes — feature requests from the community drive the roadmap. Reach out via the contact page.' },
-  { q: 'Is there an SLA for free tools?', a: 'No formal SLA, but we monitor uptime continuously and fix regressions fast.' },
-  { q: 'Where do I learn best practices?', a: 'Start with the Docs and the Blog — 27+ guides cover AI development end to end.' }
-];
+const topics = c.supportTopics;
+const faqs = c.supportFaqs;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -63,9 +53,9 @@ const structuredData = {
     </div>
 
     <div class="mt-10 rounded-3xl bg-sage-500 text-white p-8 text-center">
-      <h2 class="font-serif text-2xl font-bold">Still stuck?</h2>
-      <p class="mt-2 text-white/85">We respond within 24 hours.</p>
-      <a href={getLocalizedPath('/contact', lang)} class="mt-5 inline-flex h-11 px-7 items-center justify-center rounded-full bg-white text-sage-700 font-semibold">Contact support</a>
+      <h2 class="font-serif text-2xl font-bold">{t('support.stillStuck')}</h2>
+      <p class="mt-2 text-white/85">{t('support.respondNote')}</p>
+      <a href={getLocalizedPath('/contact', lang)} class="mt-5 inline-flex h-11 px-7 items-center justify-center rounded-full bg-white text-sage-700 font-semibold">{t('support.contactCta')}</a>
     </div>
   </div>
 </BaseLayout>

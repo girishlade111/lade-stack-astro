@@ -1,16 +1,13 @@
 ---
 import type { SupportedLocale } from '../../i18n/config';
 import { useTranslations } from '../../i18n/utils';
+import { getContent } from '../../i18n/content';
 
 interface Props { lang: SupportedLocale; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const testimonials = [
-  { quote: 'CodeEnhance AI cut my frontend iteration time in half. The live AI suggestions feel like pair-programming with a senior dev.', name: 'Priya Sharma', role: 'Frontend Engineer, Mumbai' },
-  { quote: 'LS PDF Tools replaced three paid subscriptions for our team. Fully client-side, fast, and free — unbelievable.', name: 'Daniel Kim', role: 'Indie Hacker, Seoul' },
-  { quote: 'The Lade Stack blog is my go-to reference for RAG architecture and MLOps. Deep, practical, no fluff.', name: 'Ana Souza', role: 'ML Engineer, São Paulo' }
-];
+const testimonials = getContent(lang).testimonials;
 ---
 <section class="py-16 md:py-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

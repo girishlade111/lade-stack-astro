@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import appsData from '@/data/apps.json';
+import { getLocalizedApps, getContent } from '@/i18n/content';
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
 import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
 import { Icon } from 'astro-icon/components';
@@ -11,7 +11,9 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
-const categories: string[] = [...new Set(appsData.map((a) => a.category))];
+const c = getContent(lang);
+const apps = getLocalizedApps(lang);
+const categories: string[] = [...new Set(apps.map((a) => a.category))];
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -33,7 +35,7 @@ const structuredData = {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground">
-        Apps Gallery
+        {t('apps.heading')}
       </h1>
       <p class="mt-4 text-base sm:text-lg text-muted-foreground">
         {t('apps.subtitle')}
@@ -54,7 +56,7 @@ const structuredData = {
               class="app-pill px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-card border-border text-muted-foreground hover:bg-muted"
               data-category={cat}
             >
-              {cat}
+              {c.appCategories[cat] ?? cat}
             </button>
           ))
         }
@@ -63,7 +65,7 @@ const structuredData = {
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="apps-grid">
       {
-        appsData.map((app) => (
+        apps.map((app) => (
           <div
             class="app-card group p-8 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
             data-category={app.category}
@@ -74,13 +76,13 @@ const structuredData = {
                   <Icon name={app.icon} class="w-6 h-6" />
                 </div>
                 <span class="text-xs font-semibold px-3 py-1 rounded-full bg-muted text-muted-foreground border border-border">
-                  {app.category}
+                  {app.displayCategory}
                 </span>
               </div>
               <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                 {app.title}
               </h2>
-              <p class="text-xs font-semibold text-primary/80 mt-1">{app.tagline}</p>
+              <p class="text-xs font-semibold text-primary/80 mt-1">{app.tagline} · {c.appTime[app.timeToValue] ?? app.timeToValue}</p>
               <p class="text-sm text-muted-foreground mt-3 leading-relaxed">{app.description}</p>
 
               <ul class="mt-6 space-y-2 text-xs text-muted-foreground">
@@ -99,7 +101,7 @@ const structuredData = {
               </span>
               {app.comingSoon ? (
                 <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
-                  <span>In progress</span>
+                  <span>{t('apps.inProgress')}</span>
                 </span>
               ) : (
                 <a

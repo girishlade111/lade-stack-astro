@@ -1,16 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getContent } from '../i18n/content';
 
 const lang = 'en' as const;
+const c = getContent(lang);
 const updated = '2026-09-09';
-const sections = [
-  { h: 'Acceptable use', p: 'Use Lade Stack tools lawfully. Do not abuse rate limits, attempt to disrupt the service, or process content you have no right to use.' },
-  { h: 'Free license', p: 'Tools are provided free for personal and commercial use. Outputs you create are yours. Redistribution of the platform itself under our brand requires permission.' },
-  { h: 'API & fair use', p: 'Automated access must respect published quotas. Excessive or abusive traffic may be rate-limited to protect all users.' },
-  { h: 'No warranties', p: 'Services are provided "as is" without warranties. We work hard on reliability but cannot guarantee uninterrupted availability.' },
-  { h: 'Limitation of liability', p: 'To the maximum extent permitted by law, Lade Stack is not liable for indirect or consequential damages arising from use of the service.' },
-  { h: 'Contact', p: 'Questions about these terms: admin@ladestack.in, Mumbai, India.' }
-];
+const sections = c.terms;
 ---
 <BaseLayout
   lang={lang}

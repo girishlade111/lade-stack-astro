@@ -1,18 +1,22 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { defaultLocale, type SupportedLocale } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
 
 interface Props {
   class?: string;
+  lang?: SupportedLocale;
 }
 
-const { class: className = '' } = Astro.props;
+const { class: className = '', lang = defaultLocale } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <button
   type="button"
   data-theme-toggle
   class={`inline-flex items-center justify-center p-2 rounded-xl border border-border bg-card/60 hover:bg-muted text-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary ${className}`}
-  aria-label="Toggle Dark Mode"
+  aria-label={t('nav.toggleTheme')}
   aria-pressed="false"
 >
   <!-- Sun Icon (shown in dark mode) -->
@@ -34,6 +38,11 @@ const { class: className = '' } = Astro.props;
       buttons.forEach((btn) => btn.setAttribute('aria-pressed', isDark ? 'true' : 'false'));
     };
     buttons.forEach((btn) => {
+      // Guard: this script is emitted once per component instance
+      // (desktop + mobile toggle), so without this each button would get
+      // two click listeners and toggle dark->light instantly (no-op).
+      if (btn.dataset.wired === '1') return;
+      btn.dataset.wired = '1';
       btn.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark');
         try {

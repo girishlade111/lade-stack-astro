@@ -1,15 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getContent } from '../i18n/content';
 
 const lang = 'en' as const;
+const c = getContent(lang);
 const updated = '2026-09-09';
-const sections = [
-  { h: 'Information we collect', p: 'We collect minimal data: contact messages you send us, newsletter emails you opt into, and privacy-respecting analytics (page views, no cross-site tracking). Core tools process files entirely in your browser — your documents never reach our servers.' },
-  { h: 'How we use information', p: 'To respond to support requests, send requested newsletters, and improve performance and reliability. We never sell personal data or share it with ad networks.' },
-  { h: 'Cookies & storage', p: 'We store theme and language preferences in localStorage on your device. Analytics cookies, if any, are first-party and anonymized.' },
-  { h: 'Your rights', p: 'Request access, correction, or deletion of your data anytime at admin@ladestack.in. Unsubscribe from emails with one click.' },
-  { h: 'Contact', p: 'Questions about this policy: admin@ladestack.in, Mumbai, India.' }
-];
+const sections = c.privacy;
 ---
 <BaseLayout
   lang={lang}

@@ -1,6 +1,6 @@
 ---
 import { languages, type SupportedLocale } from '@/i18n/config';
-import { getLocalizedPath } from '@/i18n/utils';
+import { getLocalizedPath, useTranslations } from '@/i18n/utils';
 import { Icon } from 'astro-icon/components';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { currentLang, class: className = '' } = Astro.props;
+const t = useTranslations(currentLang);
 // Full current path incl. locale prefix (e.g. /zh/about); getLocalizedPath strips + re-prefixes.
 const currentPath = Astro.url.pathname;
 const currentLangMeta = languages[currentLang];
@@ -21,7 +22,7 @@ const currentLangMeta = languages[currentLang];
     class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-border bg-card/60 hover:bg-muted text-sm font-medium text-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
     aria-expanded="false"
     aria-haspopup="true"
-    aria-label="Select Language"
+    aria-label={t('nav.language')}
   >
     <span class="text-base leading-none" aria-hidden="true">{currentLangMeta.flag}</span>
     <span class="hidden sm:inline-block">{currentLangMeta.nativeName}</span>
@@ -62,6 +63,11 @@ const currentLangMeta = languages[currentLang];
   (function () {
     // Container-scoped: Header renders one switcher for desktop + one for mobile.
     document.querySelectorAll('[data-lang-switcher]').forEach(function (root) {
+      // Guard: this inline script is emitted once per component instance
+      // (desktop + mobile), so without this every root would be wired twice
+      // and each click would toggle open->closed instantly.
+      if (root.getAttribute('data-wired') === '1') return;
+      root.setAttribute('data-wired', '1');
       var btn = root.querySelector('[data-lang-button]');
       var menu = root.querySelector('[data-lang-menu]');
       var chevron = btn ? btn.querySelector('svg') : null;

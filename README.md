@@ -4,7 +4,7 @@ AI-powered developer tools ecosystem (`https://ladestack.in`) rebuilt as a zero-
 
 - **Framework**: Astro 5 (SSG, `output: static`)
 - **Styling**: Tailwind CSS 3 + `@tailwindcss/typography`
-- **i18n**: 6 locales — `en` (default, unprefixed), `zh`, `ko`, `ja`, `tr`, `pt-BR`
+- **i18n**: 7 locales — `en` (default, unprefixed), `ko`, `ja`, `zh`, `tr`, `ru`, `pt-BR`
 - **SEO**: pre-rendered meta, canonical, 6× `hreflang` + `x-default`, OG/Twitter cards, Schema.org JSON-LD, sitemap with locale alternates
 - **Runtime JS**: vanilla micro-interactions only (theme, language dropdown, mobile drawer, search/filter, FAQ, copy-code, forms)
 
@@ -14,7 +14,7 @@ AI-powered developer tools ecosystem (`https://ladestack.in`) rebuilt as a zero-
 npm install      # install dependencies
 npm run dev      # local dev server
 npm run check    # Astro + TypeScript diagnostics (must be 0 errors)
-npm run build    # static build → dist/ (229 pages across 6 locales)
+npm run build    # static build → dist/ (271 pages across 7 locales)
 npm run preview  # serve dist/ locally
 ```
 

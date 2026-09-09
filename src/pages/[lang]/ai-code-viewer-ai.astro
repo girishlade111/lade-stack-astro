@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { getContent } from '../../i18n/content';
 import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
 
 export function getStaticPaths() {
@@ -9,13 +10,9 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
+const c = getContent(lang);
 
-const features = [
-  { title: 'Real-time AI assistance', text: 'Explain, refactor, and enhance code as you type.' },
-  { title: 'Live preview & compile', text: 'See HTML, CSS, and JS results instantly.' },
-  { title: 'One-click enhance', text: 'Turn rough snippets into production-ready code.' },
-  { title: 'Export anywhere', text: 'Copy or download — no lock-in, no watermark.' }
-];
+const features = c.aicodeFeatures;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -48,7 +45,7 @@ const structuredData = {
       ))}
     </div>
     <div class="mt-12 flex items-center justify-center gap-6 text-sm text-foreground/60">
-      <span>★ 4.8 / 5</span><span>·</span><span>156 reviews</span><span>·</span><span>Free forever</span>
+      <span>★ 4.8 / 5</span><span>·</span><span>{t('aicode.reviews')}</span><span>·</span><span>{t('aicode.freeForever')}</span>
     </div>
   </div>
 </BaseLayout>

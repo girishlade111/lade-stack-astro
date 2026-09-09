@@ -1,6 +1,7 @@
 ---
-import { getLocalizedPath } from '@/i18n/utils';
+import { getLocalizedPath, useTranslations } from '@/i18n/utils';
 import type { SupportedLocale } from '@/i18n/config';
+import { getContent } from '@/i18n/content';
 import { Icon } from 'astro-icon/components';
 
 interface Props {
@@ -8,52 +9,19 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-
-const products = [
-  {
-    title: 'CodeEnhance AI',
-    tagline: 'Intelligent Code Viewer & Enhancer',
-    desc: 'Transform raw code into production-ready software with real-time AI linting, suggestions, and instant previews.',
-    icon: 'lucide:code-xml',
-    link: '/ai-code-viewer-ai',
-    badge: 'Popular',
-  },
-  {
-    title: 'API Testing Platform',
-    tagline: 'Automated REST & GraphQL Testing',
-    desc: 'Generate automated validation suites, mock API responses, and run security benchmarks in seconds.',
-    icon: 'lucide:network',
-    link: 'https://ladestack.in/api-testing-platform',
-    badge: 'High Speed',
-  },
-  {
-    title: 'Website Builder AI',
-    tagline: 'No-Code Semantic Generator',
-    desc: 'Generate modern, responsive web interfaces with semantic markup and export to standard HTML/CSS.',
-    icon: 'lucide:layout-template',
-    link: 'https://ladestack.in/website-builder-project',
-    badge: 'Zero Code',
-  },
-  {
-    title: 'Secure File Hub',
-    tagline: 'Encrypted Developer File Sharing',
-    desc: 'Fast, secure temporary sharing for configuration files, credentials, and deployment archives.',
-    icon: 'lucide:shield-check',
-    link: 'https://ladestack.in/file-sharing-platform',
-    badge: 'Encrypted',
-  },
-];
+const t = useTranslations(lang);
+const products = getContent(lang).products;
 ---
 
 <section id="products" class="py-20 bg-muted/20 border-y border-border/60">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-2xl mx-auto mb-16">
-      <span class="text-xs font-semibold text-primary uppercase tracking-widest">Ecosystem</span>
+      <span class="text-xs font-semibold text-primary uppercase tracking-widest">{t('home.products.eyebrow')}</span>
       <h2 class="font-serif text-3xl sm:text-5xl font-bold text-foreground mt-2">
-        Flagship AI Developer Tools
+        {t('home.products.title')}
       </h2>
       <p class="text-sm sm:text-base text-muted-foreground mt-4">
-        Every tool is purpose-built to eliminate repetitive dev chores and accelerate your release cycles.
+        {t('home.products.subtitle')}
       </p>
     </div>
 
@@ -83,7 +51,7 @@ const products = [
                 target={p.link.startsWith('http') ? '_blank' : '_self'}
                 rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
               >
-                <span>Launch Tool</span>
+                <span>{t('home.products.launch')}</span>
                 <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
               </a>
             </div>

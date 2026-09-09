@@ -1,43 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { useTranslations } from '../i18n/utils';
+import { getContent } from '../i18n/content';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
+const c = getContent(lang);
 
-const categories = [
-  { id: 'getting-started', title: 'Getting Started', articles: [
-    { title: 'Quickstart: launch your first app', text: 'Open the Apps Gallery, pick a tool, and you are productive in under a minute — no signup required.' },
-    { title: 'Navigating the ecosystem', text: 'Home, Apps, Blog, Docs, and Support — how each surface fits your workflow.' }
-  ]},
-  { id: 'api-reference', title: 'API Reference', articles: [
-    { title: 'CodeEnhance AI usage', text: 'Paste HTML, CSS, or JS, choose enhance or explain, and export production-ready code.' },
-    { title: 'Rate limits & fair use', text: 'Generous free quotas with per-minute guards that keep the platform fast for everyone.' }
-  ]},
-  { id: 'integrations', title: 'Integrations', articles: [
-    { title: 'Export to GitHub & Vercel', text: 'Copy generated code straight into your repo or deploy previews in one click.' }
-  ]},
-  { id: 'tutorials', title: 'Tutorials', articles: [
-    { title: 'Build a landing page in 5 minutes', text: 'From prompt to published page using the Website Builder and Image Studio together.' }
-  ]},
-  { id: 'security', title: 'Security', articles: [
-    { title: 'Privacy by design', text: 'Client-side processing means your files never leave your browser for core tools.' }
-  ]},
-  { id: 'teams', title: 'Teams', articles: [
-    { title: 'Collaborating with shared links', text: 'Share outputs and templates with your team using portable JSON exports.' }
-  ]},
-  { id: 'data', title: 'Data Management', articles: [
-    { title: 'Exporting your work', text: 'Every tool supports copy, download, and markdown export — your data stays yours.' }
-  ]},
-  { id: 'deployment', title: 'Deployment', articles: [
-    { title: 'Self-hosting checklist', text: 'Static-first architecture makes mirroring Lade Stack tools straightforward.' }
-  ]}
-];
-const changelog = [
-  { v: 'v2.4.0', date: '2026-08-20', text: 'Pure Astro rebuild with 6-language support and 100/100 Lighthouse.' },
-  { v: 'v2.3.0', date: '2024-11-30', text: 'Documentation AI beta and API Testing collections.' },
-  { v: 'v2.0.0', date: '2024-06-01', text: 'CodeEnhance AI general availability.' }
-];
+const categories = c.docsGroups;
+const changelog = c.docsChangelog;
 
 const structuredData = {
   '@context': 'https://schema.org',

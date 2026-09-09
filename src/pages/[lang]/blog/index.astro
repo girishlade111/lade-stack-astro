@@ -2,7 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
-import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
+import { localizePost, getContent } from '@/i18n/content';
+import { nonDefaultLocales, languages, type SupportedLocale } from '@/i18n/config';
 import { Icon } from 'astro-icon/components';
 
 export function getStaticPaths() {
@@ -11,12 +12,15 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
+const c = getContent(lang);
+const dateLocale = languages[lang].iso.replace('_', '-');
 
 const allPosts: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort(
   (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
 const categories: string[] = [...new Set(allPosts.map((p) => p.data.category))];
+const gridPosts = allPosts.map((post) => ({ post, loc: localizePost(post.slug, post.data, lang) }));
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -38,7 +42,7 @@ const structuredData = {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground">
-        Engineering Insights
+        {t('blog.heading')}
       </h1>
       <p class="mt-4 text-base sm:text-lg text-muted-foreground">
         {t('blog.subtitle')}
@@ -69,7 +73,7 @@ const structuredData = {
               class="category-pill px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-card border-border text-muted-foreground hover:bg-muted"
               data-category={cat}
             >
-              {cat}
+              {c.blogCategories[cat] ?? cat}
             </button>
           ))
         }
@@ -78,32 +82,32 @@ const structuredData = {
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
       {
-        allPosts.map((post) => (
+        gridPosts.map(({ post, loc }) => (
           <article
             class="article-card group p-6 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all flex flex-col justify-between"
             data-category={post.data.category}
-            data-title={post.data.title.toLowerCase()}
-            data-desc={post.data.description.toLowerCase()}
+            data-title={loc.title.toLowerCase()}
+            data-desc={loc.description.toLowerCase()}
           >
             <div>
               <div class="flex items-center justify-between text-xs text-muted-foreground mb-4">
                 <span class="px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold">
-                  {post.data.category}
+                  {c.blogCategories[post.data.category] ?? post.data.category}
                 </span>
-                <span>{post.data.readTime}</span>
+                <span>{parseInt(post.data.readTime)} {t('common.minRead')}</span>
               </div>
               <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
                 <a href={getLocalizedPath(`/blog/${post.slug}`, lang)}>
-                  {post.data.title}
+                  {loc.title}
                 </a>
               </h2>
               <p class="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                {post.data.description}
+                {loc.description}
               </p>
             </div>
 
             <div class="mt-6 pt-4 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
-              <span>{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              <span>{post.data.pubDate.toLocaleDateString(dateLocale, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
               <span class="font-semibold text-primary inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                 {t('blog.readArticle')} <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
               </span>

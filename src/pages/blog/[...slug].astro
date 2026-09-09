@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { localizePost, getContent } from '../../i18n/content';
 
 export async function getStaticPaths() {
   const posts: CollectionEntry<'blog'>[] = await getCollection('blog');
@@ -10,7 +11,9 @@ export async function getStaticPaths() {
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
+const c = getContent(lang);
 const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const loc = localizePost(post.slug, post.data, lang);
 const { Content, headings } = await render(post);
 type TocHeading = { depth: number; slug: string; text: string };
 const toc: TocHeading[] = (headings as TocHeading[]).filter((h) => h.depth <= 3);
@@ -18,13 +21,14 @@ const toc: TocHeading[] = (headings as TocHeading[]).filter((h) => h.depth <= 3)
 const all: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const related = all.filter((p) => p.slug !== post.slug && p.data.category === post.data.category).slice(0, 3);
 const fallbackRelated = related.length ? related : all.filter((p) => p.slug !== post.slug).slice(0, 3);
+const relatedLoc = fallbackRelated.map((r) => ({ r, loc: localizePost(r.slug, r.data, lang) }));
 
 const isoDate = post.data.pubDate.toISOString();
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
-  headline: post.data.title,
-  description: post.data.description,
+  headline: loc.title,
+  description: loc.description,
   image: `https://ladestack.in${post.data.coverImage}`,
   datePublished: isoDate,
   dateModified: isoDate,
@@ -38,8 +42,8 @@ const structuredData = {
 <BaseLayout
   lang={lang}
   path={`/blog/${post.slug}`}
-  title={`${post.data.title} | Lade Stack Blog`}
-  description={post.data.description}
+  title={`${loc.title} | Lade Stack Blog`}
+  description={loc.description}
   keywords={post.data.tags.join(', ')}
   ogType="article"
   ogImage={`https://ladestack.in${post.data.coverImage}`}
@@ -52,24 +56,24 @@ const structuredData = {
       <span aria-hidden="true"> / </span>
       <a href={getLocalizedPath('/blog', lang)} class="hover:text-foreground">Blog</a>
       <span aria-hidden="true"> / </span>
-      <span aria-current="page" class="text-foreground/80">{post.data.category}</span>
+      <span aria-current="page" class="text-foreground/80">{c.blogCategories[post.data.category] ?? post.data.category}</span>
     </nav>
 
     <div class="mb-10 text-center max-w-3xl mx-auto">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4">
-        {post.data.category}
+        {c.blogCategories[post.data.category] ?? post.data.category}
       </div>
       <h1 class="font-serif text-3xl sm:text-5xl font-bold text-foreground leading-tight">
-        {post.data.title}
+        {loc.title}
       </h1>
       <div class="mt-4 flex items-center justify-center gap-4 text-xs sm:text-sm text-muted-foreground">
         <span>{t('common.byAuthor')} {post.data.author}</span>
         <span aria-hidden="true">•</span>
         <span>{post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
         <span aria-hidden="true">•</span>
-        <span>{post.data.readTime}</span>
+        <span>{parseInt(post.data.readTime)} {t('common.minRead')}</span>
       </div>
-      <p class="mt-4 text-muted-foreground md:text-lg">{post.data.description}</p>
+      <p class="mt-4 text-muted-foreground md:text-lg">{loc.description}</p>
       <div class="mt-4 flex flex-wrap justify-center gap-2">
         {post.data.tags.map((tag: string) => (
           <span class="text-xs px-2.5 py-1 rounded-full border border-border text-muted-foreground">#{tag}</span>
@@ -77,7 +81,7 @@ const structuredData = {
       </div>
     </div>
 
-    <img src={post.data.coverImage} alt={post.data.title} class="mt-8 rounded-3xl border border-border w-full max-h-[420px] object-cover" loading="eager" />
+    <img src={post.data.coverImage} alt={loc.title} class="mt-8 rounded-3xl border border-border w-full max-h-[420px] object-cover" loading="eager" />
 
     <div class="mt-10 grid lg:grid-cols-[220px_1fr] gap-10">
       <aside class="hidden lg:block">
@@ -96,7 +100,7 @@ const structuredData = {
         </div>
       </aside>
 
-      <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-primary prose-code:text-primary prose-pre:rounded-2xl" data-article-body>
+      <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-primary prose-code:text-primary prose-pre:rounded-2xl" data-article-body data-copy-label={t('blog.post.copyCode')} data-copied-label={t('blog.post.copiedCode')}>
         <Content />
       </div>
     </div>
@@ -104,13 +108,13 @@ const structuredData = {
     <section class="mt-16" aria-label={t('blog.post.related')}>
       <h2 class="font-serif text-2xl md:text-3xl font-bold">{t('blog.post.related')}</h2>
       <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {fallbackRelated.map((r) => (
+        {relatedLoc.map(({ r, loc }) => (
           <a href={getLocalizedPath(`/blog/${r.slug}`, lang)} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-sage-500/40 hover:shadow-lg transition-all">
-            <img src={r.data.coverImage} alt={r.data.title} class="h-36 w-full object-cover" loading="lazy" />
+            <img src={r.data.coverImage} alt={loc.title} class="h-36 w-full object-cover" loading="lazy" />
             <div class="p-5">
               <p class="text-[11px] font-mono text-sage-600 dark:text-sage-400">{r.data.category}</p>
-              <h3 class="mt-1.5 font-semibold leading-snug">{r.data.title}</h3>
-              <p class="mt-2 text-xs text-foreground/55">{r.data.pubDate.toISOString().slice(0, 10)} · {r.data.readTime}</p>
+              <h3 class="mt-1.5 font-semibold leading-snug">{loc.title}</h3>
+              <p class="mt-2 text-xs text-foreground/55">{r.data.pubDate.toISOString().slice(0, 10)} · {parseInt(r.data.readTime)} {t('common.minRead')}</p>
             </div>
           </a>
         ))}
@@ -122,6 +126,9 @@ const structuredData = {
 
 <script is:inline>
   (function () {
+    var wrap = document.querySelector('[data-article-body]');
+    var copyLabel = (wrap && wrap.getAttribute('data-copy-label')) || 'Copy';
+    var copiedLabel = (wrap && wrap.getAttribute('data-copied-label')) || 'Copied!';
     // Copy buttons on code blocks
     document.querySelectorAll('[data-article-body] pre').forEach(function (pre) {
       if (pre.querySelector('[data-copy-code]')) return;
@@ -129,12 +136,12 @@ const structuredData = {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.setAttribute('data-copy-code', '');
-      btn.textContent = 'Copy';
+      btn.textContent = copyLabel;
       btn.style.cssText = 'position:absolute;top:8px;right:8px;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,.35);background:rgba(0,0,0,.45);color:#fff;cursor:pointer;';
       btn.addEventListener('click', function () {
         var code = pre.querySelector('code');
         var text = code ? code.innerText : pre.innerText;
-        function done() { btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = 'Copy'; }, 2000); }
+        function done() { btn.textContent = copiedLabel; setTimeout(function () { btn.textContent = copyLabel; }, 2000); }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(done).catch(done);
         } else {
@@ -151,11 +158,12 @@ const structuredData = {
     });
     // Copy article link
     document.querySelectorAll('[data-copy-link]').forEach(function (btn) {
+      var idleLabel = btn.textContent;
       btn.addEventListener('click', function () {
         var url = window.location.href;
         function done() {
-          btn.textContent = 'Copied!';
-          setTimeout(function () { btn.textContent = 'Share · Copy link'; }, 2000);
+          btn.textContent = copiedLabel;
+          setTimeout(function () { btn.textContent = idleLabel; }, 2000);
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(url).then(done).catch(done);

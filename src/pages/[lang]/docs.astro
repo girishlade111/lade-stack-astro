@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations } from '../../i18n/utils';
+import { getContent } from '../../i18n/content';
 import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
 
 export function getStaticPaths() {
@@ -9,26 +10,9 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
+const c = getContent(lang);
 
-const groups = [
-  { id: 'getting-started', title: 'Getting Started', articles: [
-    { title: 'Quickstart: launch your first app', text: 'Open the Apps Gallery, pick a tool, and you are productive in under a minute.' },
-    { title: 'Navigating the ecosystem', text: 'Home, Apps, Blog, Docs, and Support — how each surface fits your workflow.' }
-  ]},
-  { id: 'api-reference', title: 'API Reference', articles: [
-    { title: 'CodeEnhance AI usage', text: 'Paste code, choose enhance or explain, and export production-ready results.' },
-    { title: 'Rate limits & fair use', text: 'Generous free quotas with per-minute guards for everyone.' }
-  ]},
-  { id: 'tutorials', title: 'Tutorials', articles: [
-    { title: 'Build a landing page in 5 minutes', text: 'From prompt to published page with the Website Builder and Image Studio.' }
-  ]},
-  { id: 'security', title: 'Security', articles: [
-    { title: 'Privacy by design', text: 'Client-side processing means files never leave your browser for core tools.' }
-  ]},
-  { id: 'deployment', title: 'Deployment', articles: [
-    { title: 'Self-hosting checklist', text: 'Static-first architecture makes mirroring straightforward.' }
-  ]}
-];
+const groups = c.docsGroups;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -42,7 +26,7 @@ const structuredData = {
 ---
 <BaseLayout lang={lang} path="/docs" title={`${t('docs.title')} | Lade Stack`} description={t('docs.subtitle')} structuredData={structuredData}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
-    <h1 class="font-serif text-4xl md:text-6xl font-bold">Docs</h1>
+    <h1 class="font-serif text-4xl md:text-6xl font-bold">{t('docs.heading')}</h1>
     <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('docs.subtitle')}</p>
     <input type="search" data-docs-search placeholder={t('docs.searchPlaceholder')} aria-label={t('docs.searchPlaceholder')} class="mt-8 h-11 px-4 rounded-full border border-border bg-card text-sm outline-none focus:border-sage-500 w-full md:max-w-sm" />
     <div class="mt-8 space-y-10">
@@ -62,7 +46,7 @@ const structuredData = {
           </div>
         </section>
       ))}
-      <p data-docs-empty class="hidden text-foreground/60">No documentation matches your search.</p>
+      <p data-docs-empty class="hidden text-foreground/60">{t('common.noResults')}</p>
     </div>
   </div>
 </BaseLayout>
