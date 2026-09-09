@@ -75,7 +75,7 @@ const currentLangMeta = languages[currentLang];
             var code = a.getAttribute('data-lang-link') || 'en';
             var parts = path.split('/').filter(Boolean);
             var sub = path;
-            if (parts.length && ['zh', 'ko', 'ja', 'tr', 'pt-BR'].indexOf(parts[0]) !== -1) {
+            if (parts.length && ['zh', 'ko', 'ja', 'tr', 'ru', 'pt-BR'].indexOf(parts[0]) !== -1) {
               sub = '/' + parts.slice(1).join('/');
               if (sub === '/') sub = '/';
             }
