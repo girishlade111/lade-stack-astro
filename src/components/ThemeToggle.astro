@@ -1,38 +1,53 @@
 ---
-// ThemeToggle.astro — Zero-FOUC Vanilla JS dark/light button (Step 02)
-// No framework runtime. Toggles .dark on <html> + persists to localStorage.
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   class?: string;
 }
+
 const { class: className = '' } = Astro.props;
 ---
+
 <button
   type="button"
   data-theme-toggle
-  aria-label="Toggle dark mode"
-  class={`inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted ${className}`}
+  class={`inline-flex items-center justify-center p-2 rounded-xl border border-border bg-card/60 hover:bg-muted text-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary ${className}`}
+  aria-label="Toggle Dark Mode"
+  aria-pressed="false"
 >
-  <span class="hidden dark:inline" aria-hidden="true">☀️</span>
-  <span class="inline dark:hidden" aria-hidden="true">🌙</span>
+  <!-- Sun Icon (shown in dark mode) -->
+  <span class="hidden dark:block w-4 h-4" aria-hidden="true">
+    <Icon name="lucide:sun" class="w-4 h-4 text-amber-400" />
+  </span>
+  <!-- Moon Icon (shown in light mode) -->
+  <span class="block dark:hidden w-4 h-4" aria-hidden="true">
+    <Icon name="lucide:moon" class="w-4 h-4 text-foreground/80" />
+  </span>
 </button>
 
-<script is:inline>
-  (function () {
-    function applyIcon() {
-      var isDark = document.documentElement.classList.contains('dark');
-      document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
-        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-      });
-    }
-    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var isDark = document.documentElement.classList.toggle('dark');
+<script>
+  function setupThemeToggle(): void {
+    // data-attribute (not id): Header renders one toggle for desktop + one for mobile
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+    const sync = (): void => {
+      const isDark = document.documentElement.classList.contains('dark');
+      buttons.forEach((btn) => btn.setAttribute('aria-pressed', isDark ? 'true' : 'false'));
+    };
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
         try {
           localStorage.setItem('ladestack-theme', isDark ? 'dark' : 'light');
-        } catch (e) {}
-        applyIcon();
+        } catch {
+          /* private mode — theme simply won't persist */
+        }
+        sync();
       });
     });
-    applyIcon();
-  })();
+    sync();
+  }
+
+  // Support initial load and view transitions
+  setupThemeToggle();
+  document.addEventListener('astro:page-load', setupThemeToggle);
 </script>
