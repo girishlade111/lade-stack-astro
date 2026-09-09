@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lang = 'en' as const;
+const updated = '2026-09-09';
+const sections = [
+  { h: 'Information we collect', p: 'We collect minimal data: contact messages you send us, newsletter emails you opt into, and privacy-respecting analytics (page views, no cross-site tracking). Core tools process files entirely in your browser — your documents never reach our servers.' },
+  { h: 'How we use information', p: 'To respond to support requests, send requested newsletters, and improve performance and reliability. We never sell personal data or share it with ad networks.' },
+  { h: 'Cookies & storage', p: 'We store theme and language preferences in localStorage on your device. Analytics cookies, if any, are first-party and anonymized.' },
+  { h: 'Your rights', p: 'Request access, correction, or deletion of your data anytime at admin@ladestack.in. Unsubscribe from emails with one click.' },
+  { h: 'Contact', p: 'Questions about this policy: admin@ladestack.in, Mumbai, India.' }
+];
+---
+<BaseLayout
+  lang={lang}
+  path="/privacy"
+  title="Privacy Policy - Lade Stack"
+  description="Read our Privacy Policy to understand how we collect, use, and protect your personal information at Lade Stack."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20">
+    <h1 class="font-serif text-4xl md:text-5xl font-bold">Privacy Policy</h1>
+    <p class="mt-3 text-sm text-foreground/55">Last updated: {updated}</p>
+    <div class="mt-8 space-y-8">
+      {sections.map((s) => (
+        <section>
+          <h2 class="font-serif text-xl md:text-2xl font-bold">{s.h}</h2>
+          <p class="mt-2 text-foreground/70 leading-relaxed">{s.p}</p>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
