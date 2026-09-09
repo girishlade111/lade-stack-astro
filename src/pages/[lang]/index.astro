@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/sections/HeroSection.astro';
+import AboutSection from '../../components/sections/AboutSection.astro';
+import ValuesSection from '../../components/sections/ValuesSection.astro';
+import ImpactSection from '../../components/sections/ImpactSection.astro';
+import ProductsSection from '../../components/sections/ProductsSection.astro';
+import FreeForeverSection from '../../components/sections/FreeForeverSection.astro';
+import CommunitySection from '../../components/sections/CommunitySection.astro';
+import Testimonials from '../../components/sections/Testimonials.astro';
+import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return nonDefaultLocales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = useTranslations(lang);
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    applicationCategory: 'DeveloperApplication',
+    name: 'Lade Stack',
+    url: 'https://ladestack.in',
+    description: t('home.hero.subtitle'),
+    operatingSystem: 'Web Browser',
+    inLanguage: lang,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Lade Stack',
+    url: 'https://ladestack.in',
+    description: t('home.hero.subtitle'),
+    inLanguage: lang,
+    publisher: { '@type': 'Organization', name: 'Lade Stack' }
+  }
+];
+---
+<BaseLayout
+  lang={lang}
+  path="/"
+  title={`${t('home.hero.title')} ${t('home.hero.titleAccent')} | Lade Stack`}
+  description={t('home.hero.subtitle')}
+  structuredData={structuredData}
+>
+  <HeroSection lang={lang} />
+  <AboutSection lang={lang} />
+  <ValuesSection lang={lang} />
+  <ImpactSection lang={lang} />
+  <ProductsSection lang={lang} />
+  <FreeForeverSection lang={lang} />
+  <CommunitySection lang={lang} />
+  <Testimonials lang={lang} />
+</BaseLayout>

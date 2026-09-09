@@ -1,0 +1,23 @@
+---
+import type { SupportedLocale } from '../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+
+interface Props { lang: SupportedLocale; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section class="py-16 md:py-24 bg-card/40 border-y border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p class="text-xs font-mono uppercase tracking-widest text-sage-500">{t('home.community.eyebrow')}</p>
+    <h2 class="font-serif text-3xl md:text-5xl font-bold mt-3">{t('home.community.title')}</h2>
+    <p class="mt-4 text-foreground/65 max-w-xl mx-auto">{t('home.community.description')}</p>
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href="https://github.com/girishlade111" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center h-12 px-7 rounded-full bg-foreground text-background font-semibold hover:opacity-90 transition-opacity w-full sm:w-auto">
+        {t('home.community.ctaGithub')}
+      </a>
+      <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center justify-center h-12 px-7 rounded-full border border-border font-semibold hover:bg-muted transition-colors w-full sm:w-auto">
+        {t('home.community.ctaContact')}
+      </a>
+    </div>
+  </div>
+</section>

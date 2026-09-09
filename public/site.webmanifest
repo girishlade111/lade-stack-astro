@@ -1,0 +1,16 @@
+{
+  "name": "Lade Stack",
+  "short_name": "LadeStack",
+  "description": "AI-powered developer tools ecosystem",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F3EB",
+  "theme_color": "#6E8F6A",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

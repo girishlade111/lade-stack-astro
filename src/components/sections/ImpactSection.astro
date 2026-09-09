@@ -1,0 +1,29 @@
+---
+import type { SupportedLocale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props { lang: SupportedLocale; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const stats = [
+  { value: t('home.impact.s1value'), label: t('home.impact.s1label') },
+  { value: t('home.impact.s2value'), label: t('home.impact.s2label') },
+  { value: t('home.impact.s3value'), label: t('home.impact.s3label') },
+  { value: t('home.impact.s4value'), label: t('home.impact.s4label') }
+];
+---
+<section class="py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p class="text-xs font-mono uppercase tracking-widest text-sage-500">{t('home.impact.eyebrow')}</p>
+    <h2 class="font-serif text-3xl md:text-5xl font-bold mt-3">{t('home.impact.title')}</h2>
+    <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {stats.map((s) => (
+        <div class="rounded-2xl bg-sage-500/10 border border-sage-500/20 px-4 py-8">
+          <p class="font-serif text-3xl md:text-5xl font-bold text-sage-600 dark:text-sage-400">{s.value}</p>
+          <p class="mt-2 text-sm text-foreground/65">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

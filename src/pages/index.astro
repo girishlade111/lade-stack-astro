@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import ValuesSection from '../components/sections/ValuesSection.astro';
+import ImpactSection from '../components/sections/ImpactSection.astro';
+import ProductsSection from '../components/sections/ProductsSection.astro';
+import FreeForeverSection from '../components/sections/FreeForeverSection.astro';
+import CommunitySection from '../components/sections/CommunitySection.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+
+const lang = 'en' as const;
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    applicationCategory: 'DeveloperApplication',
+    name: 'Lade Stack',
+    url: 'https://ladestack.in',
+    description: 'AI-powered developer tools platform with code editor, API testing, website builder, and file management.',
+    operatingSystem: 'Web Browser',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Lade Stack',
+    url: 'https://ladestack.in',
+    logo: 'https://ladestack.in/favicon.ico',
+    description: 'AI-powered developer tools and SaaS solutions for modern development teams.',
+    founder: { '@type': 'Person', name: 'Girish Lade', url: 'https://github.com/girishlade111' },
+    contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', email: 'admin@ladestack.in', availableLanguage: 'English' },
+    sameAs: [
+      'https://github.com/girishlade111',
+      'https://www.linkedin.com/in/girish-lade-075bba201/',
+      'https://www.instagram.com/girish_lade_/',
+      'https://codepen.io/Girish-Lade-the-looper'
+    ]
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Lade Stack',
+    url: 'https://ladestack.in',
+    description: 'AI-Powered Developer Tools & SaaS Solutions',
+    publisher: { '@type': 'Organization', name: 'Lade Stack' }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Lade Stack',
+    url: 'https://ladestack.in',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Web Browser',
+    description: 'AI-powered developer tools and SaaS solutions including API testing platform, website builder, file management system, and documentation summarizer.',
+    author: { '@type': 'Person', name: 'Girish Lade', url: 'https://github.com/girishlade111' },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.1', ratingCount: '150' }
+  }
+];
+---
+<BaseLayout
+  lang={lang}
+  path="/"
+  title="Lade Stack – AI-Powered Developer Platform | Build Smarter, Ship Faster"
+  description="The complete AI-powered development ecosystem. Intelligent tools for coding, API testing, website building, file sharing, and documentation — all free. Built for modern developers."
+  keywords="AI developer tools, code editor, API testing, website builder, file sharing, Lade Stack, Girish Lade"
+  structuredData={structuredData}
+>
+  <HeroSection lang={lang} />
+  <AboutSection lang={lang} />
+  <ValuesSection lang={lang} />
+  <ImpactSection lang={lang} />
+  <ProductsSection lang={lang} />
+  <FreeForeverSection lang={lang} />
+  <CommunitySection lang={lang} />
+  <Testimonials lang={lang} />
+</BaseLayout>

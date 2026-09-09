@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 48 33% 94%;
+    --foreground: 0 0% 11%;
+    --card: 48 33% 94%;
+    --card-foreground: 0 0% 11%;
+    --popover: 48 33% 96%;
+    --popover-foreground: 0 0% 11%;
+    --primary: 113 18% 49%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 48 20% 88%;
+    --secondary-foreground: 0 0% 11%;
+    --muted: 48 15% 90%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 113 18% 92%;
+    --accent-foreground: 113 25% 25%;
+    --border: 48 15% 82%;
+    --input: 48 15% 82%;
+    --ring: 113 18% 49%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 0% 2%;
+    --foreground: 0 0% 93%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 93%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 93%;
+    --primary: 113 22% 58%;
+    --primary-foreground: 0 0% 2%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 93%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 113 20% 14%;
+    --accent-foreground: 113 25% 80%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 113 22% 58%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #6e8f6a;
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6e8f6a88;
+    border-radius: 8px;
+  }
+}

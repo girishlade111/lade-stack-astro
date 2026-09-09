@@ -1,0 +1,38 @@
+---
+// ThemeToggle.astro — Zero-FOUC Vanilla JS dark/light button (Step 02)
+// No framework runtime. Toggles .dark on <html> + persists to localStorage.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Toggle dark mode"
+  class={`inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted ${className}`}
+>
+  <span class="hidden dark:inline" aria-hidden="true">☀️</span>
+  <span class="inline dark:hidden" aria-hidden="true">🌙</span>
+</button>
+
+<script is:inline>
+  (function () {
+    function applyIcon() {
+      var isDark = document.documentElement.classList.contains('dark');
+      document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      });
+    }
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var isDark = document.documentElement.classList.toggle('dark');
+        try {
+          localStorage.setItem('ladestack-theme', isDark ? 'dark' : 'light');
+        } catch (e) {}
+        applyIcon();
+      });
+    });
+    applyIcon();
+  })();
+</script>

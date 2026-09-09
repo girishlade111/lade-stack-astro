@@ -1,0 +1,33 @@
+---
+import type { SupportedLocale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props { lang: SupportedLocale; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const testimonials = [
+  { quote: 'CodeEnhance AI cut my frontend iteration time in half. The live AI suggestions feel like pair-programming with a senior dev.', name: 'Priya Sharma', role: 'Frontend Engineer, Mumbai' },
+  { quote: 'LS PDF Tools replaced three paid subscriptions for our team. Fully client-side, fast, and free — unbelievable.', name: 'Daniel Kim', role: 'Indie Hacker, Seoul' },
+  { quote: 'The Lade Stack blog is my go-to reference for RAG architecture and MLOps. Deep, practical, no fluff.', name: 'Ana Souza', role: 'ML Engineer, São Paulo' }
+];
+---
+<section class="py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-xs font-mono uppercase tracking-widest text-sage-500 text-center">{t('home.testimonials.eyebrow')}</p>
+    <h2 class="font-serif text-3xl md:text-5xl font-bold mt-3 text-center">{t('home.testimonials.title')}</h2>
+    <p class="mt-3 text-foreground/60 text-center">{t('home.testimonials.subtitle')}</p>
+    <div class="mt-10 grid md:grid-cols-3 gap-4">
+      {testimonials.map((item) => (
+        <figure class="rounded-2xl border border-border bg-card/60 p-6 flex flex-col">
+          <div class="text-sage-500 tracking-widest" aria-hidden="true">★★★★★</div>
+          <blockquote class="mt-3 text-sm text-foreground/80 flex-1 leading-relaxed">“{item.quote}”</blockquote>
+          <figcaption class="mt-4">
+            <p class="font-semibold text-sm">{item.name}</p>
+            <p class="text-xs text-foreground/60">{item.role}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

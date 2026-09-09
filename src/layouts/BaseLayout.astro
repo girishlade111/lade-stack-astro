@@ -1,0 +1,103 @@
+---
+// BaseLayout.astro — Root document: zero-FOUC theme, fonts, SEO, analytics (Steps 02/04/05)
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { SupportedLocale } from '../i18n/config';
+import { languages, defaultLocale } from '../i18n/config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: SupportedLocale;
+  path?: string;
+  keywords?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noIndex?: boolean;
+  article?: { publishedTime: string; modifiedTime?: string; author?: string; tags?: string[] };
+  structuredData?: object | object[];
+}
+
+const {
+  title = 'Lade Stack – AI-Powered Developer Platform | Build Smarter, Ship Faster',
+  description = 'The complete AI-powered development ecosystem. Intelligent tools for coding, API testing, website building, file sharing, and documentation — all free.',
+  lang = defaultLocale,
+  path = '/',
+  keywords,
+  ogImage,
+  ogType = 'website',
+  noIndex = false,
+  article,
+  structuredData
+} = Astro.props;
+
+const dir = languages[lang]?.dir ?? 'ltr';
+---
+<!doctype html>
+<html lang={lang} dir={dir} class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#6E8F6A" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <SEO
+      title={title}
+      description={description}
+      lang={lang}
+      path={path}
+      keywords={keywords}
+      ogImage={ogImage}
+      ogType={ogType}
+      noIndex={noIndex}
+      article={article}
+      structuredData={structuredData}
+    />
+
+    <!-- Zero-FOUC theme: must run synchronously before paint (Step 02 invariant) -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('ladestack-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.backgroundColor = '#050505';
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.style.backgroundColor = '#F5F3EB';
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Fonts: non-blocking preload swap (Inter + DM Serif Display + JetBrains Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      />
+    </noscript>
+  </head>
+  <body class="min-h-screen bg-background text-foreground antialiased flex flex-col">
+    <Header lang={lang} currentPath={path} />
+    <div class="flex-1">
+      <slot />
+    </div>
+    <Footer lang={lang} />
+    <!-- Deferred analytics (non-blocking) -->
+    <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="ladestack"></script>
+  </body>
+</html>

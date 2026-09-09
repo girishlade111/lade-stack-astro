@@ -1,0 +1,50 @@
+---
+import type { SupportedLocale } from '../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+
+interface Props { lang: SupportedLocale; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section class="relative overflow-hidden py-20 md:py-28">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-sage-500/10 via-transparent to-transparent" aria-hidden="true"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p class="inline-flex items-center gap-2 text-xs font-mono px-4 py-1.5 rounded-full bg-sage-500/10 text-sage-600 dark:text-sage-400 border border-sage-500/20">
+      <span class="relative flex h-2 w-2" aria-hidden="true">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      {t('home.hero.badge')}
+    </p>
+    <h1 class="font-serif text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mt-6 leading-[1.05]">
+      {t('home.hero.title')}<br />
+      <span class="text-sage-500">{t('home.hero.titleAccent')}</span>
+    </h1>
+    <p class="mt-6 text-base md:text-xl text-foreground/70 max-w-2xl mx-auto">{t('home.hero.subtitle')}</p>
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href={getLocalizedPath('/apps', lang)} class="inline-flex items-center justify-center h-12 px-7 rounded-full bg-sage-500 text-white font-semibold hover:bg-sage-600 transition-colors w-full sm:w-auto">
+        {t('home.hero.ctaPrimary')}
+      </a>
+      <a href={getLocalizedPath('/blog', lang)} class="inline-flex items-center justify-center h-12 px-7 rounded-full border border-border font-semibold hover:bg-muted transition-colors w-full sm:w-auto">
+        {t('home.hero.ctaSecondary')}
+      </a>
+    </div>
+    <dl class="mt-12 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+      <div class="rounded-2xl border border-border bg-card/60 px-4 py-5">
+        <dt class="sr-only">{t('home.hero.statToolsLabel')}</dt>
+        <dd class="font-serif text-2xl md:text-3xl font-bold text-sage-500">{t('home.hero.statTools')}</dd>
+        <dd class="mt-1 text-xs md:text-sm text-foreground/60">{t('home.hero.statToolsLabel')}</dd>
+      </div>
+      <div class="rounded-2xl border border-border bg-card/60 px-4 py-5">
+        <dt class="sr-only">{t('home.hero.statUsersLabel')}</dt>
+        <dd class="font-serif text-2xl md:text-3xl font-bold text-sage-500">{t('home.hero.statUsers')}</dd>
+        <dd class="mt-1 text-xs md:text-sm text-foreground/60">{t('home.hero.statUsersLabel')}</dd>
+      </div>
+      <div class="rounded-2xl border border-border bg-card/60 px-4 py-5">
+        <dt class="sr-only">{t('home.hero.statFreeLabel')}</dt>
+        <dd class="font-serif text-2xl md:text-3xl font-bold text-sage-500">{t('home.hero.statFree')}</dd>
+        <dd class="mt-1 text-xs md:text-sm text-foreground/60">{t('home.hero.statFreeLabel')}</dd>
+      </div>
+    </dl>
+  </div>
+</section>

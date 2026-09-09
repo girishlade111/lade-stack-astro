@@ -1,0 +1,14 @@
+# Lade Stack — https://ladestack.in
+# AI-crawler friendly index for ladestack.in
+
+> Lade Stack is an AI-powered developer tools ecosystem founded by Girish Lade.
+> Contact: admin@ladestack.in
+
+## Pages
+- [Home](https://ladestack.in/): AI-powered developer platform
+- [About](https://ladestack.in/about): Founder story and vision
+- [Apps](https://ladestack.in/apps): AI developer tools gallery
+- [Blog](https://ladestack.in/blog): AI development insights
+- [Docs](https://ladestack.in/docs): Developer documentation
+- [Contact](https://ladestack.in/contact): Support and contact
+- [Support](https://ladestack.in/support): Help center

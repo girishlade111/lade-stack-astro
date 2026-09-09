@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { useTranslations, getLocalizedPath } from '../../../i18n/utils';
+import { nonDefaultLocales, type SupportedLocale } from '../../../i18n/config';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return nonDefaultLocales.flatMap((lang) => posts.map((post) => ({ params: { lang, slug: post.slug }, props: { post } })));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale; slug: string };
+const t = useTranslations(lang);
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const all = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const related = all.filter((p) => p.slug !== post.slug && p.data.category === post.data.category).slice(0, 3);
+const fallbackRelated = related.length ? related : all.filter((p) => p.slug !== post.slug).slice(0, 3);
+
+const isoDate = post.data.pubDate.toISOString();
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  image: `https://ladestack.in${post.data.coverImage}`,
+  datePublished: isoDate,
+  dateModified: isoDate,
+  inLanguage: lang,
+  author: { '@type': 'Person', name: post.data.author, url: 'https://ladestack.in/about' },
+  publisher: { '@type': 'Organization', name: 'Lade Stack', logo: { '@type': 'ImageObject', url: 'https://ladestack.in/favicon.ico' } },
+  articleSection: post.data.category,
+  keywords: post.data.tags.join(', '),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://ladestack.in/${lang}/blog/${post.slug}` }
+};
+---
+<BaseLayout
+  lang={lang}
+  path={`/blog/${post.slug}`}
+  title={`${post.data.title} | Lade Stack Blog`}
+  description={post.data.description}
+  keywords={post.data.tags.join(', ')}
+  ogType="article"
+  ogImage={`https://ladestack.in${post.data.coverImage}`}
+  article={{ publishedTime: isoDate, modifiedTime: isoDate, author: post.data.author, tags: post.data.tags }}
+  structuredData={structuredData}
+>
+  <article class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <nav aria-label="Breadcrumb" class="text-sm text-foreground/55">
+      <a href={getLocalizedPath('/', lang)} class="hover:text-foreground">Home</a>
+      <span aria-hidden="true"> / </span>
+      <a href={getLocalizedPath('/blog', lang)} class="hover:text-foreground">Blog</a>
+      <span aria-hidden="true"> / </span>
+      <span aria-current="page" class="text-foreground/80">{post.data.category}</span>
+    </nav>
+
+    <header class="mt-6 max-w-3xl">
+      <p class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span class="px-2.5 py-1 rounded-full bg-sage-500/15 text-sage-600 dark:text-sage-400">{post.data.category}</span>
+        <span class="text-foreground/55">{post.data.pubDate.toISOString().slice(0, 10)} · {post.data.readTime} · {t('common.byAuthor')} {post.data.author}</span>
+      </p>
+      <h1 class="mt-4 font-serif text-3xl md:text-5xl font-bold leading-tight">{post.data.title}</h1>
+      <p class="mt-4 text-foreground/65 md:text-lg">{post.data.description}</p>
+      <div class="mt-4 flex flex-wrap gap-2">
+        {post.data.tags.map((tag) => (
+          <span class="text-xs px-2.5 py-1 rounded-full border border-border text-foreground/65">#{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <img src={post.data.coverImage} alt={post.data.title} class="mt-8 rounded-3xl border border-border w-full max-h-[420px] object-cover" loading="eager" />
+
+    <div class="mt-10 grid lg:grid-cols-[220px_1fr] gap-10">
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 rounded-2xl border border-border bg-card/60 p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-foreground/55">{t('blog.post.toc')}</p>
+          <ul class="mt-3 space-y-2 text-sm">
+            {headings.filter((h) => h.depth <= 3).map((h) => (
+              <li style={`margin-left: ${(h.depth - 2) * 12}px`}>
+                <a href={`#${h.slug}`} class="text-foreground/70 hover:text-sage-500 transition-colors">{h.text}</a>
+              </li>
+            ))}
+          </ul>
+          <button type="button" data-copy-link class="mt-4 w-full h-9 rounded-full border border-border text-sm font-medium hover:bg-muted transition-colors">
+            {t('blog.post.share')} · {t('common.copyLink')}
+          </button>
+        </div>
+      </aside>
+
+      <div class="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-sage-600 dark:prose-a:text-sage-400 prose-pre:rounded-2xl prose-pre:border prose-pre:border-border" data-article-body>
+        <Content />
+      </div>
+    </div>
+
+    <section class="mt-16" aria-label={t('blog.post.related')}>
+      <h2 class="font-serif text-2xl md:text-3xl font-bold">{t('blog.post.related')}</h2>
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {fallbackRelated.map((r) => (
+          <a href={getLocalizedPath(`/blog/${r.slug}`, lang)} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-sage-500/40 hover:shadow-lg transition-all">
+            <img src={r.data.coverImage} alt={r.data.title} class="h-36 w-full object-cover" loading="lazy" />
+            <div class="p-5">
+              <p class="text-[11px] font-mono text-sage-600 dark:text-sage-400">{r.data.category}</p>
+              <h3 class="mt-1.5 font-semibold leading-snug">{r.data.title}</h3>
+              <p class="mt-2 text-xs text-foreground/55">{r.data.pubDate.toISOString().slice(0, 10)} · {r.data.readTime}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <a href={getLocalizedPath('/blog', lang)} class="mt-8 inline-flex items-center gap-2 font-semibold text-sage-600 dark:text-sage-400">← {t('blog.post.backToBlog')}</a>
+    </section>
+  </article>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-article-body] pre').forEach(function (pre) {
+      if (pre.querySelector('[data-copy-code]')) return;
+      pre.style.position = 'relative';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('data-copy-code', '');
+      btn.textContent = 'Copy';
+      btn.style.cssText = 'position:absolute;top:8px;right:8px;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,.35);background:rgba(0,0,0,.45);color:#fff;cursor:pointer;';
+      btn.addEventListener('click', function () {
+        var code = pre.querySelector('code');
+        var text = code ? code.innerText : pre.innerText;
+        function done() { btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = 'Copy'; }, 2000); }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(done);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        }
+      });
+      pre.appendChild(btn);
+    });
+    document.querySelectorAll('[data-copy-link]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var url = window.location.href;
+        function done() {
+          btn.textContent = 'Copied!';
+          setTimeout(function () { btn.textContent = 'Share · Copy link'; }, 2000);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(done).catch(done);
+        } else { done(); }
+      });
+    });
+  })();
+</script>

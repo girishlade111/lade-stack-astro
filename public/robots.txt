@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Disallow: /apps/admin
+Disallow: /404
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://ladestack.in/sitemap-index.xml
