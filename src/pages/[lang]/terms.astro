@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return nonDefaultLocales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const updated = '2026-09-09';
+const sections = [
+  { h: 'Acceptable use', p: 'Use Lade Stack tools lawfully. Do not abuse rate limits or disrupt the service.' },
+  { h: 'Free license', p: 'Tools are free for personal and commercial use. Outputs you create are yours.' },
+  { h: 'API & fair use', p: 'Automated access must respect published quotas.' },
+  { h: 'No warranties', p: 'Services are provided "as is" without warranties.' },
+  { h: 'Contact', p: 'Questions: admin@ladestack.in, Mumbai, India.' }
+];
+---
+<BaseLayout lang={lang} path="/terms" title="Terms of Service - Lade Stack" description="Rules and regulations for using Lade Stack services.">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20">
+    <h1 class="font-serif text-4xl md:text-5xl font-bold">Terms of Service</h1>
+    <p class="mt-3 text-sm text-foreground/55">Last updated: {updated}</p>
+    <div class="mt-8 space-y-8">
+      {sections.map((s) => (
+        <section>
+          <h2 class="font-serif text-xl md:text-2xl font-bold">{s.h}</h2>
+          <p class="mt-2 text-foreground/70 leading-relaxed">{s.p}</p>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
