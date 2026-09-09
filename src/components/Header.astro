@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 const route = getRouteFromUrl(Astro.url);
 
 const navLinks = [
-  { key: 'nav.products' as const, path: '/#products' },
+  { key: 'nav.products' as const, path: '/products' },
   { key: 'nav.apps' as const, path: '/apps' },
   { key: 'nav.blog' as const, path: '/blog' },
   { key: 'nav.about' as const, path: '/about' },
@@ -25,7 +25,6 @@ const navLinks = [
 
 function isActive(path: string): boolean {
   if (path === '/') return route === '/';
-  if (path.endsWith('#products')) return false;
   return route === path || route.startsWith(path + '/');
 }
 ---

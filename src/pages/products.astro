@@ -1,0 +1,82 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getLocalizedPath } from '@/i18n/utils';
+import { getContent } from '@/i18n/content';
+import { Icon } from 'astro-icon/components';
+
+const defaultLang = 'en' as const;
+const products = getContent(defaultLang).products;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Products – Lade Stack Flagship AI Developer Tools',
+  url: 'https://ladestack.in/products',
+  description: 'Flagship AI developer tools by Lade Stack: code enhancement, API testing, website building, and secure file sharing.'
+};
+---
+
+<BaseLayout
+  title="Products – Flagship AI Developer Tools | Lade Stack"
+  description="Flagship AI developer tools by Lade Stack: CodeEnhance AI, API Testing Platform, Website Builder AI, and Secure File Hub. All free forever."
+  keywords="AI developer tools, CodeEnhance AI, API testing, website builder, file sharing"
+  lang={defaultLang}
+  path="/products"
+  structuredData={structuredData}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-semibold text-primary uppercase tracking-widest">Ecosystem</span>
+      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground mt-2">
+        Flagship AI Developer Tools
+      </h1>
+      <p class="text-sm sm:text-base text-muted-foreground mt-4">
+        Every tool is purpose-built to eliminate repetitive dev chores and accelerate your release cycles.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {
+        products.map((p) => (
+          <div class="group p-8 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                  <Icon name={p.icon} class="w-6 h-6" />
+                </div>
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-muted text-muted-foreground border border-border">
+                  {p.badge}
+                </span>
+              </div>
+              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                {p.title}
+              </h2>
+              <p class="text-xs font-semibold text-primary/80 mt-1">{p.tagline}</p>
+              <p class="text-sm text-muted-foreground mt-3 leading-relaxed">{p.desc}</p>
+            </div>
+            <div class="mt-8 pt-6 border-t border-border/50 flex items-center justify-between">
+              <a
+                href={p.link.startsWith('http') ? p.link : getLocalizedPath(p.link, defaultLang)}
+                class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+                target={p.link.startsWith('http') ? '_blank' : '_self'}
+                rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                <span>Launch Tool</span>
+                <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 text-center">
+      <a
+        href={getLocalizedPath('/apps', defaultLang)}
+        class="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
+      >
+        View all apps
+      </a>
+    </div>
+  </div>
+</BaseLayout>

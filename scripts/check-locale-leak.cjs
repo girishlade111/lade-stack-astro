@@ -65,6 +65,7 @@ for (const l of locales) {
     'privacy/index.html',
     'terms/index.html',
     'support/index.html',
+    'products/index.html',
     'apps/index.html',
     'apps/admin/index.html',
     'blog/index.html',
