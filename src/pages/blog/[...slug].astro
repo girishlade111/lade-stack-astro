@@ -1,19 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts: CollectionEntry<'blog'>[] = await getCollection('blog');
   return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
 }
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
-const { post } = Astro.props;
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
 const { Content, headings } = await render(post);
 
-const all = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const all: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const related = all.filter((p) => p.slug !== post.slug && p.data.category === post.data.category).slice(0, 3);
 const fallbackRelated = related.length ? related : all.filter((p) => p.slug !== post.slug).slice(0, 3);
 
