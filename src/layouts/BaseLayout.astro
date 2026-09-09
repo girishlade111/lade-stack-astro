@@ -1,17 +1,13 @@
 ---
-// BaseLayout.astro — Root document: zero-FOUC theme, fonts, SEO, analytics (Steps 02/04/05)
-import '../styles/global.css';
-import SEO from '../components/SEO.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import type { SupportedLocale } from '../i18n/config';
-import { languages, defaultLocale } from '../i18n/config';
+import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import SEO from '@/components/SEO.astro';
+import { languages, defaultLocale, type SupportedLocale } from '@/i18n/config';
 
 interface Props {
-  title?: string;
+  title: string;
   description?: string;
-  lang?: SupportedLocale;
-  path?: string;
   keywords?: string;
   canonicalUrl?: string;
   ogTitle?: string;
@@ -21,13 +17,13 @@ interface Props {
   noIndex?: boolean;
   article?: { publishedTime: string; modifiedTime?: string; author: string; tags?: string[] };
   structuredData?: object | object[];
+  lang?: SupportedLocale;
+  path?: string;
 }
 
 const {
-  title = 'Lade Stack – AI-Powered Developer Platform | Build Smarter, Ship Faster',
-  description = 'The complete AI-powered development ecosystem. Intelligent tools for coding, API testing, website building, file sharing, and documentation — all free.',
-  lang = defaultLocale,
-  path = '/',
+  title,
+  description,
   keywords,
   canonicalUrl,
   ogTitle,
@@ -36,42 +32,30 @@ const {
   ogType = 'website',
   noIndex = false,
   article,
-  structuredData
+  structuredData,
+  lang = defaultLocale,
+  path = '/',
 } = Astro.props;
 
-const dir = languages[lang]?.dir ?? 'ltr';
+const currentLangMeta = languages[lang] || languages[defaultLocale];
 ---
+
 <!doctype html>
-<html lang={lang} dir={dir} class="scroll-smooth">
+<html lang={lang} dir={currentLangMeta.dir}>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#6E8F6A" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="manifest" href="/site.webmanifest" />
-    <SEO
-      title={title}
-      description={description}
-      lang={lang}
-      path={path}
-      keywords={keywords}
-      canonicalUrl={canonicalUrl}
-      ogTitle={ogTitle}
-      ogDescription={ogDescription}
-      ogImage={ogImage}
-      ogType={ogType}
-      noIndex={noIndex}
-      article={article}
-      structuredData={structuredData}
-    />
+    <meta name="theme-color" content="#6E8F6A" />
 
-    <!-- Zero-FOUC theme: must run synchronously before paint (Step 02 invariant) -->
+    <!-- Performance: Zero-FOUC Theme Script -->
     <script is:inline>
       (function () {
         try {
-          var saved = localStorage.getItem('ladestack-theme');
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (saved === 'dark' || (!saved && prefersDark)) {
+          var t = localStorage.getItem('ladestack-theme');
+          var p = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (t === 'dark' || (!t && p)) {
             document.documentElement.classList.add('dark');
             document.documentElement.style.backgroundColor = '#050505';
             document.documentElement.style.colorScheme = 'dark';
@@ -84,7 +68,7 @@ const dir = languages[lang]?.dir ?? 'ltr';
       })();
     </script>
 
-    <!-- Fonts: non-blocking preload swap (Inter + DM Serif Display + JetBrains Mono) -->
+    <!-- Google Fonts Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -99,14 +83,52 @@ const dir = languages[lang]?.dir ?? 'ltr';
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       />
     </noscript>
+
+    <!-- SEO & Metadata -->
+    <SEO
+      title={title}
+      description={description}
+      keywords={keywords}
+      canonicalUrl={canonicalUrl}
+      path={path}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
+      ogImage={ogImage}
+      ogType={ogType}
+      noIndex={noIndex}
+      article={article}
+      lang={lang}
+      structuredData={structuredData}
+    />
+
+    <!-- Microsoft Clarity Analytics (Deferred) -->
+    <script is:inline defer>
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', 'xgt2pesgjz');
+    </script>
+
+    <!-- Umami Analytics (Deferred) -->
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="7b00c363-0fe6-4bb0-af62-a9bc894ccdda"></script>
   </head>
-  <body class="min-h-screen bg-background text-foreground antialiased flex flex-col">
-    <Header lang={lang} currentPath={path} />
-    <div class="flex-1">
+  <body class="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+    <Header lang={lang} />
+    <main class="flex-1">
       <slot />
-    </div>
+    </main>
     <Footer lang={lang} />
-    <!-- Deferred analytics (non-blocking) -->
-    <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="ladestack"></script>
   </body>
 </html>
