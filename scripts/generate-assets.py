@@ -1,4 +1,4 @@
-// Generates brand placeholder assets (Step 10). Run: python scripts/generate-assets.py
+# Generates brand placeholder assets (Step 10). Run: python scripts/generate-assets.py
 from PIL import Image, ImageDraw
 
 SAGE = (110, 143, 106)
