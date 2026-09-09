@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return nonDefaultLocales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = useTranslations(lang);
+
+const features = [
+  { title: 'Real-time AI assistance', text: 'Explain, refactor, and enhance code as you type.' },
+  { title: 'Live preview & compile', text: 'See HTML, CSS, and JS results instantly.' },
+  { title: 'One-click enhance', text: 'Turn rough snippets into production-ready code.' },
+  { title: 'Export anywhere', text: 'Copy or download — no lock-in, no watermark.' }
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'CodeEnhance AI',
+  url: 'https://ladestack.in/ai-code-viewer-ai',
+  inLanguage: lang,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web Browser',
+  description: t('aicode.subtitle'),
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '156' }
+};
+---
+<BaseLayout lang={lang} path="/ai-code-viewer-ai" title={`${t('aicode.title')} | Lade Stack`} description={t('aicode.subtitle')} ogImage="https://ladestack.in/AIcode.png" structuredData={structuredData}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 text-center">
+    <p class="inline-block text-xs font-mono px-4 py-1.5 rounded-full bg-sage-500/10 text-sage-600 dark:text-sage-400 border border-sage-500/20">{t('aicode.badge')}</p>
+    <h1 class="font-serif text-4xl md:text-6xl font-bold mt-5 max-w-3xl mx-auto leading-tight">CodeEnhance AI</h1>
+    <p class="mt-4 text-foreground/65 max-w-2xl mx-auto md:text-lg">{t('aicode.subtitle')}</p>
+    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3">
+      <a href="https://code.ladestack.in/" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 px-8 items-center justify-center rounded-full bg-sage-500 text-white font-semibold hover:bg-sage-600">{t('aicode.ctaPrimary')} ↗</a>
+      <a href={getLocalizedPath('/apps', lang)} class="inline-flex h-12 px-8 items-center justify-center rounded-full border border-border font-semibold hover:bg-muted">{t('aicode.ctaSecondary')}</a>
+    </div>
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+      {features.map((f) => (
+        <div class="rounded-2xl border border-border bg-card/60 p-6">
+          <h2 class="font-semibold">{f.title}</h2>
+          <p class="mt-2 text-sm text-foreground/65">{f.text}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-12 flex items-center justify-center gap-6 text-sm text-foreground/60">
+      <span>★ 4.8 / 5</span><span>·</span><span>156 reviews</span><span>·</span><span>Free forever</span>
+    </div>
+  </div>
+</BaseLayout>

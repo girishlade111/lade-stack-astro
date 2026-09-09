@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return nonDefaultLocales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = useTranslations(lang);
+
+const groups = [
+  { id: 'getting-started', title: 'Getting Started', articles: [
+    { title: 'Quickstart: launch your first app', text: 'Open the Apps Gallery, pick a tool, and you are productive in under a minute.' },
+    { title: 'Navigating the ecosystem', text: 'Home, Apps, Blog, Docs, and Support — how each surface fits your workflow.' }
+  ]},
+  { id: 'api-reference', title: 'API Reference', articles: [
+    { title: 'CodeEnhance AI usage', text: 'Paste code, choose enhance or explain, and export production-ready results.' },
+    { title: 'Rate limits & fair use', text: 'Generous free quotas with per-minute guards for everyone.' }
+  ]},
+  { id: 'tutorials', title: 'Tutorials', articles: [
+    { title: 'Build a landing page in 5 minutes', text: 'From prompt to published page with the Website Builder and Image Studio.' }
+  ]},
+  { id: 'security', title: 'Security', articles: [
+    { title: 'Privacy by design', text: 'Client-side processing means files never leave your browser for core tools.' }
+  ]},
+  { id: 'deployment', title: 'Deployment', articles: [
+    { title: 'Self-hosting checklist', text: 'Static-first architecture makes mirroring straightforward.' }
+  ]}
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  name: 'Lade Stack Documentation',
+  url: 'https://ladestack.in/docs',
+  inLanguage: lang,
+  description: t('docs.subtitle'),
+  publisher: { '@type': 'Organization', name: 'Lade Stack' }
+};
+---
+<BaseLayout lang={lang} path="/docs" title={`${t('docs.title')} | Lade Stack`} description={t('docs.subtitle')} structuredData={structuredData}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
+    <h1 class="font-serif text-4xl md:text-6xl font-bold">Docs</h1>
+    <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('docs.subtitle')}</p>
+    <input type="search" data-docs-search placeholder={t('docs.searchPlaceholder')} aria-label={t('docs.searchPlaceholder')} class="mt-8 h-11 px-4 rounded-full border border-border bg-card text-sm outline-none focus:border-sage-500 w-full md:max-w-sm" />
+    <div class="mt-8 space-y-10">
+      {groups.map((g) => (
+        <section id={g.id} data-docs-section scroll-mt-24>
+          <h2 class="font-serif text-2xl font-bold">{g.title}</h2>
+          <div class="mt-4 space-y-3">
+            {g.articles.map((a) => (
+              <details data-docs-article={` ${a.title} ${a.text}`.toLowerCase()} class="group rounded-2xl border border-border bg-card/60 px-5 py-4 open:border-sage-500/40">
+                <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3">
+                  {a.title}
+                  <span aria-hidden="true" class="text-sage-500 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+                </summary>
+                <p class="mt-3 text-sm text-foreground/65 leading-relaxed">{a.text}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      ))}
+      <p data-docs-empty class="hidden text-foreground/60">No documentation matches your search.</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var input = document.querySelector('[data-docs-search]');
+    var articles = Array.prototype.slice.call(document.querySelectorAll('[data-docs-article]'));
+    var empty = document.querySelector('[data-docs-empty]');
+    if (!input) return;
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visible = 0;
+      articles.forEach(function (a) {
+        var text = a.getAttribute('data-docs-article') || '';
+        var show = !q || text.indexOf(q) !== -1;
+        a.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      document.querySelectorAll('[data-docs-section]').forEach(function (sec) {
+        var anyVisible = Array.prototype.some.call(sec.querySelectorAll('[data-docs-article]'), function (a) {
+          return !a.classList.contains('hidden');
+        });
+        sec.classList.toggle('hidden', !anyVisible);
+      });
+      if (empty) empty.classList.toggle('hidden', visible !== 0);
+    });
+  })();
+</script>
