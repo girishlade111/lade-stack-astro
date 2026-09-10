@@ -16,7 +16,7 @@ const testimonials = getContent(lang).testimonials;
 
 <!-- Section 8: marketing-section-light (#ffffff) per DESIGN.md Polarity-Flip Rhythm -->
 <section class="marketing-section-light" data-reveal>
-  <div class="max-w-[1640px] mx-auto px-6">
+  <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
     <div class="text-center max-w-3xl mx-auto mb-16">
       <MonoEyebrow color="mute" class="mb-3">
         {t('home.testimonials.eyebrow')}
@@ -30,7 +30,7 @@ const testimonials = getContent(lang).testimonials;
     </div>
 
     <!-- Testimonial cards using feature-card-light on canvas-light -->
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
       {testimonials.map((item) => (
         <FeatureCard variant="light" class="flex flex-col justify-between">
           <div>
