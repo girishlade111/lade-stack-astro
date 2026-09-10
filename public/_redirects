@@ -1,0 +1,18 @@
+# CDN-level redirects (Cloudflare Pages / Netlify).
+# Astro `output: static` cannot serve runtime redirects, so /en/ prefix
+# stripping and retired localized blog URLs are handled here.
+# Blog is English-only: locale-prefixed blog URLs fold to the canonical /blog.
+
+/en/*  /:splat  301
+/en  /  301
+
+/zh/blog/*  /blog/:splat  301
+/zh/blog  /blog  301
+/ko/blog/*  /blog/:splat  301
+/ko/blog  /blog  301
+/ja/blog/*  /blog/:splat  301
+/ja/blog  /blog  301
+/tr/blog/*  /blog/:splat  301
+/tr/blog  /blog  301
+/pt-BR/blog/*  /blog/:splat  301
+/pt-BR/blog  /blog  301
