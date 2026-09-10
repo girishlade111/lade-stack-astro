@@ -60,7 +60,7 @@ export default defineConfig({
   },
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'zh', 'ko', 'ja', 'tr', 'pt-BR'],
+    locales: ['en', 'ru', 'zh', 'ko', 'ja', 'tr', 'pt-BR'],
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: true
@@ -73,6 +73,7 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: {
           en: 'en-US',
+          ru: 'ru-RU',
           zh: 'zh-CN',
           ko: 'ko-KR',
           ja: 'ja-JP',
