@@ -8,20 +8,28 @@ import Icon from '@/components/Icon.astro';
 
 interface Props {
   lang: SupportedLocale;
+  /** Hide the locale switcher (English-only pages such as /blog). */
+  hideLanguageSwitcher?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, hideLanguageSwitcher = false } = Astro.props;
 const t = useTranslations(lang);
 const route = getRouteFromUrl(Astro.url);
 
 const navLinks = [
   { key: 'nav.products' as const, path: '/products' },
   { key: 'nav.apps' as const, path: '/apps' },
-  { key: 'nav.blog' as const, path: '/blog' },
+  // Blog is English-only: always link the canonical /blog, never a locale prefix.
+  { key: 'nav.blog' as const, path: '/blog', canonicalOnly: true },
   { key: 'nav.about' as const, path: '/about' },
   { key: 'nav.docs' as const, path: '/docs' },
   { key: 'nav.contact' as const, path: '/contact' },
 ];
+
+function hrefFor(link: { path: string; canonicalOnly?: boolean }): string {
+  if (link.canonicalOnly) return link.path;
+  return getLocalizedPath(link.path, lang);
+}
 
 function isActive(path: string): boolean {
   if (path === '/') return route === '/';
