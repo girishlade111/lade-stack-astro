@@ -1,0 +1,22 @@
+---
+interface Props {
+  variant?: 'dark' | 'brand' | 'light' | 'featured';
+  class?: string;
+  [key: string]: any;
+}
+
+const { variant = 'dark', class: className = '', ...rest } = Astro.props;
+
+const variantClasses = {
+  'dark': 'feature-card-dark',
+  'brand': 'feature-card-brand',
+  'light': 'feature-card-light shadow-soft-drop',
+  'featured': 'pricing-card-featured',
+};
+
+const classes = `${variantClasses[variant]} ${className}`.trim();
+---
+
+<div class={classes} {...rest}>
+  <slot />
+</div>

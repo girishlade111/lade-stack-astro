@@ -1,0 +1,56 @@
+---
+interface Props {
+  title?: string;
+  tabs?: string[];
+  activeTab?: string;
+  class?: string;
+}
+
+const {
+  title = 'LadeStack Studio — ai-code-viewer.ts',
+  tabs = ['Editor', 'Preview', 'Terminal'],
+  activeTab = 'Editor',
+  class: className = '',
+} = Astro.props;
+---
+
+<div class={`studio-window w-full text-left overflow-hidden shadow-2xl ${className}`}>
+  <!-- macOS-style Chrome Header -->
+  <div class="flex items-center justify-between pb-3 mb-3 border-b border-hairline-soft">
+    <!-- Three Traffic Light Dots -->
+    <div class="flex items-center gap-1.5" aria-hidden="true">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+    </div>
+
+    <!-- Title or Tabs -->
+    <div class="flex items-center gap-1">
+      {tabs.map((tab) => (
+        <span
+          class={`btn-app-tab select-none ${tab === activeTab ? 'active' : ''}`}
+        >
+          {tab}
+        </span>
+      ))}
+    </div>
+
+    <!-- Right Window Status Marker -->
+    <div class="flex items-center gap-1.5 text-xs text-ash font-mono">
+      <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+      <span class="hidden sm:inline text-[10px] text-mute">ready</span>
+    </div>
+  </div>
+
+  <!-- Studio Window Body Slot -->
+  <div class="text-ash font-mono text-xs overflow-x-auto leading-relaxed">
+    <slot>
+      <div class="py-2 space-y-1">
+        <p class="text-mute">// AI Code Generation & Developer Engine</p>
+        <p><span class="text-brand">import</span> &#123; createPlatform &#125; <span class="text-brand">from</span> <span class="text-success">'@ladestack/core'</span>;</p>
+        <p><span class="text-brand">const</span> platform = <span class="text-link-blue-soft">createPlatform</span>(&#123; ssr: <span class="text-brand">false</span>, i18n: <span class="text-brand">true</span> &#125;);</p>
+        <p class="text-on-primary">platform.<span class="text-link-blue-soft">deploy</span>(&#123; zeroRuntime: <span class="text-brand">true</span> &#125;);</p>
+      </div>
+    </slot>
+  </div>
+</div>

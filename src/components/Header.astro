@@ -3,6 +3,8 @@ import { useTranslations, getLocalizedPath, getRouteFromUrl } from '@/i18n/utils
 import type { SupportedLocale } from '@/i18n/config';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import ThemeToggle from '@/components/ThemeToggle.astro';
+import BrandMark from '@/components/ui/BrandMark.astro';
+import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 
 interface Props {
@@ -11,7 +13,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-// Active-link state derived from the URL (no extra props needed).
 const route = getRouteFromUrl(Astro.url);
 
 const navLinks = [
@@ -29,23 +30,23 @@ function isActive(path: string): boolean {
 }
 ---
 
-<header data-site-header class="sticky top-0 z-40 w-full border-b border-border/40 bg-background/80 backdrop-blur-md transition-colors">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    <!-- Brand Logo -->
-    <a href={getLocalizedPath('/', lang)} class="flex items-center gap-2 group" aria-label="Lade Stack home">
-      <span class="font-serif text-2xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
-        Lade <span class="text-primary font-sans font-semibold">Stack</span>
-      </span>
-      <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" aria-hidden="true"></span>
+<!-- DESIGN.md nav-bar-dark: sticky, 64px height, 24px px, canvas bg, no border line -->
+<header data-site-header class="sticky top-0 z-50 w-full h-16 bg-canvas text-on-primary">
+  <div class="max-w-[1640px] mx-auto px-6 h-full flex items-center justify-between">
+    <!-- Brand Logo with exact 12px brand-dot -->
+    <a href={getLocalizedPath('/', lang)} class="flex items-center group" aria-label="Lade Stack home">
+      <BrandMark />
     </a>
 
-    <!-- Desktop Navigation Links -->
-    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground" aria-label="Primary">
+    <!-- Centered Navigation Links (Desktop, collapses at <960px per DESIGN.md) -->
+    <nav class="hidden sm:flex items-center gap-6" aria-label="Primary">
       {navLinks.map((link) => (
         <a
           href={getLocalizedPath(link.path, lang)}
           aria-current={isActive(link.path) ? 'page' : undefined}
-          class={`hover:text-foreground transition-colors ${isActive(link.path) ? 'text-foreground' : ''}`}
+          class={`py-2 text-base font-medium transition-colors hover:text-ash ${
+            isActive(link.path) ? 'text-on-primary font-semibold' : 'text-ash'
+          }`}
         >
           {t(link.key)}
         </a>
@@ -53,25 +54,23 @@ function isActive(path: string): boolean {
     </nav>
 
     <!-- Header Actions (Right) -->
-    <div class="hidden md:flex items-center gap-3">
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:flex items-center gap-2">
         <LanguageSwitcher currentLang={lang} />
         <ThemeToggle lang={lang} />
-      <a
-        href={getLocalizedPath('/apps', lang)}
-        class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-all shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
-      >
-        {t('nav.launchApp')}
-      </a>
-    </div>
+      </div>
 
-    <!-- Mobile Menu Button -->
-    <div class="flex items-center gap-2 md:hidden">
-      <ThemeToggle lang={lang} />
+      <!-- button-primary CTA (white pill on dark canvas) -->
+      <Button href={getLocalizedPath('/apps', lang)} variant="primary" class="text-sm !h-10 px-4">
+        {t('nav.launchApp')}
+      </Button>
+
+      <!-- Mobile Hamburger Button (<960px sm breakpoint per DESIGN.md) -->
       <button
         type="button"
         id="mobile-menu-btn"
         data-mobile-open
-        class="p-2 rounded-xl border border-border text-foreground hover:bg-muted focus:outline-none"
+        class="sm:hidden p-2 rounded-app-md border border-hairline-soft text-on-primary hover:bg-canvas-soft focus:outline-none"
         aria-label="Toggle Mobile Menu"
         aria-expanded="false"
         aria-controls="mobile-drawer"
@@ -81,35 +80,34 @@ function isActive(path: string): boolean {
     </div>
   </div>
 
-  <!-- Mobile Navigation Drawer (Pure Vanilla JS) -->
-  <div data-mobile-backdrop class="hidden fixed inset-0 top-16 z-30 bg-black/40 backdrop-blur-sm md:hidden"></div>
+  <!-- Mobile Navigation Drawer -->
+  <div data-mobile-backdrop class="hidden fixed inset-0 top-16 z-40 bg-canvas/80 backdrop-blur-sm sm:hidden"></div>
   <nav
     id="mobile-drawer"
     data-mobile-drawer
     aria-label="Mobile"
-    class="hidden md:hidden fixed inset-x-0 top-16 bg-background/95 border-b border-border shadow-2xl backdrop-blur-xl"
+    class="hidden sm:hidden fixed inset-x-0 top-16 bg-canvas border-b border-hairline-soft shadow-2xl z-50"
   >
-    <div class="p-6 flex flex-col gap-4 text-base font-medium">
+    <div class="p-6 flex flex-col gap-3">
       {navLinks.map((link) => (
         <a
           href={getLocalizedPath(link.path, lang)}
           data-mobile-link
           aria-current={isActive(link.path) ? 'page' : undefined}
-          class={`py-2 border-b border-border/50 transition-colors ${isActive(link.path) ? 'text-primary' : 'text-foreground'}`}
+          class={`py-3 text-base font-medium border-b border-hairline-soft/50 transition-colors ${
+            isActive(link.path) ? 'text-on-primary font-semibold' : 'text-ash hover:text-on-primary'
+          }`}
         >
           {t(link.key)}
         </a>
       ))}
-      <div class="pt-2 flex items-center justify-between">
-        <span class="text-sm text-muted-foreground">{t('common.language')}</span>
-        <LanguageSwitcher currentLang={lang} />
+      <div class="pt-3 flex items-center justify-between text-sm text-ash">
+        <span>{t('common.language')}</span>
+        <div class="flex items-center gap-2">
+          <LanguageSwitcher currentLang={lang} />
+          <ThemeToggle lang={lang} />
+        </div>
       </div>
-      <a
-        href={getLocalizedPath('/apps', lang)}
-        class="mt-2 w-full text-center py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold"
-      >
-        {t('nav.launchApp')}
-      </a>
     </div>
   </nav>
 </header>

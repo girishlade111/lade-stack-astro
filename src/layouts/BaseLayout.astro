@@ -47,40 +47,40 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#6E8F6A" />
+    <meta name="theme-color" content="#0b0b0b" />
 
-    <!-- Performance: Zero-FOUC Theme Script -->
+    <!-- Performance: Zero-FOUC Theme Script (DESIGN.md Dark-First) -->
     <script is:inline>
       (function () {
         try {
           var t = localStorage.getItem('ladestack-theme');
           var p = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (t === 'dark' || (!t && p)) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.style.backgroundColor = '#050505';
-            document.documentElement.style.colorScheme = 'dark';
-          } else {
+          if (t === 'light') {
             document.documentElement.classList.remove('dark');
-            document.documentElement.style.backgroundColor = '#F5F3EB';
+            document.documentElement.style.backgroundColor = '#ffffff';
             document.documentElement.style.colorScheme = 'light';
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.backgroundColor = '#0b0b0b';
+            document.documentElement.style.colorScheme = 'dark';
           }
         } catch (e) {}
       })();
     </script>
 
-    <!-- Google Fonts Preload -->
+    <!-- Google Fonts: Inter & IBM Plex Mono (Fallback for waldenburgNormal per DESIGN.md) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
       />
     </noscript>
 
@@ -124,7 +124,7 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
       src="https://cloud.umami.is/script.js"
       data-website-id="7b00c363-0fe6-4bb0-af62-a9bc894ccdda"></script>
   </head>
-  <body class="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+  <body class="min-h-screen flex flex-col bg-canvas text-on-primary font-sans antialiased selection:bg-brand selection:text-ink">
     <Header lang={lang} />
     <main class="flex-1">
       <slot />

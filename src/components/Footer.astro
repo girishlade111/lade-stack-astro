@@ -2,6 +2,8 @@
 import { useTranslations, getLocalizedPath } from '@/i18n/utils';
 import type { SupportedLocale } from '@/i18n/config';
 import { getContent } from '@/i18n/content';
+import BrandMark from '@/components/ui/BrandMark.astro';
+import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 
 interface Props {
@@ -14,82 +16,142 @@ const c = getContent(lang);
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border bg-card/40 mt-20">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<!-- DESIGN.md footer: canvas bg (#0b0b0b), 64px py, 24px px, mono-caps eyebrows, caption links -->
+<footer class="bg-canvas text-on-primary py-16 px-6 border-t border-hairline-soft/40">
+  <div class="max-w-[1640px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-16">
       <!-- Brand column -->
-      <div class="md:col-span-1 space-y-4">
-        <a href={getLocalizedPath('/', lang)} class="font-serif text-2xl font-bold text-foreground" aria-label="Lade Stack home">
-          Lade <span class="text-primary font-sans">Stack</span>
+      <div class="space-y-4">
+        <a href={getLocalizedPath('/', lang)} class="inline-block" aria-label="Lade Stack home">
+          <BrandMark />
         </a>
-        <p class="text-sm text-muted-foreground leading-relaxed">
+        <p class="body text-ash text-sm max-w-sm leading-relaxed">
           {t('footer.tagline')}
         </p>
-        <div class="flex items-center gap-3 text-muted-foreground">
-          <a href="https://github.com/girishlade111" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-foreground hover:bg-muted transition-colors" aria-label="GitHub">
+        <div class="flex items-center gap-2 text-ash pt-2">
+          <a
+            href="https://github.com/girishlade111"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-2 rounded-app-sm hover:text-on-primary hover:bg-canvas-soft transition-colors"
+            aria-label="GitHub"
+          >
             <Icon name="lucide:github" class="w-4 h-4" />
           </a>
-          <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-foreground hover:bg-muted transition-colors" aria-label="LinkedIn">
+          <a
+            href="https://www.linkedin.com/in/girish-lade-075bba201/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-2 rounded-app-sm hover:text-on-primary hover:bg-canvas-soft transition-colors"
+            aria-label="LinkedIn"
+          >
             <Icon name="lucide:linkedin" class="w-4 h-4" />
           </a>
-          <a href="https://www.instagram.com/girish_lade_/" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-foreground hover:bg-muted transition-colors" aria-label="Instagram">
+          <a
+            href="https://www.instagram.com/girish_lade_/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-2 rounded-app-sm hover:text-on-primary hover:bg-canvas-soft transition-colors"
+            aria-label="Instagram"
+          >
             <Icon name="lucide:instagram" class="w-4 h-4" />
           </a>
         </div>
       </div>
 
-      <!-- Quick Links -->
+      <!-- Quick Links (Platform) -->
       <nav aria-label={t('footer.platform')}>
-        <h4 class="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">{t('footer.platform')}</h4>
-        <ul class="space-y-2.5 text-sm text-muted-foreground">
-          <li><a href={getLocalizedPath('/apps', lang)} class="hover:text-foreground transition-colors">{t('nav.apps')}</a></li>
-          <li><a href={getLocalizedPath('/ai-code-viewer-ai', lang)} class="hover:text-foreground transition-colors">{c.footerLinks.aiCodeViewer}</a></li>
-          <li><a href={getLocalizedPath('/docs', lang)} class="hover:text-foreground transition-colors">{t('nav.docs')}</a></li>
-          <li><a href={getLocalizedPath('/blog', lang)} class="hover:text-foreground transition-colors">{t('nav.blog')}</a></li>
+        <!-- footer-eyebrow: mono-caps (11px, IBM Plex Mono, text-mute) -->
+        <h3 class="mono-caps text-mute mb-4 tracking-wider">{t('footer.platform')}</h3>
+        <ul class="space-y-2.5">
+          <li>
+            <a href={getLocalizedPath('/apps', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {t('nav.apps')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/ai-code-viewer-ai', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {c.footerLinks.aiCodeViewer}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/docs', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {t('nav.docs')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/blog', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {t('nav.blog')}
+            </a>
+          </li>
         </ul>
       </nav>
 
       <!-- Company & Support -->
       <nav aria-label={t('footer.company')}>
-        <h4 class="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">{t('footer.company')}</h4>
-        <ul class="space-y-2.5 text-sm text-muted-foreground">
-          <li><a href={getLocalizedPath('/about', lang)} class="hover:text-foreground transition-colors">{t('nav.about')}</a></li>
-          <li><a href={getLocalizedPath('/contact', lang)} class="hover:text-foreground transition-colors">{t('nav.contact')}</a></li>
-          <li><a href={getLocalizedPath('/support', lang)} class="hover:text-foreground transition-colors">{c.footerLinks.support}</a></li>
-          <li><a href={getLocalizedPath('/privacy', lang)} class="hover:text-foreground transition-colors">{c.footerLinks.privacy}</a></li>
-          <li><a href={getLocalizedPath('/terms', lang)} class="hover:text-foreground transition-colors">{c.footerLinks.terms}</a></li>
+        <h3 class="mono-caps text-mute mb-4 tracking-wider">{t('footer.company')}</h3>
+        <ul class="space-y-2.5">
+          <li>
+            <a href={getLocalizedPath('/about', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {t('nav.about')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/contact', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {t('nav.contact')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/support', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {c.footerLinks.support}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/privacy', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {c.footerLinks.privacy}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/terms', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+              {c.footerLinks.terms}
+            </a>
+          </li>
         </ul>
       </nav>
 
-      <!-- Newsletter Box -->
+      <!-- Newsletter Box with text-input-dark and btn-primary -->
       <div>
-        <h4 class="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">{t('footer.newsletterTitle')}</h4>
-        <p class="text-xs text-muted-foreground mb-3">
+        <h3 class="mono-caps text-mute mb-4 tracking-wider">{t('footer.newsletterTitle')}</h3>
+        <p class="caption text-ash mb-3 leading-relaxed">
           {t('footer.newsletterDesc')}
         </p>
-        <form data-newsletter data-success={t('footer.subscribed')} class="space-y-2" novalidate>
+        <form data-newsletter data-success={t('footer.subscribed')} class="space-y-2.5" novalidate>
           <label class="sr-only" for="newsletter-email">{t('footer.newsletterTitle')}</label>
           <input
             id="newsletter-email"
             type="email"
             required
             placeholder={t('common.emailPlaceholder')}
-            class="w-full px-3.5 py-2 text-sm rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+            class="text-input-dark w-full"
           />
           <button
             type="submit"
-            class="w-full py-2 px-4 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+            class="btn-primary w-full !h-10 text-sm"
           >
             {t('common.subscribe')}
           </button>
         </form>
-        <p data-newsletter-msg class="hidden mt-2 text-xs text-emerald-600 dark:text-emerald-400" role="status"></p>
+        <p data-newsletter-msg class="hidden mt-2 text-xs text-success" role="status"></p>
       </div>
     </div>
 
-    <div class="border-t border-border/50 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-muted-foreground gap-4">
-      <p>© {currentYear} Lade Stack. Built by Girish Lade. {t('common.copyright')}</p>
-      <p class="text-xs">{t('footer.stack')}</p>
+    <!-- Bottom Strip -->
+    <div class="border-t border-hairline-soft pt-8 flex flex-col sm:flex-row items-center justify-between meta text-ash gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand"></span>
+        <p>© {currentYear} Lade Stack. Built by Girish Lade. {t('common.copyright')}</p>
+      </div>
+      <p class="mono-micro text-mute">{t('footer.stack')}</p>
     </div>
   </div>
 </footer>
@@ -104,7 +166,6 @@ const currentYear = new Date().getFullYear();
         var msg = /** @type {HTMLElement | null} */ (
           formEl.parentElement ? formEl.parentElement.querySelector('[data-newsletter-msg]') : null
         );
-        // Newsletter message lives right after the form, not inside a wrapper.
         if (!msg) {
           var next = formEl.nextElementSibling;
           if (next && next.hasAttribute('data-newsletter-msg')) msg = /** @type {HTMLElement} */ (next);
@@ -114,7 +175,7 @@ const currentYear = new Date().getFullYear();
         if (!valid) {
           if (input) {
             input.setAttribute('aria-invalid', 'true');
-            input.style.borderColor = '#ef4444';
+            input.style.borderColor = '#dd0000';
           }
           return;
         }

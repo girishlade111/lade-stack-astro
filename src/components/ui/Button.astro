@@ -1,0 +1,46 @@
+---
+interface Props {
+  variant?: 'primary' | 'primary-on-light' | 'brand' | 'secondary-dark' | 'ghost-dark' | 'app-tab';
+  href?: string;
+  target?: string;
+  rel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  id?: string;
+  [key: string]: any;
+}
+
+const {
+  variant = 'primary',
+  href,
+  target,
+  rel,
+  type = 'button',
+  class: className = '',
+  id,
+  ...rest
+} = Astro.props;
+
+const variantClasses = {
+  'primary': 'btn-primary',
+  'primary-on-light': 'btn-primary-on-light',
+  'brand': 'btn-brand',
+  'secondary-dark': 'btn-secondary-dark',
+  'ghost-dark': 'btn-ghost-dark',
+  'app-tab': 'btn-app-tab',
+};
+
+const classes = `${variantClasses[variant]} ${className}`.trim();
+---
+
+{
+  href ? (
+    <a href={href} target={target} rel={rel} class={classes} id={id} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} id={id} {...rest}>
+      <slot />
+    </button>
+  )
+}
