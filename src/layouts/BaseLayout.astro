@@ -92,21 +92,8 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
       })();
     </script>
 
-    <!-- Google Fonts: Inter & IBM Plex Mono (Fallback for waldenburgNormal per DESIGN.md) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
-      />
-    </noscript>
+    <!-- Self-hosted fonts are bundled from own domain (see frontmatter imports).
+         No external font CDN: no preconnect/dns-prefetch to Google Fonts. -->
 
     <!-- SEO & Metadata -->
     <SEO
@@ -123,6 +110,9 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
       article={article}
       lang={lang}
       structuredData={structuredData}
+      hreflang={hreflang}
+      prevUrl={prevUrl}
+      nextUrl={nextUrl}
     />
 
     <!-- Microsoft Clarity Analytics (Deferred) -->
@@ -149,7 +139,7 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
       data-website-id="7b00c363-0fe6-4bb0-af62-a9bc894ccdda"></script>
   </head>
   <body class="min-h-screen flex flex-col bg-canvas text-on-primary font-sans antialiased selection:bg-brand selection:text-ink">
-    <Header lang={lang} />
+    <Header lang={lang} hideLanguageSwitcher={hideLanguageSwitcher} />
     <main class="flex-1" transition:name="page-main" transition:animate="fade">
       <slot />
     </main>
