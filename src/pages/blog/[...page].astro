@@ -58,7 +58,7 @@ const structuredData = {
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground">
+      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground break-words">
         Engineering Insights
       </h1>
       <p class="mt-4 text-base sm:text-lg text-muted-foreground">
@@ -100,7 +100,7 @@ const structuredData = {
     </div>
 
     <!-- Articles Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
+    <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="articles-grid">
       {
         gridPosts.map(({ post, loc }) => (
           <article
@@ -116,7 +116,7 @@ const structuredData = {
                 </span>
                 <span>{post.data.readTime} {t('common.minRead')}</span>
               </div>
-              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
+              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-snug break-words">
                 <a href={`/blog/${post.slug}`}>
                   {loc.title}
                 </a>
@@ -141,7 +141,7 @@ const structuredData = {
 
     <!-- Pagination Controls -->
     {page.lastPage > 1 && (
-      <nav aria-label="Blog pagination" class="mt-12 flex items-center justify-center gap-2">
+      <nav aria-label="Blog pagination" class="mt-12 flex items-center justify-center gap-2 flex-wrap">
         {page.url.prev ? (
           <a
             href={page.url.prev}

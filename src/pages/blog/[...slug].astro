@@ -86,20 +86,20 @@ const structuredData = {
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4">
         {c.blogCategories[post.data.category] ?? post.data.category}
       </div>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-foreground leading-tight">
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-foreground leading-tight break-words">
         {loc.title}
       </h1>
-      <div class="mt-4 flex items-center justify-center gap-4 text-xs sm:text-sm text-muted-foreground">
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
         <span>{t('common.byAuthor')} {post.data.author}</span>
-        <span aria-hidden="true">•</span>
+        <span aria-hidden="true" class="hidden xxs:inline">•</span>
         <span>{post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
         {post.data.updatedDate && (
           <>
-            <span aria-hidden="true">•</span>
+            <span aria-hidden="true" class="hidden xxs:inline">•</span>
             <span>Updated {post.data.updatedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
           </>
         )}
-        <span aria-hidden="true">•</span>
+        <span aria-hidden="true" class="hidden xxs:inline">•</span>
         <span>{post.data.readTime} {t('common.minRead')}</span>
       </div>
       <p class="mt-4 text-muted-foreground md:text-lg">{loc.description}</p>
@@ -129,27 +129,27 @@ const structuredData = {
         </div>
       </aside>
 
-      <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-primary prose-code:text-primary prose-pre:rounded-2xl" data-article-body data-copy-label={t('blog.post.copyCode')} data-copied-label={t('blog.post.copiedCode')}>
+      <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-primary prose-code:text-primary prose-pre:rounded-2xl min-w-0" data-article-body data-copy-label={t('blog.post.copyCode')} data-copied-label={t('blog.post.copiedCode')}>
         <Content />
       </div>
     </div>
 
     {relatedTools.length > 0 && (
       <section class="mt-16" aria-label="Related tools">
-        <h2 class="font-serif text-2xl md:text-3xl font-bold">Related Tool{relatedTools.length > 1 ? 's' : ''}</h2>
-        <div class="mt-6 grid sm:grid-cols-2 gap-4">
+        <h2 class="font-serif text-2xl md:text-3xl font-bold break-words">Related Tool{relatedTools.length > 1 ? 's' : ''}</h2>
+        <div class="mt-6 grid grid-cols-1 xs:grid-cols-2 gap-4">
           {relatedTools.map((app) => (
             app.comingSoon || !app.landingUrl ? (
               <div class="rounded-2xl border border-border bg-card/60 p-6" aria-disabled="true">
                 <p class="text-[11px] font-mono text-muted-foreground">{app.displayCategory}</p>
-                <h3 class="mt-1.5 font-semibold text-lg leading-snug">{app.title}</h3>
+                <h3 class="mt-1.5 font-semibold text-lg leading-snug break-words">{app.title}</h3>
                 <p class="mt-2 text-sm text-foreground/65">{app.tagline}</p>
                 <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-muted-foreground">Coming Soon — {app.title}</span>
               </div>
             ) : (
             <a href={app.landingUrl.startsWith('http') ? app.landingUrl : app.landingUrl} class="rounded-2xl border border-border bg-card/60 p-6 hover:border-primary/40 hover:shadow-lg transition-all">
               <p class="text-[11px] font-mono text-primary">{app.displayCategory}</p>
-              <h3 class="mt-1.5 font-semibold text-lg leading-snug">{app.title}</h3>
+              <h3 class="mt-1.5 font-semibold text-lg leading-snug break-words">{app.title}</h3>
               <p class="mt-2 text-sm text-foreground/65">{app.tagline}</p>
               <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">Try it free →</span>
             </a>
@@ -160,8 +160,8 @@ const structuredData = {
     )}
 
     <section class="mt-16" aria-label={t('blog.post.related')}>
-      <h2 class="font-serif text-2xl md:text-3xl font-bold">{t('blog.post.related')}</h2>
-      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h2 class="font-serif text-2xl md:text-3xl font-bold break-words">{t('blog.post.related')}</h2>
+      <div class="mt-6 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4">
         {relatedLoc.map(({ r, loc }) => (
           <a href={`/blog/${r.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all">
             <Image src={r.data.coverImage} alt={`${loc.title} — related article cover`} width={600} height={216} loading="lazy" class="h-36 w-full object-cover" />
