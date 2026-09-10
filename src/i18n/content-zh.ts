@@ -142,7 +142,7 @@ export const zh: LocaleContent = {
     { h: '联系我们', p: '条款问题：admin@ladestack.in，印度孟买。' }
   ],
   apps: {
-    'ai-code-viewer': {
+    'ai-code-viewer-ai': {
       tagline: 'AI 前端代码编辑器',
       description: '实时 AI 辅助，编辑、编译、增强 HTML、CSS 和 JS。',
       features: ['实时 AI 辅助', '实时预览', '一键增强']

@@ -142,7 +142,7 @@ export const ptBR: LocaleContent = {
     { h: 'Contato', p: 'Dúvidas sobre os termos: admin@ladestack.in, Mumbai, Índia.' }
   ],
   apps: {
-    'ai-code-viewer': {
+    'ai-code-viewer-ai': {
       tagline: 'Editor de código frontend com IA',
       description: 'Edite, compile e melhore HTML, CSS e JS com assistência de IA em tempo real.',
       features: ['Assistência de IA ao vivo', 'Preview instantâneo', 'Melhoria em 1 clique']
