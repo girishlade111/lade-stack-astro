@@ -68,10 +68,74 @@ export const tr: LocaleContent = {
     { q: 'En iyi pratikleri nereden öğrenirim?', a: 'Önce Dokümanlar ve Blog — yapay zekâ geliştirmeyi uçtan uca anlatan 27+ rehber sizi bekler.' }
   ],
   contactFaqs: [
-    { q: 'Gerçekten sonsuza dek ücretsiz mi?', a: 'Evet. Her araç katmansız, denemesiz, kredi kartsız sonsuza dek ücretsiz.' },
-    { q: 'Destek ne kadar hızlı döner?', a: '7/24 çalışıyoruz, genelde saatler içinde admin@ladestack.in üzerinden yanıtlarız.' },
-    { q: 'Özellik isteyebilir miyim?', a: 'Kesinlikle — GitHub issue açın ya da aşağıdaki formu doldurun.' },
-    { q: 'Kurumsal çözüm var mı?', a: 'Var. İhtiyacınızı yazın, özel entegrasyon ve SLA teklif edelim.' }
+    {
+      q: 'Lade Stack nedir?',
+      a: 'Lade Stack, Hindistan’da kurulan bağımsız bir yazılım ve teknoloji platformudur. Pratik geliştirici araçları, yapay zekâ destekli yazılımlar, SaaS ürünleri ve modern web uygulamaları geliştirmeye odaklanır. Platformun amacı, özenli UI/UX tasarımı, temiz mühendislik ve hedefli otomasyon yoluyla teknik iş akışlarındaki sürtünmeyi ortadan kaldırmaktır.'
+    },
+    {
+      q: 'Lade Stack’in arkasında kim var?',
+      a: 'Lade Stack, Kurucu ve Baş Yazılım Mimarı (Founder & Lead Software Architect) olarak görev yapan Girish Lade tarafından kurulmuş ve tasarlanmıştır. UI/UX tasarımı, ön uç ve arka uç mühendisliği, bulut mimarisi ve Üretken Yapay Zekâ alanlarındaki disiplinler arası birikimiyle Girish, ürün yönünü belirler ve gerçek mühendislik sorunlarını çözen araçlar inşa eder.'
+    },
+    {
+      q: 'Lade Stack’i diğer yazılım platformlarından farklı kılan nedir?',
+      a: 'Lade Stack, geçici popüler trendlerin peşinden koşmak veya hantal kurumsal yazılım paketleri oluşturmak yerine kurucu liderliğinde tasarım ile güçlü mühendisliği bir araya getirir. Araçlar; gereksiz hesap açma zorunlulukları, karmaşık ayarlar veya agresif satış baskısı olmadan hızlı, erişilebilir ve anında fayda sağlayacak biçimde tasarlanmıştır.'
+    },
+    {
+      q: 'Lade Stack ne tür ürünler geliştiriyor?',
+      a: 'Lade Stack odaklanmış geliştirici yardımcı programları, akıllı kod geliştirme araçları, istemci tarafında çalışan üretkenlik uygulamaları ve modern web yazılımları üretir. Ekosistemde CodeEnhance AI (tarayıcı içi kod düzenleme ve geliştirme), LS PDF Tools ve LS Image Studio (gizlilik odaklı yerel medya araçları), Swift Resume ve API Testing Platform gibi geliştirici araçları yer alır.'
+    },
+    {
+      q: 'Lade Stack yalnızca yazılım geliştiricilere özel mi inşa edildi?',
+      a: 'CodeEnhance AI, API Testing Platform ve teknik dokümantasyon gibi temel araçlarımız geliştirici öncelikli tasarlanmış olup geliştirme döngülerini hızlandırır ve tekrarlayan işleri azaltır. Bununla birlikte LS PDF Tools, LS Image Studio ve Swift Resume gibi üretkenlik araçları; öğrenciler, içerik üreticileri ve farklı sektörlerdeki profesyoneller için de son derece sezgisel ve kullanışlıdır.'
+    },
+    {
+      q: 'Lade Stack Üretken Yapay Zekâ’yı nasıl kullanıyor?',
+      a: 'Üretken Yapay Zekâ, makine zekâsının kod yapısı analizi, bağlamsal iyileştirme önerileri ve dokümantasyon özetleme gibi somut zaman kazandırdığı yerlerde pragmatik olarak entegre edilmiştir. Yapay zekâyı sadece bir pazarlama unsuru olarak kullanmaktan kaçınır, insan denetiminde gerçek katma değer sunan işlevlere odaklanırız.'
+    },
+    {
+      q: 'Lade Stack ürünleri tarayıcı tabanlı mı çalışır?',
+      a: 'Evet. Lade Stack uygulamalarının büyük bölümü doğrudan modern web tarayıcılarında çalışır, ağır yerel kurulumlar veya çalışma zamanı bağımlılıkları olmadan anında erişim sunar. Dosya ve görsel işleme dahil birçok araç, maksimum hız ve tam gizlilik için işlemleri bütünüyle cihazınızda yerel olarak gerçekleştirir.'
+    },
+    {
+      q: 'Lade Stack gerçekten tamamen ücretsiz mi?',
+      a: 'Evet. Lade Stack bünyesindeki temel geliştirici ve üretkenlik araçları; ödeme duvarları, gizli deneme süreleri veya kredi kartı zorunluluğu olmaksızın ücretsizdir. Amacımız, yüksek fayda sağlayan yazılımları dünyanın dört bir yanındaki geliştiriciler, öğrenciler ve üreticiler için erişilebilir kılmaktır.'
+    },
+    {
+      q: 'Lade Stack ürünlerinin tamamı açık kaynaklı mı?',
+      a: 'Lade Stack açık ve topluluk odaklı bir felsefeyi benimser; seçili araçlar, kütüphaneler ve rehberler GitHub üzerinde açık olarak paylaşılır. Ancak "ücretsiz kullanım", arka plandaki her servisin açık kaynaklı olduğu anlamına gelmez. Açık kaynaklı projelerimizi doğrudan Girish Lade’in GitHub profilinden inceleyebilirsiniz.'
+    },
+    {
+      q: 'Lade Stack kullanıcı verilerini ve gizliliği nasıl ele alır?',
+      a: 'Gizlilik, mimari bir öncelik olarak kabul edilir. LS PDF Tools ve LS Image Studio gibi temel araçlar tüm işlemleri tarayıcınızda yerel olarak yürütür; dosyalarınız asla cihazınızdan dışarı çıkmaz. Çevrim içi servislerle etkileşime giren araçlarda ise veri işleme yalnızca o anki isteği yerine getirmekle sınırlıdır. Detaylar için ilgili ürün dokümantasyonunu inceleyebilirsiniz.'
+    },
+    {
+      q: 'Bir sorunla karşılaşırsam nasıl destek alabilirim?',
+      a: 'Bu sayfadaki iletişim formunu doldurarak veya admin@ladestack.in adresine e-posta göndererek doğrudan iletişime geçebilirsiniz. Tüm mesajlar bizzat Girish Lade tarafından incelenir. Resmi bir kurumsal SLA sunmasak da sorunları titizlikle araştırır ve yapıcı sorulara mümkün olan en kısa sürede yanıt veririz.'
+    },
+    {
+      q: 'Yeni bir özellik veya araç fikri önerebilir miyim?',
+      a: 'Evet, topluluk geri bildirimlerini içtenlikle teşvik ediyoruz. Fikirlerinizi iletişim formu üzerinden veya GitHub’da bir issue açarak iletebilirsiniz. Özellik talepleri; genel fayda, teknik uygulanabilirlik ve platform yol haritasıyla uyum kriterlerine göre değerlendirilir.'
+    },
+    {
+      q: 'Bir hata (bug) buldum, nasıl bildirmeliyim?',
+      a: 'Bir hata fark ederseniz lütfen iletişim formundan veya admin@ladestack.in adresinden bize iletin. Araç adını, tarayıcı ve işletim sistemi sürümünü, adımları ve varsa hata mesajlarını ya da ekran görüntülerini paylaşmanız, sorunu hızla tespit edip düzeltmemize yardımcı olur.'
+    },
+    {
+      q: 'Dokümantasyon ve kullanım rehberlerine nereden ulaşabilirim?',
+      a: 'Ayrıntılı rehberler, mimari incelemeler ve kurulum adımları Dokümanlar bölümümüzde (/docs) ve Lade Stack Blog’da yer almaktadır. İçerikler her yeni sürüm ve güncellemeyle birlikte düzenli olarak genişletilmektedir.'
+    },
+    {
+      q: 'Lade Stack kurumsal çözümler veya ekip planları sunuyor mu?',
+      a: 'Lade Stack şu anda kurucu liderliğinde yürütülen bağımsız bir platformdur; karmaşık kurumsal sözleşmeler veya sertifikalı kurumsal paketler yerine hafif ve yüksek performanslı web araçlarına odaklanmıştır. Ancak ekibinizin veya girişiminizin özel iş akışı ihtiyaçları veya entegrasyon soruları varsa konuşmak için bizimle iletişime geçebilirsiniz.'
+    },
+    {
+      q: 'Lade Stack ne inşa edeceğine nasıl karar verir?',
+      a: 'Ürün kararları; geliştiricilerin karşılaştığı gerçek darboğazlar, kullanıcı geri bildirimleri ve modern web teknolojileri ile Üretken Yapay Zekâ’nın sürtünmeyi somut şekilde azaltabileceği fırsatlar doğrultusunda alınır. Her araç şu temel soruyla başlar: Bu araç gerçekten zaman kazandırıyor ve önemli bir iş akışını kolaylaştırıyor mu?'
+    },
+    {
+      q: 'Lade Stack ile iş birliği yapabilir veya katkıda bulunabilir miyim?',
+      a: 'İş birliği fırsatları, teknik geri bildirimler ve düşünceli proje tartışmaları her zaman memnuniyetle karşılanır. Açık kaynaklı depolara katkıda bulunmak isteyen bir mühendis veya entegrasyonları konuşmak isteyen bir geliştiriciyseniz admin@ladestack.in üzerinden veya LinkedIn ve GitHub aracılığıyla bize ulaşabilirsiniz.'
+    }
   ],
   docsGroups: [
     { id: 'getting-started', title: 'Başlangıç', articles: [
