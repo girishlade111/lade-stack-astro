@@ -68,10 +68,74 @@ export const ptBR: LocaleContent = {
     { q: 'Onde aprendo boas práticas?', a: 'Comece pela Documentação e pelo Blog — mais de 27 guias cobrem desenvolvimento com IA de ponta a ponta.' }
   ],
   contactFaqs: [
-    { q: 'É mesmo grátis para sempre?', a: 'Sim. Toda ferramenta é grátis para sempre — sem planos, sem trial, sem cartão.' },
-    { q: 'O suporte responde rápido?', a: 'Operamos 24/7 e respondemos em horas pelo admin@ladestack.in.' },
-    { q: 'Posso pedir uma funcionalidade?', a: 'Com certeza — abra uma issue no GitHub ou mande mensagem abaixo.' },
-    { q: 'Tem solução enterprise?', a: 'Tem. Mande seus requisitos e desenhamos integrações e SLA sob medida.' }
+    {
+      q: 'O que é o Lade Stack?',
+      a: 'O Lade Stack é uma plataforma independente de software e tecnologia fundada na Índia, dedicada a criar ferramentas práticas para desenvolvedores, software com IA, produtos SaaS e aplicações web modernas. O foco da plataforma é eliminar o atrito dos fluxos de trabalho técnicos por meio de design de UI/UX bem pensado, engenharia limpa e automação direcionada.'
+    },
+    {
+      q: 'Quem está por trás do Lade Stack?',
+      a: 'O Lade Stack foi fundado e é arquitetado por Girish Lade, que atua como Fundador e Arquiteto-Chefe de Software (Founder & Lead Software Architect). Unindo uma bagagem multidisciplinar em design de UI/UX, engenharia frontend e backend, arquitetura em nuvem e IA Generativa, Girish define a direção dos produtos e constrói ferramentas para resolver problemas reais de engenharia.'
+    },
+    {
+      q: 'O que diferencia o Lade Stack de outras plataformas?',
+      a: 'Em vez de perseguir modismos especulativos ou criar suítes corporativas infladas, o Lade Stack é liderado pelo fundador e une design com engenharia robusta. As ferramentas são projetadas para serem rápidas, acessíveis e úteis imediatamente, sem barreiras de cadastro, configurações complexas ou tentativas forçadas de venda.'
+    },
+    {
+      q: 'Que tipos de produtos o Lade Stack constrói?',
+      a: 'O Lade Stack desenvolve utilitários focados para desenvolvedores, ferramentas inteligentes de aprimoramento de código, aplicativos de produtividade no lado do cliente e software web moderno. O ecossistema inclui o CodeEnhance AI (edição e aprimoramento de código no navegador), LS PDF Tools e LS Image Studio (utilitários de mídia privados que rodam localmente), Swift Resume e ferramentas para desenvolvedores como a API Testing Platform.'
+    },
+    {
+      q: 'O Lade Stack é voltado exclusivamente para desenvolvedores?',
+      a: 'Muitas de nossas ferramentas principais — como o CodeEnhance AI, a API Testing Platform e a documentação técnica — foram pensadas primeiro para desenvolvedores, acelerando ciclos de entrega e eliminando tarefas repetitivas. No entanto, utilitários de produtividade como o LS PDF Tools, o LS Image Studio e o Swift Resume foram feitos para serem igualmente intuitivos e valiosos para estudantes, criadores e profissionais de diversas áreas.'
+    },
+    {
+      q: 'Como o Lade Stack utiliza Inteligência Artificial Generativa?',
+      a: 'A IA Generativa é integrada de forma pragmática, apenas onde a inteligência de máquina traz ganhos comprovados de agilidade — como na análise de estruturas de código, sugestões contextuais e automação de documentação. Evitamos colocar IA apenas como enfeite e focamos em assistência real e supervisionada por humanos que economize tempo.'
+    },
+    {
+      q: 'Os produtos do Lade Stack funcionam no navegador?',
+      a: 'Sim. A grande maioria das aplicações do Lade Stack roda diretamente nos navegadores web modernos, proporcionando acesso instantâneo sem instalações pesadas ou dependências locais. Várias ferramentas, incluindo as de manipulação de arquivos e imagens, executam todo o processamento localmente no seu dispositivo, com máxima velocidade e privacidade.'
+    },
+    {
+      q: 'O Lade Stack é realmente gratuito?',
+      a: 'Sim. As principais ferramentas de desenvolvimento e produtividade do Lade Stack são totalmente gratuitas, sem paywalls, períodos de teste ocultos ou necessidade de cadastrar cartão de crédito. Nosso objetivo é manter softwares de alta utilidade acessíveis a desenvolvedores, estudantes e criadores em qualquer lugar do mundo.'
+    },
+    {
+      q: 'Todos os produtos do Lade Stack são de código aberto?',
+      a: 'O Lade Stack adota uma filosofia aberta e voltada para a comunidade, disponibilizando ferramentas, bibliotecas e tutoriais selecionados no GitHub. No entanto, ser gratuito para usar não significa que todos os serviços internos sejam de código aberto. Você pode conferir os repositórios públicos diretamente no perfil do GitHub de Girish Lade.'
+    },
+    {
+      q: 'Como o Lade Stack lida com privacidade e dados do usuário?',
+      a: 'A privacidade é tratada como prioridade arquitetural. Ferramentas essenciais como o LS PDF Tools e o LS Image Studio processam arquivos localmente no navegador, ou seja, seus dados nunca saem da sua máquina. Para ferramentas com serviços online, o tratamento de dados se limita estritamente ao atendimento da solicitação atual. Consulte a documentação de cada produto para obter detalhes.'
+    },
+    {
+      q: 'Como posso obter suporte se encontrar algum problema?',
+      a: 'Você pode entrar em contato diretamente pelo formulário desta página ou enviar um e-mail para admin@ladestack.in. Todas as mensagens são lidas diretamente por Girish Lade. Embora não tenhamos um SLA corporativo formal, investigamos problemas com atenção e respondemos a dúvidas construtivas com a maior agilidade possível.'
+    },
+    {
+      q: 'Posso sugerir uma nova funcionalidade ou ferramenta?',
+      a: 'Sim, o feedback da comunidade é muito bem-vindo. Você pode enviar ideias e sugestões pelo formulário de contato ou abrindo uma issue no GitHub. As sugestões são avaliadas com base na utilidade prática, viabilidade técnica e alinhamento com a evolução da plataforma.'
+    },
+    {
+      q: 'Encontrei um bug. Qual é a melhor forma de relatar?',
+      a: 'Caso encontre alguma falha, envie os detalhes pelo formulário de contato ou pelo e-mail admin@ladestack.in. Informar o nome da ferramenta, navegador, sistema operacional, passos para reproduzir o erro e prints ou mensagens de erro nos ajuda a investigar e corrigir rapidamente.'
+    },
+    {
+      q: 'Onde encontro documentação e tutoriais de uso?',
+      a: 'Guias aprofundados, explicações de arquitetura e instruções de configuração estão disponíveis na seção de Documentação (/docs) e no Blog do Lade Stack. Os conteúdos são constantemente atualizados a cada novo lançamento.'
+    },
+    {
+      q: 'O Lade Stack oferece soluções corporativas ou planos para equipes?',
+      a: 'O Lade Stack é atualmente uma plataforma independente liderada pelo fundador, focada em ferramentas web leves e eficientes, sem contratos corporativos complexos ou certificações enterprise. No entanto, se sua equipe ou startup tiver necessidades específicas ou dúvidas sobre integrações personalizadas, fique à vontade para entrar em contato e conversar.'
+    },
+    {
+      q: 'Como o Lade Stack decide o que construir a seguir?',
+      a: 'As decisões de produto são orientadas pelos gargalos reais enfrentados pelos desenvolvedores, pelo feedback dos usuários e por oportunidades onde tecnologias web modernas e IA Generativa possam reduzir atritos. Cada ideia começa com uma pergunta objetiva: isso realmente economiza tempo e simplifica uma tarefa essencial?'
+    },
+    {
+      q: 'Posso colaborar ou contribuir com o Lade Stack?',
+      a: 'Conversas sobre parcerias, feedback técnico e contribuições em código aberto são sempre bem-vindas. Se você é um desenvolvedor interessado em contribuir com os repositórios abertos ou um criador com ideias de integração, fale conosco pelo admin@ladestack.in ou conecte-se pelo LinkedIn e GitHub.'
+    }
   ],
   docsGroups: [
     { id: 'getting-started', title: 'Primeiros passos', articles: [
