@@ -34,7 +34,7 @@ const structuredData = {
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground">
+      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground break-words">
         {t('apps.heading')}
       </h1>
       <p class="mt-4 text-base sm:text-lg text-muted-foreground">
@@ -63,11 +63,11 @@ const structuredData = {
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="apps-grid">
+    <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="apps-grid">
       {
         apps.map((app) => (
           <div
-            class="app-card group p-8 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
+            class="app-card group p-6 sm:p-8 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
             data-category={app.category}
           >
             <div>
@@ -79,7 +79,7 @@ const structuredData = {
                   {app.displayCategory}
                 </span>
               </div>
-              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors break-words">
                 {app.title}
               </h2>
               <p class="text-xs font-semibold text-primary/80 mt-1">{app.tagline} · {c.appTime[app.timeToValue] ?? app.timeToValue}</p>
@@ -88,14 +88,14 @@ const structuredData = {
               <ul class="mt-6 space-y-2 text-xs text-muted-foreground">
                 {app.features.map((f: string) => (
                   <li class="flex items-center gap-2">
-                    <Icon name="lucide:check" class="w-3.5 h-3.5 text-primary" />
+                    <Icon name="lucide:check" class="w-3.5 h-3.5 text-primary shrink-0" />
                     <span>{f}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div class="mt-8 pt-6 border-t border-border/50 flex items-center justify-between">
+            <div class="mt-8 pt-6 border-t border-border/50 flex items-center justify-between flex-wrap gap-2">
               <span class="text-xs font-bold text-primary px-2.5 py-1 rounded-md bg-primary/10">
                 {app.comingSoon ? t('apps.soonBadge') : t('apps.liveBadge')}
               </span>

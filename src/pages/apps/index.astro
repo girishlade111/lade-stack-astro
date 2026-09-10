@@ -31,10 +31,10 @@ const structuredData = {
   structuredData={structuredData}
 >
   <div class="marketing-section-dark">
-    <div class="max-w-[1640px] mx-auto px-6">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <MonoEyebrow color="brand" class="mb-3">GALLERY</MonoEyebrow>
-        <h1 class="display-md text-on-primary mb-4">
+        <h1 class="display-md text-on-primary mb-4 break-words">
           Apps Gallery
         </h1>
         <p class="subtitle text-ash mb-8">
@@ -65,7 +65,7 @@ const structuredData = {
       </div>
 
       <!-- Apps Grid using feature-card-dark (#212121, 32px padding, 12px radius, 1px border) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="apps-grid">
+      <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="apps-grid">
         {
           apps.map((app) => (
             <div data-category={app.category} class="app-card flex">
@@ -75,9 +75,9 @@ const structuredData = {
                     <span class="mono-micro px-2 py-1 rounded-full bg-canvas border border-hairline-soft text-ash">
                       {app.displayCategory}
                     </span>
-                    <Icon name={app.icon} class="w-6 h-6 text-brand" />
+                    <Icon name={app.icon} class="w-6 h-6 text-brand shrink-0 ml-2" />
                   </div>
-                  <h2 class="heading-sm text-on-primary mb-2">
+                  <h2 class="heading-sm text-on-primary mb-2 break-words">
                     {app.title}
                   </h2>
                   <p class="caption text-brand/90 mb-3">{app.tagline} · {c.appTime[app.timeToValue] ?? app.timeToValue}</p>
@@ -87,14 +87,14 @@ const structuredData = {
                   <ul class="mt-6 space-y-2 caption text-ash">
                     {app.features.map((f: string) => (
                       <li class="flex items-center gap-2">
-                        <Icon name="lucide:check" class="w-3.5 h-3.5 text-success" />
+                        <Icon name="lucide:check" class="w-3.5 h-3.5 text-success shrink-0" />
                         <span>{f}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div class="mt-8 pt-6 border-t border-hairline-soft flex items-center justify-between">
+                <div class="mt-8 pt-6 border-t border-hairline-soft flex items-center justify-between flex-wrap gap-2">
                   <span class="mono-micro text-success">
                     {app.comingSoon ? 'Coming soon' : 'Free Forever'}
                   </span>

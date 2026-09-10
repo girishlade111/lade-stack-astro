@@ -27,35 +27,35 @@ const structuredData = {
   structuredData={structuredData}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
-    <h1 class="font-serif text-4xl md:text-6xl font-bold">{t('support.heading')}</h1>
+    <h1 class="font-serif text-4xl md:text-6xl font-bold break-words">{t('support.heading')}</h1>
     <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('support.subtitle')}</p>
 
-    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="mt-8 grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 gap-4">
       {topics.map((topic) => (
         <div class="rounded-2xl border border-border bg-card/60 p-5">
-          <h2 class="font-semibold">{topic.title}</h2>
-          <p class="mt-2 text-sm text-foreground/65">{topic.text}</p>
+          <h2 class="font-semibold break-words">{topic.title}</h2>
+          <p class="mt-2 text-sm text-foreground/65 leading-relaxed break-words">{topic.text}</p>
         </div>
       ))}
     </div>
 
-    <h2 class="font-serif text-2xl md:text-3xl font-bold mt-12">{t('support.faqTitle')}</h2>
+    <h2 class="font-serif text-2xl md:text-3xl font-bold mt-12 break-words">{t('support.faqTitle')}</h2>
     <div class="mt-5 grid lg:grid-cols-2 gap-3 items-start">
       {faqs.map((f) => (
         <details class="rounded-2xl border border-border bg-card/60 px-5 py-4 open:border-primary/40">
           <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3">
-            {f.q}
-            <span aria-hidden="true" class="text-primary text-xl leading-none">+</span>
+            <span class="break-words">{f.q}</span>
+            <span aria-hidden="true" class="text-primary text-xl leading-none shrink-0">+</span>
           </summary>
-          <p class="mt-3 text-sm text-foreground/65 leading-relaxed">{f.a}</p>
+          <p class="mt-3 text-sm text-foreground/65 leading-relaxed break-words">{f.a}</p>
         </details>
       ))}
     </div>
 
-    <div class="mt-10 rounded-3xl bg-brand text-white p-8 text-center">
-      <h2 class="font-serif text-2xl font-bold">{t('support.stillStuck')}</h2>
-      <p class="mt-2 text-white/85">{t('support.respondNote')}</p>
-      <a href={getLocalizedPath('/contact', lang)} class="mt-5 inline-flex h-11 px-7 items-center justify-center rounded-full bg-white text-ink font-semibold">{t('support.contactCta')}</a>
+    <div class="mt-10 rounded-3xl bg-brand text-white p-6 sm:p-8 text-center">
+      <h2 class="font-serif text-2xl font-bold break-words">{t('support.stillStuck')}</h2>
+      <p class="mt-2 text-white/85 max-w-xl mx-auto">{t('support.respondNote')}</p>
+      <a href={getLocalizedPath('/contact', lang)} class="mt-5 inline-flex h-11 px-7 items-center justify-center rounded-full bg-white text-ink font-semibold max-w-full">{t('support.contactCta')}</a>
     </div>
   </div>
 </BaseLayout>
