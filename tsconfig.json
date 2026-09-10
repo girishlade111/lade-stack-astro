@@ -10,6 +10,6 @@
     "skipLibCheck": true,
     "allowJs": true
   },
-  "include": ["src", "astro.config.mjs", "tailwind.config.mjs"],
+  "include": [".astro/types.d.ts", "src", "astro.config.mjs", "tailwind.config.mjs"],
   "exclude": ["dist", "node_modules"]
 }
