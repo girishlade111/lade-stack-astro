@@ -79,7 +79,8 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
           <li>
-            <a href={getLocalizedPath('/blog', lang)} class="caption text-ash hover:text-on-primary transition-colors">
+            <!-- Blog is English-only: canonical /blog, no locale prefix -->
+            <a href="/blog" class="caption text-ash hover:text-on-primary transition-colors">
               {t('nav.blog')}
             </a>
           </li>

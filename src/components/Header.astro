@@ -49,7 +49,7 @@ function isActive(path: string): boolean {
     <nav class="hidden sm:flex items-center gap-6" aria-label="Primary">
       {navLinks.map((link) => (
         <a
-          href={getLocalizedPath(link.path, lang)}
+          href={hrefFor(link)}
           aria-current={isActive(link.path) ? 'page' : undefined}
           class={`py-2 text-base font-medium transition-colors hover:text-ash ${
             isActive(link.path) ? 'text-on-primary font-semibold' : 'text-ash'
@@ -62,9 +62,11 @@ function isActive(path: string): boolean {
 
     <!-- Header Actions (Right) -->
     <div class="flex items-center gap-3">
-      <div class="hidden sm:flex items-center gap-2">
-        <LanguageSwitcher currentLang={lang} />
-      </div>
+      {!hideLanguageSwitcher && (
+        <div class="hidden sm:flex items-center gap-2">
+          <LanguageSwitcher currentLang={lang} />
+        </div>
+      )}
 
       <!-- button-primary CTA (white pill on dark canvas) -->
       <Button href={getLocalizedPath('/apps', lang)} variant="primary" class="text-sm !h-10 px-4">
@@ -97,7 +99,7 @@ function isActive(path: string): boolean {
     <div class="p-6 flex flex-col gap-3">
       {navLinks.map((link) => (
         <a
-          href={getLocalizedPath(link.path, lang)}
+          href={hrefFor(link)}
           data-mobile-link
           aria-current={isActive(link.path) ? 'page' : undefined}
           class={`py-3 text-base font-medium border-b border-hairline-soft/50 transition-colors ${
@@ -108,8 +110,14 @@ function isActive(path: string): boolean {
         </a>
       ))}
       <div class="pt-3 flex items-center justify-between text-sm text-ash">
-        <span>{t('common.language')}</span>
-        <LanguageSwitcher currentLang={lang} />
+        {hideLanguageSwitcher ? (
+          <span class="text-xs text-muted-foreground">Blog available in English</span>
+        ) : (
+          <>
+            <span>{t('common.language')}</span>
+            <LanguageSwitcher currentLang={lang} />
+          </>
+        )}
       </div>
     </div>
   </nav>

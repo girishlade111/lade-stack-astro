@@ -7,7 +7,8 @@ import fsSync from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-// Preload blog dates from frontmatter for accurate <lastmod>
+// Preload blog dates from frontmatter for accurate <lastmod>.
+// Prefers `updatedDate` (set only when a post is edited post-publish) over `pubDate`.
 const blogDates = new Map();
 try {
   const blogDir = path.resolve('src/content/blog');
@@ -17,13 +18,12 @@ try {
       if (file.endsWith('.md')) {
         const slug = file.replace(/\.md$/, '');
         const content = fsSync.readFileSync(path.join(blogDir, file), 'utf8');
-        const match = content.match(/pubDate:\s*([^\r\n]+)/);
-        if (match) {
-          const rawDate = match[1].trim().replace(/['"]/g, '');
-          const d = new Date(rawDate);
-          if (!isNaN(d.getTime())) {
-            blogDates.set(slug, d.toISOString());
-          }
+        const updatedMatch = content.match(/updatedDate:\s*([^\r\n]+)/);
+        const pubMatch = content.match(/pubDate:\s*([^\r\n]+)/);
+        const rawDate = ((updatedMatch && updatedMatch[1]) || (pubMatch && pubMatch[1]) || '').trim().replace(/['"]/g, '');
+        const d = new Date(rawDate);
+        if (rawDate && !isNaN(d.getTime())) {
+          blogDates.set(slug, d.toISOString());
         }
       }
     }
@@ -94,11 +94,18 @@ export default defineConfig({
           '/sitemap.xml',
           '/sitemap-index.xml'
         ];
-        return !excluded.some((path) => page.includes(path));
+        if (excluded.some((path) => page.includes(path))) return false;
+        const { pathname } = new URL(page);
+        // No /en/ prefixed duplicates (prefixDefaultLocale: false — English lives at root).
+        if (pathname === '/en' || pathname === '/en/' || pathname.startsWith('/en/')) return false;
+        // Blog is English-only: drop localized blog paths entirely (no hreflang signal).
+        if (/^\/(zh|ko|ja|tr|pt-BR)\/blog(\/|$)/.test(pathname)) return false;
+        return true;
       },
       serialize(item) {
         const urlObj = new URL(item.url);
         const pathname = urlObj.pathname.replace(/\/$/, '') || '/';
+        const isBlogUrl = pathname === '/blog' || /^\/blog\/\d+$/.test(pathname) || pathname.includes('/blog/');
 
         // 1. Assign Priority, Changefreq, and accurate Lastmod based on content hierarchy
         if (pathname === '/' || /^\/(zh|ko|ja|tr|pt-BR)$/.test(pathname)) {
@@ -109,9 +116,10 @@ export default defineConfig({
           item.priority = 0.9;
           item.changefreq = 'weekly';
           item.lastmod = new Date().toISOString();
-        } else if (/^\/(?:(zh|ko|ja|tr|pt-BR)\/)?blog$/.test(pathname)) {
-          item.priority = 0.8;
-          item.changefreq = 'daily';
+        } else if (/^\/blog(\/\d+)?$/.test(pathname)) {
+          // Paginated blog index (English only): lower than post pages (0.7).
+          item.priority = 0.6;
+          item.changefreq = 'weekly';
           item.lastmod = new Date().toISOString();
         } else if (pathname.includes('/blog/')) {
           item.priority = 0.7;

@@ -64,7 +64,8 @@ const displayDesc = description || currentError.desc;
 const quickLinks = [
   { title: t('nav.apps'), desc: 'Explore AI developer tools suite', path: '/apps', icon: 'lucide:layout-grid' },
   { title: t('nav.docs'), desc: 'SDK references & integration guides', path: '/docs', icon: 'lucide:book-open' },
-  { title: t('nav.blog'), desc: 'Engineering articles & architecture', path: '/blog', icon: 'lucide:newspaper' },
+  // Blog is English-only: canonical /blog regardless of locale.
+  { title: t('nav.blog'), desc: 'Engineering articles & architecture', path: '/blog', icon: 'lucide:newspaper', canonicalOnly: true },
   { title: t('nav.contact'), desc: '24/7 engineering support team', path: '/contact', icon: 'lucide:life-buoy' },
 ];
 ---
@@ -162,7 +163,7 @@ const quickLinks = [
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickLinks.map((item) => (
             <a
-              href={getLocalizedPath(item.path, lang)}
+              href={'canonicalOnly' in item && item.canonicalOnly ? item.path : getLocalizedPath(item.path, lang)}
               class="group block transition-all"
             >
               <FeatureCard variant="dark" class="!p-5 h-full flex flex-col justify-between group-hover:border-brand/60 transition-colors">
