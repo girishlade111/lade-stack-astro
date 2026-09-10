@@ -4,7 +4,7 @@ description: "HCL vs real programming languages for infrastructure, state manage
 pubDate: 2024-12-01
 author: "Girish Lade"
 category: "DevOps & CI/CD"
-readTime: "10 min read"
+readTime: 10
 coverImage: "/blog-covers/devops.svg"
 featured: false
 tags: ["IaC", "Terraform", "Pulumi"]

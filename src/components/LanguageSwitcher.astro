@@ -31,9 +31,6 @@ const currentPath = Astro.url.pathname;
 const currentLangMeta = languages[currentLang];
 // Canonical route without locale prefix — used for the route-existence map (A1).
 const currentRoute = getRouteFromUrl(Astro.url);
-const isEnglishOnlyRoute =
-  currentRoute === '/404' ||
-  ENGLISH_ONLY_ROUTES.some((r) => currentRoute === r || currentRoute.startsWith(r + '/'));
 
 /** A1: does `route` have a valid equivalent in `locale`? English-only routes never do. */
 function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {

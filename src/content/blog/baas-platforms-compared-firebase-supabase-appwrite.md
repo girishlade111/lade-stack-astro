@@ -4,7 +4,7 @@ description: "Honest comparison of Firebase, Supabase, and Appwrite on auth, dat
 pubDate: 2024-10-02
 author: "Girish Lade"
 category: "Backend as a Service"
-readTime: "10 min read"
+readTime: 10
 coverImage: "/blog-covers/baas.svg"
 featured: false
 tags: ["BaaS", "Firebase", "Supabase"]

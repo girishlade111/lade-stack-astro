@@ -137,6 +137,7 @@ const structuredData = {
       }
     </div>
     <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center text-muted-foreground">No articles match your search.</p></div>
+    <p data-blog-count class="sr-only" aria-live="polite"></p>
 
     <!-- Pagination Controls -->
     {page.lastPage > 1 && (
@@ -198,6 +199,7 @@ const structuredData = {
     const cards = document.querySelectorAll<HTMLElement>('.article-card');
     const pills = document.querySelectorAll<HTMLButtonElement>('.category-pill');
     const empty = document.querySelector<HTMLElement>('[data-blog-empty]');
+    const counter = document.querySelector<HTMLElement>('[data-blog-count]');
 
     let currentCategory = 'All';
     let currentQuery = '';
@@ -217,6 +219,7 @@ const structuredData = {
         if (matchesCat && matchesQuery) visible++;
       });
       if (empty) empty.classList.toggle('hidden', visible !== 0);
+      if (counter) counter.textContent = `${visible} article${visible === 1 ? '' : 's'} shown.`;
     }
 
     if (input) {

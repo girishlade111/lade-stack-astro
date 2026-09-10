@@ -109,7 +109,8 @@ export default defineConfig({
 
         // 1. Assign Priority, Changefreq, and accurate Lastmod based on content hierarchy
         // B5: content-derived dates only — never build-time `now`.
-        const STATIC_LASTMOD: Record<string, string> = {
+        /** @type {Record<string, string>} */
+        const STATIC_LASTMOD = {
           '/': '2026-09-01T00:00:00.000Z',
           apps: '2026-09-01T00:00:00.000Z',
           products: '2026-09-01T00:00:00.000Z',
@@ -119,7 +120,8 @@ export default defineConfig({
           contact: '2026-09-01T00:00:00.000Z',
           support: '2026-09-01T00:00:00.000Z',
         };
-        function staticLastmod(key: string): string {
+        /** @param {string} key @returns {string} */
+        function staticLastmod(key) {
           return STATIC_LASTMOD[key] ?? new Date('2026-09-01T00:00:00.000Z').toISOString();
         }
         if (pathname === '/' || /^\/(zh|ko|ja|tr|pt-BR)$/.test(pathname)) {

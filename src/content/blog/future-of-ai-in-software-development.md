@@ -4,7 +4,7 @@ description: "Explore how generative models, agentic workflows, and automated ve
 pubDate: 2025-01-15
 author: "Girish Lade"
 category: "AI Development"
-readTime: "8 min read"
+readTime: 8
 coverImage: "/blog-covers/ai-dev.svg"
 featured: true
 tags: ["AI", "LLMs", "DevTools", "Architecture"]

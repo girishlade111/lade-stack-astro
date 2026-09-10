@@ -4,7 +4,7 @@ description: "Registries, canary serving, feature stores, and rollback plans for
 pubDate: 2024-12-07
 author: "Girish Lade"
 category: "AI Production Systems"
-readTime: "12 min read"
+readTime: 12
 coverImage: "/blog-covers/ai-production.svg"
 featured: false
 tags: ["MLOps", "Deployment", "ML"]

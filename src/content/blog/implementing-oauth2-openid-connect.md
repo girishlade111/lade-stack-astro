@@ -4,7 +4,7 @@ description: "Authorization code with PKCE, token storage, rotation, and logout 
 pubDate: 2024-12-06
 author: "Girish Lade"
 category: "Security in Web Apps"
-readTime: "11 min read"
+readTime: 11
 coverImage: "/blog-covers/security.svg"
 featured: false
 tags: ["OAuth2", "OIDC", "Auth"]

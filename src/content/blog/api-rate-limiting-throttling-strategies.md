@@ -5,7 +5,7 @@ pubDate: 2024-11-05
 relatedApps: ["api-testing"]
 author: "Girish Lade"
 category: "API Design & Scaling"
-readTime: "8 min read"
+readTime: 8
 coverImage: "/blog-covers/api-design.svg"
 featured: false
 tags: ["Rate Limiting", "API", "Reliability"]

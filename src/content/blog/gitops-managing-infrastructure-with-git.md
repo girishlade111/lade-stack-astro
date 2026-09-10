@@ -4,7 +4,7 @@ description: "Declarative infrastructure with pull-request reviews, drift detect
 pubDate: 2024-11-25
 author: "Girish Lade"
 category: "DevOps & CI/CD"
-readTime: "9 min read"
+readTime: 9
 coverImage: "/blog-covers/devops.svg"
 featured: false
 tags: ["GitOps", "ArgoCD", "Kubernetes"]

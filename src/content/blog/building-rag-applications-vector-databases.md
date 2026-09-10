@@ -4,7 +4,7 @@ description: "End-to-end guide to retrieval-augmented generation: chunking, embe
 pubDate: 2024-08-05
 author: "Girish Lade"
 category: "Generative AI"
-readTime: "12 min read"
+readTime: 12
 coverImage: "/blog-covers/generative-ai.svg"
 featured: true
 tags: ["RAG", "Vector DB", "Embeddings"]

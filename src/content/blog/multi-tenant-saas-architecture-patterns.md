@@ -4,7 +4,7 @@ description: "Compare silo, pool, and bridge tenancy models with isolation, cost
 pubDate: 2024-08-30
 author: "Girish Lade"
 category: "SaaS Architecture"
-readTime: "10 min read"
+readTime: 10
 coverImage: "/blog-covers/saas-architecture.svg"
 featured: false
 tags: ["SaaS", "Multi-tenancy", "Architecture"]

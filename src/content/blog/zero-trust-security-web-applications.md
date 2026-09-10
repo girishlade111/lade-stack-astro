@@ -4,7 +4,7 @@ description: "Never trust, always verify: identity-aware proxies, short-lived cr
 pubDate: 2024-12-03
 author: "Girish Lade"
 category: "Security in Web Apps"
-readTime: "9 min read"
+readTime: 9
 coverImage: "/blog-covers/security.svg"
 featured: false
 tags: ["Zero Trust", "Security", "mTLS"]

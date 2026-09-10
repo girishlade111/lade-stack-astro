@@ -4,7 +4,7 @@ description: "CPU pinning, NUMA, storage queues, and noisy-neighbor defenses for
 pubDate: 2024-11-22
 author: "Girish Lade"
 category: "Virtual Machines"
-readTime: "9 min read"
+readTime: 9
 coverImage: "/blog-covers/virtual-machines.svg"
 featured: false
 tags: ["VMs", "Performance", "Tuning"]

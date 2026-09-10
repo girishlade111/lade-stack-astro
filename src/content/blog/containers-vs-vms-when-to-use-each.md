@@ -4,7 +4,7 @@ description: "Isolation, overhead, and operational trade-offs to pick containers
 pubDate: 2024-11-20
 author: "Girish Lade"
 category: "Virtual Machines"
-readTime: "7 min read"
+readTime: 7
 coverImage: "/blog-covers/virtual-machines.svg"
 featured: false
 tags: ["Containers", "VMs", "Docker"]

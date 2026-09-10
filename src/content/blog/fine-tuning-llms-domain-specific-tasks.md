@@ -4,7 +4,7 @@ description: "When to fine-tune vs prompt, how to prepare datasets, and LoRA wor
 pubDate: 2024-08-18
 author: "Girish Lade"
 category: "Generative AI"
-readTime: "11 min read"
+readTime: 11
 coverImage: "/blog-covers/generative-ai.svg"
 featured: false
 tags: ["Fine-tuning", "LoRA", "LLM"]

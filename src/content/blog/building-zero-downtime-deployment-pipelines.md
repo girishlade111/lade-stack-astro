@@ -4,7 +4,7 @@ description: "Blue-green, canary, and rolling strategies with health gates for d
 pubDate: 2024-11-28
 author: "Girish Lade"
 category: "DevOps & CI/CD"
-readTime: "10 min read"
+readTime: 10
 coverImage: "/blog-covers/devops.svg"
 featured: true
 tags: ["Deployments", "CI/CD", "Reliability"]

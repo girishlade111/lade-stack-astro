@@ -5,7 +5,7 @@ pubDate: 2024-10-28
 relatedApps: ["api-testing"]
 author: "Girish Lade"
 category: "API Design & Scaling"
-readTime: "9 min read"
+readTime: 9
 coverImage: "/blog-covers/api-design.svg"
 featured: false
 tags: ["REST", "GraphQL", "API Design"]

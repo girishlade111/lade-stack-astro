@@ -101,7 +101,7 @@ const structuredData = {
               </span>
               {app.comingSoon || !app.landingUrl ? (
                 <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground" aria-disabled="true">
-                  <span>{t('apps.inProgress')} · Coming soon</span>
+                  <span>{t('apps.inProgress')} · {t('apps.soonBadge')}</span>
                 </span>
               ) : (
                 <a

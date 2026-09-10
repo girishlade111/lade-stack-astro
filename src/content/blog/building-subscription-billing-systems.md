@@ -4,7 +4,7 @@ description: "Design trials, proration, dunning, and webhooks for a billing syst
 pubDate: 2024-09-12
 author: "Girish Lade"
 category: "SaaS Architecture"
-readTime: "9 min read"
+readTime: 9
 coverImage: "/blog-covers/saas-architecture.svg"
 featured: false
 tags: ["Billing", "Subscriptions", "Stripe"]

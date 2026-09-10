@@ -4,7 +4,7 @@ description: "Caching, queuing, read replicas, and sharding — a staged playboo
 pubDate: 2024-09-25
 author: "Girish Lade"
 category: "SaaS Architecture"
-readTime: "12 min read"
+readTime: 12
 coverImage: "/blog-covers/saas-architecture.svg"
 featured: true
 tags: ["Scaling", "SaaS", "Performance"]

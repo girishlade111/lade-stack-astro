@@ -4,7 +4,7 @@ description: "Track quality, drift, cost, and latency for AI features with evals
 pubDate: 2024-12-08
 author: "Girish Lade"
 category: "AI Production Systems"
-readTime: "10 min read"
+readTime: 10
 coverImage: "/blog-covers/ai-production.svg"
 featured: false
 tags: ["Monitoring", "LLM", "Observability"]

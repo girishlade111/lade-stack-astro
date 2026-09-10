@@ -4,7 +4,7 @@ description: "A practical introduction to ML pipelines — data ingestion, train
 pubDate: 2024-07-10
 author: "Girish Lade"
 category: "AI Development"
-readTime: "9 min read"
+readTime: 9
 coverImage: "/blog-covers/ai-development.svg"
 featured: false
 tags: ["ML", "Pipelines", "Web Dev"]

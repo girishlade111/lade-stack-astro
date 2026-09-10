@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 const dist = path.join(__dirname, '..', 'dist');
-const locales = ['ko', 'ja', 'zh', 'tr', 'ru', 'pt-BR'];
+// Real production non-default locales (C8: retired stale 'ru' fixture).
+const locales = ['zh', 'ko', 'ja', 'tr', 'pt-BR'];
 // English UI copy that must never appear on localized CHROME (not bodies)
 const probes = [
   'Frequently Asked Questions',
@@ -75,6 +76,9 @@ for (const l of locales) {
     const p = path.join(dist, l, f);
     if (fs.existsSync(p)) blob += fs.readFileSync(p, 'utf8');
   }
+  // Strip HTML comments (structural notes like "Featured Card" per DESIGN.md)
+  // — they never render, so they can't be UI-string leaks.
+  blob = blob.replace(/<!--[\s\S]*?-->/g, '');
   // Strip article bodies? Listing pages have no bodies; readers excluded from this scan.
   for (const probe of probes) {
     if (blob.includes(probe)) leaks.push(`${l} :: ${probe}`);

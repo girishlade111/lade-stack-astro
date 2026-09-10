@@ -54,7 +54,7 @@ const structuredData = {
   datePublished: isoDate,
   dateModified: isoModified,
   author: { '@type': 'Person', name: post.data.author, url: 'https://ladestack.in/about' },
-  publisher: { '@type': 'Organization', name: 'Lade Stack', logo: { '@type': 'ImageObject', url: 'https://ladestack.in/logo-512.png', width: 512, height: 512 } },
+  publisher: { '@type': 'Organization', name: 'Lade Stack', logo: { '@type': 'ImageObject', url: 'https://ladestack.in/icon-512.png', width: 512, height: 512 } },
   articleSection: post.data.category,
   keywords: post.data.tags.join(', '),
   mainEntityOfPage: { '@type': 'WebPage', '@id': `https://ladestack.in/blog/${post.slug}` }
@@ -173,7 +173,7 @@ const structuredData = {
           </a>
         ))}
       </div>
-      <a href="/blog" class="mt-8 inline-flex items-center gap-2 font-semibold text-sage-600 dark:text-sage-400">← {t('blog.post.backToBlog')}</a>
+      <a href="/blog" class="mt-8 inline-flex items-center gap-2 font-semibold text-brand hover:underline">← {t('blog.post.backToBlog')}</a>
     </section>
   </article>
 </BaseLayout>

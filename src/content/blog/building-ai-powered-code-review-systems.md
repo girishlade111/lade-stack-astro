@@ -5,7 +5,7 @@ pubDate: 2024-06-28
 relatedApps: ["ai-code-viewer", "documentation-ai"]
 author: "Girish Lade"
 category: "AI Development"
-readTime: "10 min read"
+readTime: 10
 coverImage: "/blog-covers/ai-development.svg"
 featured: false
 tags: ["AI", "Code Review", "DevOps"]

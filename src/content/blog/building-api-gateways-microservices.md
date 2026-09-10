@@ -5,7 +5,7 @@ pubDate: 2024-11-12
 relatedApps: ["api-testing"]
 author: "Girish Lade"
 category: "API Design & Scaling"
-readTime: "10 min read"
+readTime: 10
 coverImage: "/blog-covers/api-design.svg"
 featured: false
 tags: ["API Gateway", "Microservices", "Routing"]

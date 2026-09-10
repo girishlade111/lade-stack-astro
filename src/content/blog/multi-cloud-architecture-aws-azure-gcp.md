@@ -4,7 +4,7 @@ description: "When multi-cloud pays off, how to stay portable with containers an
 pubDate: 2024-11-18
 author: "Girish Lade"
 category: "Cloud Computing"
-readTime: "11 min read"
+readTime: 11
 coverImage: "/blog-covers/cloud-computing.svg"
 featured: false
 tags: ["Multi-cloud", "AWS", "Azure", "GCP"]

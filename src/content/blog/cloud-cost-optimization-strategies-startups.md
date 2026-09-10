@@ -4,7 +4,7 @@ description: "Rightsizing, commitments, storage lifecycles, and tagging discipli
 pubDate: 2024-11-15
 author: "Girish Lade"
 category: "Cloud Computing"
-readTime: "8 min read"
+readTime: 8
 coverImage: "/blog-covers/cloud-computing.svg"
 featured: false
 tags: ["Cloud", "Costs", "FinOps"]

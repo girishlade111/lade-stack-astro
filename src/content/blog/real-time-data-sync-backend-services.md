@@ -4,7 +4,7 @@ description: "Presence, live cursors, and collaborative editing with websockets,
 pubDate: 2024-10-18
 author: "Girish Lade"
 category: "Backend as a Service"
-readTime: "9 min read"
+readTime: 9
 coverImage: "/blog-covers/baas.svg"
 featured: false
 tags: ["Realtime", "WebSockets", "Sync"]

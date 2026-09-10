@@ -4,7 +4,7 @@ description: "Every OWASP Top 10 risk explained with vulnerable vs fixed code sa
 pubDate: 2024-12-05
 author: "Girish Lade"
 category: "Security in Web Apps"
-readTime: "14 min read"
+readTime: 14
 coverImage: "/blog-covers/security.svg"
 featured: true
 tags: ["OWASP", "Security", "Web"]

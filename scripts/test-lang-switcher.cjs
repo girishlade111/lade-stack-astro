@@ -53,7 +53,7 @@ function makeEl() {
 function makeRoot() {
   const btn = makeEl();
   const menu = makeEl();
-  const links = ['en', 'ru', 'ja'].map((code) => {
+  const links = ['en', 'zh', 'ja'].map((code) => {
     const a = makeEl();
     a.setAttribute('data-lang-link', code);
     a.setAttribute('href', code === 'en' ? '/about' : `/${code}/about`);
@@ -77,7 +77,7 @@ global.localStorage = {
   getItem: () => null,
   setItem: (k, v) => { store[k] = v; },
 };
-global.window = { location: { pathname: '/ru/about' } };
+global.window = { location: { pathname: '/zh/about' } };
 
 const instances = [makeRoot()];
 global.document = {
@@ -101,12 +101,12 @@ btn.fire('click', { stopPropagation: stopProp });
 assert('menu opens on click', !menu.classList.contains('hidden'));
 assert('aria-expanded true', btn.getAttribute('aria-expanded') === 'true');
 
-// 2. Hrefs rewritten from live /ru/about URL
+// 2. Hrefs rewritten from live /zh/about URL
 const byCode = {};
 links.forEach((a) => { byCode[a.getAttribute('data-lang-link')] = a.getAttribute('href'); });
 assert('en href -> /about', byCode.en === '/about');
 assert('ja href -> /ja/about', byCode.ja === '/ja/about');
-assert('ru href -> /ru/about', byCode.ru === '/ru/about');
+assert('zh href -> /zh/about', byCode.zh === '/zh/about');
 
 // 3. Second click closes
 btn.fire('click', { stopPropagation: stopProp });
@@ -119,6 +119,6 @@ assert('outside click closes', menu.classList.contains('hidden'));
 
 // 5. Link click persists preference
 links[1].fire('click', {});
-assert('locale persisted', store['ladestack-lang'] === 'ru');
+assert('locale persisted', store['ladestack-lang'] === 'zh');
 
 process.exit(pass ? 0 : 1);

@@ -9,6 +9,8 @@ interface Props {
   id?: string;
   ariaLabel?: string;
   disabled?: boolean;
+  /** Raw inline handler, passed straight through to the rendered element. */
+  onclick?: string;
 }
 
 const {
@@ -19,6 +21,7 @@ const {
   type = 'button',
   class: className = '',
   id,
+  onclick,
   ...rest
 } = Astro.props;
 
@@ -36,11 +39,11 @@ const classes = `${variantClasses[variant]} ${className}`.trim();
 
 {
   href ? (
-    <a href={href} target={target} rel={rel} class={classes} id={id} {...rest}>
+    <a href={href} target={target} rel={rel} class={classes} id={id} onclick={onclick} {...rest}>
       <slot />
     </a>
   ) : (
-    <button type={type} class={classes} id={id} {...rest}>
+    <button type={type} class={classes} id={id} onclick={onclick} {...rest}>
       <slot />
     </button>
   )

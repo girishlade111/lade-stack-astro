@@ -5,7 +5,7 @@ pubDate: 2024-07-22
 relatedApps: ["documentation-ai"]
 author: "Girish Lade"
 category: "Generative AI"
-readTime: "7 min read"
+readTime: 7
 coverImage: "/blog-covers/generative-ai.svg"
 featured: false
 tags: ["GenAI", "Content", "LLM"]

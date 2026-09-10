@@ -4,7 +4,7 @@ description: "Ship a production backend with zero servers: schema design, edge f
 pubDate: 2024-10-10
 author: "Girish Lade"
 category: "Backend as a Service"
-readTime: "8 min read"
+readTime: 8
 coverImage: "/blog-covers/baas.svg"
 featured: false
 tags: ["Serverless", "BaaS", "Backend"]
