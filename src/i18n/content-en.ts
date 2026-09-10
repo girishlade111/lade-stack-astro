@@ -1,7 +1,8 @@
 import type { LocaleContent } from './content-types';
 
 export const en: LocaleContent = {
-  metaDescription: 'Free AI developer tools: code review, PDF toolkit, resume builder & image studio. No signup, free forever.',
+  metaDescription:
+    'Lade Stack — Practical developer tools and AI engineering ecosystem founded by Girish Lade. High-speed code inspection, API testing, and file utilities. Free forever, no signup required.',
   testimonials: [
     {
       quote: 'CodeEnhance AI cut my frontend iteration time in half. The live AI suggestions feel like pair-programming with a senior dev.',
@@ -23,7 +24,7 @@ export const en: LocaleContent = {
     {
       title: 'CodeEnhance AI',
       tagline: 'Intelligent Code Viewer & Enhancer',
-      desc: 'Transform raw code into production-ready software with real-time AI linting, suggestions, and instant previews.',
+      desc: 'Inspect, debug, and enhance code with real-time AI linting, structural suggestions, and instant browser previews across web languages.',
       icon: 'lucide:code-xml',
       link: '/ai-code-viewer-ai',
       badge: 'Popular'
@@ -31,23 +32,23 @@ export const en: LocaleContent = {
     {
       title: 'API Testing Platform',
       tagline: 'Automated REST & GraphQL Testing',
-      desc: 'Generate automated validation suites, mock API responses, and run security benchmarks in seconds.',
+      desc: 'Validate request endpoints, inspect structured response payloads, debug headers, and verify API contracts directly in your browser.',
       icon: 'lucide:network',
       link: '/apps',
       badge: 'High Speed'
     },
     {
       title: 'Website Builder AI',
-      tagline: 'No-Code Semantic Generator',
-      desc: 'Generate modern, responsive web interfaces with semantic markup and export to standard HTML/CSS.',
+      tagline: 'Semantic Web Prototyper',
+      desc: 'Turn interface concepts into modern, responsive web prototypes with clean semantic HTML/CSS markup and zero unnecessary framework lock-in.',
       icon: 'lucide:layout-template',
       link: '/apps',
       badge: 'Zero Code'
     },
     {
       title: 'Secure File Hub',
-      tagline: 'Encrypted Developer File Sharing',
-      desc: 'Fast, secure temporary sharing for configuration files, credentials, and deployment archives.',
+      tagline: 'Developer File & Config Sharing',
+      desc: 'Fast, controlled temporary sharing for configuration files, credentials, environment variables, and deployment archives.',
       icon: 'lucide:shield-check',
       link: '/apps',
       badge: 'Encrypted'

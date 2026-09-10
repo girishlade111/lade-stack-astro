@@ -1,7 +1,8 @@
 import type { LocaleContent } from './content-types';
 
 export const zh: LocaleContent = {
-  metaDescription: '免费AI开发者工具：代码审查、PDF工具、简历生成与图片处理。免注册，永久免费。',
+  metaDescription:
+    'Lade Stack —— 由 Girish Lade 创办的实用开发者工具与 AI 工程生态。涵盖代码审查、API 测试及文件实用工具。永久免费，无需注册。',
   testimonials: [
     {
       quote: 'CodeEnhance AI 把我的前端迭代时间砍掉了一半。实时的 AI 建议，就像跟一位资深工程师结对编程。',
@@ -23,7 +24,7 @@ export const zh: LocaleContent = {
     {
       title: 'CodeEnhance AI',
       tagline: '智能代码查看与增强工具',
-      desc: '用实时 AI 检查、建议和即时预览，把粗糙代码打磨成生产级作品。',
+      desc: '借助实时 AI 代码审查、结构优化建议以及即时浏览器预览，快速调试并重构多种 Web 语言代码。',
       icon: 'lucide:code-xml',
       link: '/ai-code-viewer-ai',
       badge: '热门'
@@ -31,23 +32,23 @@ export const zh: LocaleContent = {
     {
       title: 'API Testing Platform',
       tagline: 'REST 与 GraphQL 自动化测试',
-      desc: '几秒钟生成自动化验证套件、Mock 接口响应，并跑完安全基准测试。',
+      desc: '直接在浏览器中验证请求端点、检查结构化响应载荷、调试请求标头并校验 API 契约规范。',
       icon: 'lucide:network',
       link: '/apps',
       badge: '极速'
     },
     {
       title: 'Website Builder AI',
-      tagline: '零代码语义化生成器',
-      desc: '生成现代化响应式界面，语义化标记，一键导出标准 HTML/CSS。',
+      tagline: '语义化网页原型生成器',
+      desc: '将交互构想迅速转化为兼具现代审美与响应式特性的网页原型，输出纯净的语义化 HTML/CSS 代码。',
       icon: 'lucide:layout-template',
       link: '/apps',
       badge: '零代码'
     },
     {
       title: 'Secure File Hub',
-      tagline: '加密的开发者文件共享',
-      desc: '配置文件、密钥、部署包，快速安全地临时分享。',
+      tagline: '开发者配置文件安全共享',
+      desc: '专为工程师打造的受控临时共享工具，安全分发配置文件、环境变量、凭据与部署构建产物。',
       icon: 'lucide:shield-check',
       link: '/apps',
       badge: '加密'

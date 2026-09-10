@@ -1,7 +1,8 @@
 import type { LocaleContent } from './content-types';
 
 export const ko: LocaleContent = {
-  metaDescription: '무료 AI 개발자 도구: 코드 리뷰, PDF 툴킷, 이력서 빌더와 이미지 스튜디오. 가입 없이 평생 무료.',
+  metaDescription:
+    'Lade Stack — Girish Lade가 구축한 실용적인 개발자 도구 및 AI 엔지니어링 생태계. 고성능 코드 검토, API 테스트, 파일 유틸리티를 회원가입 없이 평생 무료로 이용하세요.',
   testimonials: [
     {
       quote: 'CodeEnhance AI 덕분에 프론트엔드 작업 속도가 두 배가 됐어요. 실시간 AI 제안이 시니어 개발자와 페어 프로그래밍하는 느낌입니다.',
@@ -23,7 +24,7 @@ export const ko: LocaleContent = {
     {
       title: 'CodeEnhance AI',
       tagline: '지능형 코드 뷰어와 개선 도구',
-      desc: '실시간 AI 린팅과 제안, 즉시 미리보기로 날것의 코드를 프로덕션 수준으로 바꿔보세요.',
+      desc: '실시간 AI 코드 린팅과 구조적 개선 제안, 브라우저 즉시 미리보기를 통해 웹 코드를 신속하게 디버깅하고 리팩터링하세요.',
       icon: 'lucide:code-xml',
       link: '/ai-code-viewer-ai',
       badge: '인기'
@@ -31,23 +32,23 @@ export const ko: LocaleContent = {
     {
       title: 'API Testing Platform',
       tagline: 'REST·GraphQL 자동 테스트',
-      desc: '자동 검증 스위트 생성, API 응답 모킹, 보안 벤치마크를 몇 초 만에 실행하세요.',
+      desc: '브라우저에서 직접 요청 엔드포인트를 검증하고, 구조화된 응답 페이로드를 검사하며, 헤더 디버깅과 API 규격을 점검하세요.',
       icon: 'lucide:network',
       link: '/apps',
       badge: '초고속'
     },
     {
       title: 'Website Builder AI',
-      tagline: '노코드 시맨틱 생성기',
-      desc: '시맨틱 마크업의 모던 반응형 웹 인터페이스를 만들고 표준 HTML/CSS로 내보내세요.',
+      tagline: '시맨틱 웹 프로토타이퍼',
+      desc: '인터페이스 아이디어를 깔끔한 시맨틱 HTML/CSS 마크업의 모던 반응형 웹 프로토타입으로 빠르게 구현해 보세요.',
       icon: 'lucide:layout-template',
       link: '/apps',
       badge: '노코드'
     },
     {
       title: 'Secure File Hub',
-      tagline: '암호화된 개발자 파일 공유',
-      desc: '설정 파일, 자격증명, 배포 아카이브를 빠르고 안전하게 임시 공유하세요.',
+      tagline: '개발자 파일 및 설정 공유',
+      desc: '설정 파일, 환경 변수, 보안 자격증명 및 배포 아티팩트를 엔지니어 간에 빠르고 통제된 방식으로 임시 공유하세요.',
       icon: 'lucide:shield-check',
       link: '/apps',
       badge: '암호화'
