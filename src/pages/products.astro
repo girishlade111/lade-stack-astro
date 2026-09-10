@@ -28,10 +28,10 @@ const structuredData = {
   structuredData={structuredData}
 >
   <div class="marketing-section-dark">
-    <div class="max-w-[1640px] mx-auto px-6">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <MonoEyebrow color="brand" class="mb-3">ECOSYSTEM</MonoEyebrow>
-        <h1 class="display-md text-on-primary mb-4">
+        <h1 class="display-md text-on-primary mb-4 break-words">
           Flagship AI Developer Tools
         </h1>
         <p class="subtitle text-ash">
@@ -39,7 +39,7 @@ const structuredData = {
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <div class="grid grid-cols-1 xs:grid-cols-2 gap-6 md:gap-8 mb-16">
         {
           products.map((p, index) => {
             const isBrandCard = index === 0;
@@ -52,7 +52,7 @@ const structuredData = {
                     </span>
                     <Icon name={p.icon} class="w-6 h-6 text-ink" />
                   </div>
-                  <h2 class="heading-md text-ink mb-2">
+                  <h2 class="heading-md text-ink mb-2 break-words">
                     {p.title}
                   </h2>
                   <p class="caption-tight text-ink/80 mb-3">{p.tagline}</p>
@@ -80,7 +80,7 @@ const structuredData = {
                     </span>
                     <Icon name={p.icon} class="w-6 h-6 text-brand" />
                   </div>
-                  <h2 class="heading-md text-on-primary mb-2">
+                  <h2 class="heading-md text-on-primary mb-2 break-words">
                     {p.title}
                   </h2>
                   <p class="caption-tight text-ash mb-3">{p.tagline}</p>

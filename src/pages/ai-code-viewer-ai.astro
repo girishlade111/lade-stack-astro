@@ -40,7 +40,7 @@ const structuredData = {
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 text-center">
     <p class="inline-block text-xs font-mono px-4 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">{t('aicode.badge')}</p>
-    <h1 class="font-serif text-4xl md:text-6xl font-bold mt-5 max-w-3xl mx-auto leading-tight">CodeEnhance AI</h1>
+    <h1 class="font-serif text-4xl md:text-6xl font-bold mt-5 max-w-3xl mx-auto leading-tight break-words">CodeEnhance AI</h1>
     <p class="mt-4 text-foreground/65 max-w-2xl mx-auto md:text-lg">{t('aicode.subtitle')}</p>
     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3">
       <a href="https://code.ladestack.in/" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 px-8 items-center justify-center rounded-full bg-brand text-white font-semibold hover:opacity-90">{t('aicode.ctaPrimary')} ↗</a>
@@ -61,7 +61,7 @@ const structuredData = {
   color: white;
   padding: 12px 28px;
   border-radius: 999px;
-&#125;}
+&#125;
 &lt;/style&gt;</code></pre>
         <div class="p-6 border-t md:border-t-0 md:border-l border-border flex items-center justify-center bg-primary/5">
           <span class="inline-flex h-12 px-8 items-center justify-center rounded-full text-white font-semibold" style="background:#6E8F6A">Ship it</span>
@@ -69,23 +69,23 @@ const structuredData = {
       </div>
     </div>
 
-    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+    <div class="mt-12 grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
       {features.map((f) => (
         <div class="rounded-2xl border border-border bg-card/60 p-6">
-          <h2 class="font-semibold">{f.title}</h2>
+          <h2 class="font-semibold break-words">{f.title}</h2>
           <p class="mt-2 text-sm text-foreground/65">{f.text}</p>
         </div>
       ))}
     </div>
 
-    <div class="mt-12 flex items-center justify-center gap-6 text-sm text-foreground/60">
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground/60">
       <span>★ 4.8 / 5</span><span>·</span><span>{t('aicode.reviews')}</span><span>·</span><span>{t('aicode.freeForever')}</span>
     </div>
 
     {blogPosts.length > 0 && (
       <div class="mt-12 rounded-3xl border border-border bg-card/60 p-6 sm:p-8 text-left">
-        <h2 class="font-serif text-2xl font-bold">From the blog</h2>
-        <div class="mt-5 grid sm:grid-cols-2 gap-4">
+        <h2 class="font-serif text-2xl font-bold break-words">From the blog</h2>
+        <div class="mt-5 grid grid-cols-1 xs:grid-cols-2 gap-4">
           {blogPosts.map((post) => (
             <a href={`/blog/${post.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all">
               <Image src={post.data.coverImage} alt={`${post.data.title} — blog cover`} width={600} height={192} loading="lazy" class="h-32 w-full object-cover" />
