@@ -138,37 +138,278 @@ export const en: LocaleContent = {
     }
   ],
   docsGroups: [
-    { id: 'getting-started', title: 'Getting Started', articles: [
-      { title: 'Quickstart: launch your first app', text: 'Open the Apps Gallery, pick a tool, and you are productive in under a minute — no signup required.' },
-      { title: 'Navigating the ecosystem', text: 'Home, Apps, Blog, Docs, and Support — how each surface fits your workflow.' }
-    ]},
-    { id: 'api-reference', title: 'API Reference', articles: [
-      { title: 'CodeEnhance AI usage', text: 'Paste HTML, CSS, or JS, choose enhance or explain, and export production-ready code.' },
-      { title: 'Rate limits & fair use', text: 'Generous free quotas with per-minute guards that keep the platform fast for everyone.' }
-    ]},
-    { id: 'integrations', title: 'Integrations', articles: [
-      { title: 'Export to GitHub & Vercel', text: 'Copy generated code straight into your repo or deploy previews in one click.' }
-    ]},
-    { id: 'tutorials', title: 'Tutorials', articles: [
-      { title: 'Build a landing page in 5 minutes', text: 'From prompt to published page using the Website Builder and Image Studio together.' }
-    ]},
-    { id: 'security', title: 'Security', articles: [
-      { title: 'Privacy by design', text: 'Client-side processing means your files never leave your browser for core tools.' }
-    ]},
-    { id: 'teams', title: 'Teams', articles: [
-      { title: 'Collaborating with shared links', text: 'Share outputs and templates with your team using portable JSON exports.' }
-    ]},
-    { id: 'data', title: 'Data Management', articles: [
-      { title: 'Exporting your work', text: 'Every tool supports copy, download, and markdown export — your data stays yours.' }
-    ]},
-    { id: 'deployment', title: 'Deployment', articles: [
-      { title: 'Self-hosting checklist', text: 'Static-first architecture makes mirroring Lade Stack tools straightforward.' }
-    ]}
+    {
+      id: 'getting-started',
+      title: 'Getting Started',
+      articles: [
+        {
+          title: 'What is Lade Stack?',
+          text: 'Lade Stack is an independent developer tools ecosystem and technical knowledge platform created by Girish Lade (Founder & Lead Software Architect). Built with a focus on clean implementation, high runtime performance, and practical automation, Lade Stack delivers focused web utilities, Generative AI developer tools, and privacy-first document helpers. Every tool runs directly in modern browsers without mandatory account creation or hidden subscriptions.'
+        },
+        {
+          title: 'Understanding the ecosystem',
+          text: 'The Lade Stack ecosystem consists of five core surfaces designed to support builders throughout the development lifecycle: Home provides high-level platform direction; the Apps Gallery (/apps) offers immediate access to production tools; the Blog (/blog) delivers deep-dive architectural engineering guides; Docs (/docs) serves as the technical reference hub; and Support (/support) provides direct engineering assistance and comprehensive FAQs.'
+        },
+        {
+          title: 'Quickstart: launch your first app',
+          text: 'Getting started with Lade Stack takes less than thirty seconds. Navigate to the Apps Gallery, select a tool such as CodeEnhance AI or LS PDF Tools, and begin working immediately. Core utilities execute client-side inside your browser sandbox using web standards, requiring zero installation, zero environment setup, and zero credit card registration.'
+        },
+        {
+          title: 'Navigating the workspace & apps',
+          text: 'The Apps Gallery organizes tools into logical operational domains: AI Tools (CodeEnhance AI, visual API testers, and upcoming documentation utilities), Productivity (LS PDF Tools, LS Image Studio, Swift Resume), and Utilities (Bharat Land Records, file workflows). Each application card highlights instantaneous time-to-value, supported integrations, and direct launch URLs.'
+        },
+        {
+          title: 'Understanding products & tools',
+          text: 'Lade Stack provides dedicated web applications tailored to specific workflows: CodeEnhance AI (code.ladestack.in) provides real-time HTML/CSS/JS editing with AST-grounded refactoring; LS PDF Tools (pdf.ladestack.in) handles client-side merging, splitting, and compression without uploading files; LS Image Studio (img.ladestack.in) converts and compresses modern web formats; and Swift Resume (resume.ladestack.in) creates ATS-friendly engineering resumes.'
+        },
+        {
+          title: 'Core builder workflow',
+          text: 'The recommended builder workflow follows four progressive stages: 1. Input: Paste rough code, load documents, or configure parameters directly into the browser. 2. Process: Utilize real-time client compilation or AI-assisted enhancement. 3. Preview: Validate results instantly in sandboxed DOM frames or live layout viewers. 4. Export: Copy clean code or download portable files straight to your local development environment.'
+        },
+        {
+          title: 'First successful project',
+          text: 'To achieve your first win with Lade Stack: launch CodeEnhance AI, paste an unstyled HTML button or navigation snippet, click Enhance to generate clean, accessible CSS and semantic markup, preview the interactive output in the live sandbox, and click Copy to transfer production-ready code directly into your project codebase.'
+        },
+        {
+          title: 'Where to go next',
+          text: 'After exploring your first tool, delve into our deep-dive engineering articles on the Blog (/blog) covering generative AI integration, modern Astro architecture, and frontend performance. For custom feature requests, bug reports, or technical discussions, connect directly with Girish Lade via admin@ladestack.in or GitHub.'
+        }
+      ]
+    },
+    {
+      id: 'api-reference',
+      title: 'API Reference',
+      articles: [
+        {
+          title: 'API overview & conventions',
+          text: 'Lade Stack APIs and microservices are built around standard HTTP/REST patterns and stateless execution models. Endpoints adhere to predictable web conventions: UTF-8 JSON payloads, standard HTTP status verbs (GET, POST), semantic error envelopes, and consistent header requirements (Content-Type: application/json). Our services prioritize lightweight payloads and minimal latency.'
+        },
+        {
+          title: 'Authentication & public access model',
+          text: 'In alignment with Lade Stack\'s free-forever developer pledge, core interactive web utilities and code review features operate with frictionless public access. Standard in-browser workflows do not require proprietary API keys, bearer tokens, or user session credentials. Requests are authenticated and protected at the network boundary using origin checks and fair-use rate limiting.'
+        },
+        {
+          title: 'Request & response formats',
+          text: 'All machine-readable requests and responses exchange UTF-8 encoded JSON. Successful requests return a 200 OK status code with structured payload fields. In the event of an operational anomaly, responses return standard HTTP error status codes (400 Bad Request, 429 Too Many Requests, or 500 Internal Error) accompanied by a structured JSON body containing error code, descriptive message, and actionable resolution hints.'
+        },
+        {
+          title: 'CodeEnhance AI request workflow',
+          text: 'When you trigger an enhancement or explanation in CodeEnhance AI, the workflow operates deterministically: 1. The client captures the code snippet and active language mode (HTML, CSS, or JS). 2. Input undergoes syntax validation and length checks. 3. The request is transmitted over TLS to the processing engine. 4. The system parses the code AST, generates optimized refactorings, and formats code with clean indentation. 5. The enhanced code returns to the editor with syntax-highlighted live diffs.'
+        },
+        {
+          title: 'Input & output specifications',
+          text: 'CodeEnhance AI accepts valid HTML5 markup, modern CSS3 (including custom properties and flex/grid rules), and ES6+ JavaScript. To ensure predictable processing, input snippets should contain clean text without binary sequences. The generated output delivers standards-compliant, semantic code optimized for readability, accessibility attributes, and performance without injecting proprietary framework wrappers.'
+        },
+        {
+          title: 'Error handling & status indicators',
+          text: 'Service responses follow standard HTTP semantics: 400 indicates malformed JSON or unsupported input encoding; 413 indicates payload size exceeds maximum single-request boundaries; 429 indicates that burst rate limit thresholds have been exceeded; and 504 indicates an upstream processing timeout. When an error occurs, the UI displays a clear explanation and suggested remedy rather than opaque error codes.'
+        },
+        {
+          title: 'Rate limits & fair-use principles',
+          text: 'To ensure high availability and sub-second response times for developers worldwide, Lade Stack implements fair-use burst rate guards. Quotas are allocated dynamically on a per-minute rolling window based on client origin. These safeguards protect infrastructure against automated abuse and denial-of-service attempts while ensuring generous bandwidth for authentic development work.'
+        },
+        {
+          title: 'Troubleshooting API connectivity',
+          text: 'If an API request or code enhancement fails: 1. Verify your network connectivity and confirm your firewall allows outbound HTTPS traffic to ladestack.in domains. 2. Check that aggressive browser extensions or ad-blockers are not intercepting standard Fetch requests. 3. Ensure your input snippet does not exceed character limits. 4. If receiving a 429 status, wait sixty seconds before retrying.'
+        }
+      ]
+    },
+    {
+      id: 'integrations',
+      title: 'Integrations',
+      articles: [
+        {
+          title: 'Export to GitHub & version control',
+          text: 'Lade Stack tools emphasize seamless integration with Git version control workflows. Code generated in CodeEnhance AI or crafted in our tools can be copied or downloaded directly into your local Git repository. Commit the clean source files directly to your feature branch (git add . && git commit -m "feat: add enhanced component") to maintain full version history.'
+        },
+        {
+          title: 'Clean source code export',
+          text: 'Unlike platforms that trap users behind proprietary runtimes, Lade Stack enforces a strict zero-lock-in export philosophy. All exported code consists of standard HTML5, clean CSS, and modular TypeScript or JavaScript. You can drop exported files directly into any modern framework—including Astro, Next.js, Vite, or vanilla static setups—without modifying build configurations.'
+        },
+        {
+          title: 'Deploying previews to Vercel',
+          text: 'Deploying projects created with Lade Stack to Vercel takes minimal configuration: 1. Push your exported code to a GitHub repository. 2. Connect the repository in the Vercel dashboard. 3. Vercel automatically detects the framework (such as Astro or Vite) and configures the build command (npm run build) and output directory (dist). 4. Click Deploy to publish instant preview URLs and global edge production.'
+        },
+        {
+          title: 'Connecting frontend IDE workflows',
+          text: 'Exported snippets and templates integrate directly into your existing development environment. Open the exported folder in VS Code, Cursor, or WebStorm; install recommended formatters like Prettier; and run your local development server (npm run dev). Because Lade Stack outputs idiomatic, standards-compliant code, standard IDE intellisense, linting, and type-checking work out of the box.'
+        },
+        {
+          title: 'Integration troubleshooting',
+          text: 'If you encounter issues importing exported code into your project: 1. Verify that relative file paths to assets (images, stylesheets, fonts) align with your framework\'s public directory. 2. Ensure CSS custom properties do not conflict with existing global stylesheets. 3. Verify that your target browser support matches the modern CSS rules generated by our tools.'
+        }
+      ]
+    },
+    {
+      id: 'tutorials',
+      title: 'Tutorials',
+      articles: [
+        {
+          title: 'Build a landing page in 5 minutes',
+          text: 'Create a complete, responsive landing page in five steps: Step 1: Open CodeEnhance AI and draft your semantic page structure (hero section, feature grid, call to action). Step 2: Click Enhance to generate accessible styling, responsive CSS flexbox layouts, and clean visual hierarchy. Step 3: Open LS Image Studio (img.ladestack.in) to batch-compress hero and feature graphics into modern WebP format. Step 4: Paste the optimized image paths into your HTML markup. Step 5: Copy the final source code and deploy to your hosting platform.'
+        },
+        {
+          title: 'Refactor frontend code with CodeEnhance AI',
+          text: 'Transform legacy markup into modern, maintainable code: Step 1: Copy an outdated HTML/CSS snippet from an existing project. Step 2: Paste it into the CodeEnhance AI editor and select the HTML or CSS language tab. Step 3: Run the enhancement engine to review suggested improvements—including modern CSS variables, flexbox replacement of floats, and ARIA labels. Step 4: Inspect the live sandbox preview to verify visual integrity. Step 5: Export the refactored code directly to your codebase.'
+        },
+        {
+          title: 'Private PDF processing with LS PDF Tools',
+          text: 'Merge and compress documents with complete confidentiality: Step 1: Navigate to LS PDF Tools (pdf.ladestack.in). Step 2: Select the desired operation: Merge Multiple PDFs, Extract Pages, or Compress File Size. Step 3: Drag and drop your source PDF files directly into the browser window. Step 4: Adjust ordering or compression quality settings. Step 5: Click Process to execute the task client-side via WebAssembly. Step 6: Download your processed PDF immediately. No data ever leaves your computer.'
+        },
+        {
+          title: 'Batch image compression with LS Image Studio',
+          text: 'Optimize visual media for lightning-fast web performance: Step 1: Open LS Image Studio (img.ladestack.in). Step 2: Drop your PNG, JPEG, or WebP images into the batch processing dropzone. Step 3: Select target output formats (WebP or AVIF recommended for production web) and set desired compression thresholds. Step 4: Click Compress All to process files in parallel using in-browser Canvas and WebAssembly engines. Step 5: Download the resulting optimized archive.'
+        },
+        {
+          title: 'Create an ATS-friendly resume with Swift Resume',
+          text: 'Build an engineering resume that parses cleanly in applicant tracking systems: Step 1: Open Swift Resume (resume.ladestack.in). Step 2: Populate your profile sections: Contact Info, Technical Skills, Engineering Experience, and Education. Step 3: Choose an ATS-optimized typography and layout preset designed for high machine parseability. Step 4: Preview formatting in real time to ensure page-budget adherence. Step 5: Export a clean vector PDF formatted for direct submission.'
+        },
+        {
+          title: 'From web prototype to Git and live deployment',
+          text: 'Take an idea from initial prototype to a live production URL: Step 1: Refine your component or page in Lade Stack tools. Step 2: Download or copy the generated files into a new local directory. Step 3: Initialize a Git repository (git init && git add . && git commit -m "Initial commit"). Step 4: Create a new repository on GitHub and push your code. Step 5: Import the repository into Vercel or Cloudflare Pages for automated continuous deployments.'
+        }
+      ]
+    },
+    {
+      id: 'security',
+      title: 'Security',
+      articles: [
+        {
+          title: 'Privacy by design: in-browser processing',
+          text: 'Lade Stack\'s core architectural differentiator is privacy by design. Tools such as LS PDF Tools and LS Image Studio execute operations entirely within your browser using modern WebAssembly, the HTML5 File API, and client-side Canvas rendering. Your confidential files, sensitive documents, and proprietary images are never uploaded to, transmitted across, or stored upon external servers.'
+        },
+        {
+          title: 'Data handling & zero-retention policy',
+          text: 'For cloud-assisted tools such as CodeEnhance AI, data transmission is strictly transient and encrypted via TLS 1.3 in transit. Lade Stack maintains a rigorous zero-retention policy: code snippets submitted for analysis are processed in memory and returned immediately. We do not maintain user databases of processed snippets, nor do we track user identities across third-party websites.'
+        },
+        {
+          title: 'AI prompt privacy & code safety',
+          text: 'We respect developer intellectual property. Code snippets and technical prompts submitted to Lade Stack\'s AI-assisted utilities are never utilized to train, fine-tune, or reinforce machine learning models. Interactions are ephemeral, and queries are discarded immediately after response synthesis.'
+        },
+        {
+          title: 'Client execution safety & DOM sandboxing',
+          text: 'Live previews and dynamic rendering inside CodeEnhance AI execute within heavily restricted, sandboxed iframe environments. Sandboxing prevents executed scripts from accessing parent window cookies, localStorage, session tokens, or top-level navigation context. All user inputs undergo DOM sanitization to mitigate cross-site scripting (XSS) risks.'
+        },
+        {
+          title: 'User responsibility & environment hygiene',
+          text: 'While Lade Stack implements rigorous defensive engineering, developers should maintain secure operational habits: avoid pasting sensitive production API keys, database connection strings, or private cryptographic credentials into any browser tool. Ensure local browser extensions are vetted, and keep your host operating system and web browser updated.'
+        },
+        {
+          title: 'Reporting security vulnerabilities',
+          text: 'We take the security of our platform and users seriously. If you discover a potential security vulnerability, memory leak, or data leakage concern within any Lade Stack application, please report it directly to Girish Lade at admin@ladestack.in. Provide detailed steps to reproduce the issue, and we will acknowledge and triage reports promptly.'
+        }
+      ]
+    },
+    {
+      id: 'teams',
+      title: 'Teams',
+      articles: [
+        {
+          title: 'Collaborating with shared links',
+          text: 'Lade Stack supports lightweight, frictionless team collaboration using stateless URL parameter encoding. Configuration states, active template selections, and non-sensitive parameters can be encoded directly into shareable links. When a teammate opens the link, the tool hydrates the exact state instantly without requiring shared databases or team accounts.'
+        },
+        {
+          title: 'Portable JSON project exports',
+          text: 'For complex configurations and multi-file projects, Lade Stack utilities provide standardized JSON export and import capabilities. Export your project state into a portable .json file, check it into your team\'s Git repository, or share it via internal communication channels. Colleagues can load the JSON file to replicate your exact working state with zero discrepancies.'
+        },
+        {
+          title: 'Git-centric review workflows',
+          text: 'We advocate for version-controlled, asynchronous code reviews rather than siloed online workspaces. Code generated using Lade Stack should be integrated into pull requests where engineering teams can run automated CI/CD checks, unit tests, and peer reviews. This ensures team accountability, code quality, and maintainability across the software lifecycle.'
+        },
+        {
+          title: 'Code consistency & frontend standards',
+          text: 'Lade Stack tools output code that adheres to industry-standard frontend best practices: semantic HTML5 tags, BEM or utility CSS naming conventions, accessibility attributes (ARIA), and strict TypeScript typing. Teams can adopt these generated patterns as architectural baselines, reducing debate during pull request reviews and standardizing codebases.'
+        }
+      ]
+    },
+    {
+      id: 'data',
+      title: 'Data Management',
+      articles: [
+        {
+          title: 'Exporting your work & complete ownership',
+          text: 'At Lade Stack, you retain complete and unconditional ownership of everything you create. Every tool provides immediate export options: one-click copy to system clipboard, direct file download, and markdown generation. We impose no licensing restrictions, no watermarks, and no platform lock-in on your output.'
+        },
+        {
+          title: 'LocalStorage & client-side persistence',
+          text: 'To preserve your preferences without tracking you, Lade Stack utilizes browser localStorage on your local device. Settings such as color theme (dark/light mode), preferred display language, and temporary editor drafts are stored locally. This data remains on your machine and is never synced to external telemetry servers.'
+        },
+        {
+          title: 'Data lifecycle & instant memory cleanup',
+          text: 'Lade Stack tools are engineered for minimal memory footprints. Client-side file processing releases object URLs (URL.revokeObjectURL) and disposes of memory buffers as soon as processing completes. Closing a browser tab or clearing your browser site data completely purges all in-memory drafts and local caches.'
+        },
+        {
+          title: 'Moving projects across environments',
+          text: 'Transferring code from Lade Stack into your production pipeline is straightforward: export the raw HTML, CSS, or JS files; move them into your local project directory (such as a Next.js components/ folder, Astro src/components/, or standard static web server directory); and link them using standard relative module imports.'
+        },
+        {
+          title: 'Asset management & web media optimization',
+          text: 'When developing modern web applications, organizing static assets is critical for long-term maintainability. We recommend structuring exported media into dedicated directories (/public/images, /src/styles), converting legacy PNG/JPEG files to WebP or AVIF using LS Image Studio, and inlining critical SVG icons to reduce HTTP request overhead.'
+        }
+      ]
+    },
+    {
+      id: 'deployment',
+      title: 'Deployment',
+      articles: [
+        {
+          title: 'Static-first deployment architecture',
+          text: 'Lade Stack advocates for static-first web architecture. Pre-rendering pages into pure HTML, modern CSS, and minimal vanilla JavaScript eliminates runtime server vulnerabilities, reduces cloud hosting costs to zero, and ensures instantaneous global CDN caching. This documentation hub and the main platform are built with Astro 5 to demonstrate these principles.'
+        },
+        {
+          title: 'Production readiness checklist',
+          text: 'Before deploying any web project to production, complete this verification checklist: 1. Validate HTML semantics and verify all <img> tags have explicit alt, width, and height attributes. 2. Verify color contrast ratios satisfy WCAG AA accessibility standards. 3. Audit bundle sizes to ensure zero unnecessary framework runtime hydration. 4. Run automated Lighthouse audits to verify 100/100 performance scores.'
+        },
+        {
+          title: 'Deploying to Vercel, Cloudflare & Netlify',
+          text: 'Static sites generated with modern tooling deploy effortlessly across top-tier hosting providers. On Vercel, link your Git repository with zero configuration; on Cloudflare Pages, specify your build command (npm run build) and output folder (dist); on Netlify, drag and drop the dist/ folder or configure Git-based triggers. All providers deliver global edge CDN distribution with free automatic SSL.'
+        },
+        {
+          title: 'Environment configuration & build flags',
+          text: 'When building production applications, separate configuration from business logic using environment variables (.env). For static generation, ensure public variables are prefixed according to your framework conventions (e.g., PUBLIC_ in Astro). Configure production build flags to minify HTML, compress CSS, and generate XML sitemaps automatically.'
+        },
+        {
+          title: 'Core Web Vitals & runtime performance',
+          text: 'Achieving top-tier Core Web Vitals requires deliberate architectural choices: keep First Contentful Paint (FCP) under 0.8 seconds by minimizing render-blocking resources; maintain Cumulative Layout Shift (CLS) at 0.00 by reserving dimensions for images and banners; and minimize Largest Contentful Paint (LCP) by preloading critical web fonts and hero media.'
+        },
+        {
+          title: 'Deployment troubleshooting & asset paths',
+          text: 'Common deployment hurdles and their remedies: 1. Broken images or styling: verify that base path settings match your hosting subpath and that asset URLs use relative paths. 2. 404 errors on route navigation: ensure your static host is configured with single-page application fallback rules if using client routing. 3. Cache staleness: verify Cache-Control headers ensure quick propagation of new deployments.'
+        }
+      ]
+    }
   ],
   docsChangelog: [
-    { v: 'v2.4.0', date: '2026-08-20', text: 'Pure Astro rebuild with 7-language support and 100/100 Lighthouse.' },
-    { v: 'v2.3.0', date: '2024-11-30', text: 'Documentation AI beta and API Testing collections.' },
-    { v: 'v2.0.0', date: '2024-06-01', text: 'CodeEnhance AI general availability.' }
+    {
+      v: 'v2.4.0',
+      date: '2026-08-20',
+      text: 'Pure Astro 5 static architecture rebuild with 6-language internationalization, zero client framework runtime overhead, and 100/100 Lighthouse performance across all audits.'
+    },
+    {
+      v: 'v2.3.0',
+      date: '2024-11-30',
+      text: 'Documentation AI beta preview release and API Testing Platform interactive collections interface for visual endpoint debugging.'
+    },
+    {
+      v: 'v2.0.0',
+      date: '2024-06-01',
+      text: 'CodeEnhance AI general availability featuring real-time code editor, live DOM preview, and one-click AST-grounded enhancement.'
+    },
+    {
+      v: 'v1.5.0',
+      date: '2024-03-20',
+      text: 'Swift Resume launch featuring ATS-optimized templates, real-time live preview, and instant client-side vector PDF generation.'
+    },
+    {
+      v: 'v1.2.0',
+      date: '2023-09-01',
+      text: 'LS Image Studio release introducing private batch compression, format conversion (PNG, JPEG, WebP, AVIF), and dimension resizing.'
+    },
+    {
+      v: 'v1.0.0',
+      date: '2023-06-10',
+      text: 'LS PDF Tools launch marking the official unified release of client-side document processing utilities with zero server uploads.'
+    }
   ],
   timeline: [
     { year: '2020', title: 'The toolkit begins', text: 'Girish Lade starts building personal developer utilities — PDF, image, and code helpers.' },
