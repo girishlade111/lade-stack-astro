@@ -78,18 +78,26 @@ const currentLangMeta = languages[lang];
     : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
 />
 
-<!-- Canonical Tag -->
+<!-- Canonical Tag (self-referencing; blog posts exist in English only) -->
 <link rel="canonical" href={fullCanonical} />
+{prevUrl && <link rel="prev" href={prevUrl} />}
+{nextUrl && <link rel="next" href={nextUrl} />}
 
-<!-- International SEO: hreflang Alternates -->
+<!-- International SEO: hreflang Alternates (omitted on English-only pages) -->
 {
-  Object.keys(languages).map((loc) => {
-    const localizedHref = canonicalFor(loc as SupportedLocale);
-    return <link rel="alternate" hreflang={loc} href={localizedHref} />;
-  })
+  hreflang && (
+    <>
+      {
+        Object.keys(languages).map((loc) => {
+          const localizedHref = canonicalFor(loc as SupportedLocale);
+          return <link rel="alternate" hreflang={loc} href={localizedHref} />;
+        })
+      }
+      <!-- x-default points to default English route -->
+      <link rel="alternate" hreflang="x-default" href={canonicalFor(defaultLocale)} />
+    </>
+  )
 }
-<!-- x-default points to default English route -->
-<link rel="alternate" hreflang="x-default" href={canonicalFor(defaultLocale)} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
