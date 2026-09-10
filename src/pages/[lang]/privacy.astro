@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getContent } from '../../i18n/content';
 import { useTranslations } from '../../i18n/utils';
 import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
+import { getPageSEO, createBreadcrumbSchema } from '../../i18n/seo';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -11,21 +12,34 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
 const c = getContent(lang);
+const seo = getPageSEO('privacy', lang);
 const updated = '2026-09-09';
 const sections = c.privacy;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: seo.title,
+    url: `https://ladestack.in/${lang}/privacy`,
+    inLanguage: lang,
+    description: seo.description,
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: `https://ladestack.in/${lang}` },
+    { name: seo.breadcrumbName, url: `https://ladestack.in/${lang}/privacy` },
+  ]),
+];
 ---
 <BaseLayout
   lang={lang}
   path="/privacy"
-  title={`${c.footerLinks.privacy} - Lade Stack`}
-  description={t('privacy.desc')}
-  structuredData={{
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: `${c.footerLinks.privacy} — Lade Stack`,
-    url: `https://ladestack.in/${lang}/privacy`,
-    description: t('privacy.desc'),
-  }}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
+  structuredData={structuredData}
 >
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20">
     <h1 class="font-serif text-4xl md:text-5xl font-bold break-words">{c.footerLinks.privacy}</h1>

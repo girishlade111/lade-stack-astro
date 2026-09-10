@@ -4,6 +4,7 @@ import { useTranslations } from '@/i18n/utils';
 import { getContent } from '@/i18n/content';
 import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
 import Icon from '@/components/Icon.astro';
+import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -12,22 +13,55 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
 const c = getContent(lang);
+const seo = getPageSEO('contact', lang);
 
 const faqs = c.contactFaqs;
 
-const contactStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  name: 'Contact Lade Stack',
-  url: `https://ladestack.in/${lang}/contact`,
-  inLanguage: lang,
-  description: t('contact.subtitle')
-};
+const contactStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: seo.title,
+    url: `https://ladestack.in/${lang}/contact`,
+    inLanguage: lang,
+    description: seo.description,
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Lade Stack',
+      url: `https://ladestack.in/${lang}`,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'technical support',
+        email: 'admin@ladestack.in',
+        availableLanguage: ['English', 'Russian', 'Chinese', 'Korean', 'Japanese', 'Portuguese']
+      }
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    name: `${seo.breadcrumbName} FAQs`,
+    url: `https://ladestack.in/${lang}/contact`,
+    inLanguage: lang,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a }
+    }))
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: `https://ladestack.in/${lang}` },
+    { name: seo.breadcrumbName, url: `https://ladestack.in/${lang}/contact` },
+  ]),
+];
 ---
 
 <BaseLayout
-  title={`${t('contact.title')} | Lade Stack`}
-  description={t('contact.subtitle')}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={lang}
   path="/contact"
   structuredData={contactStructuredData}

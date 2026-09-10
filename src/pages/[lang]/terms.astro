@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getContent } from '../../i18n/content';
 import { useTranslations } from '../../i18n/utils';
 import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
+import { getPageSEO, createBreadcrumbSchema } from '../../i18n/seo';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -11,10 +12,35 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
 const c = getContent(lang);
+const seo = getPageSEO('terms', lang);
 const updated = '2026-09-09';
 const sections = c.terms;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: seo.title,
+    url: `https://ladestack.in/${lang}/terms`,
+    inLanguage: lang,
+    description: seo.description,
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: `https://ladestack.in/${lang}` },
+    { name: seo.breadcrumbName, url: `https://ladestack.in/${lang}/terms` },
+  ]),
+];
 ---
-<BaseLayout lang={lang} path="/terms" title={`${c.footerLinks.terms} - Lade Stack`} description={t('terms.desc')}>
+<BaseLayout
+  lang={lang}
+  path="/terms"
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
+  structuredData={structuredData}
+>
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20">
     <h1 class="font-serif text-4xl md:text-5xl font-bold break-words">{c.footerLinks.terms}</h1>
     <p class="mt-3 text-sm text-foreground/55">{t('legal.lastUpdated')}: {updated}</p>

@@ -5,6 +5,7 @@ import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
 import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Icon from '@/components/Icon.astro';
+import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -15,24 +16,33 @@ const c = getContent(lang);
 const about = c.aboutPage;
 const timeline = c.timeline;
 const stack = ['TypeScript', 'Astro', 'Python', 'AI Systems', 'Tailwind CSS', 'PostgreSQL'];
+const seo = getPageSEO('about', lang);
 
-const aboutStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Girish Lade',
-  jobTitle: about.founderRole,
-  url: `https://ladestack.in/${lang}/about`,
-  inLanguage: lang,
-  sameAs: [
-    'https://github.com/girishlade111',
-    'https://www.linkedin.com/in/girish-lade-075bba201/',
-  ],
-  worksFor: {
-    '@type': 'Organization',
-    name: 'Lade Stack',
-    url: `https://ladestack.in/${lang}`,
+const aboutStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Girish Lade',
+    jobTitle: about.founderRole,
+    url: `https://ladestack.in/${lang}/about`,
+    inLanguage: lang,
+    sameAs: [
+      'https://github.com/girishlade111',
+      'https://www.linkedin.com/in/girish-lade-075bba201/',
+      'https://www.instagram.com/girish_lade_/',
+      'https://codepen.io/Girish-Lade-the-looper'
+    ],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Lade Stack',
+      url: `https://ladestack.in/${lang}`,
+    },
   },
-};
+  createBreadcrumbSchema([
+    { name: 'Home', url: `https://ladestack.in/${lang}` },
+    { name: seo.breadcrumbName, url: `https://ladestack.in/${lang}/about` },
+  ]),
+];
 ---
 
 <BaseLayout
