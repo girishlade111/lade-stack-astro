@@ -1,18 +1,23 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations } from '@/i18n/utils';
+import { getContent } from '@/i18n/content';
 import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Icon from '@/components/Icon.astro';
 
-const defaultLang = 'en' as const;
-const t = useTranslations(defaultLang);
+const lang = 'en' as const;
+const t = useTranslations(lang);
+const c = getContent(lang);
+const about = c.aboutPage;
+const timeline = c.timeline;
+const stack = ['TypeScript', 'Astro', 'Python', 'AI Systems', 'Tailwind CSS', 'PostgreSQL'];
 
 const aboutStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Girish Lade',
-  jobTitle: 'Founder & Lead Software Architect',
+  jobTitle: about.founderRole,
   url: 'https://ladestack.in/about',
   sameAs: [
     'https://github.com/girishlade111',
@@ -24,38 +29,13 @@ const aboutStructuredData = {
     url: 'https://ladestack.in',
   },
 };
-
-const stack = ['TypeScript', 'Astro', 'Python', 'AI Systems', 'Tailwind CSS', 'PostgreSQL'];
-
-const timeline = [
-  {
-    year: '2020',
-    title: 'The toolkit begins',
-    text: 'Started building personal developer utilities in India — focused PDF manipulation tools, image processors, and code helpers designed to eliminate repetitive friction in everyday engineering workflows.',
-  },
-  {
-    year: '2022',
-    title: 'Lade Stack takes shape',
-    text: 'Consolidated individual utilities into a unified brand under the Lade Stack identity, establishing a cohesive design system, shared architecture, and a commitment to accessible, free-forever developer tooling.',
-  },
-  {
-    year: '2024',
-    title: 'AI-powered ecosystem',
-    text: 'Expanded into intelligent workflows with the release of CodeEnhance AI, real-time code analysis tools, and in-depth technical guides spanning RAG architectures, full-stack development, and modern cloud deployment.',
-  },
-  {
-    year: '2026',
-    title: 'Pure Astro re-creation',
-    text: 'Engineered a complete static-first architectural rewrite using Astro 5, Vanilla TypeScript, and Tailwind CSS — achieving zero client runtime overhead, seamless multi-language internationalization, and perfect 100/100 Lighthouse performance.',
-  },
-];
 ---
 
 <BaseLayout
-  title="About Girish Lade — Founder, Software Architect & UI/UX Developer"
-  description="Personal profile, engineering philosophy, technical ecosystem, and journey of Girish Lade — UI/UX developer, software engineer, and Founder & Lead Software Architect of Lade Stack."
-  keywords="Girish Lade, Lade Stack founder, UI/UX developer, software engineer, Generative AI, cloud-native architecture, engineering philosophy"
-  lang={defaultLang}
+  title={`${about.metaTitle} | Lade Stack`}
+  description={about.metaDescription}
+  keywords={about.metaKeywords}
+  lang={lang}
   path="/about"
   structuredData={aboutStructuredData}
 >
@@ -63,12 +43,12 @@ const timeline = [
     <div class="max-w-4xl mx-auto px-6">
       <!-- Hero / Personal Introduction -->
       <div class="text-center mb-16">
-        <MonoEyebrow color="brand" class="mb-3">ABOUT THE BUILDER</MonoEyebrow>
+        <MonoEyebrow color="brand" class="mb-3">{about.heroEyebrow}</MonoEyebrow>
         <h1 class="display-md text-on-primary mb-4">
-          Crafting at the Intersection of Design, Engineering & AI
+          {about.heroTitle}
         </h1>
         <p class="subtitle text-ash max-w-2xl mx-auto leading-relaxed">
-          I am Girish Lade — a UI/UX developer, software engineer, and product builder based in India. I design and architect practical software products, developer utilities, and AI-powered systems built to remove friction and simplify complex workflows.
+          {about.heroSubtitle}
         </p>
       </div>
 
@@ -78,7 +58,7 @@ const timeline = [
           <div class="w-44 sm:w-52 aspect-[2/3] shrink-0 rounded-2xl border border-hairline-soft bg-canvas p-1.5 shadow-lg overflow-hidden flex items-center justify-center">
             <img
               src="/images/profile.png"
-              alt="Girish Lade - Founder & Lead Software Architect"
+              alt={about.imageAlt}
               width="1024"
               height="1536"
               class="w-full h-full object-contain rounded-xl"
@@ -89,14 +69,14 @@ const timeline = [
           <div>
             <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <h2 class="heading-md text-on-primary">Girish Lade</h2>
-              <span class="mono-micro text-mute">India</span>
+              <span class="mono-micro text-mute">{about.founderLocation}</span>
             </div>
-            <p class="mono-eyebrow text-brand mt-1">{t('about.role')}</p>
+            <p class="mono-eyebrow text-brand mt-1">{about.founderRole}</p>
             <p class="body text-ash mt-4 leading-relaxed">
-              I spend my time thinking across the entire lifecycle of software — from initial user experience and interaction design to cloud-native systems, backend architecture, and practical Generative AI integration.
+              {about.founderBio1}
             </p>
             <p class="body text-ash mt-3 leading-relaxed">
-              My motivation is straightforward: build useful, thoughtfully engineered software that feels effortless to use, regardless of how complex the underlying machinery might be.
+              {about.founderBio2}
             </p>
             <div class="flex items-center gap-3 mt-6">
               <a
@@ -124,320 +104,145 @@ const timeline = [
 
       <!-- Personal Story: Who I Am & The Builder's Evolution -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">WHO I AM</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-6">The Evolution of a Builder</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.storyEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-6">{about.storyTitle}</h2>
         <div class="space-y-4 body text-ash leading-relaxed">
-          <p>
-            I have always been driven by a fundamental curiosity about how things work under the surface, followed immediately by the urge to build them myself. For me, software has never been about choosing between being a visual designer or a backend engineer. My path naturally evolved across the entire spectrum: starting with visual design and frontend interfaces, moving deep into backend architectures and databases, exploring cloud infrastructure and DevOps, and now focusing on Generative AI and end-to-end product engineering.
-          </p>
-          <p>
-            Rather than treating these as separate disciplines, I view them as interrelated facets of one unified mindset. My UI/UX foundation trains me to empathize with the person sitting in front of the screen — questioning where cognitive friction arises, how intuitive an interface feels, and whether a task takes three clicks instead of one. Concurrently, my software engineering background ensures that the system behind that interface is robust, maintainable, performant, and architecturally clean.
-          </p>
-          <p>
-            When Generative AI emerged, it wasn't a diversion from this path; it became a natural amplifier. AI gives us entirely new interaction paradigms, but only when integrated with intention and grounded in practical product engineering.
-          </p>
+          {about.storyParagraphs.map((p) => (
+            <p>{p}</p>
+          ))}
         </div>
       </div>
 
       <!-- What I Build: Products & Problem Solving -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">WHAT I BUILD</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-4">Practical Software Engineered to Remove Friction</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.whatBuildEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-4">{about.whatBuildTitle}</h2>
         <p class="body text-ash leading-relaxed mb-8">
-          I am interested in building practical, production-ready software rather than accumulating theoretical prototypes. When I evaluate a project or product idea, the primary question I ask is: <em>What real bottleneck does this remove, and how does it make someone's workflow faster or more intuitive?</em>
+          {about.whatBuildSubtitle}
         </p>
         <div class="grid sm:grid-cols-2 gap-6">
-          <FeatureCard variant="dark">
-            <div class="mono-micro text-brand mb-3">01 / DEVELOPER UTILITIES</div>
-            <h3 class="heading-sm text-on-primary mb-2">AI-Powered Developer Tools</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Intelligent code assistants, real-time code enhancement tools, and automated API testing platforms designed to eliminate repetitive developer toil and accelerate shipping velocity.
-            </p>
-          </FeatureCard>
-
-          <FeatureCard variant="dark">
-            <div class="mono-micro text-brand mb-3">02 / SAAS & COLLABORATION</div>
-            <h3 class="heading-sm text-on-primary mb-2">Collaborative File & Cloud Systems</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Secure, temporary file-sharing utilities, document conversion suites, and lightweight cloud services focused on privacy, zero client bloat, and fast data transfer.
-            </p>
-          </FeatureCard>
-
-          <FeatureCard variant="dark">
-            <div class="mono-micro text-brand mb-3">03 / APPLICATION PLATFORMS</div>
-            <h3 class="heading-sm text-on-primary mb-2">Modern Web Applications</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Hyper-performant web interfaces and web applications built with semantic HTML, accessible interaction states, and zero-runtime client architectures.
-            </p>
-          </FeatureCard>
-
-          <FeatureCard variant="dark">
-            <div class="mono-micro text-brand mb-3">04 / WORKFLOW AUTOMATION</div>
-            <h3 class="heading-sm text-on-primary mb-2">AI-Assisted Workflows</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Intelligent automation layers that connect structured data, documentation generation, and developer tasks into frictionless, human-supervised pipelines.
-            </p>
-          </FeatureCard>
+          {about.whatBuildItems.map((item) => (
+            <FeatureCard variant="dark">
+              <div class="mono-micro text-brand mb-3">{item.num}</div>
+              <h3 class="heading-sm text-on-primary mb-2">{item.title}</h3>
+              <p class="body-sm text-ash leading-relaxed">{item.desc}</p>
+            </FeatureCard>
+          ))}
         </div>
       </div>
 
       <!-- UI/UX + Engineering Connection -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">INTEGRATED CRAFT</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-6">Why UI/UX and Engineering Are Inseparable</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.craftEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-6">{about.craftTitle}</h2>
         <div class="space-y-4 body text-ash leading-relaxed">
-          <p>
-            In many organizations, design and engineering operate on opposite sides of a divide — designers deliver mockups, and engineers write code to match them. I have always worked differently. To me, design is not superficial decoration applied after the engineering is complete, and engineering is not merely an invisible implementation detail.
-          </p>
-          <p>
-            User experience directly influences architecture: an interface requiring real-time responsiveness demands an event-driven or optimistic client architecture. Conversely, architecture dictates user experience: poorly structured APIs, slow database queries, or bloated client bundles will degrade the user experience no matter how polished the Figma file looks.
-          </p>
-          <p>
-            Performance is an essential UX requirement. Accessibility is a mark of engineering quality. When design and engineering are treated as a single unified discipline, the resulting software is leaner, more resilient, and immediately intuitive.
-          </p>
+          {about.craftParagraphs.map((p) => (
+            <p>{p}</p>
+          ))}
         </div>
       </div>
 
       <!-- Generative AI & Practical Systems -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">GENERATIVE AI</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-6">Practical Machine Intelligence, Grounded in Real Workflows</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.aiEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-6">{about.aiTitle}</h2>
         <div class="space-y-4 body text-ash leading-relaxed">
-          <p>
-            Generative AI represents one of my deepest areas of exploration. However, my interest is centered on practical utility rather than speculative hype. I am not interested in building superficial wrappers or claiming that AI solves every problem by default.
-          </p>
-          <p>
-            Instead, I focus on how Generative AI can fundamentally reshape software interaction:
-          </p>
+          {about.aiParagraphs.map((p) => (
+            <p>{p}</p>
+          ))}
         </div>
         <div class="grid sm:grid-cols-2 gap-4 mt-6">
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <h3 class="heading-sm text-on-primary text-base font-medium mb-1">Context-Aware Assistance</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Embedding language models directly into code viewers and developer tools to explain, refactor, and audit logic in place.
-            </p>
-          </div>
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <h3 class="heading-sm text-on-primary text-base font-medium mb-1">Intelligent Workflow Automation</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Replacing multi-step manual procedures with structured AI pipelines that extract, transform, and validate data with human oversight.
-            </p>
-          </div>
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <h3 class="heading-sm text-on-primary text-base font-medium mb-1">Semantic User Interfaces</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Designing interfaces that adapt dynamically to user intent, translating natural language into concrete software actions.
-            </p>
-          </div>
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <h3 class="heading-sm text-on-primary text-base font-medium mb-1">Developer-Centric Tooling</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Building utilities that handle documentation generation, automated test scaffolding, and schema validation so engineers can focus on creative architecture.
-            </p>
-          </div>
+          {about.aiPillars.map((pillar) => (
+            <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
+              <h3 class="heading-sm text-on-primary text-base font-medium mb-1">{pillar.title}</h3>
+              <p class="body-sm text-ash leading-relaxed">{pillar.text}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       <!-- Engineering Philosophy -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">PHILOSOPHY</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-6">Principles That Guide How I Build</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.philosophyEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-6">{about.philosophyTitle}</h2>
         <div class="space-y-6">
-          <div class="border-l-2 border-brand pl-4">
-            <h3 class="heading-sm text-on-primary text-lg font-medium">Simple interfaces over complex machinery</h3>
-            <p class="body-sm text-ash mt-1 leading-relaxed">
-              The true mark of thoughtful engineering is taking an inherently complex problem — distributed data, model inference, file encoding — and presenting it through an interface that feels straightforward, predictable, and calm.
-            </p>
-          </div>
-          <div class="border-l-2 border-brand pl-4">
-            <h3 class="heading-sm text-on-primary text-lg font-medium">Reduce cognitive overhead</h3>
-            <p class="body-sm text-ash mt-1 leading-relaxed">
-              Every tool should respect the user's mental energy. Software should minimize required configuration, avoid unnecessary setup friction, and never force a developer to remember what a well-designed system can handle automatically.
-            </p>
-          </div>
-          <div class="border-l-2 border-brand pl-4">
-            <h3 class="heading-sm text-on-primary text-lg font-medium">AI must earn its place in the pipeline</h3>
-            <p class="body-sm text-ash mt-1 leading-relaxed">
-              Artificial intelligence should never be added as a gimmick. It belongs where deterministic logic is inadequate, and where it provides immediate, verifiable value to the person using the product.
-            </p>
-          </div>
-          <div class="border-l-2 border-brand pl-4">
-            <h3 class="heading-sm text-on-primary text-lg font-medium">Speed and performance are non-negotiable</h3>
-            <p class="body-sm text-ash mt-1 leading-relaxed">
-              Sub-second response times, minimal bundle weights, and clean semantic markup are not afterthoughts — they are foundational requirements that define product quality and trust.
-            </p>
-          </div>
-          <div class="border-l-2 border-brand pl-4">
-            <h3 class="heading-sm text-on-primary text-lg font-medium">Clean architecture enables continuous iteration</h3>
-            <p class="body-sm text-ash mt-1 leading-relaxed">
-              Maintainable codebases, strict type-safety, and modular component boundaries provide the agility needed to evolve products quickly without accumulating crippling technical debt.
-            </p>
-          </div>
+          {about.philosophyItems.map((item) => (
+            <div class="border-l-2 border-brand pl-4">
+              <h3 class="heading-sm text-on-primary text-lg font-medium">{item.title}</h3>
+              <p class="body-sm text-ash mt-1 leading-relaxed">{item.text}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       <!-- How I Work -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">HOW I WORK</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-4">A Systematic Approach to Product Craft</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.workEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-4">{about.workTitle}</h2>
         <p class="body text-ash leading-relaxed mb-6">
-          Whether designing an open developer tool or architecting a cloud service, I follow a disciplined, iterative execution process:
+          {about.workSubtitle}
         </p>
         <ol class="space-y-4 body-sm text-ash">
-          <li class="flex items-start gap-4 p-4 rounded-xl border border-hairline-soft bg-canvas/30">
-            <span class="mono-eyebrow text-brand font-bold shrink-0 mt-0.5">01</span>
-            <div>
-              <span class="text-on-primary font-medium block mb-1">Deconstruct the Problem</span>
-              <span>Isolate the core bottleneck. Strip away superficial assumptions to understand what problem the user is genuinely trying to solve.</span>
-            </div>
-          </li>
-          <li class="flex items-start gap-4 p-4 rounded-xl border border-hairline-soft bg-canvas/30">
-            <span class="mono-eyebrow text-brand font-bold shrink-0 mt-0.5">02</span>
-            <div>
-              <span class="text-on-primary font-medium block mb-1">Design the Experience & Flows</span>
-              <span>Map the shortest path between user intent and desired output. Wireframe interaction states, keyboard navigation, and responsive ergonomics.</span>
-            </div>
-          </li>
-          <li class="flex items-start gap-4 p-4 rounded-xl border border-hairline-soft bg-canvas/30">
-            <span class="mono-eyebrow text-brand font-bold shrink-0 mt-0.5">03</span>
-            <div>
-              <span class="text-on-primary font-medium block mb-1">Architect the Foundation</span>
-              <span>Choose the leanest, most reliable stack suited for the problem. Structure type-safe schemas, API contracts, and database models.</span>
-            </div>
-          </li>
-          <li class="flex items-start gap-4 p-4 rounded-xl border border-hairline-soft bg-canvas/30">
-            <span class="mono-eyebrow text-brand font-bold shrink-0 mt-0.5">04</span>
-            <div>
-              <span class="text-on-primary font-medium block mb-1">Integrate AI Where Meaningful</span>
-              <span>Incorporate machine intelligence where it eliminates manual steps, adding guardrails and fallbacks to guarantee consistency.</span>
-            </div>
-          </li>
-          <li class="flex items-start gap-4 p-4 rounded-xl border border-hairline-soft bg-canvas/30">
-            <span class="mono-eyebrow text-brand font-bold shrink-0 mt-0.5">05</span>
-            <div>
-              <span class="text-on-primary font-medium block mb-1">Benchmark, Optimize & Refine</span>
-              <span>Audit bundle sizes, measure Lighthouse scores, test edge cases, and refine micro-interactions based on actual usage.</span>
-            </div>
-          </li>
+          {about.workSteps.map((s) => (
+            <li class="flex items-start gap-4 p-4 rounded-xl border border-hairline-soft bg-canvas/30">
+              <span class="mono-eyebrow text-brand font-bold shrink-0 mt-0.5">{s.step}</span>
+              <div>
+                <span class="text-on-primary font-medium block mb-1">{s.title}</span>
+                <span>{s.desc}</span>
+              </div>
+            </li>
+          ))}
         </ol>
       </div>
 
       <!-- Technical Breadth & Ecosystem -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">TECHNICAL ECOSYSTEM</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-4">Breadth Across the Technology Stack</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.ecosystemEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-4">{about.ecosystemTitle}</h2>
         <p class="body text-ash leading-relaxed mb-6">
-          My technical repertoire spans multiple domains, enabling me to take concepts from visual prototypes in Figma all the way to deployed cloud infrastructure.
+          {about.ecosystemSubtitle}
         </p>
         <div class="space-y-4">
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <div class="mono-micro text-mute uppercase tracking-wider mb-2">Frontend & Client Applications</div>
-            <p class="body-sm text-ash mb-3 leading-relaxed">
-              Engineering responsive, accessible interfaces and cross-platform mobile experiences with modern type safety.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">HTML5</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">CSS3</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">JavaScript</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">TypeScript</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">React</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Flutter</span>
+          {about.ecosystemGroups.map((group) => (
+            <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
+              <div class="mono-micro text-mute uppercase tracking-wider mb-2">{group.label}</div>
+              <p class="body-sm text-ash mb-3 leading-relaxed">
+                {group.desc}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {group.tags.map((tag) => (
+                  <span class="btn-app-tab !h-7 !px-2.5 !text-xs">{tag}</span>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <div class="mono-micro text-mute uppercase tracking-wider mb-2">Design & Creative Tools</div>
-            <p class="body-sm text-ash mb-3 leading-relaxed">
-              Crafting design systems, user journeys, vector assets, 3D elements, and interactive prototypes.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Figma</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Framer</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Adobe Illustrator</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Adobe Photoshop</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Blender</span>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <div class="mono-micro text-mute uppercase tracking-wider mb-2">Backend & Databases</div>
-            <p class="body-sm text-ash mb-3 leading-relaxed">
-              Structuring REST and event-driven APIs, relational database schemas, and scalable document storage.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Node.js</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">MongoDB</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">MySQL</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Oracle</span>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <div class="mono-micro text-mute uppercase tracking-wider mb-2">Cloud & DevOps</div>
-            <p class="body-sm text-ash mb-3 leading-relaxed">
-              Managing automated deployment pipelines, containerized environments, and multi-region cloud services.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">AWS</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Google Cloud</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Docker</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Git</span>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
-            <div class="mono-micro text-mute uppercase tracking-wider mb-2">3D & Interactive Systems</div>
-            <p class="body-sm text-ash mb-3 leading-relaxed">
-              Exploring spatial design, real-time rendering, and interactive virtual environments.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Unity</span>
-              <span class="btn-app-tab !h-7 !px-2.5 !text-xs">Unreal Engine</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
       <!-- Continuous Learning & Growth -->
       <div class="mb-16">
-        <MonoEyebrow color="brand" class="mb-3">ACTIVE EXPLORATION</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-4">Continuous Learning & Technical Growth</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.learningEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-4">{about.learningTitle}</h2>
         <p class="body text-ash leading-relaxed mb-6">
-          Technology never stands still, and neither does my engineering toolkit. I maintain a deliberate learning habit, actively exploring emerging technologies whenever they offer better ways to build resilient, useful products:
+          {about.learningSubtitle}
         </p>
         <div class="grid sm:grid-cols-3 gap-6">
-          <FeatureCard variant="dark">
-            <div class="mono-micro text-brand mb-2">EXPLORING</div>
-            <h3 class="heading-sm text-on-primary text-base font-medium mb-2">Kotlin & Mobile</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Deepening native Android application development with Kotlin to deliver tightly integrated mobile experiences.
-            </p>
-          </FeatureCard>
-
-          <FeatureCard variant="dark">
-            <div class="mono-micro text-brand mb-2">EXPLORING</div>
-            <h3 class="heading-sm text-on-primary text-base font-medium mb-2">Advanced GenAI</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Researching autonomous agentic patterns, retrieval-augmented generation (RAG), and efficient model orchestration.
-            </p>
-          </FeatureCard>
-
-          <FeatureCard variant="dark">
-            <div class="mono-micro text-brand mb-2">EXPLORING</div>
-            <h3 class="heading-sm text-on-primary text-base font-medium mb-2">Cloud-Native Architecture</h3>
-            <p class="body-sm text-ash leading-relaxed">
-              Investigating distributed microservices, serverless patterns, and edge compute for scalable software systems.
-            </p>
-          </FeatureCard>
+          {about.learningCards.map((card) => (
+            <FeatureCard variant="dark">
+              <div class="mono-micro text-brand mb-2">{card.badge}</div>
+              <h3 class="heading-sm text-on-primary text-base font-medium mb-2">{card.title}</h3>
+              <p class="body-sm text-ash leading-relaxed">{card.desc}</p>
+            </FeatureCard>
+          ))}
         </div>
       </div>
 
-      <!-- Core Stack Section (Preserved) -->
+      <!-- Core Stack Section -->
       <div class="text-center mb-16">
-        <MonoEyebrow color="mute" class="mb-2">PRIMARY FOUNDATION</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-3">{t('about.stack')}</h2>
+        <MonoEyebrow color="mute" class="mb-2">{about.stackEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-3">{about.stackTitle}</h2>
         <p class="body-sm text-ash max-w-xl mx-auto mb-6 leading-relaxed">
-          The core technologies powering Lade Stack are selected for zero runtime bloat, static pre-rendering, rock-solid type safety, and instant user feedback.
+          {about.stackSubtitle}
         </p>
         <div class="flex flex-wrap justify-center gap-2">
           {stack.map((s) => (
@@ -446,11 +251,11 @@ const timeline = [
         </div>
       </div>
 
-      <!-- Journey Timeline (Preserved) -->
+      <!-- Journey Timeline -->
       <div class="mb-16">
         <div class="text-center mb-10">
-          <MonoEyebrow color="mute" class="mb-2">MILESTONES</MonoEyebrow>
-          <h2 class="heading-md text-on-primary">Journey</h2>
+          <MonoEyebrow color="mute" class="mb-2">{about.journeyEyebrow}</MonoEyebrow>
+          <h2 class="heading-md text-on-primary">{about.journeyTitle}</h2>
         </div>
         <ol class="relative border-l border-hairline-soft ml-4 space-y-8 max-w-2xl mx-auto">
           {timeline.map((item) => (
@@ -466,19 +271,18 @@ const timeline = [
 
       <!-- Future Direction & Personal Statement -->
       <FeatureCard variant="dark" class="text-center py-10">
-        <MonoEyebrow color="brand" class="mb-3">LONG-TERM DIRECTION</MonoEyebrow>
-        <h2 class="heading-md text-on-primary mb-4">Building Software That Truly Empowers Creators</h2>
+        <MonoEyebrow color="brand" class="mb-3">{about.futureEyebrow}</MonoEyebrow>
+        <h2 class="heading-md text-on-primary mb-4">{about.futureTitle}</h2>
         <p class="body text-ash max-w-2xl mx-auto leading-relaxed mb-4">
-          Looking ahead, my focus remains rooted in building innovative SaaS AI tools, collaborative file systems, and developer-focused utilities that blend strong UX with strong engineering.
+          {about.futureBody}
         </p>
         <p class="body-sm text-ash/80 max-w-xl mx-auto leading-relaxed">
-          "I build software because I enjoy turning complex technical challenges into clean, accessible tools that give developers and creators genuine leverage. Good engineering and good design can and should coexist."
+          {about.futureQuote}
         </p>
         <div class="mt-6">
-          <span class="caption font-medium text-on-primary">— Girish Lade</span>
+          <span class="caption font-medium text-on-primary">{about.futureAuthor}</span>
         </div>
       </FeatureCard>
     </div>
   </div>
 </BaseLayout>
-
