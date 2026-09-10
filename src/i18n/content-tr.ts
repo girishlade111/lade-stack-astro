@@ -693,11 +693,54 @@ export const tr: LocaleContent = {
     { title: 'Her yere aktar', text: 'Kopyala ya da indir — kilitlenme yok, filigran yok.' }
   ],
   privacy: [
-    { h: 'Topladığımız bilgiler', p: 'Asgari düzeyde topluyoruz: gönderdiğiniz iletişim mesajları, abone olduğunuz bülten e-postaları ve gizliliğe saygılı analiz (sayfa görüntüleme, siteler-arası takip yok). Çekirdek araçlar dosyaları tamamen tarayıcınızda işler — belgeleriniz sunucularımıza ulaşmaz.' },
-    { h: 'Bilgileri nasıl kullanıyoruz', p: 'Destek taleplerini yanıtlamak, istediğiniz bültenleri göndermek, performans ve güvenilirliği artırmak için. Kişisel veriyi asla satmıyor, reklam ağlarıyla paylaşmıyoruz.' },
-    { h: 'Çerezler ve depolama', p: 'Tema ve dil tercihleri yalnızca cihazınızdaki localStorage’da durur. Analiz çerezleri varsa birinci-taraf ve anonimleştirilmiştir.' },
-    { h: 'Haklarınız', p: 'admin@ladestack.in adresine yazarak verilerinize erişme, düzeltme ya da silme isteyebilirsiniz. E-postalardan tek tıkla çıkarsınız.' },
-    { h: 'İletişim', p: 'Politika soruları: admin@ladestack.in, Mumbai, Hindistan.' }
+    {
+      h: 'Genel bakış ve gizlilik ilkeleri',
+      p: 'Lade Stack, Hindistan\'da Girish Lade tarafından kurulan bağımsız bir geliştirici araçları ve üretken yapay zekâ mühendisliği ekosistemidir. Temel tasarım ilkemiz tasarımdan gelen gizliliktir (Privacy by Design): yazılımlar istilacı telemetri, gözetim veya gizli veri ticarileştirmesi olmadan kullanıcılara değer sunmalıdır. Topladığımız verileri teknik olarak mümkün olan en alt seviyede tutuyor, dosya işleme ve hesaplamaları mümkün olduğunca tarayıcınızın yerel ortamında yürütüyor ve kişisel bilgilerinizi veri simsarlarına ya da reklam ağlarına asla satmıyor veya kiralamıyoruz.'
+    },
+    {
+      h: 'Doğrudan sağladığınız bilgiler',
+      p: 'Kişisel bilgileri yalnızca siz doğrudan ve gönüllü olarak ilettiğinizde topluyoruz. İletişim sayfamız (/contact) üzerinden mesaj gönderdiğinizde, yanıt verebilmemiz için adınız, e-posta adresiniz ve mesaj metniniz Formspree aracılığıyla güvenli biçimde mühendislik gelen kutumuza iletilir. Sayfa alt bilgisinden ürün bültenimize abone olursanız, e-posta adresinizi yalnızca teknik eğitimler ve platform güncellemeleri göndermek amacıyla toplarız. Destek, geri bildirim veya hata bildirimleri için doğrudan admin@ladestack.in adresine de e-posta gönderebilirsiniz.'
+    },
+    {
+      h: 'Otomatik toplanan teknik veriler ve analizler',
+      p: 'Site güvenilirliğini sürdürmek, yönlendirme hatalarını teşhis etmek ve genel kullanım eğilimlerini anlamak için gizlilik odaklı ölçüm araçları kullanıyoruz. Çerez kullanmayan hafif bir analiz platformu olan Umami Cloud ile kişisel kimlik tespiti veya siteler arası izleme yapmadan anonimleştirilmiş ölçümler (sayfa ziyaretleri, yönlendiren alan adları, cihaz işletim sistemleri ve ülke düzeyinde coğrafi konum) topluyoruz. Ayrıca arayüz kusurlarını tespit etmek amacıyla Microsoft Clarity kullanarak anonim gezinme telemetrisi, tıklama ısı haritaları ve kaydırma derinliğini inceliyoruz; klavye vuruşları ve hassas metin alanları sistem tarafından otomatik olarak maskelenir.'
+    },
+    {
+      h: 'Çerezler ve tarayıcı yerel depolaması',
+      p: 'Lade Stack kalıcı reklam takip çerezleri, reklam ağı işaretçileri veya zorunlu kimlik doğrulama çerezleri kullanmaz. Ziyaretler arasında arayüz tercihlerinizi hatırlamak için standart tarayıcı istemci depolamasını (LocalStorage) kullanırız. Görsel tema tercihiniz "ladestack-theme" (koyu veya açık mod) anahtarı altında, seçtiğiniz dil tercihi ise "ladestack-lang" anahtarı altında saklanır. Bu veriler yalnızca sizin cihazınızda kalır ve harici sunuculara asla iletilmez. Tarayıcı ayarlarınızdan bu verileri dilediğiniz zaman temizleyebilirsiniz; bu işlem temel site işlevlerine erişiminizi engellemez.'
+    },
+    {
+      h: 'Tarayıcı içi dosya ve belge işleme',
+      p: 'Lade Stack üretkenlik araçlarının en belirgin mimari özelliği, %100 istemci tarafında yerel çalışmasıdır. LS PDF Tools ve LS Image Studio gibi uygulamalar, modern WebAssembly ikili modülleri ve HTML5 Canvas API kullanarak işlemleri tamamen tarayıcınızın yerel belleğinde gerçekleştirir. Belgeleriniz, PDF\'leriniz, resimleriniz ve kaynak dosyalarınız sunucularımıza hiçbir zaman yüklenmez, aktarılmaz veya kaydedilmez. İşlem tamamlandığında bellek arabellekleri ve nesne URL\'leri cihazınızda derhal iptal edilir (URL.revokeObjectURL); böylece gizli dosyalarınız tamamen güvende kalır.'
+    },
+    {
+      h: 'CodeEnhance AI ve kod girdilerinin işlenmesi',
+      p: 'Sözdizimi denetimi, kod yeniden yapılandırma (refactoring) veya yapısal açıklamalar için CodeEnhance AI\'a kod parçacıkları gönderdiğinizde, verileriniz şifreli bir bağlantı (TLS 1.3) üzerinden güvenle iletilir. İstekler yalnızca sonucu derlemek ve düzenleyicinize gerçek zamanlı farkları (diff) iletmek için gereken birkaç saniye boyunca geçici sunucu belleğinde (RAM) işlenir. Kod parçacıklarınızı diske kaydetmez, tescilli kaynak kodlarınızın geçmiş günlüklerini tutmaz ve gönderdiğiniz kodları temel makine öğrenimi modellerini eğitmek veya ince ayar (fine-tuning) yapmak için asla kullanmayız.'
+    },
+    {
+      h: 'Bilgilerinizi nasıl kullanıyoruz',
+      p: 'Topladığımız tüm bilgiler yalnızca meşru operasyonel amaçlar doğrultusunda kullanılır: 24 saatlik yanıt taahhüdümüz kapsamında teknik destek ve iletişim taleplerinizi yanıtlamak; talep edilen bültenleri iletmek; platform çalışma süresini ve uç CDN performansını izlemek; yazılım hatalarını ve tarayıcı uyumsuzluklarını gidermek; kötüye kullanımı ve DDoS saldırılarını engellemek. Davranışsal profil çıkarma, otomatik kredi ve istihdam değerlendirmeleri yapmaz, kullanıcı verilerini ticari amaçla satmayız.'
+    },
+    {
+      h: 'Üçüncü taraf hizmet sağlayıcıları ve veri paylaşımı',
+      p: 'Verileri yalnızca platformun çalışması için zorunlu olan güvenilir altyapı sağlayıcılarıyla paylaşırız: Formspree (iletişim formlarını güvenle almak ve iletmek için), Umami Cloud (gizlilik odaklı toplu analizler için), Microsoft Clarity (arayüz hatalarını tespit eden anonim ısı haritaları için) ve küresel CDN uç ağları (statik varlıkları ultra düşük gecikmeyle sunmak için). Tüm sağlayıcılar katı sözleşme şartları altında çalışır ve bilgilerinizi kendi ticari amaçları için kullanmaları yasaktır.'
+    },
+    {
+      h: 'Veri saklama ve silme',
+      p: 'Kişisel bilgileri yalnızca bu politikada belirtilen amaçları yerine getirmek için gereken süre boyunca saklarız. Destek yazışmaları ve iletişim kayıtları, sorunun çözümü ve sorun giderme geçmişinin korunması için gereken makul süre boyunca tutulur. Tarayıcı yerel depolama verileri (LocalStorage tercihleri ve araç taslakları), siz tarayıcı önbelleğinizi temizleyene kadar cihazınızda kalır. İletişim kayıtlarınızın silinmesini dilediğiniz zaman admin@ladestack.in adresine yazarak talep edebilirsiniz.'
+    },
+    {
+      h: 'Gizlilik haklarınız ve veri taşınabilirliği',
+      p: 'Bulunduğunuz ülkeden bağımsız olarak, hakkınızda tutulan iletişim kayıtlarına erişme, yanlış bilgilerin düzeltilmesini talep etme veya kayıtların silinmesini isteme hakkına sahipsiniz. Ayrıca Lade Stack araçlarıyla işlenen tüm kaynak kodları, belgeler, özgeçmişler ve görseller üzerindeki tam mülkiyet koşulsuz olarak size aittir. Uygulamalarımız doğrudan dosya indirme, panoya kopyalama ve yapılandırılmış JSON proje dışa aktarımı yoluyla filigransız ve platform bağımlılığı olmadan anında veri taşınabilirliği sunar.'
+    },
+    {
+      h: 'Teknik güvenlik ve kullanıcı sorumluluğu',
+      p: 'Mühendislik düzeyinde kapsamlı güvenlik önlemleri uyguluyoruz: aktarım sırasında uçtan uca HTTPS şifreleme, sıkı İçerik Güvenlik Politikaları (CSP), XSS açıklarını önlemek için canlı kod önizlemelerinde korumalı iframe kum havuzları (sandbox) ve otomatik bağımlılık güvenlik güncellemeleri. Ancak internet üzerinden hiçbir aktarım tamamen hatasız olamaz. Kullanıcılarımızın temel güvenlik ilkelerine uymasını tavsiye ederiz: üretim API anahtarlarını, özel kriptografik anahtarları veya veritabanı parolalarını çevrim içi araçlara girmeyiniz. Olası güvenlik açıklarını admin@ladestack.in adresine bildirebilirsiniz.'
+    },
+    {
+      h: 'Çocukların gizliliği, politika güncellemeleri ve iletişim',
+      p: 'Lade Stack genel geliştirici kitlesi, öğrenciler ve üreticilere yöneliktir; 13 yaşın altındaki çocuklardan bilerek kişisel veri toplamayız. Bu Gizlilik Politikası, yeni araçların eklenmesi, mimari iyileştirmeler veya mevzuat güncellemeleri doğrultusunda periyodik olarak güncellenebilir ve güncellemeler sayfanın üst kısmındaki "Son güncelleme" tarihiyle belirtilir. Bu politika veya verilerinizin işlenmesiyle ilgili soru ve talepleriniz için Girish Lade ile iletişime geçebilirsiniz: admin@ladestack.in (Mumbai, Hindistan).'
+    }
   ],
   terms: [
     { h: 'Kabul edilebilir kullanım', p: 'Araçları yasalara uygun kullanın. Hız sınırlarını zorlamayın, hizmeti bozmaya kalkmayın, hakkı sizde olmayan içeriği işlemeyin.' },
