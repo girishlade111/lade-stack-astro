@@ -1,0 +1,256 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getLocalizedPath, useTranslations } from '@/i18n/utils';
+import type { SupportedLocale } from '@/i18n/config';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import Button from '@/components/ui/Button.astro';
+import StudioWindow from '@/components/ui/StudioWindow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  code?: '404' | '500' | '502' | '503' | '403' | string;
+  title?: string;
+  description?: string;
+  lang?: SupportedLocale;
+}
+
+const {
+  code = '404',
+  title,
+  description,
+  lang = 'en',
+} = Astro.props;
+
+const t = useTranslations(lang);
+
+const errorDetails: Record<string, { eyebrow: string; title: string; desc: string; tip: string }> = {
+  '404': {
+    eyebrow: 'ERR_HTTP_404 // RESOURCE_NOT_FOUND',
+    title: t('notFound.title') || '404 — Page Not Found',
+    desc: t('notFound.description') || 'The requested URL does not exist or has been relocated to another endpoint.',
+    tip: 'Verify the route pathname, or use the quick links below to navigate to active platform modules.',
+  },
+  '500': {
+    eyebrow: 'ERR_HTTP_500 // INTERNAL_SERVER_ERROR',
+    title: '500 — Internal Server Error',
+    desc: 'An unexpected runtime condition occurred while processing the request on our edge cluster.',
+    tip: 'Our autonomous monitoring system has logged this incident. Try reloading or return to the platform home.',
+  },
+  '502': {
+    eyebrow: 'ERR_HTTP_502 // BAD_GATEWAY',
+    title: '502 — Bad Gateway',
+    desc: 'The edge proxy server received an invalid or timed-out upstream response from the compute microservice.',
+    tip: 'The upstream service is currently recycling. Traffic will auto-recover momentarily.',
+  },
+  '503': {
+    eyebrow: 'ERR_HTTP_503 // SERVICE_UNAVAILABLE',
+    title: '503 — Service Temporarily Unavailable',
+    desc: 'The server is currently unable to handle the request due to maintenance downtime or capacity limits.',
+    tip: 'All core data is safe. System status is available on the status dashboard.',
+  },
+  '403': {
+    eyebrow: 'ERR_HTTP_403 // ACCESS_FORBIDDEN',
+    title: '403 — Access Forbidden',
+    desc: 'You do not have administrative clearance or token credentials to access this protected resource.',
+    tip: 'Authenticate with an authorized developer token or return to the public application suite.',
+  },
+};
+
+const currentError = errorDetails[code] || errorDetails['404'];
+const displayTitle = title || currentError.title;
+const displayDesc = description || currentError.desc;
+
+const quickLinks = [
+  { title: t('nav.apps'), desc: 'Explore AI developer tools suite', path: '/apps', icon: 'lucide:layout-grid' },
+  { title: t('nav.docs'), desc: 'SDK references & integration guides', path: '/docs', icon: 'lucide:book-open' },
+  { title: t('nav.blog'), desc: 'Engineering articles & architecture', path: '/blog', icon: 'lucide:newspaper' },
+  { title: t('nav.contact'), desc: '24/7 engineering support team', path: '/contact', icon: 'lucide:life-buoy' },
+];
+---
+
+<BaseLayout
+  title={`${code} — ${displayTitle} | Lade Stack`}
+  description={displayDesc}
+  lang={lang}
+  path={`/${code}`}
+  noIndex={true}
+>
+  <div class="marketing-section-dark min-h-[85vh] flex flex-col justify-center py-16">
+    <div class="max-w-[1640px] mx-auto px-6 w-full">
+      <!-- Top Headline & Status Area -->
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <MonoEyebrow color="brand" id="error-eyebrow">
+            {currentError.eyebrow}
+          </MonoEyebrow>
+        </div>
+
+        <!-- Giant Status Code with Brand-Dot -->
+        <div class="flex items-center justify-center gap-3 select-none mb-4">
+          <span class="display-mega text-on-primary font-mono tracking-tighter" id="error-code-display">
+            {code}
+          </span>
+          <span class="w-4 h-4 rounded-full bg-brand shrink-0 mb-8 animate-pulse" aria-hidden="true"></span>
+        </div>
+
+        <h1 class="heading-md sm:display-sm text-on-primary mb-4" id="error-title-display">
+          {displayTitle}
+        </h1>
+        <p class="subtitle text-ash max-w-2xl mx-auto mb-8 leading-relaxed" id="error-desc-display">
+          {displayDesc}
+        </p>
+
+        <!-- Recovery Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <Button href={getLocalizedPath('/', lang)} variant="primary" class="px-8" id="error-home-btn">
+            <Icon name="lucide:arrow-left" class="w-4 h-4 mr-2" />
+            <span>{t('notFound.backHome') || 'Return to Platform'}</span>
+          </Button>
+
+          <Button
+            type="button"
+            variant="secondary-dark"
+            class="px-6 cursor-pointer"
+            id="error-reload-btn"
+            onclick="window.location.reload()"
+          >
+            <Icon name="lucide:refresh-cw" class="w-4 h-4 mr-2" />
+            <span>Retry Request</span>
+          </Button>
+
+          <Button href={getLocalizedPath('/contact', lang)} variant="ghost-dark" class="px-5">
+            <span>Report Incident</span>
+          </Button>
+        </div>
+      </div>
+
+      <!-- Studio Window Diagnostics Console -->
+      <div class="max-w-4xl mx-auto mb-16">
+        <StudioWindow
+          title="LadeStack Gateway — real-time edge telemetry"
+          tabs={['Diagnostics', 'Headers', 'Remediation']}
+          activeTab="Diagnostics"
+        >
+          <div class="p-4 space-y-2 font-mono text-xs leading-relaxed" id="diagnostic-log">
+            <div class="flex flex-wrap items-center justify-between text-mute pb-2 border-b border-hairline-soft">
+              <span>CLUSTER: EDGE_NODE_BOM1</span>
+              <span>PROTOCOL: HTTP/2.0 TLSv1.3</span>
+              <span class="text-success">SYSTEM UPTIME: 99.98%</span>
+            </div>
+            <p class="text-ash">
+              <span class="text-mute">&#62; REQUEST_TARGET:</span> <span class="text-link-blue-soft" id="log-pathname">loading...</span>
+            </p>
+            <p class="text-ash">
+              <span class="text-mute">&#62; STATUS_SIGNAL:</span> <span class="text-brand font-bold" id="log-code">{code}</span> ({displayTitle})
+            </p>
+            <p class="text-ash">
+              <span class="text-mute">&#62; INCIDENT_TIMESTAMP:</span> <span class="text-ash" id="log-timestamp">loading...</span>
+            </p>
+            <p class="text-ash">
+              <span class="text-mute">&#62; ADVISORY:</span> <span class="text-ash">{currentError.tip}</span>
+            </p>
+          </div>
+        </StudioWindow>
+      </div>
+
+      <!-- Quick Platform Navigation Grid -->
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-6">
+          <span class="mono-caps text-mute">EXPLORE SYSTEM DIRECTORY</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {quickLinks.map((item) => (
+            <a
+              href={getLocalizedPath(item.path, lang)}
+              class="group block transition-all"
+            >
+              <FeatureCard variant="dark" class="!p-5 h-full flex flex-col justify-between group-hover:border-brand/60 transition-colors">
+                <div>
+                  <div class="w-8 h-8 rounded-app-sm bg-canvas border border-hairline-soft flex items-center justify-center text-brand mb-3 group-hover:bg-brand group-hover:text-ink transition-colors">
+                    <Icon name={item.icon} class="w-4 h-4" />
+                  </div>
+                  <h3 class="heading-sm !text-base text-on-primary group-hover:text-brand transition-colors mb-1">
+                    {item.title}
+                  </h3>
+                  <p class="caption text-ash leading-snug">
+                    {item.desc}
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-hairline-soft/50 flex items-center justify-between text-xs text-mute group-hover:text-on-primary transition-colors">
+                  <span>Navigate</span>
+                  <span aria-hidden="true">→</span>
+                </div>
+              </FeatureCard>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    try {
+      // Dynamic client-side telemetry
+      var pathnameEl = document.getElementById('log-pathname');
+      var timestampEl = document.getElementById('log-timestamp');
+      if (pathnameEl) pathnameEl.textContent = window.location.pathname || '/';
+      if (timestampEl) timestampEl.textContent = new Date().toISOString();
+
+      // Support dynamic URL error query ?code=502 / ?code=500
+      var urlParams = new URLSearchParams(window.location.search);
+      var qCode = urlParams.get('code');
+      if (qCode && qCode !== '404') {
+        var codeDisplay = document.getElementById('error-code-display');
+        var logCode = document.getElementById('log-code');
+        var eyebrow = document.getElementById('error-eyebrow');
+        var titleDisplay = document.getElementById('error-title-display');
+        var descDisplay = document.getElementById('error-desc-display');
+        
+        var errorDict = {
+          '502': {
+            eyebrow: 'ERR_HTTP_502 // BAD_GATEWAY',
+            title: '502 — Bad Gateway',
+            desc: 'The proxy server received an invalid response from the upstream microservice.',
+          },
+          '500': {
+            eyebrow: 'ERR_HTTP_500 // INTERNAL_SERVER_ERROR',
+            title: '500 — Internal Server Error',
+            desc: 'An unexpected runtime condition occurred on our edge cluster.',
+          },
+          '503': {
+            eyebrow: 'ERR_HTTP_503 // SERVICE_UNAVAILABLE',
+            title: '503 — Service Unavailable',
+            desc: 'The platform is momentarily executing automated maintenance.',
+          },
+          '403': {
+            eyebrow: 'ERR_HTTP_403 // FORBIDDEN',
+            title: '403 — Access Forbidden',
+            desc: 'You do not have permissions to access this endpoint.',
+          },
+        };
+
+        if (errorDict[qCode]) {
+          if (codeDisplay) codeDisplay.textContent = qCode;
+          if (logCode) logCode.textContent = qCode;
+          if (eyebrow) eyebrow.textContent = errorDict[qCode].eyebrow;
+          if (titleDisplay) titleDisplay.textContent = errorDict[qCode].title;
+          if (descDisplay) descDisplay.textContent = errorDict[qCode].desc;
+          document.title = qCode + ' — ' + errorDict[qCode].title + ' | Lade Stack';
+        }
+      }
+
+      // Auto-detect localized path e.g. /ko/..., /zh/..., etc.
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var supported = ['zh', 'ko', 'ja', 'tr', 'pt-BR'];
+      if (segments.length > 0 && supported.indexOf(segments[0]) !== -1) {
+        var lang = segments[0];
+        var homeBtn = document.getElementById('error-home-btn');
+        if (homeBtn) homeBtn.setAttribute('href', '/' + lang);
+      }
+    } catch (e) {}
+  })();
+</script>

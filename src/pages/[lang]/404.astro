@@ -1,0 +1,19 @@
+---
+import ErrorView from '@/components/ui/ErrorView.astro';
+import { languages, type SupportedLocale } from '@/i18n/config';
+
+export function getStaticPaths() {
+  return Object.keys(languages)
+    .filter((l) => l !== 'en')
+    .map((lang) => ({
+      params: { lang },
+    }));
+}
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+---
+
+<ErrorView
+  code="404"
+  lang={lang}
+/>
