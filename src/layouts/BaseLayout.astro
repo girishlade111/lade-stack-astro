@@ -27,6 +27,12 @@ interface Props {
   structuredData?: object | object[];
   lang?: SupportedLocale;
   path?: string;
+  /** Hide the locale switcher (English-only pages such as /blog — no translations exist). */
+  hideLanguageSwitcher?: boolean;
+  /** Emit no hreflang alternates (single-language page). */
+  hreflang?: boolean;
+  prevUrl?: string;
+  nextUrl?: string;
 }
 
 const {
@@ -43,6 +49,10 @@ const {
   structuredData,
   lang = defaultLocale,
   path = '/',
+  hideLanguageSwitcher = false,
+  hreflang = true,
+  prevUrl,
+  nextUrl,
 } = Astro.props;
 
 const currentLangMeta = languages[lang] || languages[defaultLocale];
