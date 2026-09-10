@@ -87,3 +87,75 @@ if (leaks.length === 0) {
   leaks.slice(0, 40).forEach((x) => console.log('  LEAK', x));
   process.exit(1);
 }
+
+// --- Sitemap SEO assertions (Fix 1 + Fix 6) ---
+// 1. No /en/ prefixed paths may appear in the final sitemap output
+//    (prefixDefaultLocale: false — English lives at root; /en/* 301s at CDN).
+// 2. No localized blog paths (/zh/blog/…) — blog is English-only, no hreflang.
+const sitemapFiles = fs.readdirSync(dist).filter((f) => /^sitemap.*\.xml$/.test(f));
+if (sitemapFiles.length === 0) {
+  console.log('SITEMAP SCAN: no sitemap*.xml found in dist/ — skipping');
+} else {
+  const locRe = /<loc>(.*?)<\/loc>/g;
+  const badEn = [];
+  const badBlog = [];
+  for (const f of sitemapFiles) {
+    const xml = fs.readFileSync(path.join(dist, f), 'utf8');
+    let m;
+    while ((m = locRe.exec(xml)) !== null) {
+      const loc = m[1];
+      let pathname;
+      try {
+        pathname = new URL(loc).pathname;
+      } catch {
+        continue;
+      }
+      if (pathname === '/en' || pathname === '/en/' || pathname.startsWith('/en/')) badEn.push(`${f} :: ${loc}`);
+      if (/^\/(zh|ko|ja|tr|pt-BR)\/blog(\/|$)/.test(pathname)) badBlog.push(`${f} :: ${loc}`);
+    }
+  }
+  // Sitemap index files reference child sitemaps — scan those too.
+  const childRefs = [];
+  for (const f of sitemapFiles) {
+    const xml = fs.readFileSync(path.join(dist, f), 'utf8');
+    const smRe = /<loc>(.*?sitemap-\d+\.xml)<\/loc>/g;
+    let m;
+    while ((m = smRe.exec(xml)) !== null) childRefs.push(m[1]);
+  }
+  for (const ref of childRefs) {
+    const childPath = path.join(dist, path.basename(new URL(ref, 'https://ladestack.in').pathname));
+    if (!fs.existsSync(childPath)) continue;
+    const xml = fs.readFileSync(childPath, 'utf8');
+    let m;
+    const re2 = /<loc>(.*?)<\/loc>/g;
+    while ((m = re2.exec(xml)) !== null) {
+      const loc = m[1];
+      if (loc.endsWith('.xml')) continue;
+      let pathname;
+      try {
+        pathname = new URL(loc).pathname;
+      } catch {
+        continue;
+      }
+      if (pathname === '/en' || pathname === '/en/' || pathname.startsWith('/en/')) badEn.push(`${path.basename(childPath)} :: ${loc}`);
+      if (/^\/(zh|ko|ja|tr|pt-BR)\/blog(\/|$)/.test(pathname)) badBlog.push(`${path.basename(childPath)} :: ${loc}`);
+    }
+  }
+  // 3. No /en/ directory may be emitted to dist/ at all.
+  if (fs.existsSync(path.join(dist, 'en'))) {
+    badEn.push('dist/en/ directory exists — /en/ pages must not be generated');
+  }
+  if (badEn.length === 0 && badBlog.length === 0) {
+    console.log(`SITEMAP SCAN: clean (0 /en/ paths, 0 localized blog paths across ${sitemapFiles.length} sitemap file(s))`);
+  } else {
+    if (badEn.length) {
+      console.log(`SITEMAP SCAN: ${badEn.length} /en/ violation(s)`);
+      badEn.slice(0, 20).forEach((x) => console.log('  BAD-EN', x));
+    }
+    if (badBlog.length) {
+      console.log(`SITEMAP SCAN: ${badBlog.length} localized-blog violation(s)`);
+      badBlog.slice(0, 20).forEach((x) => console.log('  BAD-BLOG', x));
+    }
+    process.exit(1);
+  }
+}
