@@ -156,8 +156,13 @@ const currentYear = new Date().getFullYear();
 </footer>
 
 <script is:inline>
-  (function () {
+  // View-Transition safe: re-wires fresh newsletter forms after every
+  // `astro:page-load`. Guarded per-form so initial + page-load double
+  // invocation on first load never double-submits.
+  function setupNewsletter() {
     document.querySelectorAll('[data-newsletter]').forEach(function (form) {
+      if (form.hasAttribute('data-wired')) return;
+      form.setAttribute('data-wired', 'true');
       var formEl = /** @type {HTMLFormElement} */ (form);
       formEl.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -190,5 +195,8 @@ const currentYear = new Date().getFullYear();
         }
       });
     });
-  })();
+  }
+
+  setupNewsletter();
+  document.addEventListener('astro:page-load', setupNewsletter);
 </script>
