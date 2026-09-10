@@ -31,7 +31,7 @@ const scored = all
   .map((p) => {
     let score = 0;
     if (p.data.category === post.data.category) score += 2;
-    score += p.data.tags.filter((tag) => post.data.tags.includes(tag)).length;
+    score += p.data.tags.filter((tag: string) => post.data.tags.includes(tag)).length;
     return { p, score };
   })
   .filter(({ score }) => score > 0)

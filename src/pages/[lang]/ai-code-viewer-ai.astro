@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { getContent, localizePost } from '../../i18n/content';
 import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -18,10 +18,10 @@ const features = c.aicodeFeatures;
 // "From the blog": 2 newest AI-related posts. Blog is English-only, so links
 // point at the canonical /blog/[slug] with the localized title as label.
 const blogPosts = (await getCollection('blog'))
-  .filter((p) => ['AI Development', 'Generative AI', 'AI Production Systems'].includes(p.data.category))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .filter((p: CollectionEntry<'blog'>) => ['AI Development', 'Generative AI', 'AI Production Systems'].includes(p.data.category))
+  .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2)
-  .map((post) => ({ post, loc: localizePost(post.slug, post.data, lang) }));
+  .map((post: CollectionEntry<'blog'>) => ({ post, loc: localizePost(post.slug, post.data, lang) }));
 
 const structuredData = {
   '@context': 'https://schema.org',
