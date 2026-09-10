@@ -695,13 +695,19 @@
 .page-enter {
   animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-
 .page-enter-late {
   animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
 }
 
 .page-enter-panel {
   animation: scale-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+/* Page-load entrance for headlines on every route. The DOM is fresh after
+   each View Transition swap, so this replays on every navigation.
+   Skipped inside [data-reveal] blocks to avoid double motion. */
+main h1:not([data-reveal] h1) {
+  animation: rise-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
 }
 
 /* Card hover lift stays snappy even alongside reveal transitions. */
@@ -731,7 +737,8 @@
 
   .page-enter,
   .page-enter-late,
-  .page-enter-panel {
+  .page-enter-panel,
+  main h1:not([data-reveal] h1) {
     animation: none;
   }
 

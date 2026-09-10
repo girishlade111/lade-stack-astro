@@ -48,7 +48,7 @@ const t = useTranslations(lang);
     </div>
 
     <!-- Studio Window Mockup (DESIGN.md signature component) -->
-    <div class="max-w-4xl mx-auto mb-16">
+    <div class="max-w-4xl mx-auto mb-16" data-reveal data-reveal-delay="120">
       <StudioWindow
         title="LadeStack Studio — terminal & code intelligence"
         tabs={['ai-code-viewer.ts', 'api-testing.json', 'preview.html']}
@@ -64,7 +64,7 @@ const t = useTranslations(lang);
     </div>
 
     <!-- Key Metrics Grid: canvas-soft (#212121), hairline-soft (#353535) -->
-    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-hairline-soft">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-hairline-soft" data-reveal data-reveal-delay="200">
       <div class="p-6 rounded-marketing bg-canvas-soft border border-hairline-soft text-center">
         <div class="display-md text-on-primary">8,000+</div>
         <div class="caption text-ash mt-1">{t('hero.stats.users')}</div>
