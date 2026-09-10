@@ -41,4 +41,19 @@ for name, ok in checks:
     if not ok:
         failed += 1
 print(f"{len(checks) - failed}/{len(checks)} passed")
+
+# --- Regression + font-bundle diagnostics (informational) ---
+import re
+import glob as _glob
+
+zh_html = (dist / "zh" / "index.html").read_text(encoding="utf-8")
+_alts = re.findall("hreflang=", zh_html)
+print("INFO zh hreflang occurrences (expect 7: 6 locales + x-default):", len(_alts))
+_swap = 0
+for _f in _glob.glob(str(dist / "_astro" / "*.css")):
+    _swap += len(re.findall(r"font-display\s*:\s*swap", pathlib.Path(_f).read_text(encoding="utf-8")))
+print("INFO font-display:swap in bundled css (expect >0):", _swap)
+_woff = list((dist / "_astro").glob("*.woff2"))
+print("INFO bundled woff2 files (expect >0):", len(_woff))
+
 raise SystemExit(1 if failed else 0)
