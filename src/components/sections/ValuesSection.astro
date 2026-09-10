@@ -1,30 +1,49 @@
 ---
-import type { SupportedLocale } from '../../i18n/config';
-import { useTranslations } from '../../i18n/utils';
+import type { SupportedLocale } from '@/i18n/config';
+import { useTranslations } from '@/i18n/utils';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
 
-interface Props { lang: SupportedLocale; }
+interface Props {
+  lang: SupportedLocale;
+}
+
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const values = [
-  { title: t('home.values.v1title'), desc: t('home.values.v1desc'), icon: '⚡' },
-  { title: t('home.values.v2title'), desc: t('home.values.v2desc'), icon: '🌍' },
-  { title: t('home.values.v3title'), desc: t('home.values.v3desc'), icon: '🚀' },
-  { title: t('home.values.v4title'), desc: t('home.values.v4desc'), icon: '🛡️' }
+  { title: t('home.values.v1title'), desc: t('home.values.v1desc'), tag: '01' },
+  { title: t('home.values.v2title'), desc: t('home.values.v2desc'), tag: '02' },
+  { title: t('home.values.v3title'), desc: t('home.values.v3desc'), tag: '03' },
+  { title: t('home.values.v4title'), desc: t('home.values.v4desc'), tag: '04' },
 ];
 ---
-<section class="py-16 md:py-24 bg-card/40 border-y border-border">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p class="text-xs font-mono uppercase tracking-widest text-sage-500 text-center">{t('home.values.eyebrow')}</p>
-    <h2 class="font-serif text-3xl md:text-5xl font-bold mt-3 text-center">{t('home.values.title')}</h2>
-    <p class="mt-3 text-foreground/60 text-center">{t('home.values.subtitle')}</p>
-    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+<!-- Section 3: marketing-section-dark (#0b0b0b) per DESIGN.md Polarity-Flip Rhythm -->
+<section class="marketing-section-dark">
+  <div class="max-w-[1640px] mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <MonoEyebrow color="brand" class="mb-3">
+        {t('home.values.eyebrow')}
+      </MonoEyebrow>
+      <h2 class="display-md text-on-primary mb-4">
+        {t('home.values.title')}
+      </h2>
+      <p class="subtitle text-ash">
+        {t('home.values.subtitle')}
+      </p>
+    </div>
+
+    <!-- 4 Cards using feature-card-dark (#212121, 32px padding, 12px radius, 1px hairline-soft border) -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {values.map((v) => (
-        <article class="rounded-2xl border border-border bg-background p-6 hover:border-sage-500/40 hover:shadow-lg transition-all">
-          <div class="text-3xl" aria-hidden="true">{v.icon}</div>
-          <h3 class="mt-4 font-semibold text-lg">{v.title}</h3>
-          <p class="mt-2 text-sm text-foreground/65">{v.desc}</p>
-        </article>
+        <FeatureCard variant="dark" class="flex flex-col justify-between hover:border-graphite transition-colors">
+          <div>
+            <div class="mono-micro text-mute mb-4">{v.tag}</div>
+            <h3 class="heading-sm text-on-primary mb-3">{v.title}</h3>
+            <p class="body text-ash leading-relaxed">{v.desc}</p>
+          </div>
+        </FeatureCard>
       ))}
     </div>
   </div>

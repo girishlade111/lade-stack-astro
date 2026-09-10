@@ -1,29 +1,49 @@
 ---
-import type { SupportedLocale } from '../../i18n/config';
-import { useTranslations } from '../../i18n/utils';
-import { getContent } from '../../i18n/content';
+import type { SupportedLocale } from '@/i18n/config';
+import { useTranslations } from '@/i18n/utils';
+import { getContent } from '@/i18n/content';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
 
-interface Props { lang: SupportedLocale; }
+interface Props {
+  lang: SupportedLocale;
+}
+
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
 const testimonials = getContent(lang).testimonials;
 ---
-<section class="py-16 md:py-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p class="text-xs font-mono uppercase tracking-widest text-sage-500 text-center">{t('home.testimonials.eyebrow')}</p>
-    <h2 class="font-serif text-3xl md:text-5xl font-bold mt-3 text-center">{t('home.testimonials.title')}</h2>
-    <p class="mt-3 text-foreground/60 text-center">{t('home.testimonials.subtitle')}</p>
-    <div class="mt-10 grid md:grid-cols-3 gap-4">
+
+<!-- Section 8: marketing-section-light (#ffffff) per DESIGN.md Polarity-Flip Rhythm -->
+<section class="marketing-section-light">
+  <div class="max-w-[1640px] mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <MonoEyebrow color="mute" class="mb-3">
+        {t('home.testimonials.eyebrow')}
+      </MonoEyebrow>
+      <h2 class="display-md text-ink mb-4">
+        {t('home.testimonials.title')}
+      </h2>
+      <p class="subtitle text-ink/70">
+        {t('home.testimonials.subtitle')}
+      </p>
+    </div>
+
+    <!-- Testimonial cards using feature-card-light on canvas-light -->
+    <div class="grid md:grid-cols-3 gap-8">
       {testimonials.map((item) => (
-        <figure class="rounded-2xl border border-border bg-card/60 p-6 flex flex-col">
-          <div class="text-sage-500 tracking-widest" aria-hidden="true">★★★★★</div>
-          <blockquote class="mt-3 text-sm text-foreground/80 flex-1 leading-relaxed">“{item.quote}”</blockquote>
-          <figcaption class="mt-4">
-            <p class="font-semibold text-sm">{item.name}</p>
-            <p class="text-xs text-foreground/60">{item.role}</p>
-          </figcaption>
-        </figure>
+        <FeatureCard variant="light" class="flex flex-col justify-between">
+          <div>
+            <div class="text-ink text-sm tracking-widest mb-4" aria-label="5 stars rating">★★★★★</div>
+            <blockquote class="body text-ink/80 leading-relaxed italic mb-6">
+              “{item.quote}”
+            </blockquote>
+          </div>
+          <div class="pt-4 border-t border-hairline">
+            <p class="caption-tight text-ink font-semibold">{item.name}</p>
+            <p class="meta text-mute">{item.role}</p>
+          </div>
+        </FeatureCard>
       ))}
     </div>
   </div>

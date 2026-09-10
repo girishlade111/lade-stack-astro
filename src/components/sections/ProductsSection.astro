@@ -2,6 +2,9 @@
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
 import type { SupportedLocale } from '@/i18n/config';
 import { getContent } from '@/i18n/content';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 
 interface Props {
@@ -13,51 +16,84 @@ const t = useTranslations(lang);
 const products = getContent(lang).products;
 ---
 
-<section id="products" class="py-20 bg-muted/20 border-y border-border/60">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <span class="text-xs font-semibold text-primary uppercase tracking-widest">{t('home.products.eyebrow')}</span>
-      <h2 class="font-serif text-3xl sm:text-5xl font-bold text-foreground mt-2">
+<!-- Section 5: marketing-section-dark (#0b0b0b) per DESIGN.md Polarity-Flip Rhythm -->
+<section id="products" class="marketing-section-dark">
+  <div class="max-w-[1640px] mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <MonoEyebrow color="brand" class="mb-3">
+        {t('home.products.eyebrow')}
+      </MonoEyebrow>
+      <h2 class="display-md text-on-primary mb-4">
         {t('home.products.title')}
       </h2>
-      <p class="text-sm sm:text-base text-muted-foreground mt-4">
+      <p class="subtitle text-ash">
         {t('home.products.subtitle')}
       </p>
     </div>
 
+    <!-- Product Grid: 1 Brand-Card Anchor + Dark Cards (DESIGN.md Rule: at most 1 brand card per page) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {
-        products.map((p) => (
-          <div class="group p-8 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between">
+      {products.map((p, index) => {
+        // First product anchors the eye as feature-card-brand (#f36458); others use feature-card-dark (#212121)
+        const isBrandCard = index === 0;
+
+        return isBrandCard ? (
+          <FeatureCard variant="brand" class="flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                  <Icon name={p.icon} class="w-6 h-6" />
-                </div>
-                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-muted text-muted-foreground border border-border">
-                  {p.badge}
+                <span class="mono-micro px-2 py-1 rounded-full bg-ink text-on-primary">
+                  {p.badge} • FEATURED
                 </span>
+                <Icon name={p.icon} class="w-6 h-6 text-ink" />
               </div>
-              <h3 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+              <h3 class="heading-md text-ink mb-2">
                 {p.title}
               </h3>
-              <p class="text-xs font-semibold text-primary/80 mt-1">{p.tagline}</p>
-              <p class="text-sm text-muted-foreground mt-3 leading-relaxed">{p.desc}</p>
+              <p class="caption-tight text-ink/80 mb-3">{p.tagline}</p>
+              <p class="body text-ink/90 leading-relaxed">{p.desc}</p>
             </div>
-            <div class="mt-8 pt-6 border-t border-border/50 flex items-center justify-between">
-              <a
+            <div class="mt-8 pt-6 border-t border-ink/20 flex items-center justify-between">
+              <Button
                 href={p.link.startsWith('http') ? p.link : getLocalizedPath(p.link, lang)}
-                class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+                variant="primary-on-light"
+                target={p.link.startsWith('http') ? '_blank' : '_self'}
+                rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="!h-10 text-sm"
+              >
+                <span>{t('home.products.launch')}</span>
+                <Icon name="lucide:arrow-up-right" class="w-4 h-4 ml-1.5" />
+              </Button>
+            </div>
+          </FeatureCard>
+        ) : (
+          <FeatureCard variant="dark" class="flex flex-col justify-between hover:border-graphite transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="mono-micro px-2 py-1 rounded-full bg-canvas-soft border border-hairline-soft text-ash">
+                  {p.badge}
+                </span>
+                <Icon name={p.icon} class="w-6 h-6 text-brand" />
+              </div>
+              <h3 class="heading-md text-on-primary mb-2">
+                {p.title}
+              </h3>
+              <p class="caption-tight text-ash mb-3">{p.tagline}</p>
+              <p class="body text-ash leading-relaxed">{p.desc}</p>
+            </div>
+            <div class="mt-8 pt-6 border-t border-hairline-soft flex items-center justify-between">
+              <Button
+                href={p.link.startsWith('http') ? p.link : getLocalizedPath(p.link, lang)}
+                variant="secondary-dark"
                 target={p.link.startsWith('http') ? '_blank' : '_self'}
                 rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
               >
                 <span>{t('home.products.launch')}</span>
-                <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
-              </a>
+                <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 ml-1.5" />
+              </Button>
             </div>
-          </div>
-        ))
-      }
+          </FeatureCard>
+        );
+      })}
     </div>
   </div>
 </section>

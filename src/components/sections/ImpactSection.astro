@@ -1,8 +1,13 @@
 ---
-import type { SupportedLocale } from '../../i18n/config';
-import { useTranslations } from '../../i18n/utils';
+import type { SupportedLocale } from '@/i18n/config';
+import { useTranslations } from '@/i18n/utils';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
 
-interface Props { lang: SupportedLocale; }
+interface Props {
+  lang: SupportedLocale;
+}
+
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
@@ -10,19 +15,27 @@ const stats = [
   { value: t('home.impact.s1value'), label: t('home.impact.s1label') },
   { value: t('home.impact.s2value'), label: t('home.impact.s2label') },
   { value: t('home.impact.s3value'), label: t('home.impact.s3label') },
-  { value: t('home.impact.s4value'), label: t('home.impact.s4label') }
+  { value: t('home.impact.s4value'), label: t('home.impact.s4label') },
 ];
 ---
-<section class="py-16 md:py-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <p class="text-xs font-mono uppercase tracking-widest text-sage-500">{t('home.impact.eyebrow')}</p>
-    <h2 class="font-serif text-3xl md:text-5xl font-bold mt-3">{t('home.impact.title')}</h2>
-    <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+<!-- Section 4: marketing-section-paper (#ededed) per DESIGN.md Polarity-Flip Rhythm -->
+<section class="marketing-section-paper">
+  <div class="max-w-[1640px] mx-auto px-6 text-center">
+    <MonoEyebrow color="mute" class="mb-3">
+      {t('home.impact.eyebrow')}
+    </MonoEyebrow>
+    <h2 class="display-md text-ink mb-12">
+      {t('home.impact.title')}
+    </h2>
+
+    <!-- Stat Tiles: feature-card-light on canvas-paper band -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
       {stats.map((s) => (
-        <div class="rounded-2xl bg-sage-500/10 border border-sage-500/20 px-4 py-8">
-          <p class="font-serif text-3xl md:text-5xl font-bold text-sage-600 dark:text-sage-400">{s.value}</p>
-          <p class="mt-2 text-sm text-foreground/65">{s.label}</p>
-        </div>
+        <FeatureCard variant="light" class="text-center !p-8">
+          <p class="display-md text-ink mb-2">{s.value}</p>
+          <p class="caption text-ink/70">{s.label}</p>
+        </FeatureCard>
       ))}
     </div>
   </div>

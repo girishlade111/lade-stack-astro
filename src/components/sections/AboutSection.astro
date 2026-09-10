@@ -1,24 +1,52 @@
 ---
-import type { SupportedLocale } from '../../i18n/config';
-import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import type { SupportedLocale } from '@/i18n/config';
+import { useTranslations, getLocalizedPath } from '@/i18n/utils';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import Button from '@/components/ui/Button.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
 
-interface Props { lang: SupportedLocale; }
+interface Props {
+  lang: SupportedLocale;
+}
+
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
-<section class="py-16 md:py-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+
+<!-- Section 2: marketing-section-light (#ffffff) per DESIGN.md Polarity-Flip Rhythm -->
+<section class="marketing-section-light">
+  <div class="max-w-[1640px] mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
     <div>
-      <p class="text-xs font-mono uppercase tracking-widest text-sage-500">{t('home.about.eyebrow')}</p>
-      <h2 class="font-serif text-3xl md:text-5xl font-bold mt-3 leading-tight">{t('home.about.title')}</h2>
-      <p class="mt-4 text-foreground/70 md:text-lg">{t('home.about.description')}</p>
-      <a href={getLocalizedPath('/about', lang)} class="mt-6 inline-flex items-center gap-2 font-semibold text-sage-600 dark:text-sage-400 hover:gap-3 transition-all">
-        {t('home.about.cta')} <span aria-hidden="true">→</span>
-      </a>
+      <!-- Mono Eyebrow in IBM Plex Mono -->
+      <MonoEyebrow color="mute" class="mb-3">
+        {t('home.about.eyebrow')}
+      </MonoEyebrow>
+
+      <!-- Headline in display-md (48px / -1.68px tracking) -->
+      <h2 class="display-md text-ink mb-6">
+        {t('home.about.title')}
+      </h2>
+
+      <p class="body text-ink/80 mb-8 max-w-lg leading-relaxed">
+        {t('home.about.description')}
+      </p>
+
+      <!-- button-primary-on-light (Black pill on light surface) -->
+      <Button href={getLocalizedPath('/about', lang)} variant="primary-on-light">
+        <span>{t('home.about.cta')}</span>
+        <span class="ml-2" aria-hidden="true">→</span>
+      </Button>
     </div>
-    <div class="rounded-3xl border border-border bg-card/60 p-8 md:p-10">
-      <p class="font-serif text-xl md:text-2xl leading-relaxed">“{t('home.about.description')}”</p>
-      <p class="mt-4 text-sm text-foreground/60">— Girish Lade, Founder</p>
-    </div>
+
+    <!-- Quote in feature-card-light with 1px hairline border and soft-drop shadow -->
+    <FeatureCard variant="light">
+      <p class="subtitle text-ink font-serif italic mb-6 leading-relaxed">
+        “{t('home.about.description')}”
+      </p>
+      <div class="pt-4 border-t border-hairline flex items-center justify-between">
+        <span class="caption font-medium text-ink">— Girish Lade, Founder</span>
+        <span class="mono-micro text-mute">Mumbai, India</span>
+      </div>
+    </FeatureCard>
   </div>
 </section>
