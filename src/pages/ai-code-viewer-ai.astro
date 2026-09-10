@@ -11,7 +11,7 @@ const c = getContent(lang);
 const features = c.aicodeFeatures;
 
 // "From the blog": 2 newest posts from AI-related categories (English-only, canonical links).
-const blogPosts = (await getCollection('blog'))
+const blogPosts: CollectionEntry<'blog'>[] = (await getCollection('blog'))
   .filter((p: CollectionEntry<'blog'>) => ['AI Development', 'Generative AI', 'AI Production Systems'].includes(p.data.category))
   .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2);

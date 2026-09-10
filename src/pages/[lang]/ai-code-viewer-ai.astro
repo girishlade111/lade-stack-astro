@@ -17,7 +17,7 @@ const features = c.aicodeFeatures;
 
 // "From the blog": 2 newest AI-related posts. Blog is English-only, so links
 // point at the canonical /blog/[slug] with the localized title as label.
-const blogPosts = (await getCollection('blog'))
+const blogPosts: { post: CollectionEntry<'blog'>; loc: { title: string; description: string } }[] = (await getCollection('blog'))
   .filter((p: CollectionEntry<'blog'>) => ['AI Development', 'Generative AI', 'AI Production Systems'].includes(p.data.category))
   .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2)
