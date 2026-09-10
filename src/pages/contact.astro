@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getContent } from '@/i18n/content';
 import { useTranslations } from '@/i18n/utils';
 import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
-import Button from '@/components/ui/Button.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Icon from '@/components/Icon.astro';
 
@@ -40,7 +39,7 @@ const contactStructuredData = {
   <section class="marketing-section-dark !pb-16 text-center">
     <div class="max-w-[1640px] mx-auto px-6">
       <MonoEyebrow color="brand" class="mb-3">
-        {t('contact.badge') ?? 'GET IN TOUCH'}
+        GET IN TOUCH
       </MonoEyebrow>
       <h1 class="display-md text-on-primary mb-4">
         Let's Build Together

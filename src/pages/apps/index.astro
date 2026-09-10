@@ -2,6 +2,9 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getLocalizedApps, getContent } from '@/i18n/content';
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 
 const defaultLang = 'en' as const;
@@ -27,95 +30,93 @@ const structuredData = {
   path="/apps"
   structuredData={structuredData}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground">
-        Apps Gallery
-      </h1>
-      <p class="mt-4 text-base sm:text-lg text-muted-foreground">
-        Discover specialized AI-powered utilities engineered for speed, privacy, and productivity.
-      </p>
+  <div class="marketing-section-dark">
+    <div class="max-w-[1640px] mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <MonoEyebrow color="brand" class="mb-3">GALLERY</MonoEyebrow>
+        <h1 class="display-md text-on-primary mb-4">
+          Apps Gallery
+        </h1>
+        <p class="subtitle text-ash mb-8">
+          Discover specialized AI-powered utilities engineered for speed, privacy, and productivity.
+        </p>
 
-      <!-- Category Filter Pills (Vanilla JS) -->
-      <div class="flex flex-wrap items-center justify-center gap-2 mt-8" id="apps-filter-pills">
-        <button
-          type="button"
-          class="app-pill px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-primary text-primary-foreground border-primary active"
-          data-category="All"
-        >
-          All
-        </button>
+        <!-- Category Filter Pills using btn-app-tab tokens -->
+        <div class="flex flex-wrap items-center justify-center gap-2" id="apps-filter-pills">
+          <button
+            type="button"
+            class="app-pill btn-app-tab !h-8 !px-3 active cursor-pointer"
+            data-category="All"
+          >
+            All
+          </button>
+          {
+            categories.map((cat) => (
+              <button
+                type="button"
+                class="app-pill btn-app-tab !h-8 !px-3 cursor-pointer"
+                data-category={cat}
+              >
+                {c.appCategories[cat] ?? cat}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Apps Grid using feature-card-dark (#212121, 32px padding, 12px radius, 1px border) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="apps-grid">
         {
-          categories.map((cat) => (
-            <button
-              type="button"
-              class="app-pill px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-card border-border text-muted-foreground hover:bg-muted"
-              data-category={cat}
-            >
-              {c.appCategories[cat] ?? cat}
-            </button>
+          apps.map((app) => (
+            <div data-category={app.category} class="app-card flex">
+              <FeatureCard variant="dark" class="flex flex-col justify-between w-full hover:border-graphite transition-colors">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="mono-micro px-2 py-1 rounded-full bg-canvas border border-hairline-soft text-ash">
+                      {app.displayCategory}
+                    </span>
+                    <Icon name={app.icon} class="w-6 h-6 text-brand" />
+                  </div>
+                  <h2 class="heading-sm text-on-primary mb-2">
+                    {app.title}
+                  </h2>
+                  <p class="caption text-brand/90 mb-3">{app.tagline} · {c.appTime[app.timeToValue] ?? app.timeToValue}</p>
+                  <p class="body-sm text-ash leading-relaxed">{app.description}</p>
+
+                  <!-- Feature Bullets -->
+                  <ul class="mt-6 space-y-2 caption text-ash">
+                    {app.features.map((f: string) => (
+                      <li class="flex items-center gap-2">
+                        <Icon name="lucide:check" class="w-3.5 h-3.5 text-success" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-hairline-soft flex items-center justify-between">
+                  <span class="mono-micro text-success">
+                    {app.comingSoon ? 'Coming soon' : 'Free Forever'}
+                  </span>
+                  {app.comingSoon ? (
+                    <span class="caption text-mute">{t('apps.inProgress')}</span>
+                  ) : (
+                    <Button
+                      href={app.landingUrl.startsWith('http') ? app.landingUrl : getLocalizedPath(app.landingUrl, defaultLang)}
+                      variant="secondary-dark"
+                      target={app.landingUrl.startsWith('http') ? '_blank' : '_self'}
+                      rel={app.landingUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    >
+                      <span>Launch App</span>
+                      <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 ml-1.5" />
+                    </Button>
+                  )}
+                </div>
+              </FeatureCard>
+            </div>
           ))
         }
       </div>
-    </div>
-
-    <!-- Apps Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="apps-grid">
-      {
-        apps.map((app) => (
-          <div
-            class="app-card group p-8 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
-            data-category={app.category}
-          >
-            <div>
-              <div class="flex items-center justify-between mb-6">
-                <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                  <Icon name={app.icon} class="w-6 h-6" />
-                </div>
-                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-muted text-muted-foreground border border-border">
-                  {app.displayCategory}
-                </span>
-              </div>
-              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                {app.title}
-              </h2>
-              <p class="text-xs font-semibold text-primary/80 mt-1">{app.tagline} · {c.appTime[app.timeToValue] ?? app.timeToValue}</p>
-              <p class="text-sm text-muted-foreground mt-3 leading-relaxed">{app.description}</p>
-
-              <!-- Feature Bullets -->
-              <ul class="mt-6 space-y-2 text-xs text-muted-foreground">
-                {app.features.map((f: string) => (
-                  <li class="flex items-center gap-2">
-                    <Icon name="lucide:check" class="w-3.5 h-3.5 text-primary" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div class="mt-8 pt-6 border-t border-border/50 flex items-center justify-between">
-              <span class="text-xs font-bold text-primary px-2.5 py-1 rounded-md bg-primary/10">
-                {app.comingSoon ? 'Coming soon' : '100% Free Forever'}
-              </span>
-              {app.comingSoon ? (
-                <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
-                  <span>{t('apps.inProgress')}</span>
-                </span>
-              ) : (
-                <a
-                  href={app.landingUrl.startsWith('http') ? app.landingUrl : getLocalizedPath(app.landingUrl, defaultLang)}
-                  class="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground group-hover:text-primary transition-colors"
-                  target={app.landingUrl.startsWith('http') ? '_blank' : '_self'}
-                  rel={app.landingUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
-                  <span>Launch App</span>
-                  <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
-                </a>
-              )}
-            </div>
-          </div>
-        ))
-      }
     </div>
   </div>
 </BaseLayout>
@@ -127,12 +128,8 @@ const structuredData = {
 
     pills.forEach((pill) => {
       pill.addEventListener('click', () => {
-        pills.forEach((p) => {
-          p.classList.remove('bg-primary', 'text-primary-foreground', 'border-primary');
-          p.classList.add('bg-card', 'text-muted-foreground');
-        });
-        pill.classList.add('bg-primary', 'text-primary-foreground', 'border-primary');
-        pill.classList.remove('bg-card', 'text-muted-foreground');
+        pills.forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
 
         const cat = pill.getAttribute('data-category') || 'All';
         cards.forEach((card) => {

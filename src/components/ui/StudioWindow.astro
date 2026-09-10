@@ -17,11 +17,14 @@ const {
 <div class={`studio-window w-full text-left overflow-hidden shadow-2xl ${className}`}>
   <!-- macOS-style Chrome Header -->
   <div class="flex items-center justify-between pb-3 mb-3 border-b border-hairline-soft">
-    <!-- Three Traffic Light Dots -->
-    <div class="flex items-center gap-1.5" aria-hidden="true">
-      <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
-      <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
-      <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+    <!-- Three Traffic Light Dots and Title -->
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1.5" aria-hidden="true">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+      </div>
+      <span class="mono-micro text-mute hidden md:inline truncate max-w-[220px]">{title}</span>
     </div>
 
     <!-- Title or Tabs -->

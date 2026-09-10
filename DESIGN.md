@@ -20,8 +20,10 @@ The goal of this architecture is to rebuild the Lade Stack portfolio from a clie
    - Title, description, canonical link, `hreflang` alternate tags, OpenGraph cards, Twitter cards, and Schema.org JSON-LD are statically embedded in `<head>` before deployment.
    - Crawlers receive full DOM on initial HTTP GET with zero client hydration requirement.
 4. **Design System Continuity**:
-   - Reuses existing HSL color variables and Tailwind design tokens (`#6E8F6A` sage accent, `#1C1C1C` text, `#F5F3EB` warm light background, `#050505` dark background).
-   - Zero visual drift from the current production UI.
+   - Single source of truth defined in `sanity/DESIGN.md` (Saniti-design-analysis):
+   - Near-black `{colors.canvas}` (`#0b0b0b`), white text (`#ffffff`), signature coral-red accent `{colors.brand}` (`#f36458`), dark cards `{colors.canvas-soft}` (`#212121`), hairline borders (`#353535` / `#ededed`), and alternate light surface (`#ffffff` / `#ededed`).
+   - Strict Polarity-Flip Section Rhythm with hard-cut alternating dark/light sections.
+   - Exact typography scale (`display-mega` 112px down to `button-uppercase` 11px), 12px `rounded.marketing` cards, and 6px `rounded.app-lg` Studio Window chrome.
 
 ---
 
