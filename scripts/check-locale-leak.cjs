@@ -68,7 +68,7 @@ for (const l of locales) {
     'products/index.html',
     'apps/index.html',
     'apps/admin/index.html',
-    'blog/index.html',
+    // NOTE: blog is English-only (no /{locale}/blog routes) — covered by the sitemap scan below.
   ];
   let blob = '';
   for (const f of files) {
