@@ -1,13 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { useTranslations } from '@/i18n/utils';
 import { getContent } from '@/i18n/content';
 import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Icon from '@/components/Icon.astro';
 
 const lang = 'en' as const;
-const t = useTranslations(lang);
 const c = getContent(lang);
 const about = c.aboutPage;
 const timeline = c.timeline;
