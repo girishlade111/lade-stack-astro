@@ -6,6 +6,8 @@
 /en/*  /:splat  301
 /en  /  301
 
+/ru/blog/*  /blog/:splat  301
+/ru/blog  /blog  301
 /zh/blog/*  /blog/:splat  301
 /zh/blog  /blog  301
 /ko/blog/*  /blog/:splat  301

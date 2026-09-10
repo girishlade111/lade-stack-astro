@@ -9,9 +9,11 @@ import FreeForeverSection from '@/components/sections/FreeForeverSection.astro';
 import CommunitySection from '@/components/sections/CommunitySection.astro';
 import Testimonials from '@/components/sections/Testimonials.astro';
 import { getContent } from '@/i18n/content';
+import { getPageSEO } from '@/i18n/seo';
 
 const defaultLang = 'en' as const;
 const c = getContent(defaultLang);
+const seo = getPageSEO('home', defaultLang);
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -20,7 +22,7 @@ const structuredData = {
   applicationCategory: 'DeveloperApplication',
   name: 'Lade Stack',
   url: 'https://ladestack.in',
-  description: c.metaDescription,
+  description: seo.description,
   operatingSystem: 'Web Browser',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   publisher: { '@id': 'https://ladestack.in/#organization' },
@@ -29,9 +31,11 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Lade Stack — Practical Developer Tools & AI Engineering"
-  description={c.metaDescription}
-  keywords="developer tools, AI engineering, code review, API testing, website builder, file sharing, Lade Stack, Girish Lade"
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={defaultLang}
   path="/"
   structuredData={structuredData}

@@ -2,28 +2,39 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { useTranslations } from '../i18n/utils';
 import { getContent } from '../i18n/content';
+import { getPageSEO, createBreadcrumbSchema } from '../i18n/seo';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
 const c = getContent(lang);
+const seo = getPageSEO('docs', lang);
 
 const categories = c.docsGroups;
 const changelog = c.docsChangelog;
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'TechArticle',
-  name: 'Lade Stack Documentation',
-  url: 'https://ladestack.in/docs',
-  description: 'Comprehensive documentation for Lade Stack developer tools.',
-  publisher: { '@type': 'Organization', name: 'Lade Stack' }
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    name: seo.title,
+    url: 'https://ladestack.in/docs',
+    description: seo.description,
+    publisher: { '@type': 'Organization', name: 'Lade Stack' }
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: seo.breadcrumbName, url: 'https://ladestack.in/docs' },
+  ]),
+];
 ---
 <BaseLayout
   lang={lang}
   path="/docs"
-  title="Documentation – Guides & API Reference | Lade Stack"
-  description="Comprehensive documentation for Lade Stack's developer tools. Step-by-step guides, API references, and tutorials to get started quickly."
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   structuredData={structuredData}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">

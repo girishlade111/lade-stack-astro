@@ -4,10 +4,12 @@ import { Image } from 'astro:assets';
 import { useTranslations, getLocalizedPath } from '../i18n/utils';
 import { getContent } from '../i18n/content';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { getPageSEO, createBreadcrumbSchema } from '../i18n/seo';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
 const c = getContent(lang);
+const seo = getPageSEO('aiCodeViewer', lang);
 
 const features = c.aicodeFeatures;
 
@@ -17,24 +19,34 @@ const blogPosts: CollectionEntry<'blog'>[] = (await getCollection('blog'))
   .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2);
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'CodeEnhance AI',
-  url: 'https://ladestack.in/ai-code-viewer-ai',
-  applicationCategory: 'DeveloperApplication',
-  operatingSystem: 'Web Browser',
-  description: 'AI Code Review Tool: paste HTML, CSS & JS, get instant AI fixes and live preview. Free forever.',
-  creator: { '@type': 'Person', name: 'Girish Lade', email: 'admin@ladestack.in', url: 'https://ladestack.in' },
-  publisher: { '@type': 'Organization', name: 'Lade Stack', url: 'https://ladestack.in' },
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'CodeEnhance AI',
+    url: 'https://ladestack.in/ai-code-viewer-ai',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Web Browser',
+    description: seo.description,
+    creator: { '@type': 'Person', name: 'Girish Lade', email: 'admin@ladestack.in', url: 'https://ladestack.in/about' },
+    publisher: { '@type': 'Organization', name: 'Lade Stack', url: 'https://ladestack.in' },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: 'Apps', url: 'https://ladestack.in/apps' },
+    { name: seo.breadcrumbName, url: 'https://ladestack.in/ai-code-viewer-ai' },
+  ]),
+];
 ---
 <BaseLayout
   lang={lang}
   path="/ai-code-viewer-ai"
-  title="AI Code Review Tool — Instant Feedback | Lade Stack"
-  description="AI Code Review Tool: paste HTML, CSS & JS, get instant AI fixes and live preview. Free forever, no signup."
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   ogImage="https://ladestack.in/AIcode.png"
   structuredData={structuredData}
 >

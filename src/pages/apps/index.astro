@@ -7,25 +7,36 @@ import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 
+import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
+
 const defaultLang = 'en' as const;
 const t = useTranslations(defaultLang);
 const c = getContent(defaultLang);
 const apps = getLocalizedApps(defaultLang);
 const categories = [...new Set(apps.map((a) => a.category))];
+const seo = getPageSEO('apps', defaultLang);
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Apps Gallery – Lade Stack',
-  url: 'https://ladestack.in/apps',
-  description: 'A curated gallery of AI-powered developer tools built by Lade Stack.'
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: seo.title,
+    url: 'https://ladestack.in/apps',
+    description: seo.description,
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: seo.breadcrumbName, url: 'https://ladestack.in/apps' },
+  ]),
+];
 ---
 
 <BaseLayout
-  title="Apps Gallery — AI Developer Tools Suite | Lade Stack"
-  description="Explore Lade Stack's suite of AI-powered developer tools: code editor, API testing, website builder, file sharing, and documentation AI."
-  keywords="AI apps, developer tools, CodeEnhance AI, PDF tools, image tools"
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={defaultLang}
   path="/apps"
   structuredData={structuredData}

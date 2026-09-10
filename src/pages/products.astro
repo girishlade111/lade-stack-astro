@@ -7,22 +7,33 @@ import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 
+import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
+
 const defaultLang = 'en' as const;
 const products = getContent(defaultLang).products;
+const seo = getPageSEO('products', defaultLang);
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Products – Lade Stack Flagship AI Developer Tools',
-  url: 'https://ladestack.in/products',
-  description: 'Flagship AI developer tools by Lade Stack: code enhancement, API testing, website building, and secure file sharing.'
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: seo.title,
+    url: 'https://ladestack.in/products',
+    description: seo.description,
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: seo.breadcrumbName, url: 'https://ladestack.in/products' },
+  ]),
+];
 ---
 
 <BaseLayout
-  title="Products – Flagship AI Developer Tools | Lade Stack"
-  description="Flagship AI developer tools by Lade Stack: CodeEnhance AI, API Testing Platform, Website Builder AI, and Secure File Hub. All free forever."
-  keywords="AI developer tools, CodeEnhance AI, API testing, website builder, file sharing"
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={defaultLang}
   path="/products"
   structuredData={structuredData}
