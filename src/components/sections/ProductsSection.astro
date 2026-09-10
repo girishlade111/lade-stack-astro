@@ -18,7 +18,7 @@ const products = getContent(lang).products;
 
 <!-- Section 5: marketing-section-dark (#0b0b0b) per DESIGN.md Polarity-Flip Rhythm -->
 <section id="products" class="marketing-section-dark" data-reveal>
-  <div class="max-w-[1640px] mx-auto px-6">
+  <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
     <div class="text-center max-w-3xl mx-auto mb-16">
       <MonoEyebrow color="brand" class="mb-3">
         {t('home.products.eyebrow')}
@@ -32,7 +32,7 @@ const products = getContent(lang).products;
     </div>
 
     <!-- Product Grid: 1 Brand-Card Anchor + Dark Cards (DESIGN.md Rule: at most 1 brand card per page) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 xs:grid-cols-2 gap-6 md:gap-8">
       {products.map((p, index) => {
         // First product anchors the eye as feature-card-brand (#f36458); others use feature-card-dark (#212121)
         const isBrandCard = index === 0;
@@ -52,7 +52,7 @@ const products = getContent(lang).products;
               <p class="caption-tight text-ink/80 mb-3">{p.tagline}</p>
               <p class="body text-ink/90 leading-relaxed">{p.desc}</p>
             </div>
-            <div class="mt-8 pt-6 border-t border-ink/20 flex items-center justify-between">
+            <div class="mt-8 pt-6 border-t border-ink/20 flex items-center justify-between flex-wrap gap-2">
               <Button
                 href={p.link.startsWith('http') ? p.link : getLocalizedPath(p.link, lang)}
                 variant="primary-on-light"
@@ -80,7 +80,7 @@ const products = getContent(lang).products;
               <p class="caption-tight text-ash mb-3">{p.tagline}</p>
               <p class="body text-ash leading-relaxed">{p.desc}</p>
             </div>
-            <div class="mt-8 pt-6 border-t border-hairline-soft flex items-center justify-between">
+            <div class="mt-8 pt-6 border-t border-hairline-soft flex items-center justify-between flex-wrap gap-2">
               <Button
                 href={p.link.startsWith('http') ? p.link : getLocalizedPath(p.link, lang)}
                 variant="secondary-dark"

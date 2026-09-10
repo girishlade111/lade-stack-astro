@@ -21,7 +21,7 @@ const values = [
 
 <!-- Section 3: marketing-section-dark (#0b0b0b) per DESIGN.md Polarity-Flip Rhythm -->
 <section class="marketing-section-dark" data-reveal>
-  <div class="max-w-[1640px] mx-auto px-6">
+  <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
     <div class="text-center max-w-3xl mx-auto mb-16">
       <MonoEyebrow color="brand" class="mb-3">
         {t('home.values.eyebrow')}
@@ -35,7 +35,7 @@ const values = [
     </div>
 
     <!-- 4 Cards using feature-card-dark (#212121, 32px padding, 12px radius, 1px hairline-soft border) -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid xs:grid-cols-2 lg:grid-cols-4 gap-6">
       {values.map((v) => (
         <FeatureCard variant="dark" class="flex flex-col justify-between hover:border-graphite transition-colors">
           <div>

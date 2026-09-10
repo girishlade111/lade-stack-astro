@@ -21,7 +21,7 @@ const stats = [
 
 <!-- Section 4: marketing-section-paper (#ededed) per DESIGN.md Polarity-Flip Rhythm -->
 <section class="marketing-section-paper" data-reveal>
-  <div class="max-w-[1640px] mx-auto px-6 text-center">
+  <div class="max-w-[1640px] mx-auto px-4 sm:px-6 text-center">
     <MonoEyebrow color="mute" class="mb-3">
       {t('home.impact.eyebrow')}
     </MonoEyebrow>
@@ -30,9 +30,9 @@ const stats = [
     </h2>
 
     <!-- Stat Tiles: feature-card-light on canvas-paper band -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
       {stats.map((s) => (
-        <FeatureCard variant="light" class="text-center !p-8">
+        <FeatureCard variant="light" class="text-center p-5 sm:!p-8">
           <p class="display-md text-ink mb-2">{s.value}</p>
           <p class="caption text-ink/70">{s.label}</p>
         </FeatureCard>

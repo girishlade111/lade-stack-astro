@@ -16,7 +16,7 @@ const t = useTranslations(lang);
 
 <!-- Section 1: marketing-section-dark (#0b0b0b) per DESIGN.md Polarity-Flip Rhythm -->
 <section class="marketing-section-dark relative overflow-hidden">
-  <div class="max-w-[1640px] mx-auto px-6">
+  <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
     <!-- Centered Editorial Headline Lockup -->
     <div class="max-w-5xl mx-auto text-center mb-12" data-reveal>
       <!-- Mono Eyebrow in IBM Plex Mono (DESIGN.md signature lockup) -->
@@ -25,7 +25,7 @@ const t = useTranslations(lang);
       </MonoEyebrow>
 
       <!-- Editorial Display Mega (112px with -4.48px tracking) -->
-      <h1 class="display-mega text-on-primary mb-8">
+      <h1 class="display-mega text-on-primary mb-8 break-words">
         {t('hero.title.part1')}
         <span class="block text-on-primary">{t('hero.title.part2')}</span>
       </h1>
@@ -64,16 +64,16 @@ const t = useTranslations(lang);
     </div>
 
     <!-- Key Metrics Grid: canvas-soft (#212121), hairline-soft (#353535) -->
-    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-hairline-soft" data-reveal data-reveal-delay="200">
-      <div class="p-6 rounded-marketing bg-canvas-soft border border-hairline-soft text-center">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 xxs:grid-cols-3 gap-4 sm:gap-6 pt-10 border-t border-hairline-soft" data-reveal data-reveal-delay="200">
+      <div class="p-4 sm:p-6 rounded-marketing bg-canvas-soft border border-hairline-soft text-center">
         <div class="display-md text-on-primary">8,000+</div>
         <div class="caption text-ash mt-1">{t('hero.stats.users')}</div>
       </div>
-      <div class="p-6 rounded-marketing bg-canvas-soft border border-hairline-soft text-center">
+      <div class="p-4 sm:p-6 rounded-marketing bg-canvas-soft border border-hairline-soft text-center">
         <div class="display-md text-brand">99.9%</div>
         <div class="caption text-ash mt-1">{t('hero.stats.uptime')}</div>
       </div>
-      <div class="p-6 rounded-marketing bg-canvas-soft border border-hairline-soft text-center">
+      <div class="p-4 sm:p-6 rounded-marketing bg-canvas-soft border border-hairline-soft text-center">
         <div class="display-md text-on-primary">$0</div>
         <div class="caption text-ash mt-1">{t('hero.stats.cost')}</div>
       </div>
