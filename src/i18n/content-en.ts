@@ -55,18 +55,72 @@ export const en: LocaleContent = {
     }
   ],
   supportTopics: [
-    { title: 'Getting started', text: 'Launch any app from the gallery — no signup needed. Your work stays in your browser.' },
-    { title: 'File tools', text: 'PDF and image tools process files locally. Large files work best on desktop with a stable connection.' },
-    { title: 'CodeEnhance AI', text: 'Paste code, pick an action, review suggestions, then copy or download the result.' },
-    { title: 'Accounts & data', text: 'No accounts required. Clear site data anytime — exports keep your work portable.' }
+    {
+      title: 'Getting started',
+      text: 'Launch any tool directly from the Apps Gallery with zero signups, paywalls, or installations. Core utilities run immediately inside your browser, executing client-side so your active workflow remains fast, private, and distraction-free.'
+    },
+    {
+      title: 'File tools',
+      text: 'Utilities like LS PDF Tools and LS Image Studio process files locally in browser memory via WebAssembly and Canvas. Files never leave your machine. For multi-megabyte files, an updated desktop browser with ample RAM is recommended.'
+    },
+    {
+      title: 'CodeEnhance AI',
+      text: 'Submit code snippets to inspect syntax, refactor structure, and receive real-time AI suggestions. Treat AI output as intelligent pair-programming assistance: always review, lint, and test suggested code before deploying to production.'
+    },
+    {
+      title: 'Accounts & data',
+      text: 'Zero account lock-in. Sessions, scratchpads, and preferences persist in your browser’s local storage (LocalStorage/IndexedDB). Use built-in export actions regularly to download your files, configs, and enhanced code to your local machine.'
+    }
   ],
   supportFaqs: [
-    { q: 'A tool is not loading. What should I do?', a: 'Hard-refresh the page, disable aggressive ad-blockers for ladestack.in, and try a Chromium or Firefox build from the last year.' },
-    { q: 'Are my files uploaded anywhere?', a: 'No. Core tools run fully client-side; files never leave your device.' },
-    { q: 'How do I report a bug?', a: 'Email admin@ladestack.in with the tool name, browser version, and steps to reproduce. Screenshots help.' },
-    { q: 'Can I suggest a new tool?', a: 'Yes — feature requests from the community drive the roadmap. Reach out via the contact page.' },
-    { q: 'Is there an SLA for free tools?', a: 'No formal SLA, but we monitor uptime continuously and fix regressions fast.' },
-    { q: 'Where do I learn best practices?', a: 'Start with the Docs and the Blog — 27+ guides cover AI development end to end.' }
+    {
+      q: 'A tool is not loading or feels unresponsive. What should I do?',
+      a: 'Start by performing a hard refresh (Ctrl+F5 or Cmd+Shift+R) to clear outdated cached scripts. Next, check if an aggressive ad-blocker or script-blocking extension is intercepting requests on ladestack.in. Open the tool in an Incognito / Private window to rule out extension conflicts. If you are inspecting errors, open DevTools (F12) to see if WebAssembly or network assets failed to fetch. Still stuck? Reach out via our Contact page with your browser version and any console logs.'
+    },
+    {
+      q: 'Are my files, documents, or code uploaded to external servers?',
+      a: 'No. For client-side tools like LS PDF Tools and LS Image Studio, file parsing, image manipulation, and conversions execute entirely within your browser’s local memory using WebAssembly and HTML5 Canvas APIs. Your files are never uploaded to our servers or stored remotely. For AI tools like CodeEnhance AI, code inputs are securely transferred in ephemeral memory strictly to generate suggestions, never persisted to disk or used for model training.'
+    },
+    {
+      q: 'How do I report a bug effectively?',
+      a: 'A helpful bug report includes: the tool name and page URL, your operating system and browser version, the exact sequence of steps to trigger the bug, what actually happened versus what you expected, and any error messages from the browser developer console (F12). Screenshots or screen recordings are extremely valuable. Send reports through our Contact page or email admin@ladestack.in—reproducible reports help us deploy patches rapidly.'
+    },
+    {
+      q: 'Can I suggest a new tool or request an enhancement?',
+      a: 'Yes, community requests directly shape the Lade Stack roadmap. We welcome suggestions for developer utilities, productivity enhancers, and AI workflow tools. Proposals are evaluated based on real developer utility, architectural feasibility, performance impact, and alignment with our lightweight, client-first philosophy. Share your ideas via the Contact page or our GitHub discussions.'
+    },
+    {
+      q: 'Is there a formal SLA (Service Level Agreement) for free tools?',
+      a: 'We do not offer enterprise contractual SLAs or guaranteed response windows for free utilities. However, our infrastructure is architected for maximum resilience, featuring static pre-rendering, global CDN distribution, and continuous uptime monitoring aiming for 99.9% availability. Any regressions, build breaks, or browser incompatibilities are treated as high priority and patched swiftly.'
+    },
+    {
+      q: 'Where can I find best practices and technical tutorials?',
+      a: 'Start with our Documentation (/docs) for architecture overviews, integration patterns, and step-by-step guides for tools like CodeEnhance AI. You can also explore our Blog (/blog), where we publish deep technical articles and practical tutorials on Generative AI engineering, frontend performance, client-side data privacy, and modern web application development.'
+    },
+    {
+      q: 'What should I do if CodeEnhance AI produces unexpected or incomplete output?',
+      a: 'First, check your input snippet: isolate the specific function or component and provide clean context with standard language declarations. Large, unstructured blocks of code can dilute focus. If the generated output is unexpected, try refining the requested action or asking for incremental enhancements. Remember that AI generates probabilistic suggestions: always manually inspect, format, and unit-test generated code before merging into production.'
+    },
+    {
+      q: 'What should I do if a file conversion or download operation fails?',
+      a: 'Client-side file processing relies directly on your device’s available memory. If a conversion fails or halts midway, close other memory-heavy browser tabs, ensure you have sufficient free RAM, and verify that your browser has permission to trigger automatic file downloads from ladestack.in. For very large PDFs or high-resolution images, processing files in smaller batches prevents browser tab crashes.'
+    },
+    {
+      q: 'Do I need to register or create an account to use Lade Stack?',
+      a: 'No. Every core tool across Lade Stack is immediately usable without creating an account, confirming an email address, or submitting billing information. We believe useful software should be universally accessible with zero barrier to entry. Simply navigate to the tool in the Apps Gallery and begin work immediately.'
+    },
+    {
+      q: 'How is my session data stored, and what happens if I clear site data?',
+      a: 'All session state, scratchpads, and custom tool preferences are stored locally on your device via standard browser LocalStorage and IndexedDB APIs. If you clear your browser cookies, storage, or site data, these local preferences will be reset. To prevent accidental data loss, always download or copy your processed files, configs, and enhanced code immediately after completing your work.'
+    },
+    {
+      q: 'Can teams, startups, and students use Lade Stack tools freely?',
+      a: 'Yes. Lade Stack tools are free for commercial, professional, individual, and educational use. There are no user seat limits, hidden enterprise paywalls, or restrictive team licenses for our free core catalog. Teams can incorporate our utilities into daily workflows without license friction.'
+    },
+    {
+      q: 'What is your response time and how can I reach the founder or team?',
+      a: 'We respond to all technical support inquiries, bug reports, and collaboration requests within 24 hours. You can send a direct message through our Contact page (/contact) or email admin@ladestack.in. Providing complete context and reproducible details allows us to respond with actionable solutions as quickly as possible.'
+    }
   ],
   contactFaqs: [
     {
