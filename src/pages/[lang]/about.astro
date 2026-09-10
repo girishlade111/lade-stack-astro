@@ -44,11 +44,11 @@ const aboutStructuredData = {
   structuredData={aboutStructuredData}
 >
   <div class="marketing-section-dark">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <!-- Hero / Personal Introduction -->
       <div class="text-center mb-16">
         <MonoEyebrow color="brand" class="mb-3">{about.heroEyebrow}</MonoEyebrow>
-        <h1 class="display-md text-on-primary mb-4">
+        <h1 class="display-md text-on-primary mb-4 break-words">
           {about.heroTitle}
         </h1>
         <p class="subtitle text-ash max-w-2xl mx-auto leading-relaxed">
@@ -124,7 +124,7 @@ const aboutStructuredData = {
         <p class="body text-ash leading-relaxed mb-8">
           {about.whatBuildSubtitle}
         </p>
-        <div class="grid sm:grid-cols-2 gap-6">
+        <div class="grid xs:grid-cols-2 gap-6">
           {about.whatBuildItems.map((item) => (
             <FeatureCard variant="dark">
               <div class="mono-micro text-brand mb-3">{item.num}</div>
@@ -155,7 +155,7 @@ const aboutStructuredData = {
             <p>{p}</p>
           ))}
         </div>
-        <div class="grid sm:grid-cols-2 gap-4 mt-6">
+        <div class="grid xs:grid-cols-2 gap-4 mt-6">
           {about.aiPillars.map((pillar) => (
             <div class="p-4 rounded-xl border border-hairline-soft bg-canvas/40">
               <h3 class="heading-sm text-on-primary text-base font-medium mb-1">{pillar.title}</h3>
@@ -230,7 +230,7 @@ const aboutStructuredData = {
         <p class="body text-ash leading-relaxed mb-6">
           {about.learningSubtitle}
         </p>
-        <div class="grid sm:grid-cols-3 gap-6">
+        <div class="grid xs:grid-cols-2 lg:grid-cols-3 gap-6">
           {about.learningCards.map((card) => (
             <FeatureCard variant="dark">
               <div class="mono-micro text-brand mb-2">{card.badge}</div>
