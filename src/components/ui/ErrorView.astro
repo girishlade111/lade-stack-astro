@@ -191,13 +191,16 @@ const quickLinks = [
 </BaseLayout>
 
 <script is:inline>
-  (function () {
+  // View-Transition safe: idempotent telemetry fill, re-runs on page-load.
+  function setupErrorTelemetry() {
     try {
       // Dynamic client-side telemetry
       var pathnameEl = document.getElementById('log-pathname');
       var timestampEl = document.getElementById('log-timestamp');
       if (pathnameEl) pathnameEl.textContent = window.location.pathname || '/';
-      if (timestampEl) timestampEl.textContent = new Date().toISOString();
+      if (timestampEl && timestampEl.textContent === 'loading...') {
+        timestampEl.textContent = new Date().toISOString();
+      }
 
       // Support dynamic URL error query ?code=502 / ?code=500
       var urlParams = new URLSearchParams(window.location.search);
@@ -252,5 +255,8 @@ const quickLinks = [
         if (homeBtn) homeBtn.setAttribute('href', '/' + lang);
       }
     } catch (e) {}
-  })();
+  }
+
+  setupErrorTelemetry();
+  document.addEventListener('astro:page-load', setupErrorTelemetry);
 </script>
