@@ -142,7 +142,7 @@ export const tr: LocaleContent = {
     { h: 'İletişim', p: 'Şartlarla ilgili sorular: admin@ladestack.in, Mumbai, Hindistan.' }
   ],
   apps: {
-    'ai-code-viewer': {
+    'ai-code-viewer-ai': {
       tagline: 'YZ destekli frontend kod editörü',
       description: 'Gerçek zamanlı YZ desteğiyle HTML, CSS ve JS düzenleyin, derleyin, iyileştirin.',
       features: ['Gerçek zamanlı YZ desteği', 'Canlı önizleme', 'Tek tıkla iyileştirme']
