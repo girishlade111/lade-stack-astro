@@ -144,8 +144,13 @@ export default defineConfig({
           item.lastmod = new Date().toISOString();
         }
 
-        // 2. Add International SEO x-default alternate link for hreflang clustering
-        if (item.links && item.links.length > 0) {
+        // 2. hreflang alternates. Blog URLs are English-only (self-referencing
+        // canonical, no hreflang) — strip auto-generated alternates so the
+        // sitemap never emits a false hreflang signal for /blog pages.
+        if (isBlogUrl) {
+          item.links = [];
+        } else if (item.links && item.links.length > 0) {
+          // Add International SEO x-default alternate link for hreflang clustering
           const hasXDefault = item.links.some((l) => l.lang === 'x-default');
           if (!hasXDefault) {
             const defaultLink = item.links.find((l) => l.lang === 'en-US') || item.links[0];
