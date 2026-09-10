@@ -108,19 +108,36 @@ export default defineConfig({
         const isBlogUrl = pathname === '/blog' || /^\/blog\/\d+$/.test(pathname) || pathname.includes('/blog/');
 
         // 1. Assign Priority, Changefreq, and accurate Lastmod based on content hierarchy
+        // B5: content-derived dates only — never build-time `now`.
+        const STATIC_LASTMOD: Record<string, string> = {
+          '/': '2026-09-01T00:00:00.000Z',
+          apps: '2026-09-01T00:00:00.000Z',
+          products: '2026-09-01T00:00:00.000Z',
+          'ai-code-viewer-ai': '2026-09-01T00:00:00.000Z',
+          docs: '2026-09-01T00:00:00.000Z',
+          about: '2026-09-01T00:00:00.000Z',
+          contact: '2026-09-01T00:00:00.000Z',
+          support: '2026-09-01T00:00:00.000Z',
+        };
+        function staticLastmod(key: string): string {
+          return STATIC_LASTMOD[key] ?? new Date('2026-09-01T00:00:00.000Z').toISOString();
+        }
         if (pathname === '/' || /^\/(zh|ko|ja|tr|pt-BR)$/.test(pathname)) {
           item.priority = 1.0;
           item.changefreq = 'daily';
-          item.lastmod = new Date().toISOString();
+          item.lastmod = '2026-09-01T00:00:00.000Z';
         } else if (/^\/(?:(zh|ko|ja|tr|pt-BR)\/)?(apps|products|ai-code-viewer-ai|docs)$/.test(pathname)) {
           item.priority = 0.9;
           item.changefreq = 'weekly';
-          item.lastmod = new Date().toISOString();
+          const key = pathname.split('/').filter(Boolean).pop() ?? '/';
+          item.lastmod = staticLastmod(key === pathname.replace('/', '') ? key : key);
         } else if (/^\/blog(\/\d+)?$/.test(pathname)) {
           // Paginated blog index (English only): lower than post pages (0.7).
           item.priority = 0.6;
           item.changefreq = 'weekly';
-          item.lastmod = new Date().toISOString();
+          item.lastmod = blogDates.size
+            ? [...blogDates.values()].sort().reverse()[0]
+            : '2026-09-01T00:00:00.000Z';
         } else if (pathname.includes('/blog/')) {
           item.priority = 0.7;
           item.changefreq = 'monthly';
@@ -128,12 +145,12 @@ export default defineConfig({
           if (slug && blogDates.has(slug)) {
             item.lastmod = blogDates.get(slug);
           } else {
-            item.lastmod = new Date().toISOString();
+            item.lastmod = '2026-09-01T00:00:00.000Z';
           }
         } else if (/^\/(?:(zh|ko|ja|tr|pt-BR)\/)?(about|contact|support)$/.test(pathname)) {
           item.priority = 0.6;
           item.changefreq = 'monthly';
-          item.lastmod = new Date().toISOString();
+          item.lastmod = '2026-09-01T00:00:00.000Z';
         } else if (/^\/(?:(zh|ko|ja|tr|pt-BR)\/)?(privacy|terms)$/.test(pathname)) {
           item.priority = 0.3;
           item.changefreq = 'yearly';
@@ -141,7 +158,7 @@ export default defineConfig({
         } else {
           item.priority = 0.5;
           item.changefreq = 'monthly';
-          item.lastmod = new Date().toISOString();
+          item.lastmod = '2026-09-01T00:00:00.000Z';
         }
 
         // 2. hreflang alternates. Blog URLs are English-only (self-referencing

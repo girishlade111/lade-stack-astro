@@ -58,6 +58,7 @@ export interface BlogOverride {
 }
 
 export interface LocaleContent {
+  metaDescription: string;
   testimonials: Testimonial[];
   products: Flagship[];
   supportTopics: Titled[];

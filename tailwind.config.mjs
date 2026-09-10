@@ -44,7 +44,7 @@ export default {
           DEFAULT: '#3c4758',
           soft: '#505b6c',
         },
-        mute: '#797979',
+        mute: '#5f5f5f',
         ash: '#b9b9b9',
         hairline: {
           DEFAULT: '#ededed',
@@ -77,7 +77,7 @@ export default {
         },
         muted: {
           DEFAULT: '#212121',
-          foreground: '#797979',
+          foreground: '#a8a8a8',
         },
         accent: {
           DEFAULT: '#f36458',
@@ -89,8 +89,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['waldenburgNormal', 'ABC Walden', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['ibmPlexMono', 'IBM Plex Mono', 'monospace'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
       },
       spacing: {
         xxs: '4px',

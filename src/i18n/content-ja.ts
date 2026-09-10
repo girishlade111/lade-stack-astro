@@ -1,6 +1,7 @@
 import type { LocaleContent } from './content-types';
 
 export const ja: LocaleContent = {
+  metaDescription: '無料のAI開発者ツール:コードレビュー、PDFツール、履歴書ビルダー、画像加工。登録不要でずっと無料。',
   testimonials: [
     {
       quote: 'CodeEnhance AIのおかげでフロントエンドの試行錯誤が半分になりました。リアルタイムのAI提案は、シニアとペアプロしている感覚です。',
@@ -32,7 +33,7 @@ export const ja: LocaleContent = {
       tagline: 'REST・GraphQLの自動テスト',
       desc: '自動検証スイートの生成、APIレスポンスのモック、セキュリティベンチマークを数秒で。',
       icon: 'lucide:network',
-      link: 'https://ladestack.in/api-testing-platform',
+      link: '/apps',
       badge: '高速'
     },
     {
@@ -40,7 +41,7 @@ export const ja: LocaleContent = {
       tagline: 'ノーコードのセマンティック生成',
       desc: 'セマンティックなマークアップのモダンなレスポンシブUIを生成し、標準HTML/CSSで書き出し。',
       icon: 'lucide:layout-template',
-      link: 'https://ladestack.in/website-builder-project',
+      link: '/apps',
       badge: 'コード不要'
     },
     {
@@ -48,7 +49,7 @@ export const ja: LocaleContent = {
       tagline: '暗号化された開発者向け共有',
       desc: '設定ファイルや認証情報、デプロイ資材を速く安全に一時共有できます。',
       icon: 'lucide:shield-check',
-      link: 'https://ladestack.in/file-sharing-platform',
+      link: '/apps',
       badge: '暗号化'
     }
   ],

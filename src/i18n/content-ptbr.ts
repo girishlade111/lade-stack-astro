@@ -1,6 +1,7 @@
 import type { LocaleContent } from './content-types';
 
 export const ptBR: LocaleContent = {
+  metaDescription: 'Ferramentas de IA gratuitas para devs: revisão de código, PDF, currículos e imagens. Sem cadastro, grátis para sempre.',
   testimonials: [
     {
       quote: 'O CodeEnhance AI cortou meu tempo de iteração no frontend pela metade. As sugestões da IA em tempo real parecem pair programming com um dev sênior.',
@@ -32,7 +33,7 @@ export const ptBR: LocaleContent = {
       tagline: 'Testes REST e GraphQL automatizados',
       desc: 'Gere suítes de validação automatizadas, mocke respostas de API e rode benchmarks de segurança em segundos.',
       icon: 'lucide:network',
-      link: 'https://ladestack.in/api-testing-platform',
+      link: '/apps',
       badge: 'Alta velocidade'
     },
     {
@@ -40,7 +41,7 @@ export const ptBR: LocaleContent = {
       tagline: 'Gerador semântico no-code',
       desc: 'Gere interfaces modernas e responsivas com marcação semântica e exporte para HTML/CSS padrão.',
       icon: 'lucide:layout-template',
-      link: 'https://ladestack.in/website-builder-project',
+      link: '/apps',
       badge: 'Zero código'
     },
     {
@@ -48,7 +49,7 @@ export const ptBR: LocaleContent = {
       tagline: 'Compartilhamento criptografado para devs',
       desc: 'Compartilhamento temporário, rápido e seguro para configs, credenciais e arquivos de deploy.',
       icon: 'lucide:shield-check',
-      link: 'https://ladestack.in/file-sharing-platform',
+      link: '/apps',
       badge: 'Criptografado'
     }
   ],

@@ -1,6 +1,7 @@
 import type { LocaleContent } from './content-types';
 
 export const ko: LocaleContent = {
+  metaDescription: '무료 AI 개발자 도구: 코드 리뷰, PDF 툴킷, 이력서 빌더와 이미지 스튜디오. 가입 없이 평생 무료.',
   testimonials: [
     {
       quote: 'CodeEnhance AI 덕분에 프론트엔드 작업 속도가 두 배가 됐어요. 실시간 AI 제안이 시니어 개발자와 페어 프로그래밍하는 느낌입니다.',
@@ -32,7 +33,7 @@ export const ko: LocaleContent = {
       tagline: 'REST·GraphQL 자동 테스트',
       desc: '자동 검증 스위트 생성, API 응답 모킹, 보안 벤치마크를 몇 초 만에 실행하세요.',
       icon: 'lucide:network',
-      link: 'https://ladestack.in/api-testing-platform',
+      link: '/apps',
       badge: '초고속'
     },
     {
@@ -40,7 +41,7 @@ export const ko: LocaleContent = {
       tagline: '노코드 시맨틱 생성기',
       desc: '시맨틱 마크업의 모던 반응형 웹 인터페이스를 만들고 표준 HTML/CSS로 내보내세요.',
       icon: 'lucide:layout-template',
-      link: 'https://ladestack.in/website-builder-project',
+      link: '/apps',
       badge: '노코드'
     },
     {
@@ -48,7 +49,7 @@ export const ko: LocaleContent = {
       tagline: '암호화된 개발자 파일 공유',
       desc: '설정 파일, 자격증명, 배포 아카이브를 빠르고 안전하게 임시 공유하세요.',
       icon: 'lucide:shield-check',
-      link: 'https://ladestack.in/file-sharing-platform',
+      link: '/apps',
       badge: '암호화'
     }
   ],

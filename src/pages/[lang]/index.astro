@@ -10,6 +10,7 @@ import CommunitySection from '@/components/sections/CommunitySection.astro';
 import Testimonials from '@/components/sections/Testimonials.astro';
 import { languages, type SupportedLocale } from '@/i18n/config';
 import { useTranslations } from '@/i18n/utils';
+import { getContent } from '@/i18n/content';
 
 export function getStaticPaths() {
   // Exclude default 'en' because it lives at root index.astro
@@ -22,34 +23,38 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
+const c = getContent(lang);
 
 const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
+    '@id': `https://ladestack.in/${lang}/#webapp`,
     applicationCategory: 'DeveloperApplication',
     name: 'Lade Stack',
-    url: 'https://ladestack.in',
-    description: t('hero.subtitle'),
+    url: `https://ladestack.in/${lang}`,
+    description: c.metaDescription,
     operatingSystem: 'Web Browser',
     inLanguage: lang,
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    publisher: { '@id': 'https://ladestack.in/#organization' },
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `https://ladestack.in/${lang}/#website`,
     name: 'Lade Stack',
-    url: 'https://ladestack.in',
-    description: t('hero.subtitle'),
+    url: `https://ladestack.in/${lang}`,
+    description: c.metaDescription,
     inLanguage: lang,
-    publisher: { '@type': 'Organization', name: 'Lade Stack' }
+    publisher: { '@id': 'https://ladestack.in/#organization' },
   }
 ];
 ---
 
 <BaseLayout
   title={`${t('hero.title.part1')} ${t('hero.title.part2')} | Lade Stack`}
-  description={t('hero.subtitle')}
+  description={c.metaDescription}
   lang={lang}
   path="/"
   structuredData={structuredData}

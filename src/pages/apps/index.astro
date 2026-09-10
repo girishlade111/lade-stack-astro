@@ -98,8 +98,8 @@ const structuredData = {
                   <span class="mono-micro text-success">
                     {app.comingSoon ? 'Coming soon' : 'Free Forever'}
                   </span>
-                  {app.comingSoon ? (
-                    <span class="caption text-mute">{t('apps.inProgress')}</span>
+                  {app.comingSoon || !app.landingUrl ? (
+                    <span class="caption text-mute" aria-disabled="true">{t('apps.inProgress')} · Coming soon</span>
                   ) : (
                     <Button
                       href={app.landingUrl.startsWith('http') ? app.landingUrl : getLocalizedPath(app.landingUrl, defaultLang)}

@@ -45,8 +45,8 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title={page.currentPage === 1 ? 'Engineering & AI Development Blog | Lade Stack' : `Engineering Blog — Page ${page.currentPage} | Lade Stack`}
-  description="Explore technical tutorials, architecture blueprints, and AI development insights by Girish Lade."
+  title={page.currentPage === 1 ? 'Engineering & AI Development Blog — Page 1 | Lade Stack' : `Engineering & AI Development Blog — Page ${page.currentPage} | Lade Stack`}
+  description={page.currentPage === 1 ? `27 in-depth tutorials on AI development, RAG, MLOps & SaaS architecture — page 1 of ${page.lastPage}.` : `More AI development tutorials, RAG guides & SaaS blueprints — page ${page.currentPage} of ${page.lastPage}.`}
   keywords="AI blog, developer tutorials, RAG, MLOps, SaaS architecture, DevOps"
   lang={defaultLang}
   path={canonicalPath}
@@ -72,6 +72,7 @@ const structuredData = {
         <input
           type="text"
           id="blog-search-input"
+          aria-label="Search blog posts"
           placeholder="Search articles by title or keyword..."
           class="w-full pl-11 pr-4 py-3 rounded-2xl border border-border bg-card/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
         />
@@ -83,6 +84,7 @@ const structuredData = {
           categories.map((cat, idx) => (
             <button
               type="button"
+              aria-pressed={idx === 0 ? 'true' : 'false'}
               class={`category-pill px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${
                 idx === 0
                   ? 'bg-primary text-primary-foreground border-primary active-pill'
@@ -112,7 +114,7 @@ const structuredData = {
                 <span class="px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold">
                   {c.blogCategories[post.data.category] ?? post.data.category}
                 </span>
-                <span>{parseInt(post.data.readTime)} {t('common.minRead')}</span>
+                <span>{post.data.readTime} {t('common.minRead')}</span>
               </div>
               <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
                 <a href={`/blog/${post.slug}`}>
@@ -134,7 +136,7 @@ const structuredData = {
         ))
       }
     </div>
-    <p data-blog-empty class="hidden mt-8 text-center text-muted-foreground">No articles match your search.</p>
+    <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center text-muted-foreground">No articles match your search.</p></div>
 
     <!-- Pagination Controls -->
     {page.lastPage > 1 && (
@@ -229,9 +231,11 @@ const structuredData = {
         pills.forEach((p) => {
           p.classList.remove('bg-primary', 'text-primary-foreground', 'border-primary', 'active-pill');
           p.classList.add('bg-card', 'text-muted-foreground');
+          p.setAttribute('aria-pressed', 'false');
         });
         pill.classList.add('bg-primary', 'text-primary-foreground', 'border-primary', 'active-pill');
         pill.classList.remove('bg-card', 'text-muted-foreground');
+        pill.setAttribute('aria-pressed', 'true');
 
         currentCategory = pill.getAttribute('data-category') || 'All';
         filterPosts();

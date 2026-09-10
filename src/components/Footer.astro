@@ -132,6 +132,7 @@ const currentYear = new Date().getFullYear();
             type="email"
             required
             placeholder={t('common.emailPlaceholder')}
+            aria-describedby="newsletter-msg"
             class="text-input-dark w-full"
           />
           <button
@@ -141,7 +142,7 @@ const currentYear = new Date().getFullYear();
             {t('common.subscribe')}
           </button>
         </form>
-        <p data-newsletter-msg class="hidden mt-2 text-xs text-success" role="status"></p>
+        <p data-newsletter-msg id="newsletter-msg" class="hidden mt-2 text-xs" role="status" aria-live="polite"></p>
       </div>
     </div>
 
@@ -177,11 +178,19 @@ const currentYear = new Date().getFullYear();
         }
         var email = input && input.value ? input.value.trim() : '';
         var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        function showMsg(text, ok) {
+          if (!msg) return;
+          msg.textContent = text;
+          msg.classList.remove('hidden');
+          msg.style.color = ok ? '#37cd84' : '#dd0000';
+          if (input) input.setAttribute('aria-describedby', 'newsletter-msg');
+        }
         if (!valid) {
           if (input) {
             input.setAttribute('aria-invalid', 'true');
             input.style.borderColor = '#dd0000';
           }
+          showMsg('Please enter a valid email address (e.g. you@example.com).', false);
           return;
         }
         if (input) {
@@ -189,10 +198,12 @@ const currentYear = new Date().getFullYear();
           input.removeAttribute('aria-invalid');
           input.style.borderColor = '';
         }
+        showMsg(formEl.getAttribute('data-success') || '', true);
+        // B11: keep success visible until the user interacts again (no pure 5s timeout).
         if (msg) {
-          msg.textContent = formEl.getAttribute('data-success') || '';
-          msg.classList.remove('hidden');
-          setTimeout(function () { if (msg) msg.classList.add('hidden'); }, 5000);
+          var hideTimer = window.setTimeout(function () { if (msg) msg.classList.add('hidden'); }, 15000);
+          var cancelHide = function () { window.clearTimeout(hideTimer); };
+          formEl.addEventListener('input', cancelHide, { once: true });
         }
       });
     });

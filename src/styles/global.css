@@ -15,7 +15,7 @@
     --secondary: #212121;
     --secondary-foreground: #b9b9b9;
     --muted: #212121;
-    --muted-foreground: #797979;
+    --muted-foreground: #a8a8a8;
     --accent: #f36458;
     --accent-foreground: #0b0b0b;
     --destructive: #dd0000;
@@ -38,7 +38,7 @@
     --secondary: #212121;
     --secondary-foreground: #b9b9b9;
     --muted: #212121;
-    --muted-foreground: #797979;
+    --muted-foreground: #a8a8a8;
     --accent: #f36458;
     --accent-foreground: #0b0b0b;
     --destructive: #dd0000;
@@ -63,7 +63,7 @@
   body {
     background-color: #0b0b0b;
     color: #ffffff;
-    font-family: 'waldenburgNormal', 'ABC Walden', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     text-rendering: optimizeLegibility;
@@ -216,7 +216,7 @@
   }
 
   .mono-eyebrow {
-    font-family: 'ibmPlexMono', 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.5;
@@ -224,7 +224,7 @@
   }
 
   .mono-caps {
-    font-family: 'ibmPlexMono', 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     font-weight: 400;
     line-height: 1.5;
@@ -233,7 +233,7 @@
   }
 
   .mono-micro {
-    font-family: 'ibmPlexMono', 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     font-weight: 400;
     line-height: 1.3;
@@ -651,6 +651,7 @@
 
 /* ------------------------------------------------------------------ */
 /* Scroll-reveal system (driven by PageAnimations.astro).              */
+
 /* Tag any element with `data-reveal` (+ optional                    */
 /* `data-reveal-delay="120"` in ms) to fade/slide it in on scroll.     */
 /* ------------------------------------------------------------------ */
@@ -666,6 +667,12 @@
 [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* C7: no-JS fallback — content must never stay invisible without JavaScript. */
+noscript [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* Hero / entrance choreography: runs on every page load (and every    */

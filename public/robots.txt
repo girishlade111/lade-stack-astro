@@ -37,6 +37,8 @@ Disallow: /500
 Disallow: /502
 Disallow: /error
 Disallow: /*/404
+Disallow: /*/500
+Disallow: /*/502
 Disallow: /*/error
 
 # Legacy URLs (Prevent indexing of non-canonical legacy redirect routes)
@@ -83,6 +85,8 @@ Disallow: /500
 Disallow: /502
 Disallow: /error
 Disallow: /*/404
+Disallow: /*/500
+Disallow: /*/502
 Disallow: /*/error
 Disallow: /api-testing-platform
 Disallow: /website-builder-project
@@ -127,6 +131,8 @@ Disallow: /500
 Disallow: /502
 Disallow: /error
 Disallow: /*/404
+Disallow: /*/500
+Disallow: /*/502
 Disallow: /*/error
 Disallow: /api-testing-platform
 Disallow: /website-builder-project

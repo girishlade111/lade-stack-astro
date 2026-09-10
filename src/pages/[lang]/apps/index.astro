@@ -99,9 +99,9 @@ const structuredData = {
               <span class="text-xs font-bold text-primary px-2.5 py-1 rounded-md bg-primary/10">
                 {app.comingSoon ? t('apps.soonBadge') : t('apps.liveBadge')}
               </span>
-              {app.comingSoon ? (
-                <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
-                  <span>{t('apps.inProgress')}</span>
+              {app.comingSoon || !app.landingUrl ? (
+                <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground" aria-disabled="true">
+                  <span>{t('apps.inProgress')} · Coming soon</span>
                 </span>
               ) : (
                 <a

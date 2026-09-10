@@ -1,6 +1,7 @@
 import type { LocaleContent } from './content-types';
 
 export const zh: LocaleContent = {
+  metaDescription: '免费AI开发者工具：代码审查、PDF工具、简历生成与图片处理。免注册，永久免费。',
   testimonials: [
     {
       quote: 'CodeEnhance AI 把我的前端迭代时间砍掉了一半。实时的 AI 建议，就像跟一位资深工程师结对编程。',
@@ -32,7 +33,7 @@ export const zh: LocaleContent = {
       tagline: 'REST 与 GraphQL 自动化测试',
       desc: '几秒钟生成自动化验证套件、Mock 接口响应，并跑完安全基准测试。',
       icon: 'lucide:network',
-      link: 'https://ladestack.in/api-testing-platform',
+      link: '/apps',
       badge: '极速'
     },
     {
@@ -40,7 +41,7 @@ export const zh: LocaleContent = {
       tagline: '零代码语义化生成器',
       desc: '生成现代化响应式界面，语义化标记，一键导出标准 HTML/CSS。',
       icon: 'lucide:layout-template',
-      link: 'https://ladestack.in/website-builder-project',
+      link: '/apps',
       badge: '零代码'
     },
     {
@@ -48,7 +49,7 @@ export const zh: LocaleContent = {
       tagline: '加密的开发者文件共享',
       desc: '配置文件、密钥、部署包，快速安全地临时分享。',
       icon: 'lucide:shield-check',
-      link: 'https://ladestack.in/file-sharing-platform',
+      link: '/apps',
       badge: '加密'
     }
   ],

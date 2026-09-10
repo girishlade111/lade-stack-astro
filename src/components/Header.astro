@@ -93,6 +93,8 @@ function isActive(path: string): boolean {
   <nav
     id="mobile-drawer"
     data-mobile-drawer
+    role="dialog"
+    aria-modal="true"
     aria-label="Mobile"
     class="hidden sm:hidden fixed inset-x-0 top-16 bg-canvas border-b border-hairline-soft shadow-2xl z-50"
   >
@@ -141,6 +143,15 @@ function isActive(path: string): boolean {
       if (bd) bd.classList.toggle('hidden', !open);
       b.setAttribute('aria-expanded', open ? 'true' : 'false');
       document.body.style.overflow = open ? 'hidden' : '';
+      // B9: focus trap — move focus in on open, return to toggle on close.
+      if (open) {
+        window.__ladestackDrawerOpener = b;
+        var first = d.querySelector('a, button');
+        if (first) { try { first.focus(); } catch (e) {} }
+      } else if (window.__ladestackDrawerOpener) {
+        try { window.__ladestackDrawerOpener.focus(); } catch (e) {}
+        window.__ladestackDrawerOpener = null;
+      }
     }
 
     function closeMenu() {
@@ -169,6 +180,17 @@ function isActive(path: string): boolean {
       window.__ladestackHeaderDocWired = true;
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeMenu();
+        // B9: keep Tab cycling inside the open drawer.
+        if (e.key === 'Tab') {
+          var d = document.querySelector('[data-mobile-drawer]');
+          if (!d || d.classList.contains('hidden')) return;
+          var items = d.querySelectorAll('a, button');
+          if (!items.length) return;
+          var first = items[0];
+          var last = items[items.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
       });
       // Always start navigations with the drawer closed.
       document.addEventListener('astro:before-preparation', closeMenu);

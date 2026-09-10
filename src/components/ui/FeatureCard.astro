@@ -2,7 +2,8 @@
 interface Props {
   variant?: 'dark' | 'brand' | 'light' | 'featured';
   class?: string;
-  [key: string]: any;
+  id?: string;
+  ariaLabel?: string;
 }
 
 const { variant = 'dark', class: className = '', ...rest } = Astro.props;

@@ -1,6 +1,7 @@
 import type { LocaleContent } from './content-types';
 
 export const tr: LocaleContent = {
+  metaDescription: 'Ücretsiz yapay zekâ geliştirici araçları: kod inceleme, PDF araçları, CV oluşturucu ve görsel stüdyosu. Kayıt yok.',
   testimonials: [
     {
       quote: 'CodeEnhance AI, frontend deneme-yanılma süremi yarıya indirdi. Canlı AI önerileri, kıdemli biriyle eşli programlama gibi hissettiriyor.',
@@ -32,7 +33,7 @@ export const tr: LocaleContent = {
       tagline: 'Otomatik REST ve GraphQL Testi',
       desc: 'Saniyeler içinde otomatik doğrulama paketleri üretin, API yanıtlarını taklit edin, güvenlik testleri koşturun.',
       icon: 'lucide:network',
-      link: 'https://ladestack.in/api-testing-platform',
+      link: '/apps',
       badge: 'Yüksek Hız'
     },
     {
@@ -40,7 +41,7 @@ export const tr: LocaleContent = {
       tagline: 'Kodsuz Semantik Üretici',
       desc: 'Semantik işaretlemeli modern, duyarlı arayüzler üretin, standart HTML/CSS olarak dışa aktarın.',
       icon: 'lucide:layout-template',
-      link: 'https://ladestack.in/website-builder-project',
+      link: '/apps',
       badge: 'Sıfır Kod'
     },
     {
@@ -48,7 +49,7 @@ export const tr: LocaleContent = {
       tagline: 'Şifreli Geliştirici Dosya Paylaşımı',
       desc: 'Yapılandırma dosyaları, kimlik bilgileri ve dağıtım arşivleri için hızlı, güvenli geçici paylaşım.',
       icon: 'lucide:shield-check',
-      link: 'https://ladestack.in/file-sharing-platform',
+      link: '/apps',
       badge: 'Şifreli'
     }
   ],

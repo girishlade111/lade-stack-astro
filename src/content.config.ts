@@ -10,7 +10,7 @@ const blog = defineCollection({
     relatedApps: z.array(z.string()).default([]),
     author: z.string().default('Girish Lade'),
     category: z.string(),
-    readTime: z.string(),
+    readTime: z.coerce.number(),
     coverImage: z.string(),
     featured: z.boolean().default(false),
     tags: z.array(z.string()).default([])

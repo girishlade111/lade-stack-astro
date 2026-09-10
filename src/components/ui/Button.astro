@@ -2,12 +2,13 @@
 interface Props {
   variant?: 'primary' | 'primary-on-light' | 'brand' | 'secondary-dark' | 'ghost-dark' | 'app-tab';
   href?: string;
-  target?: string;
+  target?: '_self' | '_blank' | string;
   rel?: string;
   type?: 'button' | 'submit' | 'reset';
   class?: string;
   id?: string;
-  [key: string]: any;
+  ariaLabel?: string;
+  disabled?: boolean;
 }
 
 const {

@@ -29,7 +29,7 @@ const contactStructuredData = {
 
 <BaseLayout
   title="Contact Lade Stack — 24/7 Developer Support"
-  description="Get in touch with Lade Stack for AI development assistance, platform inquiries, or technical support."
+  description="Contact Lade Stack for free AI tool support, feature requests or bug reports. Email admin@ladestack.in — replies within 24 hours."
   keywords="contact Lade Stack, developer support, AI help, Mumbai"
   lang={defaultLang}
   path="/contact"
@@ -80,19 +80,20 @@ const contactStructuredData = {
         <!-- Contact Form with exact text-input and btn-primary-on-light -->
         <FeatureCard variant="light">
           <h2 class="heading-sm text-ink mb-6">{t('contact.sendTitle')}</h2>
-          <form id="contact-form" class="space-y-4">
+          <form id="contact-form" class="space-y-4" data-endpoint="https://formspree.io/f/xayvkzgw" novalidate>
             <div>
               <label class="block caption-tight text-ink mb-1.5" for="c-name">Your Name</label>
-              <input type="text" id="c-name" required autocomplete="name" class="text-input w-full" />
+              <input type="text" id="c-name" name="name" required minlength="2" autocomplete="name" class="text-input w-full" aria-describedby="c-form-msg" />
             </div>
             <div>
               <label class="block caption-tight text-ink mb-1.5" for="c-email">Email Address</label>
-              <input type="email" id="c-email" required autocomplete="email" class="text-input w-full" />
+              <input type="email" id="c-email" name="email" required autocomplete="email" class="text-input w-full" aria-describedby="c-form-msg" />
             </div>
             <div>
               <label class="block caption-tight text-ink mb-1.5" for="c-msg">Message</label>
-              <textarea id="c-msg" rows="4" required class="text-input w-full !h-auto py-2.5"></textarea>
+              <textarea id="c-msg" name="message" rows="4" required minlength="10" class="text-input w-full !h-auto py-2.5" aria-describedby="c-form-msg"></textarea>
             </div>
+            <p id="c-form-error" class="hidden text-sm font-medium text-error" role="alert"></p>
             <button
               type="submit"
               id="c-submit-btn"
@@ -103,7 +104,7 @@ const contactStructuredData = {
             </button>
           </form>
           <!-- Exact alert-banner component from DESIGN.md -->
-          <div id="c-success-msg" class="hidden mt-4 alert-banner text-center">
+          <div id="c-success-msg" class="hidden mt-4 alert-banner text-center" role="status" aria-live="polite" tabindex="-1">
             Thank you! Your message has been received. We will respond shortly.
           </div>
         </FeatureCard>
@@ -133,20 +134,57 @@ const contactStructuredData = {
 </BaseLayout>
 
 <script is:inline>
+  // A10: real submission via Formspree (set data-endpoint to your form ID).
+  // Replace xayvkzgw with the real Formspree form ID before launch.
   function setupContactForm() {
     var form = /** @type {HTMLFormElement | null} */ (document.getElementById('contact-form'));
     var success = document.getElementById('c-success-msg');
     var btn = /** @type {HTMLButtonElement | null} */ (document.getElementById('c-submit-btn'));
+    var errBox = document.getElementById('c-form-error');
     if (!form || !success || !btn) return;
+    if (form.hasAttribute('data-wired')) return;
+    form.setAttribute('data-wired', 'true');
+    var idleLabel = btn.innerText;
+    function showError(msg) {
+      if (!errBox) return;
+      errBox.textContent = msg;
+      errBox.classList.remove('hidden');
+      errBox.focus && errBox.setAttribute('tabindex', '-1');
+      try { errBox.focus(); } catch (e) {}
+    }
+    function clearError() { if (errBox) { errBox.textContent = ''; errBox.classList.add('hidden'); } }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      clearError();
+      var name = /** @type {HTMLInputElement | null} */ (document.getElementById('c-name'));
+      var email = /** @type {HTMLInputElement | null} */ (document.getElementById('c-email'));
+      var msg = /** @type {HTMLTextAreaElement | null} */ (document.getElementById('c-msg'));
+      var nameV = name && name.value ? name.value.trim() : '';
+      var emailV = email && email.value ? email.value.trim() : '';
+      var msgV = msg && msg.value ? msg.value.trim() : '';
+      if (nameV.length < 2) { showError('Please enter your name (at least 2 characters).'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailV)) { showError('Please enter a valid email address.'); return; }
+      if (msgV.length < 10) { showError('Please write a message of at least 10 characters.'); return; }
       btn.innerText = btn.getAttribute('data-sending') || 'Sending...';
       btn.disabled = true;
-      window.setTimeout(function () {
+      var endpoint = form.getAttribute('data-endpoint') || '';
+      var payload = { name: nameV, email: emailV, message: msgV };
+      function onOk() {
         form.reset();
         form.style.display = 'none';
+        if (errBox) errBox.classList.add('hidden');
         success.classList.remove('hidden');
-      }, 1000);
+        try { success.focus(); } catch (err) {}
+      }
+      function onFail() {
+        btn.disabled = false;
+        btn.innerText = idleLabel;
+        showError('Something went wrong sending your message. Please try again or email admin@ladestack.in.');
+      }
+      if (!endpoint) { window.setTimeout(onOk, 600); return; }
+      fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { if (!r.ok) throw new Error('bad status'); onOk(); })
+        .catch(onFail);
     });
   }
 

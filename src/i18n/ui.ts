@@ -279,7 +279,6 @@ const zh: Record<UIKeys, string> = {
   'common.featured': '精选',
   'common.related': '相关文章',
   'common.subscribe': '订阅',
-  'common.emailPlaceholder': 'you@example.com',
   'common.submit': '提交',
   'common.noResults': '未找到结果，请换个关键词试试。',
   'home.hero.badge': 'AI 驱动的开发者生态',

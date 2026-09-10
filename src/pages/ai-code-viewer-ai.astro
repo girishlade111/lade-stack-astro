@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import { useTranslations, getLocalizedPath } from '../i18n/utils';
 import { getContent } from '../i18n/content';
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -23,27 +24,26 @@ const structuredData = {
   url: 'https://ladestack.in/ai-code-viewer-ai',
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Web Browser',
-  description: 'AI-powered HTML, CSS & JS code viewer, compiler, editor, and enhancer for modern web development',
+  description: 'AI Code Review Tool: paste HTML, CSS & JS, get instant AI fixes and live preview. Free forever.',
   creator: { '@type': 'Person', name: 'Girish Lade', email: 'admin@ladestack.in', url: 'https://ladestack.in' },
   publisher: { '@type': 'Organization', name: 'Lade Stack', url: 'https://ladestack.in' },
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '156' }
 };
 ---
 <BaseLayout
   lang={lang}
   path="/ai-code-viewer-ai"
-  title="CodeEnhance AI - AI-Powered HTML, CSS & JS Code Viewer, Compiler, Editor & Enhancer"
-  description="Transform your frontend code with AI intelligence. Edit, compile, and enhance HTML, CSS & JS with real-time AI assistance. The ultimate development tool for modern web creators."
+  title="AI Code Review Tool — Instant Feedback | Lade Stack"
+  description="AI Code Review Tool: paste HTML, CSS & JS, get instant AI fixes and live preview. Free forever, no signup."
   ogImage="https://ladestack.in/AIcode.png"
   structuredData={structuredData}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 text-center">
-    <p class="inline-block text-xs font-mono px-4 py-1.5 rounded-full bg-sage-500/10 text-sage-600 dark:text-sage-400 border border-sage-500/20">{t('aicode.badge')}</p>
+    <p class="inline-block text-xs font-mono px-4 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">{t('aicode.badge')}</p>
     <h1 class="font-serif text-4xl md:text-6xl font-bold mt-5 max-w-3xl mx-auto leading-tight">CodeEnhance AI</h1>
     <p class="mt-4 text-foreground/65 max-w-2xl mx-auto md:text-lg">{t('aicode.subtitle')}</p>
     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-      <a href="https://code.ladestack.in/" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 px-8 items-center justify-center rounded-full bg-sage-500 text-white font-semibold hover:bg-sage-600">{t('aicode.ctaPrimary')} ↗</a>
+      <a href="https://code.ladestack.in/" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 px-8 items-center justify-center rounded-full bg-brand text-white font-semibold hover:opacity-90">{t('aicode.ctaPrimary')} ↗</a>
       <a href={getLocalizedPath('/apps', lang)} class="inline-flex h-12 px-8 items-center justify-center rounded-full border border-border font-semibold hover:bg-muted">{t('aicode.ctaSecondary')}</a>
     </div>
 
@@ -63,7 +63,7 @@ const structuredData = {
   border-radius: 999px;
 &#125;}
 &lt;/style&gt;</code></pre>
-        <div class="p-6 border-t md:border-t-0 md:border-l border-border flex items-center justify-center bg-sage-500/5">
+        <div class="p-6 border-t md:border-t-0 md:border-l border-border flex items-center justify-center bg-primary/5">
           <span class="inline-flex h-12 px-8 items-center justify-center rounded-full text-white font-semibold" style="background:#6E8F6A">Ship it</span>
         </div>
       </div>
@@ -87,10 +87,10 @@ const structuredData = {
         <h2 class="font-serif text-2xl font-bold">From the blog</h2>
         <div class="mt-5 grid sm:grid-cols-2 gap-4">
           {blogPosts.map((post) => (
-            <a href={`/blog/${post.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-sage-500/40 hover:shadow-lg transition-all">
-              <img src={post.data.coverImage} alt={post.data.title} class="h-32 w-full object-cover" loading="lazy" />
+            <a href={`/blog/${post.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all">
+              <Image src={post.data.coverImage} alt={`${post.data.title} — blog cover`} width={600} height={192} loading="lazy" class="h-32 w-full object-cover" />
               <div class="p-5">
-                <p class="text-[11px] font-mono text-sage-600 dark:text-sage-400">{post.data.category}</p>
+                <p class="text-[11px] font-mono text-primary">{post.data.category}</p>
                 <h3 class="mt-1.5 font-semibold leading-snug">{post.data.title}</h3>
               </div>
             </a>

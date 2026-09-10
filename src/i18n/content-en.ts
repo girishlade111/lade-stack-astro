@@ -1,6 +1,7 @@
 import type { LocaleContent } from './content-types';
 
 export const en: LocaleContent = {
+  metaDescription: 'Free AI developer tools: code review, PDF toolkit, resume builder & image studio. No signup, free forever.',
   testimonials: [
     {
       quote: 'CodeEnhance AI cut my frontend iteration time in half. The live AI suggestions feel like pair-programming with a senior dev.',
@@ -32,7 +33,7 @@ export const en: LocaleContent = {
       tagline: 'Automated REST & GraphQL Testing',
       desc: 'Generate automated validation suites, mock API responses, and run security benchmarks in seconds.',
       icon: 'lucide:network',
-      link: 'https://ladestack.in/api-testing-platform',
+      link: '/apps',
       badge: 'High Speed'
     },
     {
@@ -40,7 +41,7 @@ export const en: LocaleContent = {
       tagline: 'No-Code Semantic Generator',
       desc: 'Generate modern, responsive web interfaces with semantic markup and export to standard HTML/CSS.',
       icon: 'lucide:layout-template',
-      link: 'https://ladestack.in/website-builder-project',
+      link: '/apps',
       badge: 'Zero Code'
     },
     {
@@ -48,7 +49,7 @@ export const en: LocaleContent = {
       tagline: 'Encrypted Developer File Sharing',
       desc: 'Fast, secure temporary sharing for configuration files, credentials, and deployment archives.',
       icon: 'lucide:shield-check',
-      link: 'https://ladestack.in/file-sharing-platform',
+      link: '/apps',
       badge: 'Encrypted'
     }
   ],
