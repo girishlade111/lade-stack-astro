@@ -142,7 +142,7 @@ export const ja: LocaleContent = {
     { h: 'お問い合わせ', p: '規約に関する質問: admin@ladestack.in、インド・ムンバイ。' }
   ],
   apps: {
-    'ai-code-viewer': {
+    'ai-code-viewer-ai': {
       tagline: 'AIフロントエンドコードエディタ',
       description: 'リアルタイムAI支援でHTML・CSS・JSを編集、コンパイル、強化。',
       features: ['リアルタイムAI支援', 'ライブプレビュー', 'ワンクリック改善']
