@@ -68,10 +68,74 @@ export const en: LocaleContent = {
     { q: 'Where do I learn best practices?', a: 'Start with the Docs and the Blog — 27+ guides cover AI development end to end.' }
   ],
   contactFaqs: [
-    { q: 'Is Lade Stack really free?', a: 'Yes. Every tool is free forever — no tiers, trials, or credit cards.' },
-    { q: 'How fast is support?', a: 'We operate 24/7 and typically respond within hours at admin@ladestack.in.' },
-    { q: 'Can I request a feature?', a: 'Absolutely — open a GitHub issue or send a message below.' },
-    { q: 'Do you offer enterprise solutions?', a: 'Yes. Contact us with your requirements for custom integrations and SLAs.' }
+    {
+      q: 'What is Lade Stack?',
+      a: 'Lade Stack is an independent software and technology platform founded in India, dedicated to building practical developer tools, AI-powered software, SaaS products, and modern web applications. The platform is focused on removing friction from technical workflows through thoughtful UI/UX design, clean engineering, and targeted automation.'
+    },
+    {
+      q: 'Who is behind Lade Stack?',
+      a: 'Lade Stack is founded and architected by Girish Lade, who serves as Founder & Lead Software Architect. Bringing together a multidisciplinary background across UI/UX design, frontend and backend engineering, cloud architecture, and Generative AI, Girish directs product strategy and builds tools designed to solve real engineering challenges.'
+    },
+    {
+      q: 'What makes Lade Stack different from other software platforms?',
+      a: 'Rather than chasing speculative hype or building bloated software suites, Lade Stack is founder-led and crafted at the intersection of design and engineering. Tools are built to be fast, accessible, and immediately useful without unnecessary account hurdles, complex configurations, or aggressive upsells.'
+    },
+    {
+      q: 'What kinds of products does Lade Stack build?',
+      a: 'Lade Stack develops focused developer utilities, intelligent code-enhancement tools, client-side productivity applications, and modern web software. Our ecosystem includes CodeEnhance AI (in-browser code editing and enhancement), LS PDF Tools and LS Image Studio (private client-side media utilities), Swift Resume, and developer utilities such as the API Testing Platform.'
+    },
+    {
+      q: 'Is Lade Stack built specifically for software developers?',
+      a: 'Many of our core tools—such as CodeEnhance AI, the API Testing Platform, and our technical documentation—are engineered developer-first to accelerate release cycles and eliminate repetitive toil. However, productivity tools like LS PDF Tools, LS Image Studio, and Swift Resume are crafted to be equally intuitive and valuable for students, creators, and professionals outside software engineering.'
+    },
+    {
+      q: 'How does Lade Stack use Generative AI?',
+      a: 'Generative AI is integrated pragmatically where machine intelligence provides clear, verifiable workflow acceleration—such as analyzing code structure, offering contextual suggestions, and streamlining documentation tasks. We avoid adding AI as a gimmick and focus on grounded, human-supervised assistance that saves developers meaningful time.'
+    },
+    {
+      q: 'Are Lade Stack products browser-based?',
+      a: 'Yes. The majority of Lade Stack applications run directly in modern web browsers, providing instant access without heavy local installations or runtime dependencies. Many tools, including our file and image processors, execute operations entirely client-side for maximum speed and privacy.'
+    },
+    {
+      q: 'Is Lade Stack really free to use?',
+      a: 'Yes. Core developer tools and productivity utilities across Lade Stack are free to use, with no paywalls, hidden trials, or mandatory credit cards required. Our aim is to keep high-utility software accessible to developers, learners, and builders worldwide.'
+    },
+    {
+      q: 'Are all Lade Stack products open source?',
+      a: "Lade Stack embraces an open, community-first philosophy, and select tools, libraries, and guides are shared openly on GitHub. However, 'free to use' does not mean every underlying service is open source. You can explore our open-source repositories and code projects directly on Girish Lade's GitHub profile."
+    },
+    {
+      q: 'How does Lade Stack handle user data and privacy?',
+      a: 'Privacy is treated as an architectural priority. Core utilities such as LS PDF Tools and LS Image Studio perform processing locally in your browser, meaning your files never leave your device. For tools that interact with online services, data handling is strictly limited to fulfilling the immediate user request. Please review individual product documentation for specific details.'
+    },
+    {
+      q: 'How can I get support if I run into an issue?',
+      a: 'You can reach out directly using the contact form on this page or by sending an email to admin@ladestack.in. Every inquiry is reviewed directly by Girish Lade. While we do not operate a formal enterprise SLA, we actively investigate problems and reply to constructive questions as promptly as possible.'
+    },
+    {
+      q: 'Can I suggest a new feature or tool idea?',
+      a: 'Yes, community feedback is genuinely encouraged. You can submit ideas and workflow suggestions through our contact form or by opening an issue on GitHub. Feature requests are prioritized based on general utility, technical feasibility, and alignment with Lade Stack\'s roadmap.'
+    },
+    {
+      q: 'I found a bug. What is the best way to report it?',
+      a: 'If you encounter a bug, please send details via the contact form or email admin@ladestack.in. Including the tool name, browser and operating system, steps to reproduce the issue, and any relevant error messages or screenshots helps us identify and deploy a fix quickly.'
+    },
+    {
+      q: 'Where can I find documentation and usage guides?',
+      a: 'Comprehensive guides, architectural breakdowns, and setup instructions are available in our Docs section (/docs) and on the Lade Stack Blog. Documentation continues to expand alongside each new release and feature update.'
+    },
+    {
+      q: 'Does Lade Stack offer enterprise solutions or team plans?',
+      a: 'Lade Stack is currently an independent, founder-led platform focused on accessible, high-performance web tools rather than complex corporate contracts or certified enterprise suites. However, if your team or startup has specific workflow needs, technical inquiries, or custom integration questions, you are welcome to reach out to discuss possibilities.'
+    },
+    {
+      q: 'How does Lade Stack decide what to build next?',
+      a: 'Product decisions are driven by real developer bottlenecks, hands-on user feedback, and opportunities where modern web technologies and Generative AI can meaningfully reduce friction. Every tool begins with a straightforward question: Does this save real time and make an essential workflow easier?'
+    },
+    {
+      q: 'Can I collaborate with or contribute to Lade Stack?',
+      a: 'Collaborative opportunities, technical feedback, and thoughtful project discussions are always welcome. Whether you are an engineer looking to contribute to open repositories or a builder interested in discussing product integrations, feel free to get in touch via admin@ladestack.in or connect on LinkedIn and GitHub.'
+    }
   ],
   docsGroups: [
     { id: 'getting-started', title: 'Getting Started', articles: [
