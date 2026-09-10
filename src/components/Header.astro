@@ -2,7 +2,6 @@
 import { useTranslations, getLocalizedPath, getRouteFromUrl } from '@/i18n/utils';
 import type { SupportedLocale } from '@/i18n/config';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
-import ThemeToggle from '@/components/ThemeToggle.astro';
 import BrandMark from '@/components/ui/BrandMark.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
@@ -57,7 +56,6 @@ function isActive(path: string): boolean {
     <div class="flex items-center gap-3">
       <div class="hidden sm:flex items-center gap-2">
         <LanguageSwitcher currentLang={lang} />
-        <ThemeToggle lang={lang} />
       </div>
 
       <!-- button-primary CTA (white pill on dark canvas) -->
