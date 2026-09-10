@@ -101,10 +101,7 @@ function isActive(path: string): boolean {
       ))}
       <div class="pt-3 flex items-center justify-between text-sm text-ash">
         <span>{t('common.language')}</span>
-        <div class="flex items-center gap-2">
-          <LanguageSwitcher currentLang={lang} />
-          <ThemeToggle lang={lang} />
-        </div>
+        <LanguageSwitcher currentLang={lang} />
       </div>
     </div>
   </nav>
