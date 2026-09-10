@@ -134,9 +134,10 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
   </head>
   <body class="min-h-screen flex flex-col bg-canvas text-on-primary font-sans antialiased selection:bg-brand selection:text-ink">
     <Header lang={lang} />
-    <main class="flex-1">
+    <main class="flex-1" transition:name="page-main" transition:animate="fade">
       <slot />
     </main>
     <Footer lang={lang} />
+    <PageAnimations />
   </body>
 </html>
