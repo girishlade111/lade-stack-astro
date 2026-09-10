@@ -37,7 +37,7 @@ const structuredData = {
           {categories.map((c) => (
             <li><a href={`#${c.id}`} class="block px-3 py-2 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground">{c.title}</a></li>
           ))}
-          <li><a href="#changelog" class="block px-3 py-2 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground">Changelog</a></li>
+          <li><a href="#changelog" class="block px-3 py-2 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground">{t('docs.changelog')}</a></li>
         </ul>
       </nav>
 
@@ -60,7 +60,7 @@ const structuredData = {
         ))}
 
         <section id="changelog" scroll-mt-24>
-          <h2 class="font-serif text-2xl font-bold">Changelog</h2>
+          <h2 class="font-serif text-2xl font-bold">{t('docs.changelog')}</h2>
           <ol class="mt-4 space-y-3">
             {changelog.map((c) => (
               <li class="rounded-2xl border border-border bg-card/60 px-5 py-4">
@@ -70,7 +70,7 @@ const structuredData = {
             ))}
           </ol>
         </section>
-        <p data-docs-empty class="hidden text-foreground/60">No documentation matches your search.</p>
+        <p data-docs-empty class="hidden text-foreground/60">{t('common.noResults')}</p>
       </div>
     </div>
   </div>
