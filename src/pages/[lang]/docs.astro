@@ -52,11 +52,13 @@ const structuredData = {
 </BaseLayout>
 
 <script is:inline>
-  (function () {
+  // View-Transition safe: re-wires after every `astro:page-load`.
+  function setupDocsSearch() {
     var input = document.querySelector('[data-docs-search]');
+    if (!input || input.hasAttribute('data-wired')) return;
+    input.setAttribute('data-wired', 'true');
     var articles = Array.prototype.slice.call(document.querySelectorAll('[data-docs-article]'));
     var empty = document.querySelector('[data-docs-empty]');
-    if (!input) return;
     input.addEventListener('input', function () {
       var q = input.value.trim().toLowerCase();
       var visible = 0;
@@ -74,5 +76,8 @@ const structuredData = {
       });
       if (empty) empty.classList.toggle('hidden', visible !== 0);
     });
-  })();
+  }
+
+  setupDocsSearch();
+  document.addEventListener('astro:page-load', setupDocsSearch);
 </script>

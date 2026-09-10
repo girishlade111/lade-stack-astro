@@ -1,285 +1,582 @@
-# Lade Stack AI Dev Hub — Project & File Structure Guide
+# Lade Stack Astro — Project Structure & Architecture Documentation
 
-> **Repo:** `lade-stack-ai-dev-hub`
-> **Stack:** Vite 5 + React 18 + TypeScript 5 + Tailwind CSS 3 + shadcn/ui + React Router 6 + TanStack Query 5 + Framer Motion 12
-> **Site:** `https://ladestack.in`
-> **Build:** `vite build` → `dist/` → Vercel SPA (`vercel.json` rewrite `/(.*)` → `/index.html`)
-> **Path alias:** `@/*` → `./src/*` (see `tsconfig.json`, `tsconfig.app.json`, `vite.config.ts`)
-
-This document explains **every folder and important file**, how routing, theming, SEO, data, styling, and deployment fit together, and how to add new pages / blog posts / apps / UI components without breaking anything.
+> **Project Type:** 100% Pure Astro 5 Static Site Generator (SSG)  
+> **Stack:** Astro 5 + Tailwind CSS 3.4 + TypeScript 5.7  
+> **Internationalization:** 6 languages (en, zh, ko, ja, tr, pt-BR)  
+> **Zero React Runtime** — No hydration, no islands, pure static HTML
 
 ---
 
-## 1. TL;DR Architecture
+## 📁 Root Directory Overview
 
-```text
-index.html               ← SEO head, fonts, JSON-LD, analytics, <div id="root">
-src/main.tsx             ← React root, imports App + index.css
-src/App.tsx              ← Providers + Router + lazy Routes (see §5)
-src/pages/*              ← One file per URL route (12 routes + 404)
-src/components/*         ← Layout + landing sections + cross-cutting (SEO, Header, Footer, Theme)
-src/components/ui/*      ← shadcn/ui primitives (47 files, Radix-based)
-src/data/*               ← apps.json, blogPosts.ts (27 posts), blogContent.ts (markdown bodies)
-src/assets/*             ← Bundled images + 24 blog-cover SVGs + author photos
-src/hooks/*, src/lib/*, src/utils/*  ← Shared logic
-src/index.css + tailwind.config.ts + components.json ← Design system
-public/*                 ← Unbundled static: sitemaps, robots.txt, llms.txt, manifest, favicon
-scripts/*, vite.config.ts, vercel.json ← Build / SEO automation / hosting
+```
+ladestack-astro/
+├── .astro/                    # Astro internal cache (generated)
+├── .vscode/                   # VS Code workspace settings
+├── dist/                      # Production build output (generated)
+├── node_modules/              # Dependencies (ignored)
+├── public/                    # Static assets (served as-is)
+├── sanity/                    # Sanity CMS design tokens (optional)
+├── scripts/                   # Build-time automation scripts
+├── src/                       # **Main source code** (documented below)
+├── astro.config.mjs           # Astro configuration
+├── package.json               # Project manifest & dependencies
+├── tsconfig.json              # TypeScript configuration
+├── tailwind.config.mjs        # Tailwind CSS configuration
+└── PROJECT_STRUCTURE.md       # This file
 ```
 
-**Request flow (production):**
-
-1. Browser hits `https://ladestack.in/blog/my-post` → Vercel `rewrites` serves `/index.html` (SPA fallback).
-2. `index.html` paints critical CSS + theme-preload script (avoids FOUC), loads `/src/main.tsx` as ES module.
-3. `App.tsx` mounts `BrowserRouter`, `ThemeProvider`, `QueryClientProvider`, `ErrorBoundary`, `LoadingScreen`, `ScrollProgress`, `SmoothScroll (Lenis)`, Vercel `Analytics` + `SpeedInsights`.
-4. Lazy route chunk loads (e.g. `BlogPost.tsx`), its `<SEO>` component rewrites `<title>`, meta, canonical, JSON-LD at runtime.
-5. Header/Footer + page sections render. Blog body comes from `blogPosts.ts` (meta) + `blogContent.ts` (markdown string → custom renderer).
-
-> This is a **client-rendered SPA**, not Next.js SSR. SEO depends on `index.html` defaults + per-route `<SEO>` runtime updates + static `public/sitemap*.xml` + `robots.txt`. See `migration-seo-manifest.json` for the full SEO inventory.
-
 ---
 
-## 2. Root Directory Map
+## 🏗️ `src/` — Main Source Code Structure
 
-```text
-lade-stack-ai-dev-hub/
-├── index.html                        ← App shell, global SEO/OG/Twitter/JSON-LD/fonts/analytics
-├── package.json                      ← vite_react_shadcn_ts, scripts: dev/build/lint/preview/indexnow
-├── vite.config.ts                    ← React SWC, @ alias, manualChunks, assetsInlineLimit=0
-├── tailwind.config.ts                ← Design tokens (sage/warm palettes), animations, plugins
-├── components.json                   ← shadcn/ui config (slate, CSS vars, aliases)
-├── postcss.config.js                 ← Tailwind + Autoprefixer
-├── tsconfig.json / tsconfig.app.json / tsconfig.node.json
-├── eslint.config.js
-├── vercel.json                       ← SPA rewrite + security + cache headers for assets/sitemap/robots
-├── public/                           ← Copied verbatim to dist/ (see §10)
-├── src/                              ← All application source (see §4–§9)
-├── scripts/
-│   ├── generate_blogs.js             ← Blog content generator helper
-│   └── notify-indexnow.mjs           ← `npm run indexnow` — pings IndexNow on publish
-├── dist/                             ← Build output (gitignored, deployed to Vercel)
-├── README.md (≈3850 lines)           ← Marketing + setup + architecture deep-dive
-├── README_APPS.md                    ← Apps Gallery documentation
-├── API_TESTING_IMPLEMENTATION.md     ← API Tester product spec
-├── Blog_System_Upgrade_Plan.md       ← Blog roadmap
-├── SEO_OPTIMIZATION_SUMMARY.md       ← Keyword + meta + schema strategy
-├── LADE_STACK_LOADER_README.md       ← Custom loader docs
-├── migration-seo-manifest.json       ← Generated SEO route/redirect/sitemap manifest (Astro migration)
-├── PROJECT_STRUCTURE.md              ← This file
-└── node_modules/, package-lock.json, .git/, .claude/
 ```
-
-### Root config files — what each does
-
-| File | Purpose | Key details |
-|---|---|---|
-| `package.json` | Deps + scripts | `dev: vite`, `build: vite build`, `lint: eslint .`, `preview: vite preview`, `indexnow: node scripts/notify-indexnow.mjs`. Major deps: `react@18`, `react-router-dom@6`, `@tanstack/react-query@5`, `framer-motion@12`, `lenis`, `lottie-react`, full Radix suite, `next-themes`, `recharts`, `sonner`, `zod` + RHF. |
-| `vite.config.ts` | Dev + build | `server.host ::, port 8080`. `resolve.alias @ → ./src`. `build.assetsInlineLimit=0` (never inline images as base64 so `background.avif/webp` stay cacheable files). `manualChunks`: `react-core`, `router`, `framer-motion`, `charts`, `lottie`, `radix-ui`, `tanstack-query`, `utils`, `lenis`. `esbuild.target es2020`, `chunkSizeWarningLimit 500`. |
-| `tailwind.config.ts` | Design system | `darkMode: ["class"]`, `content` covers `src/**/*`. Custom `sage` (#6E8F6A family) + `warm` (#F5F3EB family) palettes, `container center 2rem / 2xl 1400px`, `Inter` + `JetBrains Mono` fonts, `accordion-down/up`, `float` keyframes, plugins `tailwindcss-animate` + `@tailwindcss/typography`. |
-| `components.json` | shadcn/ui | `style default`, `tsx:true`, `tailwind.css: src/index.css`, `baseColor slate`, `cssVariables:true`, aliases `components→@/components`, `utils→@/lib/utils`, `ui→@/components/ui`, `lib→@/lib`, `hooks→@/hooks`. |
-| `tsconfig*.json` | TS | Project references (`app` + `node`). `baseUrl .`, `paths @/* → ./src/*`. Lenient: `noImplicitAny:false`, `strictNullChecks:false`, `noUnusedLocals:false`, `skipLibCheck:true`, `allowJs:true`. |
-| `vercel.json` | Hosting | `regions: [bom1]`. Single `rewrites: /(.*) → /index.html` (SPA). `headers`: immutable 1y cache for `/assets/*`; `no-store`-ish for `/`; security headers (`nosniff`, `DENY`, `XSS 1;mode=block`, strict `Referrer-Policy`, restrictive `Permissions-Policy`); correct `Content-Type` + caching for `sitemap*.xml`, `robots.txt`, `llms.txt`, `ladestack-indexnow-key.txt`. **No `redirects`** — legacy sitemap URLs (`/projects`, `/file-sharing-platform`, `/api-testing-platform`) currently fall through to 404; handle in Astro migration. |
-| `index.html` | Shell + global SEO | `lang="en"`, viewport-fit cover. Title, description, keywords, `robots: index,follow,max-image-preview:large…`, OG (`website`, `og-image.png` 1200×630, `ladestack.in`), Twitter `summary_large_image`, `canonical https://ladestack.in`, `/site.webmanifest`, inline critical CSS + theme-flash guard + deferred Google Fonts (Inter + DM Serif Display preload, JetBrains Mono idle) + JSON-LD (`Organization` + `SoftwareApplication` + `WebSite`) + deferred Clarity + Umami. |
-| `postcss.config.js`, `eslint.config.js` | Tooling | Standard Tailwind/Autoprefixer chain; flat ESLint (see file for rule set). |
-
----
-
-## 3. Entry Files
-
-| File | Role |
-|---|---|
-| `src/main.tsx` (5 lines) | `createRoot(#root).render(<App />)` + `import ./index.css`. No router/providers here — all in `App.tsx`. |
-| `src/App.tsx` (107 lines) | **Composition root.** `ErrorBoundary` → `QueryClientProvider` (stale 5min, retry 1, no refocus) → `ThemeProvider (default light, key ladestack-theme)` → `BrowserRouter` → `SmoothScroll (Lenis)` → `LoadingScreen` + `ScrollProgress` + `ScrollToTop` → `Suspense(PageLoader)` → `Routes` → `Toaster` + `Sonner` + Vercel `Analytics` + `SpeedInsights`. All pages `lazy()`-imported for code-splitting. |
-| `src/vite-env.d.ts` | Vite client types (`import.meta.env`, assets). |
-| `src/App.css` | Legacy/app-level styles (check before adding global CSS — prefer `index.css` + Tailwind). |
-| `src/index.css` (385 lines) | Tailwind directives + `@layer base` CSS vars for light (warm paper `#F5F3EB`) + `.dark` (#1e1c18-ish) + `* { border-border }`, font smoothing, body/typography/scrollbar/selection/keyframes (`header-slide-in`, etc.). This is the **single source of truth** for `--background/foreground/primary/sage…` consumed by `tailwind.config.ts` via `hsl(var(--…))`. |
-
----
-
-## 4. `src/` Tree (Full)
-
-```text
 src/
-├── App.css / App.tsx / main.tsx / index.css / vite-env.d.ts
-├── pages/                  ← 13 files (see §5)
-├── components/             ← 27 files (see §6)
-│   ├── ui/                 ← 47 shadcn files (see §7)
-│   └── motion/             ← motion helpers (index.tsx)
-├── data/
-│   ├── apps.json           ← 9 apps for Gallery (see §8)
-│   ├── blogPosts.ts        ← BlogPost[] meta for 27 posts (see §8)
-│   └── blogContent.ts      ← Record<slug, markdown> bodies
-├── assets/
-│   ├── background.avif/png/webp, hero-bg*.jpg, girish*.jpg
-│   └── blog-covers/        ← 24 SVGs (ai-development, graphql-vs-rest, zero-trust-security…)
-├── hooks/
-│   ├── use-mobile.tsx      ← isMobile breakpoint helper
-│   ├── use-media-query.ts  ← generic media query
-│   ├── use-toast.ts        ← toast state (re-exported by ui/use-toast.ts)
-│   └── useTheme.ts         ← theme context helper
-├── lib/utils.ts            ← cn() = twMerge(clsx()) — use for every conditional className
-├── utils/safe.ts           ← safeWindowOpen + safe external-link helpers (used by Footer)
-├── styles/LadeStackLoader.css
-├── stories/ApiTestingPlatform.stories.tsx  ← Storybook story
-├── examples/LoaderExample.tsx
-└── tests/apps.test.tsx     ← Gallery filter tests
+├── components/                # Reusable Astro components
+│   ├── sections/              # Homepage section components
+│   ├── ui/                    # Atomic UI primitives
+│   ├── Footer.astro
+│   ├── Header.astro
+│   ├── Icon.astro
+│   ├── LanguageSwitcher.astro
+│   ├── SEO.astro
+│   └── ThemeToggle.astro
+├── content/                   # Content collections (Astro Content Layer)
+│   ├── blog/                  # Markdown blog posts (27 posts)
+│   └── blog/*.md              # Frontmatter + MDX content
+├── content.config.ts          # Content collection schemas
+├── data/                      # Static JSON data files
+│   └── apps.json              # App registry (13 apps)
+├── i18n/                      # Internationalization system
+│   ├── config.ts              # Locale definitions
+│   ├── content.ts             # Content translations + app localization
+│   ├── content-en.ts          # English content dictionary
+│   ├── content-ja.ts          # Japanese content dictionary
+│   ├── content-ko.ts          # Korean content dictionary
+│   ├── content-zh.ts          # Chinese content dictionary
+│   ├── content-tr.ts          # Turkish content dictionary
+│   ├── content-ptbr.ts        # Portuguese (Brazil) content dictionary
+│   ├── content-types.ts       # TypeScript types for i18n
+│   ├── ui.ts                  # UI translation dictionary (229 keys × 6 locales)
+│   └── utils.ts               # i18n helper functions
+├── layouts/                   # Page layouts
+│   └── BaseLayout.astro       # Root HTML layout (all pages)
+├── pages/                     # File-based routing (Astro pages)
+│   ├── [lang]/                # Localized routes (5 non-default locales)
+│   │   ├── apps/
+│   │   ├── blog/
+│   │   ├── 404.astro
+│   │   ├── about.astro
+│   │   ├── ai-code-viewer-ai.astro
+│   │   ├── contact.astro
+│   │   ├── docs.astro
+│   │   ├── index.astro
+│   │   ├── privacy.astro
+│   │   ├── products.astro
+│   │   ├── support.astro
+│   │   └── terms.astro
+│   ├── apps/                  # Default locale (en) apps routes
+│   │   ├── admin.astro
+│   │   └── index.astro
+│   ├── blog/                  # Default locale (en) blog routes
+│   │   ├── index.astro
+│   │   └── [...slug].astro
+│   ├── [lang].astro           # Dynamic locale handler (not used — explicit routes)
+│   ├── 404.astro
+│   ├── 500.astro
+│   ├── 502.astro
+│   ├── about.astro
+│   ├── ai-code-viewer-ai.astro
+│   ├── api-testing-platform.astro
+│   ├── contact.astro
+│   ├── docs.astro
+│   ├── error.astro
+│   ├── file-sharing-platform.astro
+│   ├── index.astro            # Homepage (default locale: en)
+│   ├── privacy.astro
+│   ├── products.astro
+│   ├── projects.astro
+│   ├── support.astro
+│   ├── terms.astro
+│   └── website-builder-project.astro
+├── styles/
+│   └── global.css             # Global styles + Tailwind imports
+├── env.d.ts                   # Astro type declarations
+└── middleware.ts              # (Optional) Astro middleware
 ```
 
 ---
 
-## 5. Routing — `src/pages/` (File → URL)
+## 🧩 Components Deep Dive
 
-Defined in `src/App.tsx` `<Routes>`. All `lazy()` + `Suspense`.
+### Layout Components (`src/components/`)
 
-| URL | File | Dynamic? | Purpose & notes |
-|---|---|---|---|
-| `/` | `Index.tsx` (79 lines) | No | Landing. Eager `Header` + `HeroSection`; lazy below-fold (`AboutSection`, `ValuesSection`, `ImpactSection`, `ProductsSection` in `#products`, `FreeForeverSection`, `CommunitySection`, `Testimonials`, `Footer`). `<SEO>` title `Lade Stack – AI-Powered Developer Platform…`, `WebApplication` JSON-LD. |
-| `/about` | `AboutUs.tsx` (~801 lines) | No | Story, stats (2020/5+ tools/8K+/100% free), timeline, values, CTA (`/contact`, `/`, `/apps` links). `Organization` JSON-LD, `og-about.png`. |
-| `/blog` | `Blog.tsx` (532 lines) | No | Magazine index. `POSTS_PER_PAGE=6`, category filter (10 cats), search, pagination, featured hero card, newsletter CTA. Links to `/blog/:slug`. `Blog` JSON-LD. |
-| `/blog/:slug` | `BlogPost.tsx` (557 lines) | **Yes (`slug`)** | Article template. `useParams slug → blogPosts.find + blogContent[slug]`; 404 fallback (`Post Not Found`). Custom inline markdown renderer (`processInline` + `renderContent`: headings, lists, code blocks, quotes, tables via `dangerouslySetInnerHTML`), category badge, author card, `RelatedCard`, breadcrumbs (`/ → /blog → post`), `CopyLinkButton`. `BlogPosting` JSON-LD, `ogType article`, cover `/blog-covers/{image}.svg`. 27 slugs (see §8). |
-| `/contact` | `Contact.tsx` (582 lines) | No | Cards (email/support/location/hours), form (fake async submit), map iframe (Mumbai), FAQ accordion, CTA to `/support` + `mailto:admin@ladestack.in`. `ContactPage` JSON-LD. |
-| `/privacy` | `PrivacyPolicy.tsx` | No | Legal. Links to `/contact`. Minimal SEO (title+desc only). |
-| `/terms` | `TermsOfService.tsx` | No | Legal. Links to `/contact`. Minimal SEO. |
-| `/support` | `Support.tsx` (272 lines) | No | Support options, 6 FAQs, help topics, community CTA. Links to `/contact`. `FAQPage` JSON-LD (note: static, not full Q&A markup — extend in Astro). |
-| `/docs` | `Documentation.tsx` (636 lines) | No | 8 categories (Getting Started, API Ref, Integrations, Tutorials, Security, Team, Data, Deployment) + 4 articles + changelog (v2.0.0–v2.4.0) + search + modals. `TechArticle` JSON-LD. |
-| `/ai-code-viewer-ai` | `AICodeViewerAI.tsx` (883 lines) | No | CodeEnhance AI product page (editor demo, features, back to `/apps`, footer nav `/`, `/apps`, `/about`, `/contact`). `SoftwareApplication` JSON-LD (4.8/156), `AIcode.png`. |
-| `/apps` | `AppsGallery.tsx` (549 lines) | No | Gallery of 9 apps from `apps.json` (live vs coming-soon, category filter, search). Links to `/about`. `CollectionPage` JSON-LD. |
-| `/apps/admin` | `AppsAdmin.tsx` | No | **Admin, must stay `noindex` + `Disallow: /apps/admin` (robots.txt).** Minimal `<SEO title>` only — add `noIndex` + auth guard when migrating. |
-| `*` | `NotFound.tsx` (33 lines) | No | 404. Logs path in DEV only, links to `/`. Must be `noindex` in Astro (`meta robots`, no sitemap entry). |
+| Component | Purpose | Key Features |
+|-----------|---------|--------------|
+| **BaseLayout.astro** | Root HTML document wrapper | SEO, fonts, analytics, theme script, Header/Footer slots |
+| **Header.astro** | Global navigation bar | Logo, nav links, language switcher, theme toggle, mobile menu |
+| **Footer.astro** | Site footer | Links, newsletter signup, social, copyright, stack badge |
+| **SEO.astro** | Meta tags & structured data | Open Graph, Twitter Cards, JSON-LD, hreflang, canonical |
+| **LanguageSwitcher.astro** | Locale selector dropdown | 6 languages, flag icons, localized paths |
+| **ThemeToggle.astro** | Dark/Light mode switch | localStorage persistence, zero-FOUC inline script |
+| **Icon.astro** | Lucide icon wrapper | `astro-icon` integration, dynamic icon names |
 
-**Global nav (Header + Footer) present on all pages:** `/`, `/about`, `/apps`, `/ai-code-viewer-ai`, `/blog`, `/contact`, `/docs`, `/support`, `/privacy`, `/terms` + external subdomains (`pdf.`, `img.`, `resume.`, `land.`, `code.`).
+### Section Components (`src/components/sections/`)
 
-**Legacy sitemap-only URLs with no route (404 today — decide redirect vs rebuild in Astro):** `/projects`, `/file-sharing-platform`, `/api-testing-platform` (all in `public/sitemap.xml`).
+| Component | Homepage Section | Description |
+|-----------|------------------|-------------|
+| **HeroSection.astro** | Above-fold hero | Badge, split headline, stats, dual CTAs, animated elements |
+| **AboutSection.astro** | Mission statement | Founder story, mission, CTA to about page |
+| **ValuesSection.astro** | Core values grid | 4 pillars: AI-First, Open Access, Performance, Trust |
+| **ImpactSection.astro** | Metrics showcase | 8K+ devs, 9+ tools, 27+ guides, 100% free |
+| **ProductsSection.astro** | Product cards | Flagship apps with launch/coming-soon badges |
+| **FreeForeverSection.astro** | Pricing pledge | "Free forever — no tiers, no trials, no credit card" |
+| **CommunitySection.astro** | Community CTA | GitHub star, contact, contributor count |
+| **Testimonials.astro** | Social proof | Rotating dev testimonials with avatars |
 
----
+### UI Primitives (`src/components/ui/`)
 
-## 6. `src/components/` — Layout & Sections
-
-### Shell (every page)
-
-| File | Responsibility |
-|---|---|
-| `Header.tsx` (205 lines) | Sticky header, scroll-aware blur, `navLinks: [/→Home, /about, /apps(Products), /blog, /contact]` + `Get Started → /apps`, Cmd/Ctrl+K `SearchModal`, mobile `Sheet` menu, `ThemeToggle`. Sentinel `IntersectionObserver` for `scrolled` state; CSS `header-slide-in` (no Framer in critical path). |
-| `Footer.tsx` (549 lines) | `products[]` (AI Code Editor→`/ai-code-viewer-ai`, 4 external live tools `pdf/img/resume/land.ladestack.in`, 4 `/apps` placeholders) + `navColumns` (Platform/Company/Resources → all internal routes) + `socials` (GitHub/LinkedIn/Instagram/CodePen/mailto) + `trustItems` + `Newsletter` form. Uses `safeWindowOpen`. |
-| `SEO.tsx` (145 lines) | **Runtime head manager (no react-helmet).** Props: `title*, description, keywords, canonicalUrl, og*, twitter*, structuredData, noIndex, author`. `useEffect` sets `document.title`, upserts `meta[name/property]` + `link[rel=canonical]` (default `https://ladestack.in + pathname`), `robots` (`noindex,nofollow` vs `index,follow,max-image-preview:large…`), OG/Twitter with fallbacks (`ogTitle‖title`, `twitterTitle‖ogTitle‖title`, default image `og-image.png`), injects/cleans `script[ld+json][data-generated]`. Base constants `SITE_NAME=Lade Stack`, `BASE_URL=https://ladestack.in`. **Astro mapping:** each `<SEO>` → page `<head>` + `layout` defaults from `index.html`. |
-| `ThemeProvider.tsx` / `ThemeToggle.tsx` / `ThemeSwitcher.tsx` | `next-themes`-style light/dark via `class` + `localStorage ladestack-theme` (default light; `index.html` preload script prevents flash). |
-| `ErrorBoundary.tsx` | Class boundary wrapping entire `App` — catches render crashes. |
-| `LoadingScreen.tsx` + `LadeStackLoader.tsx` + `styles/LadeStackLoader.css` + `examples/LoaderExample.tsx` | Boot splash (see `LADE_STACK_LOADER_README.md`). |
-| `ScrollProgress.tsx` | Top progress bar. |
-| `SmoothScroll.tsx` | Lenis smooth scroll wrapper (see `lenis` chunk). |
-| `ImageLightbox.tsx`, `BentoImageGrid.tsx`, `AIEditorHighlight.tsx`, `AnimatedEditor.tsx`, `AnimatedCounter.tsx`, `DualCodeSection.tsx`, `SocialSection.tsx`, `motion/index.tsx` | Reusable interactive/animated blocks. |
-
-### Landing sections (used by `Index.tsx`)
-
-`HeroSection.tsx` (eager, LCP-critical) → `AboutSection.tsx` → `ValuesSection.tsx` → `ImpactSection.tsx` → `ProductsSection.tsx` (driven by `LadeSuite.tsx` + `apps.json`) → `FreeForeverSection.tsx` → `CommunitySection.tsx` → `Testimonials.tsx` (uses `ui/testimonials-columns-1.tsx`).
+| Component | Purpose | Props |
+|-----------|---------|-------|
+| **Button.astro** | Primary/secondary/ghost buttons | `variant`, `href`, `class`, `disabled` |
+| **FeatureCard.astro** | Product/app feature card | `title`, `description`, `icon`, `features[]` |
+| **BrandMark.astro** | Logo mark + wordmark | `class`, `size` |
+| **StudioWindow.astro** | Code editor preview mockup | `title`, `code`, `language` |
+| **MonoEyebrow.astro** | Section eyebrow label | `children`, `class` |
+| **ErrorView.astro** | Error state illustration | `code`, `message`, `action` |
 
 ---
 
-## 7. `src/components/ui/` — shadcn/ui Primitives (47 Files)
+## 🌐 Internationalization (i18n) Architecture
 
-Standard shadcn pattern: Radix primitive + `cn()` + `cva` variants + CSS-var theming. Do not edit generated props without checking upstream.
+### Locale Configuration (`src/i18n/config.ts`)
 
-`accordion, alert, alert-dialog, aspect-ratio, avatar, badge, breadcrumb, button, calendar, card, carousel, chart, checkbox, collapsible, command, context-menu, dialog, drawer, dropdown-menu, expandable-tabs, form, hero-geometric, hover-card, input, input-otp, label, menubar, navigation-menu, pagination, popover, progress, radio-group, resizable, scroll-area, search-modal, select, separator, sheet, sidebar, skeleton, slider, sonner, switch, table, tabs, testimonials-columns-1, textarea, toast, toaster, toggle, toggle-group, tooltip, use-toast.ts, about-dark-shader.tsx`
+```typescript
+export const languages = {
+  en: { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr', iso: 'en_US' },
+  zh: { code: 'zh', name: '简体中文', flag: '🇨🇳', dir: 'ltr', iso: 'zh_CN' },
+  ko: { code: 'ko', name: '한국어', flag: '🇰🇷', dir: 'ltr', iso: 'ko_KR' },
+  ja: { code: 'ja', name: '日本語', flag: '🇯🇵', dir: 'ltr', iso: 'ja_JP' },
+  tr: { code: 'tr', name: 'Türkçe', flag: '🇹🇷', dir: 'ltr', iso: 'tr_TR' },
+  'pt-BR': { code: 'pt-BR', name: 'Português (Brasil)', flag: '🇧🇷', dir: 'ltr', iso: 'pt_BR' }
+} as const;
 
-Key: `button.tsx` (cva sizes/variants), `dialog/sheet/drawer` (modals for Docs + mobile nav), `form/input/textarea/select` (Contact + Docs search), `toast/toaster/sonner + hooks/use-toast.ts` (notifications), `search-modal.tsx` (Cmd+K, used by Header), `pagination.tsx` (Blog), `chart.tsx` (recharts wrapper).
+export type SupportedLocale = keyof typeof languages; // 'en' | 'zh' | 'ko' | 'ja' | 'tr' | 'pt-BR'
+export const defaultLocale: SupportedLocale = 'en';
+```
 
----
+### Routing Strategy (Astro Native i18n)
 
-## 8. `src/data/` — Content Layer
+- **Default locale (`en`)**: No prefix — `/`, `/blog`, `/apps`, `/about`
+- **Non-default locales**: Prefixed — `/zh/`, `/zh/blog`, `/ko/apps`, etc.
+- **Astro config** (`astro.config.mjs`):
+  ```js
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh', 'ko', 'ja', 'tr', 'pt-BR'],
+    routing: {
+      prefixDefaultLocale: false,  // / not /en/
+      redirectToDefaultLocale: true
+    }
+  }
+  ```
 
-### `apps.json` (9 items)
+### Translation Layers
 
-Schema per app: `id, slug, title, tagline, description, icon (/public/*.svg|png), category, features[3], timeToValue, integrations[], lifetimeFree:true, landingUrl (/apps or https://{pdf,img,resume,land,code}.ladestack.in/), createdAt, popularityScore, iconAlt, comingSoon?`.
+#### 1. UI Dictionary (`src/i18n/ui.ts`)
+- **229 translation keys** × **6 locales** = **1,374 strings**
+- Namespaced keys: `nav.home`, `home.hero.title`, `blog.post.toc`, `admin.formTitle`
+- Type-safe via `UIKeys = keyof typeof en`
+- Fallback chain: `ui[lang][key] ?? ui[defaultLocale][key] ?? key`
 
-Live (external): `ai-code-viewer (code.)`, `ls-pdf (pdf.)`, `ls-img (img.)`, `swift-resume (resume.)`, `bharat-land (land.)`. Coming-soon (`/apps`): `api-testing`, `website-builder`, `file-management`, `documentation-ai`.
+#### 2. Content Dictionary (`src/i18n/content-*.ts`)
+- **Page-level copy**: Hero, About, Values, Impact, Products, Free, Community, Testimonials
+- **App overrides**: Per-locale `tagline`, `description`, `features` for each app in `apps.json`
+- **Blog post SEO**: Localized `title` + `description` (body remains English)
+- **Category labels**: Localized blog/app category names
 
-### `blogPosts.ts` (27 posts, `BlogPost` interface)
+#### 3. Utility Functions (`src/i18n/utils.ts`)
+```typescript
+getLangFromUrl(url)           // Extract locale from URL pathname
+useTranslations(lang)         // Returns typed `t(key)` function
+getLocalizedPath(path, lang)  // Convert canonical path → localized path
+getRouteFromUrl(url)          // Strip locale prefix → canonical route
+getLocalizedPathFromUrl()     // Current URL → target locale equivalent
+```
 
-Fields: `id, title, slug, category, excerpt, image (blog-cover key), readTime, date (2024-06-15→2024-12-08), author (always Girish Lade), keywords[], metaDescription, ogTitle, ogDescription`.
-
-Categories: `AI Development (3)`, `Generative AI (3)`, `SaaS Architecture (3)`, `Backend as a Service (3)`, `API Design & Scaling (3)`, `Cloud Computing (2)`, `Virtual Machines (2)`, `DevOps & CI/CD (3)`, `Security in Web Apps (3)`, `AI Production Systems (2)`.
-
-Slugs (canonical `/blog/{slug}`): `future-of-ai-in-software-development`, `building-ai-powered-code-review-systems`, `machine-learning-pipelines-for-web-developers`, `generative-ai-for-content-creation`, `building-rag-applications-vector-databases`, `fine-tuning-llms-domain-specific-tasks`, `multi-tenant-saas-architecture-patterns`, `building-subscription-billing-systems`, `scaling-saas-applications-million-users`, `baas-platforms-compared-firebase-supabase-appwrite`, `building-serverless-backends-with-baas`, `real-time-data-sync-backend-services`, `rest-vs-graphql-choosing-right-api-paradigm`, `api-rate-limiting-throttling-strategies`, `building-api-gateways-microservices`, `cloud-cost-optimization-strategies-startups`, `multi-cloud-architecture-aws-azure-gcp`, `containers-vs-vms-when-to-use-each`, `optimizing-vm-performance-production-workloads`, `gitops-managing-infrastructure-with-git`, `building-zero-downtime-deployment-pipelines`, `infrastructure-as-code-terraform-pulumi`, `zero-trust-security-web-applications`, `owasp-top-10-complete-mitigation-guide`, `implementing-oauth2-openid-connect`, `mlops-deploying-ml-models-production`, `monitoring-ai-systems-in-production`.
-
-### `blogContent.ts`
-
-`Record<slug, markdown-string>` bodies rendered by `BlogPost.tsx`. To add a post: append to **both** `blogPosts.ts` **and** `blogContent.ts` + add cover SVG + rebuild sitemap.
-
----
-
-## 9. Supporting Source Dirs
-
-| Dir | Files | Use |
-|---|---|---|
-| `src/assets/` | `background.{avif,webp,png}`, `hero-bg*.jpg`, `girish*.jpg`, `blog-covers/*.svg` (24) | Bundled via Vite (hashed URLs). Covers referenced as `/blog-covers/{image}.svg` — ensure files exist in both `src/assets/blog-covers/` **and** `public/blog-covers/` if directly URL-addressed. |
-| `src/hooks/` | `use-mobile.tsx`, `use-media-query.ts`, `use-toast.ts`, `useTheme.ts` | Responsive + toast + theme. Import via `@/hooks/*`. |
-| `src/lib/utils.ts` | `cn()` | Canonical class merge — use everywhere instead of string concat. |
-| `src/utils/safe.ts` | `safeWindowOpen()` | `noopener,noreferrer` external opens (Footer). |
-| `src/styles/` | `LadeStackLoader.css` | Loader animation. |
-| `src/stories/` | `ApiTestingPlatform.stories.tsx` | Storybook isolated dev. |
-| `src/examples/` | `LoaderExample.tsx` | Loader usage demo. |
-| `src/tests/` | `apps.test.tsx` | Gallery search/category/popular/new filter logic tests. Run before touching `AppsGallery` or `apps.json`. |
-
----
-
-## 10. `public/` — Static (Copied to `dist/` Unchanged)
-
-| File | Purpose |
-|---|---|
-| `sitemap.xml` (18 URLs) | Master sitemap: `/`, `/about`, `/projects*`, `/file-sharing-platform*`, `/ai-code-viewer-ai`, `/api-testing-platform*`, `/apps`, `/docs`, `/blog`, `/blog/1–6` (legacy numeric IDs — stale vs slug system), `/contact`, `/support`, `/privacy`, `/terms` with `lastmod/changefreq/priority`. `*` = orphaned (no route). |
-| `sitemap-pages.xml` (9 URLs) | Static pages subset (`/`, `/about`, `/projects*`, `/apps`, `/docs`, `/contact`, `/support`, `/privacy`, `/terms`). |
-| `sitemap-blog.xml` (7 URLs) | `/blog` + `/blog/1–6`. Regenerate with slugs on migration. |
-| `robots.txt` | `Allow: /`, `Disallow: /apps/admin`, explicit allows for Googlebot/Bing/Yandex/Baidu/social/AI crawlers (GPTBot, ClaudeBot, Perplexity, CCBot, Google-Extended), 3 sitemap stanzas. |
-| `llms.txt` | AI-crawler allowlist + site metadata (`Lade Stack`, `https://ladestack.in`, `admin@ladestack.in`). |
-| `site.webmanifest` | PWA manifest (linked from `index.html`). |
-| `favicon.ico`, `placeholder.svg`, `*-project.svg` (7), `AIcode.png` | Icons/OG/product art. `og-image.png` referenced in code **must exist at site root** for social cards. |
-| `blog-covers/` | Public copies of covers for direct `/blog-covers/*.svg` serving. |
-| `ladestack-indexnow-key.txt` | IndexNow verification (paired with `scripts/notify-indexnow.mjs`). |
-
----
-
-## 11. SEO, Performance & Data Flow
-
-- **SEO:** `index.html` defaults → per-page `<SEO>` overrides → `public/sitemap*.xml` + `robots.txt` + `llms.txt`. No SSR/prerender. Dynamic post meta is template-driven (`{post.title/excerpt/keywords/image}`). Canonical = `https://ladestack.in + pathname` unless `canonicalUrl` passed. `BlogPost` OG type is `article`; everything else `website`. Admin + 404 must be `noindex` + excluded from sitemaps.
-- **Theming:** `ThemeProvider (light default)` + `localStorage ladestack-theme` + `index.html` sync preload + `dark:` Tailwind variants + CSS vars in `index.css`.
-- **Data:** No backend. `apps.json` + `blogPosts.ts` + `blogContent.ts` imported statically. `TanStack Query` configured but only needed if async sources are added. Forms (Contact newsletter, Blog newsletter, Docs search) are client-only.
-- **Performance:** Route-level `lazy()` + Vite `manualChunks` + `assetsInlineLimit:0` + deferred fonts/analytics + `Suspense` below-fold sections + `animate` CSS over JS where possible. Keep `HeroSection` + `Header` lean — they gate LCP.
+#### 4. Content Access (`src/i18n/content.ts`)
+```typescript
+getContent(lang)              // Full LocaleContent dictionary
+getLocalizedApps(lang)        // apps.json merged with locale overrides
+localizePost(slug, fallback, lang)  // Blog post SEO localization
+```
 
 ---
 
-## 12. Build, Lint, Deploy
+## 📄 Content Collections (Astro Content Layer)
 
+### Blog Collection (`src/content/config.ts`)
+
+```typescript
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    author: z.string().default('Girish Lade'),
+    category: z.string(),
+    readTime: z.string(),
+    coverImage: z.string(),
+    featured: z.boolean().default(false),
+    tags: z.array(z.string()).default([])
+  })
+});
+```
+
+### Blog Posts (`src/content/blog/`)
+
+**27 Markdown files** covering:
+- AI Development (LLMs, RAG, fine-tuning, code review)
+- API Design (REST vs GraphQL, rate limiting, gateways)
+- Cloud & DevOps (Terraform, GitOps, multi-cloud, containers)
+- SaaS Architecture (multi-tenant, billing, zero-downtime)
+- Security (OWASP, zero-trust, OAuth2/OIDC)
+- ML/Ops (pipelines, MLOps, monitoring)
+
+**Frontmatter Example:**
+```yaml
+---
+title: "Building RAG Applications with Vector Databases"
+description: "Complete guide to retrieval-augmented generation..."
+pubDate: "2024-03-15"
+author: "Girish Lade"
+category: "AI Development"
+readTime: "12"
+coverImage: "/blog-covers/ai-production.svg"
+featured: true
+tags: ["RAG", "Vector Databases", "LLM", "AI"]
+---
+```
+
+---
+
+## 📦 Data Layer
+
+### Apps Registry (`src/data/apps.json`)
+
+**13 applications** with full metadata:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique identifier (kebab-case) |
+| `slug` | string | URL slug for landing page |
+| `title` | string | Display name |
+| `tagline` | string | One-line pitch |
+| `description` | string | Full description |
+| `icon` | string | Lucide icon name (`lucide:code-xml`) |
+| `category` | string | Group: "AI Tools" \| "Productivity" \| "Utilities" |
+| `features` | string[] | 3-5 key features |
+| `timeToValue` | string | e.g., "Instant", "2 minutes", "5 minutes" |
+| `integrations` | string[] | Platform integrations |
+| `lifetimeFree` | boolean | Always `true` |
+| `landingUrl` | string | Relative (`/ai-code-viewer-ai`) or absolute (`https://pdf.ladestack.in/`) |
+| `createdAt` | string | ISO date |
+| `popularityScore` | number | 0-100 for sorting |
+| `iconAlt` | string | Accessibility alt text |
+| `comingSoon?` | boolean | Optional — hides from sitemap |
+
+---
+
+## 🛣️ Routing & Pages
+
+### Default Locale Routes (`en` — no prefix)
+
+| Route | Page Component | Description |
+|-------|----------------|-------------|
+| `/` | `src/pages/index.astro` | Homepage with all sections |
+| `/about` | `src/pages/about.astro` | About page |
+| `/apps` | `src/pages/apps/index.astro` | Apps gallery |
+| `/apps/admin` | `src/pages/apps/admin.astro` | Admin dashboard (noindex) |
+| `/blog` | `src/pages/blog/index.astro` | Blog index with search |
+| `/blog/[slug]` | `src/pages/blog/[...slug].astro` | Individual blog post |
+| `/products` | `src/pages/products.astro` | Products overview |
+| `/projects` | `src/pages/projects.astro` | Projects showcase |
+| `/ai-code-viewer-ai` | `src/pages/ai-code-viewer-ai.astro` | CodeEnhance AI landing |
+| `/api-testing-platform` | `src/pages/api-testing-platform.astro` | API Testing landing (noindex) |
+| `/website-builder-project` | `src/pages/website-builder-project.astro` | Website Builder landing (noindex) |
+| `/file-sharing-platform` | `src/pages/file-sharing-platform.astro` | File Management landing (noindex) |
+| `/contact` | `src/pages/contact.astro` | Contact form + FAQ |
+| `/docs` | `src/pages/docs.astro` | Documentation hub |
+| `/support` | `src/pages/support.astro` | Support center |
+| `/privacy` | `src/pages/privacy.astro` | Privacy policy |
+| `/terms` | `src/pages/terms.astro` | Terms of service |
+| `/404` | `src/pages/404.astro` | Custom 404 |
+| `/500` | `src/pages/500.astro` | Server error |
+| `/502` | `src/pages/502.astro` | Bad gateway |
+| `/error` | `src/pages/error.astro` | Generic error |
+
+### Localized Routes (5 non-default locales)
+
+Each locale has explicit routes under `src/pages/[lang]/`:
+- `index.astro` → localized homepage
+- `about.astro`, `apps/index.astro`, `apps/admin.astro`
+- `blog/index.astro`, `blog/[...slug].astro`
+- `contact.astro`, `docs.astro`, `support.astro`
+- `privacy.astro`, `terms.astro`, `products.astro`
+- `ai-code-viewer-ai.astro`
+- `404.astro`
+
+**Static generation**: `getStaticPaths()` in `[lang]/index.astro` generates all 5 locale homepages at build time.
+
+---
+
+## 🎨 Styling System
+
+### Tailwind Configuration (`tailwind.config.mjs`)
+
+- **Custom color palette**: `canvas`, `ink`, `brand`, `sage`, `muted`, `card`, `border`, `foreground`
+- **Typography**: `@tailwindcss/typography` for blog prose
+- **Animations**: `tailwindcss-animate` for transitions
+- **Dark mode**: `class` strategy (`.dark` on `<html>`)
+
+### Global Styles (`src/styles/global.css`)
+
+```css
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-canvas: #0b0b0b;
+  --color-ink: #fafafa;
+  --color-brand: #10b981;      /* Emerald 500 */
+  --color-sage: #84cc16;       /* Lime 500 */
+  /* ... semantic color tokens */
+}
+
+@layer base {
+  html { @apply scroll-smooth; }
+  body { @apply bg-canvas text-ink; }
+  .dark { @apply bg-canvas text-ink; }
+}
+```
+
+### Fonts (Per DESIGN.md)
+- **Primary**: Inter (400, 500, 600) — UI text
+- **Mono**: IBM Plex Mono (400, 500) — Code, technical
+- **Fallback**: System fonts (waldenburgNormal alternative)
+
+---
+
+## ⚙️ Build & Deployment
+
+### Scripts (`package.json`)
+
+```json
+{
+  "dev": "astro dev",
+  "start": "astro dev",
+  "build": "astro check && astro build",
+  "preview": "astro preview",
+  "astro": "astro",
+  "check": "astro check"
+}
+```
+
+### Astro Config Highlights (`astro.config.mjs`)
+
+```js
+export default defineConfig({
+  site: 'https://ladestack.in',
+  output: 'static',                    // Pure SSG
+  trailingSlash: 'never',              // Clean URLs
+  build: { format: 'directory' },      // /blog/slug/index.html
+  i18n: { /* 6 locales, prefixDefaultLocale: false */ },
+  integrations: [
+    tailwind({ applyBaseStyles: false }),
+    sitemap({ /* priority/changefreq/lastmod logic + x-default */ }),
+    icon({ include: { lucide: ['*'] } })
+  ]
+});
+```
+
+### Sitemap Strategy
+
+- **Priority tiers**: Home (1.0) → Apps/Products (0.9) → Blog index (0.8) → Posts (0.7) → Legal (0.3)
+- **Excluded from sitemap**: Admin, error pages, coming-soon apps, sitemap files themselves
+- **Blog lastmod**: Parsed from frontmatter `pubDate` at build time
+- **x-default hreflang**: Auto-added for international SEO clustering
+
+---
+
+## 🔧 Build-Time Scripts (`scripts/`)
+
+| Script | Purpose | Language |
+|--------|---------|----------|
+| `generate-assets.py` | Generate OG images, favicons, icons | Python |
+| `generate-blog.mjs` | Scaffold new blog posts with frontmatter | Node/ESM |
+| `generate_favicons.py` | Create multi-size favicon set | Python |
+| `validate-jsonld.py` | Validate structured data schemas | Python |
+| `check-locale-leak.cjs` | Detect hardcoded English in localized pages | Node/CommonJS |
+| `check-products.cjs` | Validate apps.json schema & consistency | Node/CommonJS |
+| `test-lang-switcher.cjs` | Verify language switcher paths | Node/CommonJS |
+
+---
+
+## 📊 Build Output (`dist/`)
+
+```
+dist/
+├── _astro/                    # Hashed CSS/JS assets
+├── blog-covers/               # Blog cover images (SVG)
+├── project-icons/             # Project showcase icons
+├── en/                        # Default locale (root files copied)
+├── zh/                        # Chinese
+├── ko/                        # Korean
+├── ja/                        # Japanese
+├── tr/                        # Turkish
+├── pt-BR/                     # Portuguese (Brazil)
+├── favicon.ico
+├── favicon.svg
+├── favicon-16x16.png
+├── favicon-32x32.png
+├── apple-touch-icon.png
+├── icon-192.png
+├── icon-512.png
+├── site.webmanifest
+├── robots.txt
+├── sitemap.xml                # Alias of sitemap-index.xml
+├── sitemap-index.xml          # Main sitemap index
+├── llms.txt                   # AI training data opt-out/allow
+├── og-image.png               # Open Graph default image
+└── AIcode.png                 # CodeEnhance AI preview
+```
+
+---
+
+## 🔑 Key Architectural Decisions
+
+### 1. **Zero React / Zero Hydration**
+- Pure Astro components (`.astro`) only
+- No `client:load`, `client:visible`, or islands
+- All interactivity: vanilla `<script is:inline>` (theme toggle, copy buttons, language switcher)
+
+### 2. **Explicit Localized Routes**
+- No dynamic `[lang]` catch-all — each locale has explicit page files
+- Enables per-locale SEO optimization, different component composition
+- Trade-off: More files, but full control over each locale's HTML
+
+### 3. **Content-Driven Apps Registry**
+- Single source of truth: `src/data/apps.json`
+- Localized overrides via `src/i18n/content-*.ts`
+- Admin dashboard (`/apps/admin`) generates updated JSON for commit
+
+### 4. **Type-Safe i18n**
+- `UIKeys` type from English dictionary
+- `SupportedLocale` union type from config
+- Compile-time safety for all translation keys
+
+### 5. **Performance Baselines**
+- `output: 'static'` + `format: 'directory'` → optimal caching
+- Zero client-side JS by default
+- Inline critical CSS via Astro + Tailwind
+- Preloaded Google Fonts with `display=swap`
+- Lighthouse 100/100 target
+
+### 6. **SEO-First Architecture**
+- JSON-LD structured data on every page (WebApplication, WebSite, Organization, BlogPosting)
+- Hreflang annotations with x-default
+- Canonical URLs per locale
+- Semantic HTML5 + ARIA labels
+- `robots.txt` + `sitemap.xml` auto-generated
+
+---
+
+## 🚀 Development Workflow
+
+### Adding a New Blog Post
 ```bash
-npm run dev        # Vite :8080, host ::
-npm run build      # → dist/ (esbuild min, css min, no sourcemaps)
-npm run preview    # Serve dist/ locally
-npm run lint       # eslint .
-npm run indexnow   # node scripts/notify-indexnow.mjs (after sitemap change)
+# 1. Run scaffold script
+node scripts/generate-blog.mjs "My New Post Title" "AI Development"
+
+# 2. Edit generated file in src/content/blog/
+# 3. Add cover image to public/blog-covers/
+# 4. Add translations in src/i18n/content-*.ts (blogPosts section)
 ```
 
-Vercel: `bom1` region, SPA rewrite, immutable `/assets/*` (1y), short cache for HTML/sitemaps, security headers. No env vars required for base build (analytics IDs are hardcoded in `index.html`/`App.tsx` — extract to env in Astro).
+### Adding a New App
+```bash
+# 1. Edit src/data/apps.json (add entry)
+# 2. Add localized copy to src/i18n/content-*.ts (apps section)
+# 3. Run admin dashboard at /apps/admin to validate & export
+# 4. Commit updated apps.json
+```
+
+### Adding a New Locale
+1. Add locale to `src/i18n/config.ts` `languages` object
+2. Create `src/i18n/content-<locale>.ts` (copy from `content-en.ts`)
+3. Create `src/i18n/ui-<locale>.ts` translations (or extend `ui.ts`)
+4. Add locale to `astro.config.mjs` `i18n.locales`
+5. Create pages under `src/pages/<locale>/`
+6. Update sitemap locale mapping in `astro.config.mjs`
 
 ---
 
-## 13. How-To (Common Tasks)
+## 📈 Performance & Quality Gates
 
-**Add a page/route:** 1) Create `src/pages/MyPage.tsx` with `<SEO title description keywords og* structuredData>` + `Header`/`Footer`. 2) `lazy()`-import in `App.tsx` + `<Route path="/my-page">`. 3) Add to `Header`/`Footer` nav if needed. 4) Add URL to `public/sitemap*.xml` + `migration-seo-manifest.json`. 5) Test direct-URL load (Vercel rewrite) + 404.
+| Metric | Target | Implementation |
+|--------|--------|----------------|
+| **Lighthouse Performance** | 100 | Static HTML, no JS, optimized fonts, preloading |
+| **Lighthouse Accessibility** | 100 | Semantic HTML, ARIA, color contrast, focus states |
+| **Lighthouse Best Practices** | 100 | HTTPS, CSP-ready, no deprecated APIs |
+| **Lighthouse SEO** | 100 | Meta tags, structured data, hreflang, sitemap |
+| **Bundle Size (JS)** | 0 KB | No hydration, no islands |
+| **Time to First Byte** | < 100ms | Static hosting (CDN), edge deployment |
 
-**Add a blog post:** 1) Append meta to `blogPosts.ts` (unique slug, category, keywords, dates). 2) Add markdown body to `blogContent.ts[slug]`. 3) Add `/blog-covers/{image}.svg` to `src/assets/blog-covers/` + `public/blog-covers/`. 4) Update `sitemap-blog.xml` + `sitemap.xml` + run `indexnow`. 5) Check related-posts logic (`same category → 3, else 3`) + cover fallback (`FALLBACK_IMAGE` Unsplash).
-
-**Add an app to Gallery:** Append to `apps.json` (id/slug/title/icon/category/features/integrations/landingUrl/comingSoon). Covers + `iconAlt` required. Verify `tests/apps.test.tsx` filters still pass.
-
-**Add a UI primitive:** Follow shadcn: create `src/components/ui/<name>.tsx` with Radix + `cn()` + `cva`, export from barrel if present, document props. Keep `components.json` aliases intact.
-
-**Edit design tokens:** Change CSS vars in `src/index.css` (`:root` + `.dark`) — `tailwind.config.ts` picks them up automatically. Prefer `sage-*`/`warm-*` + `bg-background/text-foreground/border-border` over hardcoded hex (brand green `#6E8F6A` is the one deliberate exception).
+### Quality Checks (Pre-commit / CI)
+```bash
+npm run check          # astro check (TypeScript + Astro diagnostics)
+npm run build          # Full production build verification
+```
 
 ---
 
-## 14. Gotchas & Migration Notes (Astro)
+## 🔮 Extensibility Points
 
-1. **No `next.config` / SSR** — this is a Vite SPA; `migration-seo-manifest.json` maps `src/pages → url_path`, dynamic `:slug`, canonicals, robots, OG/Twitter, JSON-LD, outbound links, and the 40-URL future sitemap (10 live static + 3 legacy + 27 slugs). Preserve the 3 legacy sitemap URLs via redirects or Astro pages or rankings will drop.
-2. **Stale numeric blog URLs** (`/blog/1–6` in all three sitemaps) have no route and no slug mapping — add 301s or sunset + remove from sitemap-0.xml.
-3. **`/apps/admin` + 404** must be `noindex`, excluded from sitemaps, and (admin) auth-gated; `robots.txt Disallow: /apps/admin` must carry over.
-4. **Per-page `<SEO>` → Astro `<head>`:** move `index.html` globals (fonts, JSON-LD Organization/SoftwareApplication/WebSite, Clarity/Umami) into an Astro layout; move each page's `<SEO>` props into frontmatter.
-5. **Trailing slash:** none (canonicals have no trailing slash except `/`). Keep `trailingSlash:false` + canonical normalization in Astro to avoid duplicates.
-6. **Assets:** `assetsInlineLimit:0` + hashed Vite URLs → replicate with Astro asset pipeline + long-cache headers; keep `public/` filenames stable (OG images, covers, `*.txt`, `*.xml`, `*.webmanifest`).
+| Extension | Location | Pattern |
+|-----------|----------|---------|
+| New UI component | `src/components/ui/` | `.astro` + TypeScript props interface |
+| New homepage section | `src/components/sections/` | Import in `index.astro` + `[lang]/index.astro` |
+| New page type | `src/pages/` + `src/pages/[lang]/` | Follow existing page patterns |
+| New content collection | `src/content.config.ts` | `defineCollection()` + schema |
+| New i18n namespace | `src/i18n/content-*.ts` | Add to `LocaleContent` type |
+| New script | `scripts/` | Add to `package.json` scripts |
+
+---
+
+## 📝 File Naming Conventions
+
+| Type | Convention | Example |
+|------|------------|---------|
+| Astro components | PascalCase | `HeroSection.astro`, `Button.astro` |
+| Pages (routes) | kebab-case | `ai-code-viewer-ai.astro`, `[...slug].astro` |
+| Layouts | PascalCase + Layout | `BaseLayout.astro` |
+| Styles | kebab-case | `global.css` |
+| Scripts | kebab-case + extension | `generate-blog.mjs`, `validate-jsonld.py` |
+| Content (blog) | kebab-case | `building-rag-applications.md` |
+| Data files | kebab-case | `apps.json` |
+| i18n dictionaries | kebab-case + locale | `content-en.ts`, `ui.ts` |
+
+---
+
+## 🔗 Related Documentation
+
+- **DESIGN.md** — Visual design system, color tokens, spacing, typography (in `sanity/`)
+- **Astro Docs** — https://docs.astro.build
+- **Tailwind CSS** — https://tailwindcss.com
+- **Astro i18n Guide** — https://docs.astro.build/en/guides/internationalization/
+
+---
+
+*Generated from codebase analysis — Lade Stack Astro v1.0.0*
