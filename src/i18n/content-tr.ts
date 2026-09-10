@@ -412,13 +412,219 @@ export const tr: LocaleContent = {
     }
   ],
   timeline: [
-    { year: '2020', title: 'Alet çantasının doğuşu', text: 'Girish Lade kişisel geliştirici araçları yapmaya başladı — PDF, görsel ve kod yardımcıları.' },
-    { year: '2022', title: 'Lade Stack şekilleniyor', text: 'Ortak tasarım dili ve sonsuza-dek-ücretsiz sözüyle araçlar tek markada toplandı.' },
-    { year: '2024', title: 'Yapay zekâ ekosistemi', text: 'CodeEnhance AI yayında; blog ve dokümanlar 27+ rehbere, topluluk 8.000 geliştiriciye ulaştı.' },
-    { year: '2026', title: 'Saf Astro yeniden yazımı', text: 'Sıfır-JS çalışma zamanı, 7 dil, 100/100 Lighthouse ile tam statik yeniden inşa.' }
+    {
+      year: '2020',
+      title: 'Alet çantasının doğuşu',
+      text: 'Hindistan\'da günlük mühendislik akışlarındaki tekrarlayan sürtünmeleri ortadan kaldırmak amacıyla kişisel geliştirici araçları (odaklı PDF araçları, görsel işleyiciler ve kod yardımcıları) geliştirilmeye başlandı.'
+    },
+    {
+      year: '2022',
+      title: 'Lade Stack şekilleniyor',
+      text: 'Ayrık yardımcı araçlar Lade Stack kimliği altında birleştirildi; tutarlı bir tasarım sistemi, paylaşılan mimari ve geliştiricilere sonsuza dek ücretsiz araç sunma ilkesi hayata geçirildi.'
+    },
+    {
+      year: '2024',
+      title: 'Yapay zekâ destekli ekosistem',
+      text: 'CodeEnhance AI ve gerçek zamanlı kod analizi araçlarının çıkışıyla akıllı iş akışlarına genişlendi; RAG mimarileri, full-stack geliştirme ve modern bulut dağıtımlarını kapsayan derin teknik rehberler yayınlandı.'
+    },
+    {
+      year: '2026',
+      title: 'Saf Astro mimarisine geçiş',
+      text: 'Astro 5, Vanilla TypeScript ve Tailwind CSS kullanılarak statik-öncelikli eksiksiz bir mimari yeniden yazım gerçekleştirildi — istemcide sıfır çalışma zamanı yükü, akıcı çok dillilik ve kusursuz 100/100 Lighthouse performansı elde edildi.'
+    }
   ],
   aboutStats: ['Kuruluş', 'Üretim aracı', 'Geliştirici', 'Sonsuza dek ücretsiz'],
   storyExtra: 'YZ sistemleri, web geliştirme ve kullanıcı deneyimine uzanan çok disiplinli mühendis ve tasarımcı — her üreticiye startup hızında süper güçleri bedavaya veren araçlar yapıyor.',
+  aboutPage: {
+    metaTitle: 'Girish Lade Hakkında — Kurucu, Yazılım Mimarı & UI/UX Geliştirici',
+    metaDescription: 'UI/UX geliştiricisi, yazılım mühendisi ve Lade Stack Kurucusu & Baş Yazılım Mimarı Girish Lade\'in kişisel profili, mühendislik felsefesi, teknik ekosistemi ve yolculuğu.',
+    metaKeywords: 'Girish Lade, Lade Stack kurucusu, UI/UX geliştirici, yazılım mühendisi, Üretken Yapay Zeka, bulut tabanlı mimari, mühendislik felsefesi',
+    imageAlt: 'Girish Lade - Kurucu ve Baş Yazılım Mimarı',
+    heroEyebrow: 'GELİŞTİRİCİ HAKKINDA',
+    heroTitle: 'Tasarım, Mühendislik ve Yapay Zekânın Kesişiminde Üretmek',
+    heroSubtitle: 'Ben Girish Lade — Hindistan merkezli bir UI/UX geliştiricisi, yazılım mühendisi ve ürün geliştiricisiyim. Sürtünmeyi ortadan kaldırmak ve karmaşık iş akışlarını basitleştirmek için pratik yazılım ürünleri, geliştirici araçları ve yapay zekâ destekli sistemler tasarlayıp inşa ediyorum.',
+    founderRole: 'Kurucu ve Baş Yazılım Mimarı',
+    founderLocation: 'Hindistan',
+    founderBio1: 'Zamanımı yazılımın tüm yaşam döngüsü üzerinde düşünerek geçiriyorum — ilk kullanıcı deneyimi ve etkileşim tasarımından bulut tabanlı sistemlere, arka uç mimarisine ve pratik Üretken Yapay Zekâ entegrasyonuna kadar.',
+    founderBio2: 'Motivasyonum son derece açık: Temeldeki mekanizma ne kadar karmaşık olursa olsun, kullanımı zahmetsiz ve doğal hissettiren, özenle tasarlanmış faydalı yazılımlar üretmek.',
+    storyEyebrow: 'BEN KİMİM',
+    storyTitle: 'Bir Üreticinin Evrimi',
+    storyParagraphs: [
+      'Her zaman sistemlerin yüzeyin altında nasıl çalıştığına dair derin bir merak ve ardından bunları kendi ellerimle inşa etme arzusuyla hareket ettim. Benim için yazılım geliştirmek, görsel tasarımcı veya arka uç mühendisi olmak arasında bir seçim yapmak olmadı. Yolculuğum tüm yelpazeyi doğal olarak kapsadı: görsel tasarım ve ön uç arayüzleriyle başlayıp arka uç mimarilerine ve veritabanlarına derinlemesine indi, bulut altyapısı ve DevOps\'u keşfetti ve şimdi Üretken Yapay Zekâ ile uçtan uca ürün mühendisliğine odaklandı.',
+      'Bu alanları birbirinden ayrı disiplinler olarak görmek yerine, tek bir bütünleşik mühendislik zihninin birbirine bağlı yönleri olarak değerlendiriyorum. UI/UX temelim, ekranın karşısındaki kişiyle derin bir empati kurmamı sağlıyor — bilişsel sürtünmenin nerede oluştuğunu, arayüzün ne kadar sezgisel hissettirdiğini ve bir görevin neden tek tıklama yerine üç tıklama gerektirdiğini sürekli sorguluyorum. Eşzamanlı olarak yazılım mühendisliği birikimim, bu arayüzün arkasındaki sistemin sağlam, sürdürülebilir, yüksek performanslı ve mimari olarak temiz olmasını güvence altına alıyor.',
+      'Üretken Yapay Zekâ ortaya çıktığında bu yolculuktan bir sapma olmadı; bilakis doğal bir ivmelendiriciye dönüştü. Yapay zekâ bize yepyeni etkileşim paradigmaları sunuyor, ancak yalnızca bilinçli bir amaçla entegre edildiğinde ve pratik ürün mühendisliğine dayandığında gerçek değerini buluyor.'
+    ],
+    whatBuildEyebrow: 'NE İNŞA EDİYORUM',
+    whatBuildTitle: 'Sürtünmeyi Ortadan Kaldırmak İçin Geliştirilmiş Pratik Yazılımlar',
+    whatBuildSubtitle: 'Salt teorik prototipler biriktirmek yerine üretim kalitesinde pratik yazılımlar geliştirmeye odaklanıyorum. Bir projeyi veya ürün fikrini değerlendirirken sorduğum temel soru şudur: Bu ürün gerçekte hangi darboğazı ortadan kaldırıyor ve birinin iş akışını nasıl daha hızlı veya daha sezgisel hale getiriyor?',
+    whatBuildItems: [
+      {
+        num: '01 / GELİŞTİRİCİ ARAÇLARI',
+        title: 'YZ Destekli Geliştirici Araçları',
+        desc: 'Tekrarlayan geliştirici angaryasını ortadan kaldırmak ve teslim hızını artırmak için tasarlanmış akıllı kod asistanları, gerçek zamanlı kod geliştirme araçları ve otomatik API test platformları.'
+      },
+      {
+        num: '02 / SAAS VE İŞ BİRLİĞİ',
+        title: 'İş Birlikli Dosya ve Bulut Sistemleri',
+        desc: 'Gizlilik, sıfır istemci yükü ve hızlı veri aktarımına odaklanan güvenli geçici dosya paylaşım araçları, belge dönüştürme paketleri ve hafif bulut servisleri.'
+      },
+      {
+        num: '03 / UYGULAMA PLATFORMLARI',
+        title: 'Modern Web Uygulamaları',
+        desc: 'Anlamsal HTML, erişilebilir etkileşim durumları ve istemci tarafında sıfır çalışma zamanı mimarisiyle inşa edilmiş ultra yüksek performanslı web arayüzleri.'
+      },
+      {
+        num: '04 / İŞ AKIŞI OTOMASYONU',
+        title: 'YZ Destekli İş Akışları',
+        desc: 'Yapılandırılmış verileri, dokümantasyon üretimini ve geliştirme görevlerini insan denetiminde pürüzsüz hatlara bağlayan akıllı otomasyon katmanları.'
+      }
+    ],
+    craftEyebrow: 'BÜTÜNLEŞİK YAKLAŞIM',
+    craftTitle: 'UI/UX ve Mühendislik Neden Birbirinden Ayrılamaz',
+    craftParagraphs: [
+      'Birçok organizasyonda tasarım ve mühendislik bir uçurumun iki zıt tarafında çalışır — tasarımcılar maketleri teslim eder, mühendisler de bunlara uyacak kodu yazar. Ben her zaman farklı çalıştım. Bana göre tasarım, mühendislik bittikten sonra uygulanan yüzeysel bir süsleme değildir; mühendislik de görünmez bir uygulama detayından ibaret değildir.',
+      'Kullanıcı deneyimi mimariyi doğrudan şekillendirir: gerçek zamanlı yanıt gerektiren bir arayüz, olay odaklı veya iyimser bir istemci mimarisi talep eder. Aksine mimari de kullanıcı deneyimini belirler: kötü yapılandırılmış API\'ler, yavaş veritabanı sorguları veya şişkin istemci paketleri, Figma dosyası ne kadar şık görünürse görünsün kullanıcı deneyimini yıpratır.',
+      'Performans, vazgeçilmez bir UX gereksinimidir. Erişilebilirlik, mühendislik kalitesinin bir göstergesidir. Tasarım ve mühendislik tek bir bütünleşik disiplin olarak ele alındığında ortaya çıkan yazılım daha yalın, dayanıklı ve doğrudan sezgisel olur.'
+    ],
+    aiEyebrow: 'ÜRETKEN YAPAY ZEKÂ',
+    aiTitle: 'Gerçek İş Akışlarına Dayanan Pratik Makine Zekâsı',
+    aiParagraphs: [
+      'Üretken Yapay Zekâ, en derinlemesine araştırdığım alanlardan birini temsil ediyor. Ancak ilgim spekülatif bir heyecandan ziyade pratik fayda üzerine odaklanmıştır. Yüzeysel API sarmalayıcıları üretmekle veya yapay zekânın her sorunu kendiliğinden çözdüğünü iddia etmekle ilgilenmiyorum.',
+      'Bunun yerine, Üretken Yapay Zekânın yazılım etkileşimini kökten nasıl yeniden şekillendirebileceğine odaklanıyorum:'
+    ],
+    aiPillars: [
+      {
+        title: 'Bağlam Duyarlı Destek',
+        text: 'Mantığı yerinde açıklamak, yeniden düzenlemek ve denetlemek için dil modellerini doğrudan kod görüntüleyicilere ve geliştirici araçlarına yerleştirmek.'
+      },
+      {
+        title: 'Akıllı İş Akışı Otomasyonu',
+        text: 'Çok adımlı manuel prosedürleri, insan gözetiminde verileri çıkaran, dönüştüren ve doğrulayan yapılandırılmış YZ hatlarıyla değiştirmek.'
+      },
+      {
+        title: 'Anlamsal Kullanıcı Arayüzleri',
+        text: 'Kullanıcı niyetine dinamik olarak uyum sağlayan, doğal dili somut yazılım eylemlerine dönüştüren arayüzler tasarlamak.'
+      },
+      {
+        title: 'Geliştirici Odaklı Araçlar',
+        text: 'Dokümantasyon oluşturma, otomatik test iskelesi ve şema doğrulamasını üstlenerek mühendislerin yaratıcı mimariye odaklanmasını sağlayan araçlar geliştirmek.'
+      }
+    ],
+    philosophyEyebrow: 'FELSEFE',
+    philosophyTitle: 'Nasıl İnşa Ettiğime Yön Veren İlkeler',
+    philosophyItems: [
+      {
+        title: 'Karmaşık mekanizmalar yerine yalın arayüzler',
+        text: 'Düşünceli mühendisliğin gerçek göstergesi, doğası gereği karmaşık olan bir problemi (dağıtık veri, model çıkarımı, dosya kodlama) alıp bunu öngörülebilir, açık ve sakin hissettiren bir arayüzle sunmaktır.'
+      },
+      {
+        title: 'Bilişsel yükü azaltmak',
+        text: 'Her araç kullanıcının zihinsel enerjisine saygı duymalıdır. Yazılım, gerekli yapılandırmayı en aza indirmeli, gereksiz kurulum sürtünmelerinden kaçınmalı ve iyi tasarlanmış bir sistemin otomatik olarak halledebileceği şeyleri geliştiricinin aklında tutmasını asla zorunlu kılmamalıdır.'
+      },
+      {
+        title: 'Yapay zekâ iş hattındaki yerini hak etmelidir',
+        text: 'Yapay zekâ asla bir pazarlama numarası olarak eklenmemelidir. Deterministik mantığın yetersiz kaldığı ve ürünü kullanan kişiye anında doğrulanabilir değer sunduğu yerde bulunmalıdır.'
+      },
+      {
+        title: 'Hız ve performans tartışılamaz',
+        text: 'Milisaniye düzeyinde yanıt süreleri, minimum paket boyutları ve temiz anlamsal işaretleme sonradan düşünülen şeyler değil; ürün kalitesini ve güvenini tanımlayan temel gereksinimlerdir.'
+      },
+      {
+        title: 'Temiz mimari sürekli yinelemeyi mümkün kılar',
+        text: 'Sürdürülebilir kod tabanları, katı tip güvenliği ve modüler bileşen sınırları, felç edici teknik borçlar biriktirmeden ürünleri hızla geliştirmek için gereken çevikliği sağlar.'
+      }
+    ],
+    workEyebrow: 'NASIL ÇALIŞIYORUM',
+    workTitle: 'Ürün Geliştirmeye Sistematik Bir Yaklaşım',
+    workSubtitle: 'İster açık kaynaklı bir geliştirici aracı tasarlayayım ister bir bulut hizmeti inşa edeyim, disiplinli ve yinelemeli bir yürütme süreci izlerim:',
+    workSteps: [
+      {
+        step: '01',
+        title: 'Problemi Parçalara Ayır',
+        desc: 'Ana darboğazı izole et. Kullanıcının gerçekten çözmeye çalıştığı sorunu anlamak için yüzeysel varsayımları ayıkla.'
+      },
+      {
+        step: '02',
+        title: 'Deneyimi ve Akışları Tasarla',
+        desc: 'Kullanıcı niyeti ile istenen çıktı arasındaki en kısa yolu haritalandır. Etkileşim durumlarını, klavye navigasyonunu ve ergonomiyi tel kafes olarak kurgula.'
+      },
+      {
+        step: '03',
+        title: 'Temel Mimariyi Kur',
+        desc: 'Soruna en uygun en yalın ve güvenilir teknoloji yığınını seç. Tip güvenli şemaları, API sözleşmelerini ve veritabanı modellerini yapılandır.'
+      },
+      {
+        step: '04',
+        title: 'Anlamlı Olduğu Yerde YZ\'yi Dahil Et',
+        desc: 'Manuel adımları ortadan kaldırdığı yerlerde makine zekâsını devreye sok, tutarlılığı garanti etmek için emniyet korkulukları ve yedekleme mekanizmaları ekle.'
+      },
+      {
+        step: '05',
+        title: 'Kıyasla, Optimize Et ve İyileştir',
+        desc: 'Paket boyutlarını denetle, Lighthouse puanlarını ölç, uç durumları test et ve gerçek kullanıma göre mikro etkileşimleri mükemmelleştir.'
+      }
+    ],
+    ecosystemEyebrow: 'TEKNİK EKOSİSTEM',
+    ecosystemTitle: 'Teknoloji Yığını Genelindeki Kapsam',
+    ecosystemSubtitle: 'Teknik repertuarım birden fazla alanı kapsayarak Figma\'daki görsel prototiplerden canlıdaki bulut altyapısına kadar tüm konseptleri hayata geçirmemi sağlar.',
+    ecosystemGroups: [
+      {
+        label: 'Ön Uç & İstemci Uygulamaları',
+        desc: 'Modern tip güvenliğiyle duyarlı, erişilebilir arayüzler ve platformlar arası mobil deneyimler geliştirmek.',
+        tags: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'Flutter']
+      },
+      {
+        label: 'Tasarım & Yaratıcı Araçlar',
+        desc: 'Tasarım sistemleri, kullanıcı yolculukları, vektör varlıklar, 3D öğeler ve etkileşimli prototipler hazırlamak.',
+        tags: ['Figma', 'Framer', 'Adobe Illustrator', 'Adobe Photoshop', 'Blender']
+      },
+      {
+        label: 'Arka Uç & Veritabanları',
+        desc: 'REST ve olay odaklı API\'ler, ilişkisel veritabanı şemaları ve ölçeklenebilir belge depolama yapıları kurmak.',
+        tags: ['Node.js', 'MongoDB', 'MySQL', 'Oracle']
+      },
+      {
+        label: 'Bulut & DevOps',
+        desc: 'Otomatik dağıtım hatları, kapsayıcılı ortamlar ve çok bölgeli bulut hizmetleri yönetmek.',
+        tags: ['AWS', 'Google Cloud', 'Docker', 'Git']
+      },
+      {
+        label: '3D & Etkileşimli Sistemler',
+        desc: 'Mekansal tasarım, gerçek zamanlı render ve etkileşimli sanal ortamları keşfetmek.',
+        tags: ['Unity', 'Unreal Engine']
+      }
+    ],
+    learningEyebrow: 'AKTİF GELİŞİM',
+    learningTitle: 'Sürekli Öğrenme ve Teknik Gelişim',
+    learningSubtitle: 'Teknoloji asla yerinde saymaz, benim mühendislik alet çantam da öyle. Sağlam ve kullanışlı ürünler geliştirmek için daha iyi yollar sunduklarında gelişmekte olan teknolojileri bilinçli olarak öğrenmeye devam ediyorum:',
+    learningCards: [
+      {
+        badge: 'KEŞFEDİLEN',
+        title: 'Kotlin & Mobil',
+        desc: 'Cihazla sıkı bütünleşmiş mobil deneyimler sunmak için Kotlin ile yerel Android uygulama geliştirmeyi derinleştirmek.'
+      },
+      {
+        badge: 'KEŞFEDİLEN',
+        title: 'İleri Düzey GenAI',
+        desc: 'Otonom ajan kalıplarını, geri getirme ile zenginleştirilmiş üretimi (RAG) ve verimli model orkestrasyonunu araştırmak.'
+      },
+      {
+        badge: 'KEŞFEDİLEN',
+        title: 'Bulut Tabanlı Mimari',
+        desc: 'Ölçeklenebilir yazılım sistemleri için dağıtık mikroservisleri, sunucusuz kalıpları ve uç bilişimi incelemek.'
+      }
+    ],
+    stackEyebrow: 'TEMEL YAPI TAŞLARI',
+    stackTitle: 'Ana Teknoloji Yığını',
+    stackSubtitle: 'Lade Stack\'e güç veren temel teknolojiler, sıfır çalışma zamanı yükü, statik ön işleme, sarsılmaz tip güvenliği ve anlık kullanıcı geri bildirimi sağlamak üzere seçilmiştir.',
+    journeyEyebrow: 'KİLOMETRE TAŞLARI',
+    journeyTitle: 'Yolculuk',
+    futureEyebrow: 'UZUN VADELİ YÖN',
+    futureTitle: 'Üreticileri Gerçek Anlamda Güçlendiren Yazılımlar İnşa Etmek',
+    futureBody: 'Geleceğe baktığımda odak noktam, güçlü UX ile güçlü mühendisliği harmanlayan yenilikçi SaaS yapay zekâ araçları, ortak çalışma dosya sistemleri ve geliştirici odaklı yardımcı araçlar üretmeye bağlı kalmaya devam ediyor.',
+    futureQuote: '"Yazılım geliştiriyorum çünkü karmaşık teknik zorlukları geliştiricilere ve üreticilere gerçek bir kaldıraç sağlayan temiz, erişilebilir araçlara dönüştürmekten keyif alıyorum. İyi mühendislik ve iyi tasarım bir arada var olabilir ve olmalıdır."',
+    futureAuthor: '— Girish Lade'
+  },
   footerLinks: {
     aiCodeViewer: 'YZ Kod Görüntüleyici',
     support: 'Destek Merkezi',
