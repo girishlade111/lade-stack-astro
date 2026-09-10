@@ -80,7 +80,7 @@ export const ja: LocaleContent = {
     ]},
     { id: 'api-reference', title: 'APIリファレンス', articles: [
       { title: 'CodeEnhance AIの使い方', text: 'HTML・CSS・JSを貼って改善か解説を選び、本番-readyなコードを書き出し。' },
-      { title: 'クォータとフェアユース', text: '全員が快適に使えるよう分単位のガードを備えた generous な無料枠。' }
+      { title: 'クォータとフェアユース', text: '全員が快適に使えるよう分単位のガードを備えた寛大な無料枠。' }
     ]},
     { id: 'integrations', title: '連携', articles: [
       { title: 'GitHub・Vercelへ書き出し', text: '作ったコードをそのままレポにコピーし、プレビュー公開までワンクリック。' }
