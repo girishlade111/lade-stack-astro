@@ -37,11 +37,11 @@ const contactStructuredData = {
 >
   <!-- Hero Section: marketing-section-dark -->
   <section class="marketing-section-dark !pb-16 text-center">
-    <div class="max-w-[1640px] mx-auto px-6">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
       <MonoEyebrow color="brand" class="mb-3">
         GET IN TOUCH
       </MonoEyebrow>
-      <h1 class="display-md text-on-primary mb-4">
+      <h1 class="display-md text-on-primary mb-4 break-words">
         Let's Build Together
       </h1>
       <p class="subtitle text-ash max-w-xl mx-auto">
@@ -52,8 +52,8 @@ const contactStructuredData = {
 
   <!-- Form & Details: marketing-section-light [POLARITY FLIP] -->
   <section class="marketing-section-light">
-    <div class="max-w-[1640px] mx-auto px-6">
-      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 xs:grid-cols-2 gap-8 md:gap-12 mb-16 md:mb-20">
         <!-- Contact Info Cards in feature-card-light -->
         <div class="space-y-6">
           <FeatureCard variant="light">
@@ -118,9 +118,9 @@ const contactStructuredData = {
         <div class="space-y-4">
           {faqs.map((faq) => (
             <details class="group p-4 rounded-app-lg border border-hairline bg-canvas-light transition-all [&_summary::-webkit-details-marker]:hidden">
-              <summary class="flex items-center justify-between cursor-pointer font-medium text-ink text-sm list-none">
-                <span>{faq.q}</span>
-                <Icon name="lucide:chevron-down" class="w-4 h-4 text-mute group-open:rotate-180 transition-transform" />
+              <summary class="flex items-center justify-between cursor-pointer font-medium text-ink text-sm list-none gap-3">
+                <span class="break-words">{faq.q}</span>
+                <Icon name="lucide:chevron-down" class="w-4 h-4 text-mute group-open:rotate-180 transition-transform shrink-0" />
               </summary>
               <p class="body-sm text-ink/75 leading-relaxed pt-3 mt-3 border-t border-hairline">
                 {faq.a}
