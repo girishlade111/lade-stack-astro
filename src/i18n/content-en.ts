@@ -693,11 +693,54 @@ export const en: LocaleContent = {
     { title: 'Export anywhere', text: 'Copy or download your work — no lock-in, no watermark.' }
   ],
   privacy: [
-    { h: 'Information we collect', p: 'We collect minimal data: contact messages you send us, newsletter emails you opt into, and privacy-respecting analytics (page views, no cross-site tracking). Core tools process files entirely in your browser — your documents never reach our servers.' },
-    { h: 'How we use information', p: 'To respond to support requests, send requested newsletters, and improve performance and reliability. We never sell personal data or share it with ad networks.' },
-    { h: 'Cookies & storage', p: 'We store theme and language preferences in localStorage on your device. Analytics cookies, if any, are first-party and anonymized.' },
-    { h: 'Your rights', p: 'Request access, correction, or deletion of your data anytime at admin@ladestack.in. Unsubscribe from emails with one click.' },
-    { h: 'Contact', p: 'Questions about this policy: admin@ladestack.in, Mumbai, India.' }
+    {
+      h: 'Overview & privacy principles',
+      p: 'Lade Stack is an independent developer tools and AI engineering ecosystem founded in India by Girish Lade. Our foundational design principle is privacy by design: software should empower users without invasive telemetry, surveillance, or hidden data monetization. We deliberately minimize the data we collect, process files and computations client-side in your browser whenever technically feasible, and never sell or rent your personal information to data brokers or advertising networks.'
+    },
+    {
+      h: 'Information you provide directly',
+      p: 'We collect personal information only when you choose to submit it directly to us. When submitting a message through our Contact page (/contact), you provide your name, email address, and message text, which is securely routed via Formspree to our engineering inbox so we can reply. If you choose to subscribe to our product newsletter in the site footer, we collect your email address strictly to deliver updates and technical tutorials. You may also contact us directly by emailing admin@ladestack.in for support, feedback, or bug inquiries.'
+    },
+    {
+      h: 'Automatically collected technical data & analytics',
+      p: 'To maintain site reliability, diagnose routing failures, and understand aggregate usage trends, we utilize privacy-focused measurement services. We use Umami Cloud, a lightweight, cookie-free analytics platform that collects anonymized metrics—such as page visits, referring domains, device operating systems, and country-level geographic regions—without storing personal identities or tracking you across external websites. Additionally, we use Microsoft Clarity to record anonymized navigational telemetry, click heatmaps, and scroll depth to identify interface bugs. Keystrokes and sensitive text inputs are automatically masked.'
+    },
+    {
+      h: 'Cookies & browser storage',
+      p: 'Lade Stack does not use persistent tracking cookies, ad-network beacons, or mandatory authentication cookies. To remember your interface settings across visits, we use standard client-side browser storage (LocalStorage). Specifically, we store your visual mode preference under the key "ladestack-theme" (dark or light mode) and your chosen localization under "ladestack-lang". These key-value pairs reside exclusively on your device and are never transmitted to external servers. You can clear this stored state at any time through your browser settings without breaking fundamental site access.'
+    },
+    {
+      h: 'In-browser file & document processing',
+      p: 'A core architectural differentiator of Lade Stack is local, in-browser processing for productivity tools. Applications such as LS PDF Tools and LS Image Studio execute operations entirely within your browser’s local memory utilizing modern WebAssembly binaries and the HTML5 Canvas API. Your documents, PDFs, images, and source files are never uploaded to, transmitted across, or stored upon our servers. Once processing completes, memory buffers and object URLs are revoked immediately on your device (URL.revokeObjectURL), ensuring your confidential files remain completely private.'
+    },
+    {
+      h: 'CodeEnhance AI & code input handling',
+      p: 'When you submit code snippets to CodeEnhance AI for syntax inspection, refactoring, or structural explanation, your input is transmitted securely over an encrypted connection (TLS 1.3). Requests are processed in ephemeral server memory strictly for the seconds required to synthesize the output and return live diffs to your editor. We do not store your code snippets on disk, do not maintain historical logs of your proprietary source code, and never use your submitted inputs to train, fine-tune, or reinforce machine learning models.'
+    },
+    {
+      h: 'How we use your information',
+      p: 'Information we collect is used solely for legitimate operational purposes: responding to your contact inquiries and technical support requests within our 24-hour commitment window; delivering requested newsletter editions; monitoring platform uptime and edge CDN performance; identifying software bugs and browser incompatibilities; and preventing automated abuse or denial-of-service attempts. We do not engage in behavioral profiling, automated credit or employment decision-making, or commercial resale of user data.'
+    },
+    {
+      h: 'Third-party service providers & data sharing',
+      p: 'We share information only with trusted third-party infrastructure providers necessary to operate the platform: Formspree (for securely receiving and relaying contact form submissions), Umami Cloud (for privacy-first aggregate usage analytics), Microsoft Clarity (for anonymized interface heatmaps and performance diagnostics), and global Content Delivery Network (CDN) edge partners (for serving pre-rendered static assets with low latency). Each provider processes data under strict operational parameters and is prohibited from utilizing your information for independent commercial purposes.'
+    },
+    {
+      h: 'Data retention & deletion',
+      p: 'We retain personal information only for as long as necessary to fulfill the purposes outlined in this policy. Support correspondence and contact emails are retained for the duration needed to resolve your inquiry and maintain historical troubleshooting context. Client-side browser data (LocalStorage preferences and tool drafts) persists on your device until you manually clear your browser cache or site data. You may request the deletion of your contact communications at any time by emailing admin@ladestack.in.'
+    },
+    {
+      h: 'Your privacy rights & data portability',
+      p: 'Regardless of your physical location, you have the right to request access to any personal correspondence we hold about you, request corrections to inaccurate information, or request the deletion of your contact records. Furthermore, you maintain complete and unconditional ownership of all source code, documents, resumes, and images processed using Lade Stack tools. Our applications provide immediate data portability via direct file download, system clipboard copy, and structured JSON project exports with zero watermarks or platform lock-in.'
+    },
+    {
+      h: 'Technical security & user responsibility',
+      p: 'We implement defensive security practices, including full-site HTTPS encryption in transit, strict Content Security Policies, sandboxed iframe isolation for live code previews to prevent DOM cross-site scripting (XSS), and automated dependency vulnerability patching. However, no internet transmission is entirely impenetrable. We urge developers and users to practice good security hygiene: never input live production credentials, private cryptographic keys, or unredacted database passwords into any online tool. Potential security concerns may be disclosed to admin@ladestack.in.'
+    },
+    {
+      h: 'Children\'s privacy, policy updates & contact',
+      p: 'Lade Stack is intended for general audiences, software developers, learners, and creators; we do not knowingly collect personal data from children under the age of 13. We may update this Privacy Policy periodically to reflect evolving platform tools, architectural improvements, or regulatory updates, with revisions indicated by the "Last updated" date above. If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact Girish Lade at admin@ladestack.in (Mumbai, India).'
+    }
   ],
   terms: [
     { h: 'Acceptable use', p: 'Use Lade Stack tools lawfully. Do not abuse rate limits, attempt to disrupt the service, or process content you have no right to use.' },
