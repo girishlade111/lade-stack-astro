@@ -72,12 +72,12 @@ export default defineConfig({
       i18n: {
         defaultLocale: 'en',
         locales: {
-          en: 'en-US',
-          ru: 'ru-RU',
+          en: 'en',
+          ru: 'ru',
           zh: 'zh-CN',
-          ko: 'ko-KR',
-          ja: 'ja-JP',
-          tr: 'tr-TR',
+          ko: 'ko',
+          ja: 'ja',
+          tr: 'tr',
           'pt-BR': 'pt-BR'
         }
       },
@@ -173,7 +173,7 @@ export default defineConfig({
           // Add International SEO x-default alternate link for hreflang clustering
           const hasXDefault = item.links.some((l) => l.lang === 'x-default');
           if (!hasXDefault) {
-            const defaultLink = item.links.find((l) => l.lang === 'en-US') || item.links[0];
+            const defaultLink = item.links.find((l) => l.lang === 'en' || l.lang === 'en-US') || item.links[0];
             item.links.push({
               lang: 'x-default',
               url: defaultLink.url

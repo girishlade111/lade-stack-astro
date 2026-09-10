@@ -94,7 +94,8 @@ const currentLangMeta = languages[lang];
       {
         Object.keys(languages).map((loc) => {
           const localizedHref = canonicalFor(loc as SupportedLocale);
-          return <link rel="alternate" hreflang={loc} href={localizedHref} />;
+          const hreflangCode = languages[loc as SupportedLocale]?.hreflang || loc;
+          return <link rel="alternate" hreflang={hreflangCode} href={localizedHref} />;
         })
       }
       <link rel="alternate" hreflang="x-default" href={canonicalFor(defaultLocale)} />
