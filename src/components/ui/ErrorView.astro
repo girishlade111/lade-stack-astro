@@ -250,7 +250,7 @@ const quickLinks = [
       // Auto-detect localized path e.g. /ko/..., /zh/..., etc.
       var path = window.location.pathname;
       var segments = path.split('/').filter(Boolean);
-      var supported = ['zh', 'ko', 'ja', 'tr', 'pt-BR'];
+      var supported = ['ru', 'zh', 'ko', 'ja', 'tr', 'pt-BR'];
       if (segments.length > 0 && supported.indexOf(segments[0]) !== -1) {
         var lang = segments[0];
         var homeBtn = document.getElementById('error-home-btn');
