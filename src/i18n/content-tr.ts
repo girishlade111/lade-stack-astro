@@ -55,18 +55,72 @@ export const tr: LocaleContent = {
     }
   ],
   supportTopics: [
-    { title: 'Başlangıç', text: 'Galeriden bir uygulama seçin, bir dakikada üretken olun — kayıt gerekmez.' },
-    { title: 'Dosya araçları', text: 'PDF ve görsel araçları tamamen yerelde çalışır. Büyük dosyalar için kararlı bağlantılı masaüstü önerilir.' },
-    { title: 'CodeEnhance AI', text: 'Kodu yapıştırın, işlemi seçin, önerileri inceleyip kopyalayın ya da indirin.' },
-    { title: 'Hesaplar ve veri', text: 'Hesap gerekmez. Site verisini dilediğinizde silin — dışa aktarma işinizi korur.' }
+    {
+      title: 'Başlangıç',
+      text: 'Uygulama galerisinden dilediğiniz aracı kayıt, ödeme duvarı veya kurulum olmadan anında başlatın. Çekirdek yardımcı programlar doğrudan tarayıcınızda istemci tarafında çalışarak iş akışınızı hızlı, gizli ve kesintisiz tutar.'
+    },
+    {
+      title: 'Dosya araçları',
+      text: 'LS PDF Tools ve LS Image Studio gibi araçlar, WebAssembly ve Canvas ile dosyaları tarayıcı belleğinde yerel olarak işler. Dosyalarınız cihazınızdan çıkmaz. Büyük dosyalar için yeterli RAM’e sahip güncel bir masaüstü tarayıcı önerilir.'
+    },
+    {
+      title: 'CodeEnhance AI',
+      text: 'Kod parçacıklarını yapıştırarak sözdizimini inceleyin, yapıyı yeniden düzenleyin ve gerçek zamanlı YZ önerileri alın. YZ çıktılarını akıllı bir eşli programlama asistanı gibi değerlendirin: üretim ortamına almadan önce önerilen kodu mutlaka inceleyin, lint ve testten geçirin.'
+    },
+    {
+      title: 'Hesaplar ve veri',
+      text: 'Hesap zorunluluğu yoktur. Oturumlar, karalama alanları ve tercihler tarayıcınızın yerel depolama alanında (LocalStorage/IndexedDB) tutulur. Dosyalarınızı, yapılandırmalarınızı ve geliştirilmiş kodlarınızı düzenli olarak yerel diskinize indirmek için yerleşik dışa aktarma işlevini kullanın.'
+    }
   ],
   supportFaqs: [
-    { q: 'Araç açılmıyor. Ne yapmalıyım?', a: 'Sayfayı sert yenileyin, ladestack.in için saldırgan reklam engelleyicileri kapatın ve son bir yılın Chromium veya Firefox sürümüyle deneyin.' },
-    { q: 'Dosyalarım bir yere yükleniyor mu?', a: 'Hayır. Çekirdek araçlar tamamen istemcide çalışır; dosyalar cihazınızdan çıkmaz.' },
-    { q: 'Hata bildirimi nasıl yaparım?', a: 'Araç adı, tarayıcı sürümü ve tekrar adımlarıyla admin@ladestack.in adresine yazın. Ekran görüntüsü iş görür.' },
-    { q: 'Yeni araç önerebilir miyim?', a: 'Elbette — yol haritasını topluluk istekleri belirler. İletişim sayfasından yazın.' },
-    { q: 'Ücretsiz araçlarda SLA var mı?', a: 'Resmi SLA yok, ama çalışma süresini sürekli izliyor, bozulmaları hızla düzeltiyoruz.' },
-    { q: 'En iyi pratikleri nereden öğrenirim?', a: 'Önce Dokümanlar ve Blog — yapay zekâ geliştirmeyi uçtan uca anlatan 27+ rehber sizi bekler.' }
+    {
+      q: 'Bir araç yüklenmiyor veya yanıt vermiyor. Ne yapmalıyım?',
+      a: 'Önbelleğe alınmış eski betikleri temizlemek için sayfayı sert yenileyin (Ctrl+F5 veya Cmd+Shift+R). Ardından ladestack.in isteklerini engelleyen agresif bir reklam engelleyici veya güvenlik eklentisi olup olmadığını kontrol edin. Eklenti çakışmalarını ekarte etmek için aracı Gizli Pencerede açmayı deneyin. Sorun sürüyorsa Geliştirici Araçları Konsolunu (F12) açarak WebAssembly veya ağ yükleme hatalarını inceleyin. Çözülmezse tarayıcı sürümünüz ve konsol günlükleriyle iletişim sayfamızdan bize ulaşın.'
+    },
+    {
+      q: 'Dosyalarım, belgelerim veya kodlarım harici sunuculara yükleniyor mu?',
+      a: 'Hayır. LS PDF Tools ve LS Image Studio gibi istemci taraflı araçlarda dosya ayrıştırma, görsel düzenleme ve dönüştürme işlemleri tamamen tarayıcınızın yerel belleğinde WebAssembly ve HTML5 Canvas API’leri kullanılarak yürütülür. Dosyalarınız asla sunucularımıza yüklenmez veya uzakta saklanmaz. CodeEnhance AI gibi YZ araçlarında ise girilen kod yalnızca yanıt üretmek amacıyla geçici belleğe güvenle aktarılır, diske kaydedilmez ve model eğitiminde kullanılmaz.'
+    },
+    {
+      q: 'Etkili bir hata (bug) bildirimi nasıl yapabilirim?',
+      a: 'Faydalı bir hata raporu şunları içerir: araç adı ve sayfa bağlantısı, işletim sisteminiz ve tarayıcı sürümünüz, hatayı tetikleyen kesin adımlar, beklenen sonuca karşılık gerçekleşen durum ve geliştirici konsolu (F12) hata günlükleri. Ekran görüntüleri veya video kayıtları teşhisi büyük ölçüde hızlandırır. Bildirimi İletişim sayfamızdan veya admin@ladestack.in adresinden gönderebilirsiniz; tekrarlanabilir raporlar sayesinde yamaları hızla yayımlıyoruz.'
+    },
+    {
+      q: 'Yeni bir araç önerebilir veya özellik talep edebilir miyim?',
+      a: 'Evet, topluluk talepleri Lade Stack yol haritasını doğrudan şekillendirir. Geliştirici yardımcı programları, üretkenlik artırıcılar ve YZ iş akışları hakkındaki önerilerinizi memnuniyetle karşılıyoruz. Öneriler pratik geliştirici faydası, mimari uygulanabilirlik, performans etkisi ve hafif istemci öncelikli felsefemiz doğrultusunda değerlendirilir. Fikirlerinizi İletişim sayfasından veya GitHub tartışmalarından iletebilirsiniz.'
+    },
+    {
+      q: 'Ücretsiz araçlar için resmi bir SLA (Hizmet Seviyesi Anlaşması) var mı?',
+      a: 'Ücretsiz araçlar için kurumsal sözleşmeye dayalı SLA veya garantili yanıt süreleri sunmuyoruz. Bununla birlikte altyapımız, %99,9 kesintisiz çalışma hedefiyle statik ön işleme, küresel CDN dağıtımı ve sürekli çalışma süresi izlemesiyle yüksek dayanıklılıkta tasarlanmıştır. Her türlü bozulma veya tarayıcı uyumsuzluğu yüksek öncelikle ele alınır ve hızla giderilir.'
+    },
+    {
+      q: 'En iyi pratikleri ve teknik eğitimleri nereden bulabilirim?',
+      a: 'Mimari genel bakışlar, entegrasyon modelleri ve CodeEnhance AI gibi araçların adım adım kılavuzları için Dokümantasyon sayfamızdan (/docs) başlayabilirsiniz. Ayrıca Üretken YZ mühendisliği, frontend performansı, istemci tarafı veri gizliliği ve modern web geliştirmeyi derinlemesine ele alan 27’den fazla teknik kılavuz için Mühendislik Blogumuzu (/blog) inceleyebilirsiniz.'
+    },
+    {
+      q: 'CodeEnhance AI beklenmeyen veya eksik bir çıktı verirse ne yapmalıyım?',
+      a: 'Öncelikle girdi parçacığınızı kontrol edin: kodu belirli bir fonksiyon veya bileşen düzeyinde izole edin ve standart dil bildirimleriyle net bir bağlam sunun. Çok büyük ve yapılandırılmamış kod blokları modelin odağını dağıtabilir. Çıktı tatmin edici değilse talimatı netleştirin veya değişiklikleri adım adım talep edin. YZ’nin olasılıksal öneriler sunduğunu unutmayın: kodu ana dala eklemeden önce daima manuel olarak inceleyin, biçimlendirin ve birim testlerinden geçirin.'
+    },
+    {
+      q: 'Dosya dönüştürme veya indirme işlemi başarısız olursa ne yapmalıyım?',
+      a: 'Tarayıcı içi dosya işleme doğrudan cihazınızın kullanılabilir RAM miktarına bağlıdır. Dönüştürme durursa veya başarısız olursa yüksek bellek tüketen diğer sekmeleri kapatın, boş RAM alanı sağlayın ve tarayıcınızın ladestack.in adresinden otomatik dosya indirmesine izin verdiğini doğrulayın. Çok büyük PDF’ler veya yüksek çözünürlüklü fotoğraflar için dosyaları daha küçük parçalar halinde işlemek sekme çökmelerini engeller.'
+    },
+    {
+      q: 'Lade Stack araçlarını kullanmak için hesap açmam gerekir mi?',
+      a: 'Hayır. Lade Stack genelindeki tüm temel geliştirici ve medya araçları hesap oluşturmadan, e-posta doğrulamadan veya fatura bilgisi vermeden anında kullanılabilir. Yararlı yazılımların hiçbir engel olmadan herkes için erişilebilir olması gerektiğine inanıyoruz. Uygulama Galerisinden istediğiniz araca tıklayıp hemen çalışmaya başlayabilirsiniz.'
+    },
+    {
+      q: 'Oturum verilerim nasıl saklanır ve site verilerini silersem ne olur?',
+      a: 'Tüm oturum durumları, geçici taslaklar ve özel araç tercihleri standart tarayıcı LocalStorage ve IndexedDB API’leri aracılığıyla yalnızca kendi cihazınızda saklanır. Tarayıcı önbelleğini veya site verilerini temizlerseniz bu yerel tercihler sıfırlanır. Veri kaybını önlemek için işiniz bittiğinde işlenmiş dosyalarınızı, yapılandırmalarınızı ve kodlarınızı derhal yerel bilgisayarınıza indirin.'
+    },
+    {
+      q: 'Ekipler, girişimler ve öğrenciler Lade Stack araçlarını ücretsiz kullanabilir mi?',
+      a: 'Evet. Lade Stack araçları ticari, profesyonel, bireysel ve eğitim amaçlı kullanımlar için tamamen ücretsizdir. Ücretsiz temel kataloğumuzda koltuk sınırı, gizli ödeme duvarı veya kısıtlayıcı takım lisansı bulunmaz. Mühendislik ekipleri yardımcı programlarımızı günlük iş akışlarına lisans kaygısı gütmeden dahil edebilir.'
+    },
+    {
+      q: 'Destek ekibinin yanıt süresi nedir ve kurucuya veya ekibe nasıl ulaşırım?',
+      a: 'Tüm teknik destek taleplerine, hata bildirimlerine ve iş birliği tekliflerine 24 saat içinde yanıt veriyoruz. İletişim sayfamızdaki (/contact) formu kullanarak veya admin@ladestack.in adresine e-posta atarak doğrudan mesaj gönderebilirsiniz. Ayrıntılı ortam bilgisi ve tekrarlanabilir adımlar sağlamanız en kısa sürede somut bir çözüm sunmamıza yardımcı olur.'
+    }
   ],
   contactFaqs: [
     {
