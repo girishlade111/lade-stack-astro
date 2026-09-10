@@ -138,37 +138,278 @@ export const tr: LocaleContent = {
     }
   ],
   docsGroups: [
-    { id: 'getting-started', title: 'Başlangıç', articles: [
-      { title: 'Hızlı başlangıç: ilk uygulamanı aç', text: 'Uygulama Galerisi’nden bir araç seç, kayıt olmadan bir dakikada üretken ol.' },
-      { title: 'Ekosistem turu', text: 'Ana sayfa, Uygulamalar, Blog, Dokümanlar, Destek — her yüzey iş akışına nasıl oturur?' }
-    ]},
-    { id: 'api-reference', title: 'API Referansı', articles: [
-      { title: 'CodeEnhance AI kullanımı', text: 'HTML, CSS ya da JS yapıştır, iyileştir ya da açıkla de, üretime hazır kodu al.' },
-      { title: 'Kota ve adil kullanım', text: 'Herkes hızlı kullansın diye dakikalık korumalı cömert ücretsiz kota.' }
-    ]},
-    { id: 'integrations', title: 'Entegrasyonlar', articles: [
-      { title: 'GitHub ve Vercel’e aktarma', text: 'Üretilen kodu repoya kopyala, önizleme dağıtımını tek tıkla çık.' }
-    ]},
-    { id: 'tutorials', title: 'Eğitimler', articles: [
-      { title: '5 dakikada açılış sayfası', text: 'Website Builder ve Image Studio ile komuttan yayına.' }
-    ]},
-    { id: 'security', title: 'Güvenlik', articles: [
-      { title: 'Tasarımda gizlilik', text: 'İstemci-tarafı işleme demek: çekirdek araçlarda dosya tarayıcıdan çıkmaz.' }
-    ]},
-    { id: 'teams', title: 'Ekipler', articles: [
-      { title: 'Paylaşım bağlantılarıyla iş birliği', text: 'Taşınabilir JSON dışa aktarmayla çıktı ve şablonları ekiple paylaş.' }
-    ]},
-    { id: 'data', title: 'Veri Yönetimi', articles: [
-      { title: 'İşini dışa aktarma', text: 'Her araç kopyalama, indirme, markdown desteği sunar — verin senin.' }
-    ]},
-    { id: 'deployment', title: 'Dağıtım', articles: [
-      { title: 'Kendi sunucunda çalıştırma listesi', text: 'Statik-öncelikli mimariyle araçları yansılamak çocuk oyuncağı.' }
-    ]}
+    {
+      id: 'getting-started',
+      title: 'Başlangıç',
+      articles: [
+        {
+          title: 'Lade Stack nedir?',
+          text: 'Lade Stack, Girish Lade (Kurucu ve Baş Yazılım Mimarı) tarafından hayata geçirilen bağımsız bir geliştirici araçları ekosistemi ve teknik bilgi platformudur. Temiz kodlama, yüksek çalışma zamanı performansı ve pratik otomasyon odağında inşa edilen Lade Stack; odaklanmış web araçları, Üretken Yapay Zekâ destekli geliştirici yardımcıları ve gizlilik öncelikli belge işleme araçları sunar. Tüm araçlar modern tarayıcılarda hesap açma zorunluluğu veya gizli abonelikler olmadan doğrudan çalışır.'
+        },
+        {
+          title: 'Ekosistemin mimarisini anlama',
+          text: 'Lade Stack ekosistemi, geliştiricilerin tüm üretim döngüsünü destekleyen 5 temel alandan oluşur: Ana Sayfa platformun teknik vizyonunu belirler; Uygulama Galerisi (/apps) kullanıma hazır araçlara anında erişim sağlar; Mühendislik Blogu (/blog) derinlemesine mimari rehberler sunar; Dokümantasyon (/docs) güvenilir teknik referans merkezi olarak hizmet verir; Destek Merkezi (/support) ise doğrudan mühendislik yardımı ve kapsamlı SSS sunar.'
+        },
+        {
+          title: 'Hızlı başlangıç: ilk uygulamanı aç',
+          text: 'Lade Stack ile çalışmaya başlamak otuz saniyeden az sürer. Uygulama Galerisi\'ne gidin, CodeEnhance AI veya LS PDF Tools gibi bir araç seçin ve anında çalışmaya başlayın. Çekirdek yardımcı programlar, web standartları kullanılarak tarayıcı korumalı alanında (sandbox) istemci tarafında çalışır; kurulum, ortam yapılandırması veya kredi kartı kaydı gerektirmez.'
+        },
+        {
+          title: 'Çalışma alanı ve uygulamalar arasında gezinme',
+          text: 'Uygulama Galerisi, araçları işlevsel alanlara göre düzenler: Yapay Zekâ Araçları (CodeEnhance AI, görsel API test ediciler ve doküman zekâsı araçları), Üretkenlik Araçları (LS PDF Tools, LS Image Studio, Swift Resume) ve Genel Yardımcılar (Bharat Land Records vb.). Her uygulama kartı anlık değer üretme süresini, desteklenen entegrasyonları ve doğrudan çalıştırma bağlantılarını net bir şekilde listeler.'
+        },
+        {
+          title: 'Ürünler ve araçların detayları',
+          text: 'Lade Stack, belirli yazılım iş akışlarına özel web uygulamaları sunar: CodeEnhance AI (code.ladestack.in) AST tabanlı gerçek zamanlı HTML/CSS/JS düzenleme ve akıllı kod iyileştirme sağlar; LS PDF Tools (pdf.ladestack.in) dosyaları sunucuya yüklemeden tarayıcıda PDF birleştirme, bölme ve sıkıştırma yapar; LS Image Studio (img.ladestack.in) WebP ve AVIF gibi modern formatlara toplu dönüştürme ve kayıpsız sıkıştırma sunar; Swift Resume (resume.ladestack.in) ise ATS uyumlu mühendislik özgeçmişleri hazırlar.'
+        },
+        {
+          title: 'Temel geliştirici iş akışı',
+          text: 'Önerilen geliştirici iş akışı 4 aşamadan oluşur: 1. Giriş (Input): Taslak kodları, belgeleri veya ayar parametrelerini doğrudan tarayıcıya yapıştırın veya yükleyin. 2. İşleme (Process): Gerçek zamanlı istemci derlemesini veya yapay zekâ destekli iyileştirme motorunu çalıştırın. 3. Önizleme (Preview): İzolasyonlu DOM çerçevesinde veya canlı görünüm alanında sonucu anında doğrulayın. 4. Dışa Aktarma (Export): Temiz kodu kopyalayın veya standart dosyaları doğrudan yerel projenize indirin.'
+        },
+        {
+          title: 'İlk projeni başarıyla tamamlama',
+          text: 'Lade Stack ile ilk hızlı kazanımınızı elde etmek için: CodeEnhance AI\'ı açın, stillendirilmemiş bir HTML düğme veya menü parçacığı yapıştırın, \'İyileştir (Enhance)\' butonuna basarak erişilebilir (ARIA) ve duyarlı CSS flexbox kodunu üretin. Canlı sanal alanda etkileşimi test edin ve \'Kopyala\' butonuna tıklayarak üretime hazır kodu projenize yapıştırın.'
+        },
+        {
+          title: 'Sonraki adımlar ve topluluk geri bildirimi',
+          text: 'İlk aracınızı deneyimledikten sonra, blogumuzdaki (/blog) üretken yapay zekâ entegrasyonu, saf Astro mimarisi ve ön yüz performans optimizasyonu hakkındaki derinlemesine mühendislik makalelerimizi keşfedin. Özel özellik istekleri, hata bildirimleri veya teknik görüşmeler için admin@ladestack.in veya GitHub üzerinden doğrudan Girish Lade ile iletişime geçebilirsiniz.'
+        }
+      ]
+    },
+    {
+      id: 'api-reference',
+      title: 'API Referansı',
+      articles: [
+        {
+          title: 'API genel bakış ve mimari standartlar',
+          text: 'Lade Stack API\'leri ve mikro servisleri, standart HTTP/REST desenleri ve durumsuz (stateless) yürütme modelleri etrafında inşa edilmiştir. Uç noktalar öngörülebilir web kurallarını takip eder: UTF-8 JSON veri yükleri, anlamsal HTTP istek yöntemleri (GET, POST), standart hata şablonları ve katı başlık gereksinimleri (Content-Type: application/json). Servislerimiz hafif veri transferine ve minimum gecikmeye öncelik verir.'
+        },
+        {
+          title: 'Genel erişim modeli ve kimlik doğrulama',
+          text: 'Lade Stack\'in sonsuza kadar ücretsiz geliştirici sözü doğrultusunda, çekirdek etkileşimli web araçları ve kod inceleme servisleri sürtünmesiz genel erişimle çalışır. Standart tarayıcı içi iş akışları için tescilli API anahtarları, Bearer belirteçleri veya oturum kimlik bilgileri gerekmez. İstekler, kaynak kontrolü ve adil kullanım oran sınırlandırması ile ağ sınırında korunur.'
+        },
+        {
+          title: 'İstek ve yanıt formatı standartları',
+          text: 'Makineler arası okunabilir tüm arabirimler UTF-8 kodlu JSON ile haberleşir. Başarılı çağrılar 200 OK durum kodu ve yapılandırılmış veri alanları döner. Bir istisna oluştuğunda ise yanıtlar standart HTTP hata kodları (400 Bad Request, 429 Too Many Requests veya 500 Internal Error) ile birlikte hata kodu, açıklayıcı mesaj ve çözüm ipuçları içeren yapılandırılmış bir JSON nesnesi iletilir.'
+        },
+        {
+          title: 'CodeEnhance AI istek işleme akışı',
+          text: 'CodeEnhance AI\'da kod iyileştirme veya açıklama tetiklendiğinde işleyiş deterministiktir: 1. İstemci girdi kodunu ve etkin dil modunu (HTML, CSS, JS) yakalar. 2. Ön yüzde temel sözdizimi doğrulaması ve uzunluk kontrolü yapılır. 3. İstek TLS şifrelemesi üzerinden işleme motoruna iletilir. 4. Sistem AST sözdizim ağacını ayrıştırır, yeniden yapılandırma ve erişilebilirlik düzeltmelerini uygular. 5. İyileştirilmiş kod sözdizimi vurgulu canlı diff ile editöre yansıtılır.'
+        },
+        {
+          title: 'Girdi gereksinimleri ve çıktı kalite standartları',
+          text: 'CodeEnhance AI standartlara uygun HTML5 biçimlendirmesini, modern CSS3\'ü (özel özellikler, Flexbox ve Grid kuralları dahil) ve ES6+ JavaScript\'i eksiksiz destekler. Sorunsuz işlem için girdiler ikili veri içermeyen düz metin olmalıdır. Üretilen çıktı, tescilli kütüphane bağımlılıkları eklemeden okunabilirlik, erişilebilirlik ve çalışma zamanı performansına odaklanmış anlamsal standart kod sağlar.'
+        },
+        {
+          title: 'Hata durum kodları ve arıza teşhisi',
+          text: 'Servis yanıtları anlamsal HTTP durum kodlarına uyar: 400 bozuk JSON veya ayrıştırılamayan kod parçacığını; 413 tek istek için boyut sınırının aşıldığını; 429 kısa sürede ani istek eşiğinin aşıldığını; 504 ise işlem zaman aşımını gösterir. Hata oluştuğunda arayüz karmaşık hata yığınları yerine net açıklamalar ve uygulanabilir çözüm yolları görüntüler.'
+        },
+        {
+          title: 'Hız sınırları ve adil kullanım (Fair-use) ilkeleri',
+          text: 'Dünya genelindeki tüm geliştiricilere bir saniyenin altında yanıt süresini kesintisiz sunabilmek amacıyla Lade Stack, dakika bazlı kayan pencere adil kullanım hız koruması uygular. İstemci kaynağına dinamik olarak ayrılan kotalar, kötü niyetli otomatik botları ve hizmet aksatma girişimlerini engellerken gerçek geliştirme ve test işleri için geniş bir bant genişliği sağlar.'
+        },
+        {
+          title: 'API bağlantı sorunlarını giderme',
+          text: 'Bir API isteği veya kod iyileştirmesi başarısız olursa: 1. Ağ bağlantınızı kontrol edin ve güvenlik duvarınızın ladestack.in etki alanlarına giden HTTPS trafiğine izin verdiğinden emin olun. 2. Tarayıcı eklentilerinin veya reklam engelleyicilerin Fetch isteklerini engellemediğini doğrulayın. 3. Kodunuzun karakter sınırını aşmadığını kontrol edin. 4. 429 durum kodu alırsanız tekrar denemeden önce 60 saniye bekleyin.'
+        }
+      ]
+    },
+    {
+      id: 'integrations',
+      title: 'Entegrasyonlar',
+      articles: [
+        {
+          title: 'GitHub ve sürüm kontrol iş akışına aktarma',
+          text: 'Lade Stack araçları Git sürüm kontrolü iş akışlarıyla kusursuz entegre olur. CodeEnhance AI veya diğer araçlarımızda üretilen kodlar yerel Git deponuza doğrudan kopyalanabilir veya indirilebilir. Dosyaları özellik dalınıza doğrudan ekleyip (git add . && git commit -m "feat: add enhanced component") eksiksiz bir sürüm geçmişi oluşturun.'
+        },
+        {
+          title: 'Bağımlılıksız temiz kaynak kod dışa aktarımı',
+          text: 'Kullanıcıları özel çalışma zamanı kütüphanelerine hapseden platformların aksine Lade Stack, \'sıfır satıcı kilidi (zero-lock-in)\' politikasını titizlikle uygular. Dışa aktarılan tüm kodlar standart HTML5, modern CSS ve modüler TypeScript/JavaScript\'ten oluşur. Kodları Astro, Next.js, Vite gibi herhangi bir modern çatıya derleme ayarı değiştirmeden doğrudan entegre edebilirsiniz.'
+        },
+        {
+          title: 'Vercel ile önizleme ve canlı dağıtım',
+          text: 'Lade Stack ile hazırlanan projeleri Vercel\'e dağıtmak çok kolaydır: 1. Dışa aktarılan kodları bir GitHub deposuna gönderin. 2. Vercel panelinde depoyu bağlayın. 3. Vercel çatı türünü (Astro veya Vite gibi) otomatik algılar, derleme komutunu (npm run build) ve çıktı dizinini (dist) yapılandırır. 4. Dağıt\'a tıkladığınızda saniyeler içinde küresel uç CDN ile çalışan önizleme ve üretim URL\'niz hazır olur.'
+        },
+        {
+          title: 'Ön yüz IDE geliştirme ortamına bağlanma',
+          text: 'Dışa aktarılan kod parçacıkları ve şablonlar mevcut geliştirme ortamınıza anında uyum sağlar. Klasörü VS Code, Cursor veya WebStorm\'da açın, Prettier gibi biçimlendiricileri çalıştırın ve yerel geliştirme sunucunuzu (npm run dev) başlatın. Standartlara tam uyumlu kod yapısı sayesinde IDE\'nin otomatik kod tamamlama, tip denetimi ve linting özellikleri sıfır ayarla çalışır.'
+        },
+        {
+          title: 'Entegrasyon sorunlarını giderme',
+          text: 'Dışa aktarılan kodu projenize taşırken sorun yaşarsanız: 1. Görseller ve yazı tipleri gibi statik varlıkların göreli yollarının çatınızın public diziniyle uyumlu olduğunu doğrulayın. 2. Üretilen CSS özel değişkenlerinin projenin genel stilleriyle çakışmadığından emin olun. 3. Hedef tarayıcı desteğinizin üretilen modern CSS kurallarıyla uyumunu kontrol edin.'
+        }
+      ]
+    },
+    {
+      id: 'tutorials',
+      title: 'Eğitimler',
+      articles: [
+        {
+          title: '5 dakikada duyarlı ve yüksek performanslı açılış sayfası kurma',
+          text: 'Beş adımda eksiksiz ve modern bir açılış sayfası oluşturun: 1. Adım: CodeEnhance AI\'ı açın ve anlamsal sayfa iskeletini (kahraman bölümü, özellik ızgarası, eylem çağrısı) yazın. 2. Adım: \'İyileştir\'e tıklayarak estetik ve duyarlı CSS flexbox düzenini oluşturun. 3. Adım: LS Image Studio\'yu (img.ladestack.in) açarak sayfa görsellerini WebP formatına toplu sıkıştırın. 4. Adım: Optimize edilmiş görsel yollarını HTML içine ekleyin. 5. Adım: Son kaynak kodunu kopyalayıp barındırma platformunuza dağıtın.'
+        },
+        {
+          title: 'CodeEnhance AI ile eski ön yüz kodlarını modernize etme',
+          text: 'Eski ve bakımı zor kodları modern standartlara yükseltin: 1. Adım: Mevcut projenizden float tabanlı eski bir HTML/CSS kodunu kopyalayın. 2. Adım: CodeEnhance AI düzenleyicisine yapıştırıp ilgili dil sekmesini seçin. 3. Adım: İyileştirme motorunu çalıştırarak Flexbox düzenine geçiş, CSS değişkenleri ve ARIA etiketleri gibi önerileri inceleyin. 4. Adım: Canlı sanal alanda görsel bütünlüğü test edin. 5. Adım: Temizlenmiş kodu asıl projenize geri aktarın.'
+        },
+        {
+          title: 'LS PDF Tools ile tamamen gizli yerel PDF işleme',
+          text: 'Veri sızıntısı riski olmadan güvenli PDF iş akışı: 1. Adım: LS PDF Tools\'a (pdf.ladestack.in) gidin. 2. Adım: Birden çok PDF\'i birleştirme, sayfa ayıklama veya dosya sıkıştırma seçeneklerinden birini belirleyin. 3. Adım: PDF dosyalarınızı tarayıcı penceresine sürükleyip bırakın. 4. Adım: Sayfa sırasını veya sıkıştırma kalitesini ayarlayın. 5. Adım: İşle\'ye tıklayın; WebAssembly işlemi tarayıcı belleğinde anında bitirir. 6. Adım: Dosyanızı indirin. Belgeleriniz asla bilgisayarınızdan dışarı çıkmaz.'
+        },
+        {
+          title: 'LS Image Studio ile web görsellerini toplu optimize etme',
+          text: 'Web sitesi yükleme hızını zirveye taşımak için görsel hafifletme: 1. Adım: LS Image Studio\'yu (img.ladestack.in) açın. 2. Adım: PNG, JPEG veya WebP görsellerinizi toplu yükleme alanına bırakın. 3. Adım: Hedef formatı (modern web için WebP veya AVIF önerilir) ve sıkıştırma kalitesini seçin. 4. Adım: \'Hepsini Sıkıştır\'a tıklayarak tarayıcı içi Canvas ve WebAssembly motorlarıyla paralel işleme yapın. 5. Adım: Yüksek çözünürlüklü ve boyutu küçültülmüş görsel paketini indirin.'
+        },
+        {
+          title: 'Swift Resume ile ATS uyumlu yazılımcı özgeçmişi hazırlama',
+          text: 'İşe alım sistemlerinin otomatik taramalarını firesiz geçen profesyonel özgeçmiş hazırlama: 1. Adım: Swift Resume\'u (resume.ladestack.in) açın. 2. Adım: İletişim bilgileri, teknik yetenekler, mühendislik deneyimleri ve eğitim kısımlarını doldurun. 3. Adım: ATS uyumluluğu doğrulanmış tipografi ve düzen şablonunu seçin. 4. Adım: Gerçek zamanlı önizleme ile sayfa dengesini ayarlayın. 5. Adım: İşe alım yöneticilerine sunulmaya hazır yüksek kaliteli vektör PDF\'i dışa aktarın.'
+        },
+        {
+          title: 'Web prototipinden Git deposuna ve canlı yayına tam yolculuk',
+          text: 'Fikirlerinizi çalışan gerçek bir web hizmetine dönüştürme: 1. Adım: Lade Stack araçlarında bileşenlerinizi ve varlıklarınızı tamamlayın. 2. Adım: Üretilen dosyaları yerel bir klasöre indirin. 3. Adım: Yerel bir Git deposu başlatın (git init && git add . && git commit -m "Initial commit"). 4. Adım: GitHub\'da yeni bir depo açıp kodlarınızı gönderin. 5. Adım: Depoyu Vercel veya Cloudflare Pages\'e bağlayarak sürekli yayına geçişi tamamlayın.'
+        }
+      ]
+    },
+    {
+      id: 'security',
+      title: 'Güvenlik',
+      articles: [
+        {
+          title: 'Tasarımda gizlilik: tarayıcı içi yerel hesaplama mimarisi',
+          text: 'Lade Stack\'in en belirgin mimari farkı \'Tasarımda Gizlilik (Privacy by Design)\' prensibidir. LS PDF Tools ve LS Image Studio gibi temel araçlar; modern WebAssembly, HTML5 File API ve Canvas teknolojilerini kullanarak tüm işlemleri doğrudan tarayıcınızın belleğinde tamamlar. Gizli sözleşmeleriniz, belgeleriniz ve özel fotoğraflarınız asla harici sunuculara yüklenmez veya aktarılmaz.'
+        },
+        {
+          title: 'Veri iletimi ve sıfır-saklama (Zero-retention) politikası',
+          text: 'CodeEnhance AI gibi bulut destekli çalışan araçlarda veri aktarımı tamamen TLS 1.3 şifrelemesiyle korunur. Lade Stack katı bir sıfır-saklama ilkesi uygular: analize gönderilen kodlar yalnızca sunucu belleğinde işlenir ve anında yanıt olarak geri gönderilir. Kullanıcı kodlarından oluşan veri tabanları tutulmaz ve üçüncü taraf izleyiciler çalıştırılmaz.'
+        },
+        {
+          title: 'Yapay zekâ girdi gizliliği ve kod güvenliği',
+          text: 'Geliştiricilerin fikri mülkiyetine saygı duyuyoruz. Lade Stack\'in yapay zekâ destekli araçlarına gönderilen kod parçacıkları ve istemler, hiçbir makine öğrenimi modelinin temel eğitimi, ince ayarı veya algoritma güçlendirmesi için kullanılmaz. Tüm etkileşimler geçicidir (ephemeral) ve yanıt üretildikten hemen sonra bellekten silinir.'
+        },
+        {
+          title: 'İstemci kod yürütme güvenliği ve DOM izolasyonu',
+          text: 'CodeEnhance AI içerisindeki dinamik önizleme, sıkı kısıtlamalara sahip korumalı bir iframe sanal alanında (sandbox) çalışır. Bu yapı, çalıştırılan komut dosyalarının ana pencerenin çerezlerine, yerel depolamasına, oturum belirteçlerine veya üst gezintisine erişmesini engeller. Tüm kullanıcı girdileri Siteler Arası Betik Çalıştırma (XSS) risklerine karşı sıkı DOM temizliğinden geçer.'
+        },
+        {
+          title: 'Geliştirici güvenlik hijyeni ve operasyonel öneriler',
+          text: 'Lade Stack çok katmanlı savunma önlemleri alsa da geliştiricilerin de temel güvenlik kurallarına uyması gerekir: hiçbir web aracına canlı veritabanı şifrelerini veya maskelenmemiş özel API anahtarlarını yapıştırmayın. Tarayıcı eklentilerinizi düzenli olarak gözden geçirin, işletim sisteminizi ve tarayıcınızı güncel tutun.'
+        },
+        {
+          title: 'Güvenlik açığı bildirme ve hızlı müdahale süreci',
+          text: 'Platformumuzun ve kullanıcılarımızın güvenliğini ciddiye alıyoruz. Lade Stack araçlarında olası bir güvenlik açığı, bellek sızıntısı veya veri sızıntısı tespit ederseniz lütfen doğrudan kurucumuz Girish Lade\'ye admin@ladestack.in adresinden bildirin. Ayrıntılı adımları ilettiğinizde bildirimi hızla inceleyecek ve gereken yamaları uygulayacağız.'
+        }
+      ]
+    },
+    {
+      id: 'teams',
+      title: 'Ekipler',
+      articles: [
+        {
+          title: 'Durumsuz paylaşım bağlantılarıyla zahmetsiz iş birliği',
+          text: 'Lade Stack, durumsuz (stateless) URL parametre kodlama yöntemiyle ekip üyeleri arasında hafif ve kesintisiz bir iş birliği sağlar. Yapılandırma ayarları ve şablon seçimleri doğrudan paylaşılabilir bağlantı içine serileştirilir. Bir iş arkadaşınız bağlantıyı açtığında, ortak bir veritabanı veya ekip hesabı gerekmeksizin aynı çalışma durumu tarayıcısında anında yüklenir.'
+        },
+        {
+          title: 'Taşınabilir JSON proje verisi aktarımı ve şablon paylaşımı',
+          text: 'Karmaşık ayarlar ve çoklu bileşen yapılandırmaları için Lade Stack araçları standart JSON içe/dışa aktarma imkânı sunar. Çalışmanızı hafif bir .json dosyası olarak kaydedip ekibinizin Git deposuna ekleyebilir veya şirket içi kanallardan paylaşabilirsiniz. Ekip arkadaşlarınız bu dosyayı yükleyerek sıfır hata ile aynı durumdan çalışmaya devam edebilir.'
+        },
+        {
+          title: 'Git odaklı kod inceleme ve entegrasyon kültürü',
+          text: 'İzole edilmiş çevrim içi ortak çalışma alanları yerine, sürüm kontrolüyle entegre eş zamansız kod incelemelerini savunuyoruz. Lade Stack ile oluşturulan kodlar ekibinizin Pull Request süreçlerine dahil edilmeli; otomatik CI/CD hatlarından, birim testlerden ve meslektaş incelemelerinden geçmelidir. Bu yaklaşım yazılım yaşam döngüsünde kod kalitesini ve sürdürülebilirliği güvenceye alır.'
+        },
+        {
+          title: 'Ön yüz kod tutarlılığı ve ekip standartları oluşturma',
+          text: 'Lade Stack araçlarının ürettiği kodlar modern ön yüz standartlarına tam uyar: semantik HTML5 etiketleri, modüler CSS adlandırma kuralları, ARIA erişilebilirlik nitelikleri ve katı TypeScript tip tanımları içerir. Ekipler bu çıktıları mimari temel olarak benimseyerek PR incelemelerindeki gereksiz kod stili tartışmalarını ortadan kaldırabilir.'
+        }
+      ]
+    },
+    {
+      id: 'data',
+      title: 'Veri Yönetimi',
+      articles: [
+        {
+          title: 'İşini dışa aktarma ve %100 veri sahipliği güvencesi',
+          text: 'Lade Stack\'te, araçları kullanarak ürettiğiniz her şeyin mülkiyeti tamamen ve koşulsuz olarak size aittir. Tüm araçlar anında dışa aktarma seçenekleri sunar: tek tıkla panoya kopyalama, doğrudan kaynak kod indirme ve Markdown çıktısı alma. Ürünlerimiz üzerinde hiçbir lisans kısıtlaması, filigran veya platforma bağımlılık kuralı bulunmaz.'
+        },
+        {
+          title: 'LocalStorage ile yerel cihazda veri kalıcılığı',
+          text: 'Kullanıcı gizliliğini ihlal etmeden tercihlerinizi hatırlayabilmek için Lade Stack, tarayıcınızın yerel depolama (localStorage) özelliğinden yararlanır. Açık/koyu tema tercihi, dil seçimi ve editördeki geçici taslaklar yerel cihazınızda tutulur. Bu veriler harici telemetri sunucularına asla gönderilmez.'
+        },
+        {
+          title: 'Veri yaşam döngüsü ve anında bellek temizliği',
+          text: 'Lade Stack araçları minimum bellek kullanımı için tasarlanmıştır. İstemci tarafı medya işlemleri tamamlandığında, sistem derhal URL.revokeObjectURL çağrısı yaparak nesne URL\'lerini serbest bırakır ve bellek tamponunu boşaltır. Tarayıcı sekmesini kapatmak veya site verilerini temizlemek tüm geçici taslakları ve yerel kalıntıları tamamen siler.'
+        },
+        {
+          title: 'Geliştirme ortamları arasında kodları kolayca taşıma',
+          text: 'Lade Stack\'ten aldığınız kodları üretim hattınıza taşımak çok pratiktir: ham HTML, CSS veya JS dosyalarını indirin, yerel proje klasörünüze (örneğin Next.js components/, Astro src/components/ veya standart web sunucusu dizini) yerleştirin ve standart göreli içe aktarmalarla doğrudan kullanın.'
+        },
+        {
+          title: 'Statik varlık yönetimi ve web medya optimizasyonu',
+          text: 'Modern web geliştirmede statik varlıkların düzenli yönetimi kritik önem taşır. Dışa aktarılan medyaları mantıksal klasörlere (/public/images, /src/styles) ayırmanızı, LS Image Studio ile ağır PNG/JPEG dosyalarını WebP veya AVIF\'e topluca dönüştürmenizi ve kritik küçük simgeleri SVG olarak satır içi kullanmanızı öneririz.'
+        }
+      ]
+    },
+    {
+      id: 'deployment',
+      title: 'Dağıtım',
+      articles: [
+        {
+          title: 'Statik-öncelikli (Static-first) dağıtım mimarisi',
+          text: 'Lade Stack, statik-öncelikli web mimarisini kararlılıkla savunur. Sayfaların önceden saf HTML, modern CSS ve minimum JavaScript olarak derlenmesi, sunucu çalışma zamanı açıklarını ortadan kaldırır, barındırma maliyetlerini sıfıra indirir ve küresel uç CDN ile anlık önbellekleme sağlar. Bu dokümantasyon portalı ve ana web sitemiz de Astro 5 tabanlı saf statik mimariyle çalışmaktadır.'
+        },
+        {
+          title: 'Üretime çıkış öncesi teknik kontrol listesi',
+          text: 'Web projenizi gerçek kullanıcılara açmadan önce bu listeyi tamamlayın: 1. HTML semantiğini doğrulayın ve tüm <img> etiketlerinde alt, width, height özelliklerinin bulunduğunu onaylayın. 2. Renk kontrastlarının WCAG AA erişilebilirlik standartlarını karşıladığını kontrol edin. 3. Gereksiz çatı kodlarının yüklenmediğini görmek için paket boyutlarını denetleyin. 4. Lighthouse testleri çalıştırarak 100/100 tam puanı doğrulayın.'
+        },
+        {
+          title: 'Vercel, Cloudflare Pages ve Netlify ile tek tıkla dağıtım',
+          text: 'Modern araçlarla derlenen statik siteler lider bulut platformlarına zahmetsizce dağıtılır. Vercel\'de Git deponuzu bağlamanız yeterlidir; Cloudflare Pages\'da derleme komutunu (npm run build) ve çıktı klasörünü (dist) belirtmeniz kafidir. Netlify da dist klasörünü sürükleyip bırakmayı destekler ve tüm bu servisler ücretsiz otomatik SSL sertifikası sağlar.'
+        },
+        {
+          title: 'Ortam değişkenleri yapılandırması ve derleme optimizasyonu',
+          text: 'Üretim uygulamaları hazırlarken yapılandırmayı .env dosyaları ile iş mantığından ayırın. Statik derleme senaryolarında, genel değişkenlerin çatı kurallarına (Astro\'daki PUBLIC_ ön eki gibi) uygun adlandırıldığından emin olun. Üretim bayraklarını yapılandırarak HTML küçültmeyi, CSS birleştirmeyi ve otomatik XML site haritası (sitemap) üretimini etkinleştirin.'
+        },
+        {
+          title: 'Core Web Vitals performans hedeflerine ulaşma',
+          text: 'En üst seviye Core Web Vitals puanlarına ulaşmak bilinçli bir mimari gerektirir: oluşturmayı engelleyen kaynakları kaldırarak İlk Zengin İçerikli Boyama (FCP) süresini 0,8 saniyenin altında tutun; görseller ve afişler için sabit alanlar ayırarak Kümülatif Düzen Kayması\'nı (CLS) 0,00\'da sabitleyin; önemli yazı tiplerini ve ana görselleri önceden yükleyerek LCP süresini en aza indirin.'
+        },
+        {
+          title: 'Dağıtım sorunlarını giderme ve yol yapılandırması',
+          text: 'Dağıtım sonrasında sık karşılaşılan hatalar ve çözümleri: 1. Görseller veya stiller 404 veriyorsa: barındırma alt yolunuz ile derleme ayarındaki base yolunun eşleştiğini ve varlıkların göreli yollarla çağrıldığını kontrol edin. 2. Sayfa yenilemede 404 hatası: tek sayfalı uygulama (SPA) yönlendirmesi kullanıyorsanız yönlendirme kurallarını doğrulayın. 3. Önbelleğin güncellenmemesi: Cache-Control yanıt başlıklarını gözden geçirin.'
+        }
+      ]
+    }
   ],
   docsChangelog: [
-    { v: 'v2.4.0', date: '2026-08-20', text: '7 dilli ve Lighthouse 100 puanlı saf Astro yeniden yazımı.' },
-    { v: 'v2.3.0', date: '2024-11-30', text: 'Documentation AI betası ve API Testing koleksiyonları.' },
-    { v: 'v2.0.0', date: '2024-06-01', text: 'CodeEnhance AI genel kullanıma açıldı.' }
+    {
+      v: 'v2.4.0',
+      date: '2026-08-20',
+      text: 'Astro 5 saf statik mimarisiyle baştan inşa edildi. 6 dilde yerel uluslararasılaşma desteği, 0 KB istemci çatısı yükü ve tüm denetimlerde Lighthouse 100/100 performansı.'
+    },
+    {
+      v: 'v2.3.0',
+      date: '2024-11-30',
+      text: 'Documentation AI genel beta sürümü yayımlandı ve görsel uç nokta testi için API Testing Platform etkileşimli koleksiyonlar özelliği eklendi.'
+    },
+    {
+      v: 'v2.0.0',
+      date: '2024-06-01',
+      text: 'CodeEnhance AI genel kullanıma sunuldu: gerçek zamanlı kod editörü, yenilemesiz canlı DOM önizleme sanal alanı ve AST tabanlı tek tıkla kod iyileştirme motoru.'
+    },
+    {
+      v: 'v1.5.0',
+      date: '2024-03-20',
+      text: 'Swift Resume kullanıma açıldı: ATS uyumlu özgeçmiş şablonları, anlık düzenleme önizlemesi ve tarayıcıda doğrudan yüksek kaliteli vektör PDF üretimi.'
+    },
+    {
+      v: 'v1.2.0',
+      date: '2023-09-01',
+      text: 'LS Image Studio yayımlandı: gizlilik korumalı yerel toplu sıkıştırma, modern format dönüştürme (PNG/JPEG/WebP/AVIF) ve görsel boyutlandırma özellikleri.'
+    },
+    {
+      v: 'v1.0.0',
+      date: '2023-06-10',
+      text: 'LS PDF Tools resmi olarak yayımlandı: dosya yüklemesi gerektirmeyen saf tarayıcı içi belge işleme araçları tek marka altında birleştirildi.'
+    }
   ],
   timeline: [
     { year: '2020', title: 'Alet çantasının doğuşu', text: 'Girish Lade kişisel geliştirici araçları yapmaya başladı — PDF, görsel ve kod yardımcıları.' },
