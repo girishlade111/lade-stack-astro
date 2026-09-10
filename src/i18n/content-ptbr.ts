@@ -693,11 +693,54 @@ export const ptBR: LocaleContent = {
     { title: 'Exporte para qualquer lugar', text: 'Copie ou baixe — sem lock-in, sem marca d’água.' }
   ],
   privacy: [
-    { h: 'O que coletamos', p: 'Só o mínimo: mensagens que você envia, e-mail da newsletter que você assina e analytics respeitosa (views, sem rastreio cross-site). As ferramentas principais processam arquivos 100% no navegador — seus documentos nunca chegam aos nossos servidores.' },
-    { h: 'Como usamos', p: 'Para responder ao suporte, mandar a newsletter que você pediu e melhorar performance e confiabilidade. Nunca vendemos dados nem compartilhamos com redes de anúncio.' },
-    { h: 'Cookies e armazenamento', p: 'Tema e idioma ficam só no localStorage do seu dispositivo. Se houver cookies de analytics, são próprios e anonimizados.' },
-    { h: 'Seus direitos', p: 'Peça acesso, correção ou exclusão quando quiser: admin@ladestack.in. Saída da newsletter em um clique.' },
-    { h: 'Contato', p: 'Dúvidas sobre a política: admin@ladestack.in, Mumbai, Índia.' }
+    {
+      h: 'Visão geral e princípios de privacidade',
+      p: 'O Lade Stack é um ecossistema independente de ferramentas para desenvolvedores e engenharia de IA fundado na Índia por Girish Lade. Nosso princípio arquitetural fundamental é a privacidade por design (Privacy by Design): o software deve capacitar os usuários sem telemetria invasiva, vigilância ou monetização oculta de dados. Minimizamos rigorosamente as informações que coletamos, executamos o processamento de arquivos e a computação no navegador do usuário sempre que tecnicamente viável e nunca vendemos ou alugamos seus dados pessoais para corretores de dados ou redes de publicidade.'
+    },
+    {
+      h: 'Informações que você fornece diretamente',
+      p: 'Coletamos dados pessoais somente quando você opta por enviá-los voluntariamente. Ao enviar uma mensagem pela nossa página de contato (/contact), você fornece seu nome, endereço de e-mail e o texto da mensagem, que é encaminhado com segurança pelo Formspree diretamente à nossa caixa de entrada técnica para que possamos responder. Se você assinar a newsletter técnica no rodapé do site, coletamos seu e-mail estritamente para o envio de novidades e tutoriais de engenharia. Você também pode falar diretamente conosco enviando um e-mail para admin@ladestack.in para suporte, feedback ou relatos de bugs.'
+    },
+    {
+      h: 'Dados técnicos coletados automaticamente e métricas',
+      p: 'Para garantir a estabilidade do site, diagnosticar falhas de roteamento e compreender tendências agregadas de uso, empregamos ferramentas de medição focadas em privacidade. Utilizamos o Umami Cloud, uma plataforma analítica leve e sem cookies que registra métricas agregadas e anonimizadas — como visualizações de páginas, domínios de referência, sistemas operacionais e localização geográfica em nível de país — sem armazenar identidades pessoais nem rastrear sua navegação entre sites externos. Além disso, utilizamos o Microsoft Clarity para telemetria de navegação anônima, mapas de calor de cliques e profundidade de rolagem para diagnosticar bugs de interface. Entradas de teclado e campos de texto confidenciais são automaticamente mascarados.'
+    },
+    {
+      h: 'Cookies e armazenamento no navegador',
+      p: 'O Lade Stack não utiliza cookies de rastreamento publicitário, sinalizadores de rede (web beacons) ou cookies obrigatórios de autenticação. Para preservar suas preferências de interface entre visitas, utilizamos o armazenamento local padrão do navegador (LocalStorage). Especificamente, armazenamos a sua preferência de modo visual sob a chave "ladestack-theme" (modo claro ou escuro) e o idioma selecionado sob a chave "ladestack-lang". Esses pares de chave-valor residem exclusivamente no seu dispositivo e nunca são enviados para servidores externos. Você pode limpar esses dados a qualquer momento nas configurações do navegador sem perder o acesso básico aos utilitários.'
+    },
+    {
+      h: 'Processamento de arquivos e documentos no navegador',
+      p: 'Um dos maiores diferenciais arquiteturais do Lade Stack é o processamento 100% local e no cliente de suas ferramentas de produtividade. Utilitários como o LS PDF Tools e o LS Image Studio executam suas operações inteiramente na memória RAM do seu navegador utilizando binários WebAssembly e a API HTML5 Canvas. Seus documentos, arquivos PDF, imagens e fontes de código nunca são enviados, transmitidos ou armazenados em nossos servidores. Imediatamente após o processamento, os buffers de memória e URLs de objeto são revogados no seu próprio dispositivo (URL.revokeObjectURL), garantindo que seus arquivos confidenciais permaneçam estritamente privados.'
+    },
+    {
+      h: 'CodeEnhance AI e processamento de código',
+      p: 'Ao enviar trechos de código para o CodeEnhance AI para análise sintática, refatoração ou explicações estruturais, a comunicação ocorre por conexão criptografada de ponta a ponta (TLS 1.3). As solicitações são processadas na memória efêmera do servidor estritamente pelos poucos segundos necessários para sintetizar a resposta e retornar as diferenças (diffs) em tempo real para o seu editor. Nós não gravamos seu código em discos persistentes, não mantemos logs históricos do seu código-fonte proprietário e nunca utilizamos os dados enviados para treinar, ajustar ou aprimorar modelos de aprendizado de máquina.'
+    },
+    {
+      h: 'Como usamos suas informações',
+      p: 'As informações coletadas são utilizadas exclusivamente para finalidades operacionais legítimas: responder a dúvidas e chamados de suporte dentro do nosso compromisso de retorno em até 24 horas; enviar as edições solicitadas da newsletter; monitorar o tempo de atividade (uptime) da infraestrutura e o desempenho da rede de borda (CDN); identificar defeitos de software e incompatibilidades entre navegadores; e proteger a infraestrutura contra abusos automatizados e ataques de negação de serviço (DDoS). Não realizamos criação de perfis comportamentais, decisões automatizadas de crédito ou emprego nem comercialização de dados.'
+    },
+    {
+      h: 'Provedores de serviços terceirizados e compartilhamento',
+      p: 'Compartilhamos dados exclusivamente com provedores de infraestrutura essenciais para o funcionamento da plataforma: Formspree (para recebimento e encaminhamento seguro de formulários de contato), Umami Cloud (para métricas agregadas de audiência com foco em privacidade), Microsoft Clarity (para diagnósticos de interface e usabilidade por meio de mapas de calor anonimizados) e redes de distribuição de conteúdo (CDN globais) (para servir arquivos estáticos pré-renderizados com altíssima velocidade). Todos os provedores operam sob regras contratuais rigorosas e estão proibidos de usar suas informações para fins comerciais próprios.'
+    },
+    {
+      h: 'Retenção e exclusão de dados',
+      p: 'Retemos dados pessoais apenas pelo período estritamente necessário para cumprir as finalidades descritas nesta política. Mensagens de contato e correspondências de suporte são guardadas pelo tempo necessário para solucionar a solicitação e manter o histórico técnico. Dados armazenados localmente no navegador (LocalStorage e rascunhos de ferramentas) permanecem no seu computador até que você limpe os dados de navegação. Você pode solicitar a exclusão definitiva do histórico das suas mensagens de contato a qualquer momento pelo e-mail admin@ladestack.in.'
+    },
+    {
+      h: 'Seus direitos de privacidade e portabilidade',
+      p: 'Independentemente do país em que você reside, você tem o direito de solicitar acesso às mensagens que temos arquivadas sobre você, retificar informações incorretas ou solicitar a exclusão dos registros de contato. Além disso, você mantém propriedade integral e irrestrita sobre todo código-fonte, documento, currículo e imagem gerados ou processados com as ferramentas do Lade Stack. Nossos aplicativos fornecem portabilidade de dados imediata por meio de download direto de arquivos, cópia para a área de transferência e exportações estruturadas em JSON sem marcas d\'água ou aprisionamento tecnológico.'
+    },
+    {
+      h: 'Segurança técnica e responsabilidade do usuário',
+      p: 'Adotamos práticas defensivas robustas de engenharia de software: criptografia obrigatória via HTTPS em trânsito, políticas rigorosas de segurança de conteúdo (CSP), isolamento de código em iframes restritos (sandbox) para evitar vulnerabilidades de script entre sites (XSS) e correção automatizada de dependências. Contudo, nenhuma transmissão pela internet é totalmente infalível. Recomendamos que os desenvolvedores pratiquem uma boa higiene de segurança: nunca insira credenciais de produção, chaves criptográficas privadas ou senhas de bancos de dados em ferramentas online. Vulnerabilidades de segurança podem ser reportadas a admin@ladestack.in.'
+    },
+    {
+      h: 'Privacidade infantil, atualizações da política e contato',
+      p: 'O Lade Stack destina-se ao público geral, desenvolvedores de software, estudantes e criadores de tecnologia; não coletamos intencionalmente dados pessoais de crianças menores de 13 anos. Esta Política de Privacidade pode ser atualizada periodicamente para refletir novos lançamentos de ferramentas, avanços na arquitetura ou ajustes regulatórios, sendo as revisões indicadas pela data de "Última atualização" no topo da página. Em caso de dúvidas, solicitações ou observações sobre esta política, entre em contato com Girish Lade pelo e-mail admin@ladestack.in (Mumbai, Índia).'
+    }
   ],
   terms: [
     { h: 'Uso aceitável', p: 'Use as ferramentas dentro da lei. Sem abusar de rate limits, sem tentar derrubar o serviço, sem processar conteúdo alheio sem direito.' },
