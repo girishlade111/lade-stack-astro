@@ -55,18 +55,72 @@ export const ptBR: LocaleContent = {
     }
   ],
   supportTopics: [
-    { title: 'Começando', text: 'Escolha um app na galeria e esteja produtivo em um minuto — sem cadastro.' },
-    { title: 'Ferramentas de arquivo', text: 'As ferramentas de PDF e imagem rodam 100% no seu navegador. Para arquivos grandes, prefira desktop com conexão estável.' },
-    { title: 'CodeEnhance AI', text: 'Cole o código, escolha uma ação, revise as sugestões e copie ou baixe o resultado.' },
-    { title: 'Contas e dados', text: 'Sem contas. Limpe os dados do site quando quiser — a exportação protege seu trabalho.' }
+    {
+      title: 'Começando',
+      text: 'Abra qualquer utilitário direto da Galeria de Apps sem cadastro obrigatório, paywalls ou instalações. As ferramentas principais rodam no seu navegador do lado do cliente, garantindo que seu fluxo de trabalho seja instantâneo, privado e portátil.'
+    },
+    {
+      title: 'Ferramentas de arquivo',
+      text: 'Utilitários como o LS PDF Tools e o LS Image Studio processam arquivos na memória do navegador via WebAssembly e Canvas. Nada vai para servidores externos. Para arquivos grandes, recomendamos um navegador desktop atualizado com memória RAM livre.'
+    },
+    {
+      title: 'CodeEnhance AI',
+      text: 'Envie trechos de código para inspecionar estrutura, refatorar sintaxe e receber sugestões de IA em tempo real. Veja a IA como uma programação em par: sempre revise, rode linter e teste o código antes de subir para produção.'
+    },
+    {
+      title: 'Contas e dados',
+      text: 'Zero dependência de contas. Sessões, rascunhos e preferências ficam no armazenamento local do navegador (LocalStorage/IndexedDB). Use a exportação embutida com frequência para salvar seus arquivos, configurações e códigos gerados na sua máquina.'
+    }
   ],
   supportFaqs: [
-    { q: 'Uma ferramenta não carrega. E agora?', a: 'Dê um hard refresh, desative bloqueadores agressivos para ladestack.in e tente um Chromium ou Firefox recente.' },
-    { q: 'Meus arquivos vão para algum servidor?', a: 'Não. As ferramentas principais rodam totalmente no cliente; nada sai do seu dispositivo.' },
-    { q: 'Como reporto um bug?', a: 'Escreva para admin@ladestack.in com o nome da ferramenta, versão do navegador e passos para reproduzir. Prints ajudam.' },
-    { q: 'Posso sugerir uma ferramenta nova?', a: 'Claro — pedidos da comunidade ditam o roadmap. Fale pela página de contato.' },
-    { q: 'Ferramenta grátis tem SLA?', a: 'Sem SLA formal, mas monitoramos uptime sem parar e corrigimos regressões rápido.' },
-    { q: 'Onde aprendo boas práticas?', a: 'Comece pela Documentação e pelo Blog — mais de 27 guias cobrem desenvolvimento com IA de ponta a ponta.' }
+    {
+      q: 'Uma ferramenta não carrega ou parece travada. O que fazer?',
+      a: 'Comece dando um recarregamento forçado (Ctrl+F5 ou Cmd+Shift+R) para limpar scripts em cache antigos. Em seguida, verifique se algum bloqueador de anúncios agressivo ou extensão de segurança está interferindo nas requisições do ladestack.in. Teste em uma aba anônima para descartar conflito de extensões. Pressione F12 para abrir o Console do Desenvolvedor e checar erros de rede ou de carregamento de WebAssembly. Se o problema continuar, mande uma mensagem na página de contato com a versão do seu navegador e os logs do console.'
+    },
+    {
+      q: 'Meus arquivos, documentos ou códigos são enviados para algum servidor externo?',
+      a: 'Não. Em ferramentas do lado do cliente, como LS PDF Tools e LS Image Studio, a leitura, edição de imagens e conversões rodam exclusivamente na memória local do navegador usando WebAssembly e HTML5 Canvas. Seus arquivos nunca sobem para os nossos servidores nem ficam salvos remotamente. Em ferramentas com IA (como o CodeEnhance AI), o código é enviado de forma segura para memória temporária apenas para processar a resposta, nunca sendo gravado em disco nem usado no treino de modelos.'
+    },
+    {
+      q: 'Como envio um relatório de bug com eficiência?',
+      a: 'Um bom relatório inclui: o nome da ferramenta e o link da página, seu sistema operacional e versão do navegador, o passo a passo exato para reproduzir o erro, o que aconteceu contra o que você esperava, e as mensagens de erro do console do desenvolvedor (F12). Prints ou gravações de tela ajudam demais. Envie pela nossa página de contato (/contact) ou pelo e-mail admin@ladestack.in — relatórios detalhados nos permitem lançar correções com muita agilidade.'
+    },
+    {
+      q: 'Posso sugerir uma nova ferramenta ou pedir melhorias?',
+      a: 'Com certeza! O feedback da comunidade guia diretamente o roadmap do Lade Stack. Adoramos receber sugestões de utilitários para desenvolvedores, ferramentas de produtividade e fluxos com IA. Avaliamos cada ideia com base na utilidade prática, viabilidade técnica, impacto no desempenho e alinhamento com nossa arquitetura leve focada no cliente. Compartilhe sua ideia pelo formulário de contato ou no GitHub.'
+    },
+    {
+      q: 'Existe um SLA (acordo de nível de serviço) formal para as ferramentas gratuitas?',
+      a: 'Não oferecemos SLAs corporativos contratuais nem prazos formais de garantia de disponibilidade para ferramentas grátis. Contudo, nossa infraestrutura foi projetada para alta resiliência, com renderização estática antecipada, CDN global e monitoramento contínuo buscando 99,9% de disponibilidade. Qualquer regressão, bug ou incompatibilidade com navegadores é tratada como prioridade alta e corrigida rapidamente.'
+    },
+    {
+      q: 'Onde encontro boas práticas e documentação técnica detalhada?',
+      a: 'Comece pela nossa Documentação (/docs) para entender a arquitetura, padrões de integração e tutoriais passo a passo de ferramentas como o CodeEnhance AI. Visite também nosso Blog de Engenharia (/blog), onde publicamos mais de 27 artigos aprofundados sobre engenharia de IA Generativa, desempenho no frontend, privacidade no cliente e desenvolvimento web moderno.'
+    },
+    {
+      q: 'O que fazer se o CodeEnhance AI gerar um resultado inesperado ou incompleto?',
+      a: 'Primeiro, avalie o trecho enviado: isole a função ou componente específico e passe um contexto claro, informando a linguagem de destino. Blocos gigantes e desestruturados podem dispersar a atenção do modelo. Se o retorno não for o esperado, ajuste a instrução solicitada ou peça alterações incrementais. Lembre-se de que a IA gera sugestões estatísticas: sempre inspecione, formate e teste o código manualmente antes de integrar na base principal.'
+    },
+    {
+      q: 'O que fazer se o processamento de um arquivo ou o download falhar?',
+      a: 'A manipulação de arquivos no navegador depende diretamente da memória RAM livre do seu dispositivo. Se uma conversão travar ou falhar, feche abas pesadas do navegador para liberar memória e confirme se o navegador tem permissão para baixar arquivos automaticamente do ladestack.in. Para PDFs muito grandes ou fotos em altíssima resolução, processar em lotes menores evita o fechamento inesperado da aba.'
+    },
+    {
+      q: 'Preciso criar uma conta ou me cadastrar para usar o Lade Stack?',
+      a: 'Não. Todas as ferramentas principais para desenvolvedores e produtividade estão disponíveis imediatamente, sem precisar criar conta, confirmar e-mail ou cadastrar cartão de crédito. Acreditamos que softwares úteis devem ser acessíveis a todos sem barreiras de entrada. Basta acessar o app desejado na Galeria e começar a usar.'
+    },
+    {
+      q: 'Como os dados da minha sessão são salvos e o que acontece ao limpar o site?',
+      a: 'O estado da sessão, rascunhos e preferências personalizadas ficam salvos exclusivamente no seu próprio navegador através das APIs LocalStorage e IndexedDB. Se você limpar o cache, cookies ou dados do site no navegador, essas preferências serão resetadas. Para evitar perdas acidentais, baixe ou copie seus arquivos convertidos, configurações e códigos gerados assim que concluir a tarefa.'
+    },
+    {
+      q: 'Equipes, startups e estudantes podem usar o Lade Stack gratuitamente?',
+      a: 'Sim. As ferramentas do Lade Stack são totalmente liberadas para uso comercial, profissional, acadêmico e pessoal. Não cobramos por assento de usuário, não temos paywalls escondidos e não exigimos licenças corporativas para o catálogo gratuito. Times de engenharia podem incluir nossos utilitários na rotina de trabalho com total tranquilidade.'
+    },
+    {
+      q: 'Qual é o prazo de resposta do suporte e como falo com a equipe?',
+      a: 'Respondemos a todas as dúvidas técnicas, relatos de bugs e propostas de colaboração em até 24 horas. Você pode mandar uma mensagem direta pela página de contato (/contact) ou escrever para admin@ladestack.in. Quanto mais detalhes sobre o ambiente e passos para reproduzir o problema você incluir, mais rápido poderemos entregar uma solução precisa.'
+    }
   ],
   contactFaqs: [
     {
