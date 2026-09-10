@@ -2,6 +2,7 @@ import { defaultLocale, type SupportedLocale } from './config';
 import { z } from 'astro:content';
 import type { LocaleContent } from './content-types';
 import { en } from './content-en';
+import { ru } from './content-ru';
 import { ko } from './content-ko';
 import { ja } from './content-ja';
 import { zh } from './content-zh';
@@ -11,6 +12,7 @@ import appsData from '../data/apps.json';
 
 export const content: Record<SupportedLocale, LocaleContent> = {
   en,
+  ru,
   ko,
   ja,
   zh,

@@ -412,13 +412,219 @@ export const en: LocaleContent = {
     }
   ],
   timeline: [
-    { year: '2020', title: 'The toolkit begins', text: 'Girish Lade starts building personal developer utilities — PDF, image, and code helpers.' },
-    { year: '2022', title: 'Lade Stack takes shape', text: 'Tools consolidate under one brand with a shared design language and free-forever pledge.' },
-    { year: '2024', title: 'AI-powered ecosystem', text: 'CodeEnhance AI launches; blog and docs grow to 27+ guides; community passes 8,000 developers.' },
-    { year: '2026', title: 'Pure Astro re-creation', text: 'Full static rebuild: zero-JS runtime, 7 languages, 100/100 Lighthouse.' }
+    {
+      year: '2020',
+      title: 'The toolkit begins',
+      text: 'Started building personal developer utilities in India — focused PDF manipulation tools, image processors, and code helpers designed to eliminate repetitive friction in everyday engineering workflows.'
+    },
+    {
+      year: '2022',
+      title: 'Lade Stack takes shape',
+      text: 'Consolidated individual utilities into a unified brand under the Lade Stack identity, establishing a cohesive design system, shared architecture, and a commitment to accessible, free-forever developer tooling.'
+    },
+    {
+      year: '2024',
+      title: 'AI-powered ecosystem',
+      text: 'Expanded into intelligent workflows with the release of CodeEnhance AI, real-time code analysis tools, and in-depth technical guides spanning RAG architectures, full-stack development, and modern cloud deployment.'
+    },
+    {
+      year: '2026',
+      title: 'Pure Astro re-creation',
+      text: 'Engineered a complete static-first architectural rewrite using Astro 5, Vanilla TypeScript, and Tailwind CSS — achieving zero client runtime overhead, seamless multi-language internationalization, and perfect 100/100 Lighthouse performance.'
+    }
   ],
   aboutStats: ['Founded', 'Production tools', 'Developers', 'Free forever'],
   storyExtra: 'Multi-disciplinary engineer and designer with expertise in AI systems, web development, and user experience — building tools that give every creator startup-velocity superpowers at zero cost.',
+  aboutPage: {
+    metaTitle: 'About Girish Lade — Founder, Software Architect & UI/UX Developer',
+    metaDescription: 'Personal profile, engineering philosophy, technical ecosystem, and journey of Girish Lade — UI/UX developer, software engineer, and Founder & Lead Software Architect of Lade Stack.',
+    metaKeywords: 'Girish Lade, Lade Stack founder, UI/UX developer, software engineer, Generative AI, cloud-native architecture, engineering philosophy',
+    imageAlt: 'Girish Lade - Founder & Lead Software Architect',
+    heroEyebrow: 'ABOUT THE BUILDER',
+    heroTitle: 'Crafting at the Intersection of Design, Engineering & AI',
+    heroSubtitle: 'I am Girish Lade — a UI/UX developer, software engineer, and product builder based in India. I design and architect practical software products, developer utilities, and AI-powered systems built to remove friction and simplify complex workflows.',
+    founderRole: 'Founder & Lead Software Architect',
+    founderLocation: 'India',
+    founderBio1: 'I spend my time thinking across the entire lifecycle of software — from initial user experience and interaction design to cloud-native systems, backend architecture, and practical Generative AI integration.',
+    founderBio2: 'My motivation is straightforward: build useful, thoughtfully engineered software that feels effortless to use, regardless of how complex the underlying machinery might be.',
+    storyEyebrow: 'WHO I AM',
+    storyTitle: 'The Evolution of a Builder',
+    storyParagraphs: [
+      'I have always been driven by a fundamental curiosity about how things work under the surface, followed immediately by the urge to build them myself. For me, software has never been about choosing between being a visual designer or a backend engineer. My path naturally evolved across the entire spectrum: starting with visual design and frontend interfaces, moving deep into backend architectures and databases, exploring cloud infrastructure and DevOps, and now focusing on Generative AI and end-to-end product engineering.',
+      'Rather than treating these as separate disciplines, I view them as interrelated facets of one unified mindset. My UI/UX foundation trains me to empathize with the person sitting in front of the screen — questioning where cognitive friction arises, how intuitive an interface feels, and whether a task takes three clicks instead of one. Concurrently, my software engineering background ensures that the system behind that interface is robust, maintainable, performant, and architecturally clean.',
+      'When Generative AI emerged, it wasn\'t a diversion from this path; it became a natural amplifier. AI gives us entirely new interaction paradigms, but only when integrated with intention and grounded in practical product engineering.'
+    ],
+    whatBuildEyebrow: 'WHAT I BUILD',
+    whatBuildTitle: 'Practical Software Engineered to Remove Friction',
+    whatBuildSubtitle: 'I am interested in building practical, production-ready software rather than accumulating theoretical prototypes. When I evaluate a project or product idea, the primary question I ask is: What real bottleneck does this remove, and how does it make someone\'s workflow faster or more intuitive?',
+    whatBuildItems: [
+      {
+        num: '01 / DEVELOPER UTILITIES',
+        title: 'AI-Powered Developer Tools',
+        desc: 'Intelligent code assistants, real-time code enhancement tools, and automated API testing platforms designed to eliminate repetitive developer toil and accelerate shipping velocity.'
+      },
+      {
+        num: '02 / SAAS & COLLABORATION',
+        title: 'Collaborative File & Cloud Systems',
+        desc: 'Secure, temporary file-sharing utilities, document conversion suites, and lightweight cloud services focused on privacy, zero client bloat, and fast data transfer.'
+      },
+      {
+        num: '03 / APPLICATION PLATFORMS',
+        title: 'Modern Web Applications',
+        desc: 'Hyper-performant web interfaces and web applications built with semantic HTML, accessible interaction states, and zero-runtime client architectures.'
+      },
+      {
+        num: '04 / WORKFLOW AUTOMATION',
+        title: 'AI-Assisted Workflows',
+        desc: 'Intelligent automation layers that connect structured data, documentation generation, and developer tasks into frictionless, human-supervised pipelines.'
+      }
+    ],
+    craftEyebrow: 'INTEGRATED CRAFT',
+    craftTitle: 'Why UI/UX and Engineering Are Inseparable',
+    craftParagraphs: [
+      'In many organizations, design and engineering operate on opposite sides of a divide — designers deliver mockups, and engineers write code to match them. I have always worked differently. To me, design is not superficial decoration applied after the engineering is complete, and engineering is not merely an invisible implementation detail.',
+      'User experience directly influences architecture: an interface requiring real-time responsiveness demands an event-driven or optimistic client architecture. Conversely, architecture dictates user experience: poorly structured APIs, slow database queries, or bloated client bundles will degrade the user experience no matter how polished the Figma file looks.',
+      'Performance is an essential UX requirement. Accessibility is a mark of engineering quality. When design and engineering are treated as a single unified discipline, the resulting software is leaner, more resilient, and immediately intuitive.'
+    ],
+    aiEyebrow: 'GENERATIVE AI',
+    aiTitle: 'Practical Machine Intelligence, Grounded in Real Workflows',
+    aiParagraphs: [
+      'Generative AI represents one of my deepest areas of exploration. However, my interest is centered on practical utility rather than speculative hype. I am not interested in building superficial wrappers or claiming that AI solves every problem by default.',
+      'Instead, I focus on how Generative AI can fundamentally reshape software interaction:'
+    ],
+    aiPillars: [
+      {
+        title: 'Context-Aware Assistance',
+        text: 'Embedding language models directly into code viewers and developer tools to explain, refactor, and audit logic in place.'
+      },
+      {
+        title: 'Intelligent Workflow Automation',
+        text: 'Replacing multi-step manual procedures with structured AI pipelines that extract, transform, and validate data with human oversight.'
+      },
+      {
+        title: 'Semantic User Interfaces',
+        text: 'Designing interfaces that adapt dynamically to user intent, translating natural language into concrete software actions.'
+      },
+      {
+        title: 'Developer-Centric Tooling',
+        text: 'Building utilities that handle documentation generation, automated test scaffolding, and schema validation so engineers can focus on creative architecture.'
+      }
+    ],
+    philosophyEyebrow: 'PHILOSOPHY',
+    philosophyTitle: 'Principles That Guide How I Build',
+    philosophyItems: [
+      {
+        title: 'Simple interfaces over complex machinery',
+        text: 'The true mark of thoughtful engineering is taking an inherently complex problem — distributed data, model inference, file encoding — and presenting it through an interface that feels straightforward, predictable, and calm.'
+      },
+      {
+        title: 'Reduce cognitive overhead',
+        text: 'Every tool should respect the user\'s mental energy. Software should minimize required configuration, avoid unnecessary setup friction, and never force a developer to remember what a well-designed system can handle automatically.'
+      },
+      {
+        title: 'AI must earn its place in the pipeline',
+        text: 'Artificial intelligence should never be added as a gimmick. It belongs where deterministic logic is inadequate, and where it provides immediate, verifiable value to the person using the product.'
+      },
+      {
+        title: 'Speed and performance are non-negotiable',
+        text: 'Sub-second response times, minimal bundle weights, and clean semantic markup are not afterthoughts — they are foundational requirements that define product quality and trust.'
+      },
+      {
+        title: 'Clean architecture enables continuous iteration',
+        text: 'Maintainable codebases, strict type-safety, and modular component boundaries provide the agility needed to evolve products quickly without accumulating crippling technical debt.'
+      }
+    ],
+    workEyebrow: 'HOW I WORK',
+    workTitle: 'A Systematic Approach to Product Craft',
+    workSubtitle: 'Whether designing an open developer tool or architecting a cloud service, I follow a disciplined, iterative execution process:',
+    workSteps: [
+      {
+        step: '01',
+        title: 'Deconstruct the Problem',
+        desc: 'Isolate the core bottleneck. Strip away superficial assumptions to understand what problem the user is genuinely trying to solve.'
+      },
+      {
+        step: '02',
+        title: 'Design the Experience & Flows',
+        desc: 'Map the shortest path between user intent and desired output. Wireframe interaction states, keyboard navigation, and responsive ergonomics.'
+      },
+      {
+        step: '03',
+        title: 'Architect the Foundation',
+        desc: 'Choose the leanest, most reliable stack suited for the problem. Structure type-safe schemas, API contracts, and database models.'
+      },
+      {
+        step: '04',
+        title: 'Integrate AI Where Meaningful',
+        desc: 'Incorporate machine intelligence where it eliminates manual steps, adding guardrails and fallbacks to guarantee consistency.'
+      },
+      {
+        step: '05',
+        title: 'Benchmark, Optimize & Refine',
+        desc: 'Audit bundle sizes, measure Lighthouse scores, test edge cases, and refine micro-interactions based on actual usage.'
+      }
+    ],
+    ecosystemEyebrow: 'TECHNICAL ECOSYSTEM',
+    ecosystemTitle: 'Breadth Across the Technology Stack',
+    ecosystemSubtitle: 'My technical repertoire spans multiple domains, enabling me to take concepts from visual prototypes in Figma all the way to deployed cloud infrastructure.',
+    ecosystemGroups: [
+      {
+        label: 'Frontend & Client Applications',
+        desc: 'Engineering responsive, accessible interfaces and cross-platform mobile experiences with modern type safety.',
+        tags: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'Flutter']
+      },
+      {
+        label: 'Design & Creative Tools',
+        desc: 'Crafting design systems, user journeys, vector assets, 3D elements, and interactive prototypes.',
+        tags: ['Figma', 'Framer', 'Adobe Illustrator', 'Adobe Photoshop', 'Blender']
+      },
+      {
+        label: 'Backend & Databases',
+        desc: 'Structuring REST and event-driven APIs, relational database schemas, and scalable document storage.',
+        tags: ['Node.js', 'MongoDB', 'MySQL', 'Oracle']
+      },
+      {
+        label: 'Cloud & DevOps',
+        desc: 'Managing automated deployment pipelines, containerized environments, and multi-region cloud services.',
+        tags: ['AWS', 'Google Cloud', 'Docker', 'Git']
+      },
+      {
+        label: '3D & Interactive Systems',
+        desc: 'Exploring spatial design, real-time rendering, and interactive virtual environments.',
+        tags: ['Unity', 'Unreal Engine']
+      }
+    ],
+    learningEyebrow: 'ACTIVE EXPLORATION',
+    learningTitle: 'Continuous Learning & Technical Growth',
+    learningSubtitle: 'Technology never stands still, and neither does my engineering toolkit. I maintain a deliberate learning habit, actively exploring emerging technologies whenever they offer better ways to build resilient, useful products:',
+    learningCards: [
+      {
+        badge: 'EXPLORING',
+        title: 'Kotlin & Mobile',
+        desc: 'Deepening native Android application development with Kotlin to deliver tightly integrated mobile experiences.'
+      },
+      {
+        badge: 'EXPLORING',
+        title: 'Advanced GenAI',
+        desc: 'Researching autonomous agentic patterns, retrieval-augmented generation (RAG), and efficient model orchestration.'
+      },
+      {
+        badge: 'EXPLORING',
+        title: 'Cloud-Native Architecture',
+        desc: 'Investigating distributed microservices, serverless patterns, and edge compute for scalable software systems.'
+      }
+    ],
+    stackEyebrow: 'PRIMARY FOUNDATION',
+    stackTitle: 'Core Stack',
+    stackSubtitle: 'The core technologies powering Lade Stack are selected for zero runtime bloat, static pre-rendering, rock-solid type safety, and instant user feedback.',
+    journeyEyebrow: 'MILESTONES',
+    journeyTitle: 'Journey',
+    futureEyebrow: 'LONG-TERM DIRECTION',
+    futureTitle: 'Building Software That Truly Empowers Creators',
+    futureBody: 'Looking ahead, my focus remains rooted in building innovative SaaS AI tools, collaborative file systems, and developer-focused utilities that blend strong UX with strong engineering.',
+    futureQuote: '"I build software because I enjoy turning complex technical challenges into clean, accessible tools that give developers and creators genuine leverage. Good engineering and good design can and should coexist."',
+    futureAuthor: '— Girish Lade'
+  },
   footerLinks: {
     aiCodeViewer: 'AI Code Viewer',
     support: 'Support Center',

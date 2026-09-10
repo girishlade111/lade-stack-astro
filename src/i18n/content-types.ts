@@ -57,6 +57,83 @@ export interface BlogOverride {
   description: string;
 }
 
+export interface AboutFeatureItem {
+  num: string;
+  title: string;
+  desc: string;
+}
+
+export interface AboutStepItem {
+  step: string;
+  title: string;
+  desc: string;
+}
+
+export interface AboutEcosystemGroup {
+  label: string;
+  desc: string;
+  tags: string[];
+}
+
+export interface AboutLearningCard {
+  badge: string;
+  title: string;
+  desc: string;
+}
+
+export interface AboutPageContent {
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+  imageAlt: string;
+  heroEyebrow: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  founderRole: string;
+  founderLocation: string;
+  founderBio1: string;
+  founderBio2: string;
+  storyEyebrow: string;
+  storyTitle: string;
+  storyParagraphs: string[];
+  whatBuildEyebrow: string;
+  whatBuildTitle: string;
+  whatBuildSubtitle: string;
+  whatBuildItems: AboutFeatureItem[];
+  craftEyebrow: string;
+  craftTitle: string;
+  craftParagraphs: string[];
+  aiEyebrow: string;
+  aiTitle: string;
+  aiParagraphs: string[];
+  aiPillars: Titled[];
+  philosophyEyebrow: string;
+  philosophyTitle: string;
+  philosophyItems: Titled[];
+  workEyebrow: string;
+  workTitle: string;
+  workSubtitle: string;
+  workSteps: AboutStepItem[];
+  ecosystemEyebrow: string;
+  ecosystemTitle: string;
+  ecosystemSubtitle: string;
+  ecosystemGroups: AboutEcosystemGroup[];
+  learningEyebrow: string;
+  learningTitle: string;
+  learningSubtitle: string;
+  learningCards: AboutLearningCard[];
+  stackEyebrow: string;
+  stackTitle: string;
+  stackSubtitle: string;
+  journeyEyebrow: string;
+  journeyTitle: string;
+  futureEyebrow: string;
+  futureTitle: string;
+  futureBody: string;
+  futureQuote: string;
+  futureAuthor: string;
+}
+
 export interface LocaleContent {
   metaDescription: string;
   testimonials: Testimonial[];
@@ -69,6 +146,7 @@ export interface LocaleContent {
   timeline: TimelineItem[];
   aboutStats: string[];
   storyExtra: string;
+  aboutPage: AboutPageContent;
   footerLinks: {
     aiCodeViewer: string;
     support: string;

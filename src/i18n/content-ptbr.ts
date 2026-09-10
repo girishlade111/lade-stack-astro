@@ -412,13 +412,219 @@ export const ptBR: LocaleContent = {
     }
   ],
   timeline: [
-    { year: '2020', title: 'Nasce a caixinha de ferramentas', text: 'Girish Lade começa a criar utilitários pessoais — PDF, imagem, ajudantes de código.' },
-    { year: '2022', title: 'Lade Stack ganha forma', text: 'Linguagem visual única e promessa de grátis para sempre reúnem tudo numa marca.' },
-    { year: '2024', title: 'Vira ecossistema de IA', text: 'Lançamento do CodeEnhance AI; blog e docs passam de 27 guias; comunidade passa de 8 mil devs.' },
-    { year: '2026', title: 'Reescrita em Astro puro', text: 'Reconstrução 100% estática: zero JS de runtime, 7 idiomas, Lighthouse 100.' }
+    {
+      year: '2020',
+      title: 'Início do kit de ferramentas',
+      text: 'Início da criação de utilitários pessoais de desenvolvimento na Índia — ferramentas focadas em manipulação de PDF, processamento de imagens e automação de código para eliminar tarefas repetitivas nos fluxos diários de engenharia.'
+    },
+    {
+      year: '2022',
+      title: 'O Lade Stack ganha forma',
+      text: 'Consolidação de utilitários individuais sob a identidade unificada do Lade Stack, estabelecendo um sistema de design coeso, arquitetura compartilhada e o compromisso permanente com ferramentas gratuitas para desenvolvedores.'
+    },
+    {
+      year: '2024',
+      title: 'Ecossistema impulsionado por IA',
+      text: 'Expansão para fluxos inteligentes com o lançamento do CodeEnhance AI, ferramentas de análise de código em tempo real e guias técnicos aprofundados sobre arquiteturas RAG, desenvolvimento full-stack e deploy moderno em nuvem.'
+    },
+    {
+      year: '2026',
+      title: 'Reconstrução arquitetural em Astro puro',
+      text: 'Reescrita completa baseada em arquitetura static-first utilizando Astro 5, TypeScript puro e Tailwind CSS — alcançando zero sobrecarga de runtime no cliente, internacionalização fluida e pontuação 100/100 no Lighthouse.'
+    }
   ],
   aboutStats: ['Fundação', 'Ferramentas em prod', 'Devs', 'Grátis para sempre'],
   storyExtra: 'Engenheiro e designer multidisciplinar — sistemas de IA, desenvolvimento web e UX. Constrói ferramentas que dão a qualquer criador velocidade de startup, de graça.',
+  aboutPage: {
+    metaTitle: 'Sobre Girish Lade — Fundador, Arquiteto de Software e Desenvolvedor UI/UX',
+    metaDescription: 'Perfil pessoal, filosofia de engenharia, ecossistema técnico e trajetória de Girish Lade — desenvolvedor UI/UX, engenheiro de software e Fundador e Arquiteto-Chefe de Software do Lade Stack.',
+    metaKeywords: 'Girish Lade, fundador Lade Stack, desenvolvedor UI/UX, engenheiro de software, IA Generativa, arquitetura cloud-native, filosofia de engenharia',
+    imageAlt: 'Girish Lade - Fundador e Arquiteto-Chefe de Software',
+    heroEyebrow: 'SOBRE O CRIADOR',
+    heroTitle: 'Criando na Interseção entre Design, Engenharia e IA',
+    heroSubtitle: 'Sou Girish Lade — desenvolvedor UI/UX, engenheiro de software e criador de produtos baseado na Índia. Projeto e construo produtos de software práticos, utilitários para desenvolvedores e sistemas alimentados por inteligência artificial para eliminar fricção e simplificar fluxos de trabalho complexos.',
+    founderRole: 'Fundador e Arquiteto-Chefe de Software',
+    founderLocation: 'Índia',
+    founderBio1: 'Dedico meu tempo a pensar em todo o ciclo de vida do software — desde a experiência inicial do usuário e design de interação até sistemas cloud-native, arquitetura de backend e integração prática de IA Generativa.',
+    founderBio2: 'Minha motivação é direta: construir software útil e cuidadosamente projetado que seja intuitivo e natural de usar, independentemente da complexidade dos mecanismos por trás dele.',
+    storyEyebrow: 'QUEM SOU',
+    storyTitle: 'A Evolução de um Construtor',
+    storyParagraphs: [
+      'Sempre fui movido por uma curiosidade profunda sobre como as coisas funcionam sob a superfície, acompanhada imediatamente pela vontade de construí-las eu mesmo. Para mim, desenvolver software nunca foi sobre escolher entre ser um designer visual ou um engenheiro de backend. Minha trajetória evoluiu naturalmente por todo o espectro: começando com design visual e interfaces frontend, aprofundando-me em arquiteturas de backend e bancos de dados, explorando infraestrutura em nuvem e DevOps, e agora focando em IA Generativa e engenharia de produtos de ponta a ponta.',
+      'Em vez de enxergar essas áreas como disciplinas separadas, vejo-as como facetas interligadas de uma mesma mentalidade. Minha base em UI/UX me treina para ter empatia com quem está diante da tela — questionando onde surge a fricção cognitiva, quão intuitiva parece uma interface e se uma tarefa precisa de três cliques em vez de um só. Ao mesmo tempo, minha bagagem em engenharia de software garante que o sistema por trás da interface seja robusto, sustentável, performático e arquiteturalmente limpo.',
+      'Quando a IA Generativa surgiu, não foi um desvio desse caminho; tornou-se um amplificador natural. A inteligência artificial nos dá paradigmas de interação inteiramente novos, mas apenas quando integrada com propósito e fundamentada em engenharia prática de produtos.'
+    ],
+    whatBuildEyebrow: 'O QUE EU CONSTRUO',
+    whatBuildTitle: 'Software Prático Desenvolvido para Eliminar Fricção',
+    whatBuildSubtitle: 'Tenho interesse em construir software prático e pronto para produção, em vez de acumular protótipos puramente teóricos. Ao avaliar um projeto ou ideia de produto, a pergunta central que faço é: Qual gargalo real isso resolve e como torna o fluxo de trabalho de alguém mais ágil ou intuitivo?',
+    whatBuildItems: [
+      {
+        num: '01 / UTILITÁRIOS PARA DESENVOLVEDORES',
+        title: 'Ferramentas de Desenvolvimento com IA',
+        desc: 'Assistentes de código inteligentes, ferramentas de aprimoramento em tempo real e plataformas automatizadas de testes de API projetadas para eliminar tarefas repetitivas e acelerar entregas.'
+      },
+      {
+        num: '02 / SAAS E COLABORAÇÃO',
+        title: 'Sistemas em Nuvem e Compartilhamento de Arquivos',
+        desc: 'Utilitários seguros de compartilhamento temporário, suítes de conversão de documentos e serviços leves em nuvem com foco em privacidade, zero sobrecarga no cliente e rápida transferência de dados.'
+      },
+      {
+        num: '03 / PLATAFORMAS DE APLICAÇÃO',
+        title: 'Aplicações Web Modernas',
+        desc: 'Interfaces e aplicações web de altíssimo desempenho, construídas com HTML semântico, estados de interação acessíveis e arquiteturas com zero runtime no cliente.'
+      },
+      {
+        num: '04 / AUTOMAÇÃO DE FLUXOS',
+        title: 'Fluxos de Trabalho Assistidos por IA',
+        desc: 'Camadas inteligentes de automação que conectam dados estruturados, geração de documentação e tarefas de desenvolvimento em pipelines fluídos com supervisão humana.'
+      }
+    ],
+    craftEyebrow: 'OFÍCIO INTEGRADO',
+    craftTitle: 'Por que UI/UX e Engenharia São Inseparáveis',
+    craftParagraphs: [
+      'Em muitas organizações, design e engenharia operam em lados opostos de um abismo — designers entregam mockups e engenheiros escrevem código para reproduzi-los. Eu sempre trabalhei de forma diferente. Para mim, design não é uma decoração superficial aplicada após o término do código, e engenharia não é mero detalhe invisível de implementação.',
+      'A experiência do usuário influencia diretamente a arquitetura: uma interface que exige resposta em tempo real demanda uma arquitetura orientada a eventos ou cliente otimista. Por outro lado, a arquitetura dita a experiência do usuário: APIs desestruturadas, consultas lentas no banco de dados ou pacotes pesados no cliente degradarão o uso, não importa o quão polido esteja o arquivo no Figma.',
+      'Desempenho é um requisito essencial de UX. Acessibilidade é uma marca de maturidade da engenharia. Quando design e engenharia são tratados como uma única disciplina unificada, o software resultante é mais enxuto, resiliente e imediatamente intuitivo.'
+    ],
+    aiEyebrow: 'IA GENERATIVA',
+    aiTitle: 'Inteligência Artificial Prática, Enraizada em Fluxos Reais',
+    aiParagraphs: [
+      'A IA Generativa representa uma das minhas principais áreas de exploração. No entanto, meu interesse está centrado na utilidade prática e não no hype especulativo. Não tenho interesse em construir wrappers superficiais ou presumir que a IA resolve tudo automaticamente.',
+      'Em vez disso, concentro-me em como a IA Generativa pode remodelar fundamentalmente a interação com o software:'
+    ],
+    aiPillars: [
+      {
+        title: 'Assistência Consciente do Contexto',
+        text: 'Incorporação de modelos de linguagem diretamente em visualizadores de código e ferramentas de desenvolvimento para explicar, refatorar e auditar lógica instantaneamente.'
+      },
+      {
+        title: 'Automação Inteligente de Processos',
+        text: 'Substituição de procedimentos manuais em várias etapas por pipelines estruturados de IA que extraem, transformam e validam dados com supervisão humana.'
+      },
+      {
+        title: 'Interfaces de Usuário Semânticas',
+        text: 'Criação de interfaces que se adaptam dinamicamente à intenção do usuário, traduzindo linguagem natural em ações concretas de software.'
+      },
+      {
+        title: 'Ferramental Focado no Desenvolvedor',
+        text: 'Construção de utilitários que lidam com geração de documentação, scaffolding automático de testes e validação de esquemas, permitindo que os engenheiros foquem na arquitetura.'
+      }
+    ],
+    philosophyEyebrow: 'FILOSOFIA',
+    philosophyTitle: 'Princípios Que Orientam Minhas Criações',
+    philosophyItems: [
+      {
+        title: 'Interfaces simples sobre engrenagens complexas',
+        text: 'A verdadeira marca de uma engenharia cuidadosa é pegar um problema inerentemente complexo — dados distribuídos, inferência de modelos, codificação de arquivos — e apresentá-lo por meio de uma interface serena, previsível e direta.'
+      },
+      {
+        title: 'Redução da carga cognitiva',
+        text: 'Toda ferramenta deve respeitar a energia mental do usuário. O software deve minimizar configurações desnecessárias, eliminar atritos de instalação e nunca forçar o desenvolvedor a memorizar o que um sistema bem projetado pode resolver automaticamente.'
+      },
+      {
+        title: 'A IA precisa justificar sua presença no pipeline',
+        text: 'A inteligência artificial nunca deve ser adicionada como mero artifício. Seu lugar é onde a lógica determinística é insuficiente e onde ela entrega valor imediato e verificável para quem usa o produto.'
+      },
+      {
+        title: 'Velocidade e desempenho não são negociáveis',
+        text: 'Respostas em fração de segundo, pacotes mínimos e marcação semântica limpa não são itens secundários — são requisitos fundamentais que definem a qualidade e a confiança do produto.'
+      },
+      {
+        title: 'Arquitetura limpa possibilita iteração contínua',
+        text: 'Bases de código de fácil manutenção, tipagem estrita e limites modulares de componentes oferecem a agilidade necessária para evoluir produtos rapidamente sem acumular dívidas técnicas paralisantes.'
+      }
+    ],
+    workEyebrow: 'COMO EU TRABALHO',
+    workTitle: 'Uma Abordagem Sistemática à Criação de Produtos',
+    workSubtitle: 'Seja desenvolvendo uma ferramenta aberta para programadores ou arquitetando um serviço em nuvem, sigo um processo de execução disciplinado e iterativo:',
+    workSteps: [
+      {
+        step: '01',
+        title: 'Desconstruir o Problema',
+        desc: 'Isolar o gargalo central. Eliminar premissas superficiais para entender com clareza o problema real que o usuário precisa resolver.'
+      },
+      {
+        step: '02',
+        title: 'Projetar a Experiência e os Fluxos',
+        desc: 'Mapear o caminho mais curto entre a intenção do usuário e a saída desejada. Desenhar estados de interação, navegação por teclado e ergonomia responsiva.'
+      },
+      {
+        step: '03',
+        title: 'Estruturar os Fundamentos Arquiteturais',
+        desc: 'Escolher a pilha mais enxuta e confiável para o problema. Definir esquemas type-safe, contratos de API e modelos de banco de dados.'
+      },
+      {
+        step: '04',
+        title: 'Integrar IA Onde Houver Valor Real',
+        desc: 'Incorporar inteligência de máquina onde ela elimine etapas manuais, aplicando travas de segurança e fallbacks para garantir consistência.'
+      },
+      {
+        step: '05',
+        title: 'Medir, Otimizar e Refinar',
+        desc: 'Auditar o tamanho dos pacotes, monitorar métricas do Lighthouse, testar casos de borda e aperfeiçoar microinterações com base no uso real.'
+      }
+    ],
+    ecosystemEyebrow: 'ECOSSISTEMA TÉCNICO',
+    ecosystemTitle: 'Amplitude em Toda a Pilha de Tecnologia',
+    ecosystemSubtitle: 'Meu repertório técnico abrange múltiplos domínios, permitindo conduzir conceitos desde protótipos visuais no Figma até infraestruturas de nuvem em produção.',
+    ecosystemGroups: [
+      {
+        label: 'Frontend e Aplicações Cliente',
+        desc: 'Desenvolvimento de interfaces responsivas e acessíveis e experiências móveis multiplataforma com tipagem moderna.',
+        tags: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'Flutter']
+      },
+      {
+        label: 'Design e Ferramentas Criativas',
+        desc: 'Criação de design systems, jornadas de usuário, ativos vetoriais, elementos 3D e protótipos interativos.',
+        tags: ['Figma', 'Framer', 'Adobe Illustrator', 'Adobe Photoshop', 'Blender']
+      },
+      {
+        label: 'Backend e Bancos de Dados',
+        desc: 'Estruturação de APIs REST e orientadas a eventos, esquemas de bancos relacionais e armazenamento escalável de documentos.',
+        tags: ['Node.js', 'MongoDB', 'MySQL', 'Oracle']
+      },
+      {
+        label: 'Nuvem e DevOps',
+        desc: 'Gerenciamento de pipelines de integração contínua, ambientes conteinerizados e serviços de nuvem multirregião.',
+        tags: ['AWS', 'Google Cloud', 'Docker', 'Git']
+      },
+      {
+        label: '3D e Sistemas Interativos',
+        desc: 'Exploração de design espacial, renderização em tempo real e ambientes virtuais interativos.',
+        tags: ['Unity', 'Unreal Engine']
+      }
+    ],
+    learningEyebrow: 'EXPLORAÇÃO ATIVA',
+    learningTitle: 'Aprendizado Contínuo e Crescimento Técnico',
+    learningSubtitle: 'A tecnologia não para, e meu kit de ferramentas evolui no mesmo ritmo. Mantenho o hábito de estudar ativamente tecnologias emergentes sempre que oferecem maneiras superiores de construir produtos sólidos e úteis:',
+    learningCards: [
+      {
+        badge: 'EXPLORANDO',
+        title: 'Kotlin e Mobile',
+        desc: 'Aprofundando o desenvolvimento nativo para Android com Kotlin para entregar experiências móveis perfeitamente integradas.'
+      },
+      {
+        badge: 'EXPLORANDO',
+        title: 'GenAI Avançada',
+        desc: 'Pesquisando padrões de agentes autônomos, geração aumentada por recuperação (RAG) e orquestração eficiente de modelos.'
+      },
+      {
+        badge: 'EXPLORANDO',
+        title: 'Arquitetura Cloud-Native',
+        desc: 'Investigando microsserviços distribuídos, padrões serverless e computação de borda para sistemas altamente escaláveis.'
+      }
+    ],
+    stackEyebrow: 'FUNDAÇÃO PRINCIPAL',
+    stackTitle: 'Stack Principal',
+    stackSubtitle: 'As tecnologias fundamentais do Lade Stack são selecionadas para proporcionar zero sobrecarga no cliente, pré-renderização estática, segurança estrita de tipos e resposta imediata.',
+    journeyEyebrow: 'MARCOS',
+    journeyTitle: 'Trajetória',
+    futureEyebrow: 'DIREÇÃO DE LONGO PRAZO',
+    futureTitle: 'Construindo Software Que Realmente Capacita Criadores',
+    futureBody: 'Olhando para a frente, meu foco permanece em construir ferramentas SaaS inovadoras com IA, sistemas colaborativos de arquivos e utilitários para desenvolvedores que unem excelente UX a uma engenharia de alto padrão.',
+    futureQuote: '"Eu construo software porque gosto de transformar desafios técnicos complexos em ferramentas limpas e acessíveis que dão aos desenvolvedores e criadores uma vantagem real. Boa engenharia e bom design podem e devem coexistir."',
+    futureAuthor: '— Girish Lade'
+  },
   footerLinks: {
     aiCodeViewer: 'Visualizador de Código IA',
     support: 'Central de ajuda',

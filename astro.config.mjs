@@ -100,7 +100,7 @@ export default defineConfig({
         // No /en/ prefixed duplicates (prefixDefaultLocale: false — English lives at root).
         if (pathname === '/en' || pathname === '/en/' || pathname.startsWith('/en/')) return false;
         // Blog is English-only: drop localized blog paths entirely (no hreflang signal).
-        if (/^\/(zh|ko|ja|tr|pt-BR)\/blog(\/|$)/.test(pathname)) return false;
+        if (/^\/(ru|zh|ko|ja|tr|pt-BR)\/blog(\/|$)/.test(pathname)) return false;
         return true;
       },
       serialize(item) {
@@ -125,11 +125,11 @@ export default defineConfig({
         function staticLastmod(key) {
           return STATIC_LASTMOD[key] ?? new Date('2026-09-01T00:00:00.000Z').toISOString();
         }
-        if (pathname === '/' || /^\/(zh|ko|ja|tr|pt-BR)$/.test(pathname)) {
+        if (pathname === '/' || /^\/(ru|zh|ko|ja|tr|pt-BR)$/.test(pathname)) {
           item.priority = 1.0;
           item.changefreq = 'daily';
           item.lastmod = '2026-09-01T00:00:00.000Z';
-        } else if (/^\/(?:(zh|ko|ja|tr|pt-BR)\/)?(apps|products|ai-code-viewer-ai|docs)$/.test(pathname)) {
+        } else if (/^\/(?:(ru|zh|ko|ja|tr|pt-BR)\/)?(apps|products|ai-code-viewer-ai|docs)$/.test(pathname)) {
           item.priority = 0.9;
           item.changefreq = 'weekly';
           const key = pathname.split('/').filter(Boolean).pop() ?? '/';
@@ -150,11 +150,11 @@ export default defineConfig({
           } else {
             item.lastmod = '2026-09-01T00:00:00.000Z';
           }
-        } else if (/^\/(?:(zh|ko|ja|tr|pt-BR)\/)?(about|contact|support)$/.test(pathname)) {
+        } else if (/^\/(?:(ru|zh|ko|ja|tr|pt-BR)\/)?(about|contact|support)$/.test(pathname)) {
           item.priority = 0.6;
           item.changefreq = 'monthly';
           item.lastmod = '2026-09-01T00:00:00.000Z';
-        } else if (/^\/(?:(zh|ko|ja|tr|pt-BR)\/)?(privacy|terms)$/.test(pathname)) {
+        } else if (/^\/(?:(ru|zh|ko|ja|tr|pt-BR)\/)?(privacy|terms)$/.test(pathname)) {
           item.priority = 0.3;
           item.changefreq = 'yearly';
           item.lastmod = '2025-01-01T00:00:00.000Z';
