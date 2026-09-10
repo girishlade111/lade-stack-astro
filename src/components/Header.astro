@@ -30,7 +30,7 @@ function isActive(path: string): boolean {
 ---
 
 <!-- DESIGN.md nav-bar-dark: sticky, 64px height, 24px px, canvas bg, no border line -->
-<header data-site-header class="sticky top-0 z-50 w-full h-16 bg-canvas text-on-primary">
+<header data-site-header transition:name="site-header" class="sticky top-0 z-50 w-full h-16 bg-canvas text-on-primary">
   <div class="max-w-[1640px] mx-auto px-6 h-full flex items-center justify-between">
     <!-- Brand Logo with exact 12px brand-dot -->
     <a href={getLocalizedPath('/', lang)} class="flex items-center group" aria-label="Lade Stack home">
