@@ -2,6 +2,7 @@
 title: "Building AI-Powered Code Review Systems"
 description: "How to design automated code review pipelines that catch bugs, enforce style, and mentor developers using LLMs."
 pubDate: 2024-06-28
+relatedApps: ["ai-code-viewer", "documentation-ai"]
 author: "Girish Lade"
 category: "AI Development"
 readTime: "10 min read"

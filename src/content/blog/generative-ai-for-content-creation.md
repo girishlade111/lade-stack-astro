@@ -2,6 +2,7 @@
 title: "Generative AI for Content Creation"
 description: "Use large language models to draft, edit, and scale content workflows without losing your voice."
 pubDate: 2024-07-22
+relatedApps: ["documentation-ai"]
 author: "Girish Lade"
 category: "Generative AI"
 readTime: "7 min read"

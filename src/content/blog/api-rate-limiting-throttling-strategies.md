@@ -2,6 +2,7 @@
 title: "API Rate Limiting & Throttling Strategies"
 description: "Token buckets, sliding windows, and per-tenant quotas that protect your API without punishing good clients."
 pubDate: 2024-11-05
+relatedApps: ["api-testing"]
 author: "Girish Lade"
 category: "API Design & Scaling"
 readTime: "8 min read"

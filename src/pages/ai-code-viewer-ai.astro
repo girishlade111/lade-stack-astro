@@ -2,12 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../i18n/utils';
 import { getContent } from '../i18n/content';
+import { getCollection } from 'astro:content';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
 const c = getContent(lang);
 
 const features = c.aicodeFeatures;
+
+// "From the blog": 2 newest posts from AI-related categories (English-only, canonical links).
+const blogPosts = (await getCollection('blog'))
+  .filter((p) => ['AI Development', 'Generative AI', 'AI Production Systems'].includes(p.data.category))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
 
 const structuredData = {
   '@context': 'https://schema.org',

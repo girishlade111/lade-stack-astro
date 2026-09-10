@@ -2,6 +2,7 @@
 title: "REST vs GraphQL: Choosing the Right API Paradigm"
 description: "A decision framework for REST vs GraphQL covering versioning, caching, payloads, and team velocity."
 pubDate: 2024-10-28
+relatedApps: ["api-testing"]
 author: "Girish Lade"
 category: "API Design & Scaling"
 readTime: "9 min read"

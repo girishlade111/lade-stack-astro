@@ -126,7 +126,7 @@ export async function runWithResilience<T>(fn: () => Promise<T>): Promise<T> {
 
 **${title}** rewards teams that iterate in small, observable steps. Start with the checklist above, automate one pain point per week, and compound the wins.
 `;
-  const fm = `---\ntitle: "${title}"\ndescription: "${excerpt}"\npubDate: ${date}\nauthor: "Girish Lade"\ncategory: "${category}"\nreadTime: "${readTime}"\ncoverImage: "/blog-covers/${coverKey}.svg"\nfeatured: ${featured}\ntags: [${tags.map((t) => `"${t}"`).join(', ')}]\n---\n\n${body}`;
+  const fm = `---\ntitle: "${title}"\ndescription: "${excerpt}"\npubDate: ${date}\n# updatedDate: YYYY-MM-DD  # optional — set ONLY when the post is edited post-publish (drives sitemap <lastmod>)\n# relatedApps: []  # optional — app IDs from src/data/apps.json rendered as "Related Tool" cards\nauthor: "Girish Lade"\ncategory: "${category}"\nreadTime: "${readTime}"\ncoverImage: "/blog-covers/${coverKey}.svg"\nfeatured: ${featured}\ntags: [${tags.map((t) => `"${t}"`).join(', ')}]\n---\n\n${body}`;
   writeFileSync(join(blogDir, `${slug}.md`), fm);
   writeFileSync(join(coversDir, `${coverKey}.svg`), coverSvg(category));
 }

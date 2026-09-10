@@ -2,6 +2,7 @@
 title: "Building API Gateways for Microservices"
 description: "Auth, routing, transformation, and observability at the edge of a microservices fleet."
 pubDate: 2024-11-12
+relatedApps: ["api-testing"]
 author: "Girish Lade"
 category: "API Design & Scaling"
 readTime: "10 min read"

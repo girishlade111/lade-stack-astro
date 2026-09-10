@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import { useTranslations, getLocalizedPath } from '../../i18n/utils';
-import { localizePost, getContent } from '../../i18n/content';
+import { useTranslations } from '../../i18n/utils';
+import { localizePost, getContent, getLocalizedApps } from '../../i18n/content';
 
 export async function getStaticPaths() {
   const posts: CollectionEntry<'blog'>[] = await getCollection('blog');
@@ -18,12 +18,32 @@ const { Content, headings } = await render(post);
 type TocHeading = { depth: number; slug: string; text: string };
 const toc: TocHeading[] = (headings as TocHeading[]).filter((h) => h.depth <= 3);
 
-const all: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const related = all.filter((p) => p.slug !== post.slug && p.data.category === post.data.category).slice(0, 3);
-const fallbackRelated = related.length ? related : all.filter((p) => p.slug !== post.slug).slice(0, 3);
-const relatedLoc = fallbackRelated.map((r) => ({ r, loc: localizePost(r.slug, r.data, lang) }));
-
+// lastmod prefers updatedDate (only set when edited post-publish) over pubDate.
+const modifiedDate = post.data.updatedDate ?? post.data.pubDate;
 const isoDate = post.data.pubDate.toISOString();
+const isoModified = modifiedDate.toISOString();
+
+// Related posts: score by shared category (+2) and overlapping tags (+1 each),
+// newest first, excluding the current post, max 3.
+const all: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const scored = all
+  .filter((p) => p.slug !== post.slug)
+  .map((p) => {
+    let score = 0;
+    if (p.data.category === post.data.category) score += 2;
+    score += p.data.tags.filter((tag) => post.data.tags.includes(tag)).length;
+    return { p, score };
+  })
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score || b.p.data.pubDate.valueOf() - a.p.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map(({ p }) => p);
+const relatedPool = scored.length ? scored : all.filter((p) => p.slug !== post.slug).slice(0, 3);
+const relatedLoc = relatedPool.map((r) => ({ r, loc: localizePost(r.slug, r.data, lang) }));
+
+// Related tools: app IDs from frontmatter resolved via apps.json (English copy).
+const relatedTools = getLocalizedApps(lang).filter((app) => (post.data.relatedApps ?? []).includes(app.id));
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -31,7 +51,7 @@ const structuredData = {
   description: loc.description,
   image: `https://ladestack.in${post.data.coverImage}`,
   datePublished: isoDate,
-  dateModified: isoDate,
+  dateModified: isoModified,
   author: { '@type': 'Person', name: post.data.author, url: 'https://ladestack.in/about' },
   publisher: { '@type': 'Organization', name: 'Lade Stack', logo: { '@type': 'ImageObject', url: 'https://ladestack.in/favicon.ico' } },
   articleSection: post.data.category,
@@ -47,14 +67,16 @@ const structuredData = {
   keywords={post.data.tags.join(', ')}
   ogType="article"
   ogImage={`https://ladestack.in${post.data.coverImage}`}
-  article={{ publishedTime: isoDate, modifiedTime: isoDate, author: post.data.author, tags: post.data.tags }}
+  article={{ publishedTime: isoDate, modifiedTime: isoModified, author: post.data.author, tags: post.data.tags }}
   structuredData={structuredData}
+  hreflang={false}
+  hideLanguageSwitcher={true}
 >
   <article class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <nav aria-label="Breadcrumb" class="text-sm text-foreground/55">
-      <a href={getLocalizedPath('/', lang)} class="hover:text-foreground">Home</a>
+      <a href="/" class="hover:text-foreground">Home</a>
       <span aria-hidden="true"> / </span>
-      <a href={getLocalizedPath('/blog', lang)} class="hover:text-foreground">Blog</a>
+      <a href="/blog" class="hover:text-foreground">Blog</a>
       <span aria-hidden="true"> / </span>
       <span aria-current="page" class="text-foreground/80">{c.blogCategories[post.data.category] ?? post.data.category}</span>
     </nav>
@@ -70,6 +92,12 @@ const structuredData = {
         <span>{t('common.byAuthor')} {post.data.author}</span>
         <span aria-hidden="true">•</span>
         <span>{post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+        {post.data.updatedDate && (
+          <>
+            <span aria-hidden="true">•</span>
+            <span>Updated {post.data.updatedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+          </>
+        )}
         <span aria-hidden="true">•</span>
         <span>{parseInt(post.data.readTime)} {t('common.minRead')}</span>
       </div>
@@ -105,11 +133,27 @@ const structuredData = {
       </div>
     </div>
 
+    {relatedTools.length > 0 && (
+      <section class="mt-16" aria-label="Related tools">
+        <h2 class="font-serif text-2xl md:text-3xl font-bold">Related Tool{relatedTools.length > 1 ? 's' : ''}</h2>
+        <div class="mt-6 grid sm:grid-cols-2 gap-4">
+          {relatedTools.map((app) => (
+            <a href={app.landingUrl} class="rounded-2xl border border-border bg-card/60 p-6 hover:border-sage-500/40 hover:shadow-lg transition-all">
+              <p class="text-[11px] font-mono text-sage-600 dark:text-sage-400">{app.displayCategory}</p>
+              <h3 class="mt-1.5 font-semibold text-lg leading-snug">{app.title}</h3>
+              <p class="mt-2 text-sm text-foreground/65">{app.tagline}</p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-sage-600 dark:text-sage-400">Try it free →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
     <section class="mt-16" aria-label={t('blog.post.related')}>
       <h2 class="font-serif text-2xl md:text-3xl font-bold">{t('blog.post.related')}</h2>
       <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {relatedLoc.map(({ r, loc }) => (
-          <a href={getLocalizedPath(`/blog/${r.slug}`, lang)} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-sage-500/40 hover:shadow-lg transition-all">
+          <a href={`/blog/${r.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-sage-500/40 hover:shadow-lg transition-all">
             <img src={r.data.coverImage} alt={loc.title} class="h-36 w-full object-cover" loading="lazy" />
             <div class="p-5">
               <p class="text-[11px] font-mono text-sage-600 dark:text-sage-400">{r.data.category}</p>
@@ -119,7 +163,7 @@ const structuredData = {
           </a>
         ))}
       </div>
-      <a href={getLocalizedPath('/blog', lang)} class="mt-8 inline-flex items-center gap-2 font-semibold text-sage-600 dark:text-sage-400">← {t('blog.post.backToBlog')}</a>
+      <a href="/blog" class="mt-8 inline-flex items-center gap-2 font-semibold text-sage-600 dark:text-sage-400">← {t('blog.post.backToBlog')}</a>
     </section>
   </article>
 </BaseLayout>
