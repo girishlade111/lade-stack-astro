@@ -125,8 +125,12 @@ const structuredData = {
 </BaseLayout>
 
 <script is:inline>
-  (function () {
+  // View-Transition safe: re-runs after every `astro:page-load` so code
+  // copy buttons exist after client-side navigations. Guards prevent
+  // duplicate buttons/listeners on double invocation.
+  function setupArticleEnhancements() {
     var wrap = document.querySelector('[data-article-body]');
+    if (!wrap) return;
     var copyLabel = (wrap && wrap.getAttribute('data-copy-label')) || 'Copy';
     var copiedLabel = (wrap && wrap.getAttribute('data-copied-label')) || 'Copied!';
     // Copy buttons on code blocks
@@ -158,6 +162,8 @@ const structuredData = {
     });
     // Copy article link
     document.querySelectorAll('[data-copy-link]').forEach(function (btn) {
+      if (btn.hasAttribute('data-wired')) return;
+      btn.setAttribute('data-wired', 'true');
       var idleLabel = btn.textContent;
       btn.addEventListener('click', function () {
         var url = window.location.href;
@@ -170,5 +176,8 @@ const structuredData = {
         } else { done(); }
       });
     });
-  })();
+  }
+
+  setupArticleEnhancements();
+  document.addEventListener('astro:page-load', setupArticleEnhancements);
 </script>
