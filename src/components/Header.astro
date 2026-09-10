@@ -108,32 +108,57 @@ function isActive(path: string): boolean {
 </header>
 
 <script is:inline>
-  (function () {
+  // View-Transition safe: re-wires the fresh header DOM after every
+  // `astro:page-load`. Element listeners are per-node (fresh nodes each
+  // navigation); document-level listeners are attached once via window flag.
+  function setupMobileMenu() {
     var openBtn = document.querySelector('[data-mobile-open]');
     var drawer = document.querySelector('[data-mobile-drawer]');
     var backdrop = document.querySelector('[data-mobile-backdrop]');
 
     function setOpen(open) {
-      if (!drawer || !openBtn) return;
-      drawer.classList.toggle('hidden', !open);
-      if (backdrop) backdrop.classList.toggle('hidden', !open);
-      openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var d = document.querySelector('[data-mobile-drawer]');
+      var b = document.querySelector('[data-mobile-open]');
+      var bd = document.querySelector('[data-mobile-backdrop]');
+      if (!d || !b) return;
+      d.classList.toggle('hidden', !open);
+      if (bd) bd.classList.toggle('hidden', !open);
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
       document.body.style.overflow = open ? 'hidden' : '';
     }
 
-    if (openBtn) {
+    function closeMenu() {
+      setOpen(false);
+    }
+
+    if (openBtn && !openBtn.hasAttribute('data-wired')) {
+      openBtn.setAttribute('data-wired', 'true');
       openBtn.addEventListener('click', function () {
-        setOpen(drawer ? drawer.classList.contains('hidden') : false);
+        var d = document.querySelector('[data-mobile-drawer]');
+        setOpen(d ? d.classList.contains('hidden') : false);
       });
     }
-    if (backdrop) backdrop.addEventListener('click', function () { setOpen(false); });
-    if (drawer) {
+    if (backdrop && !backdrop.hasAttribute('data-wired')) {
+      backdrop.setAttribute('data-wired', 'true');
+      backdrop.addEventListener('click', closeMenu);
+    }
+    if (drawer && !drawer.hasAttribute('data-wired')) {
+      drawer.setAttribute('data-wired', 'true');
       drawer.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () { setOpen(false); });
+        a.addEventListener('click', closeMenu);
       });
     }
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') setOpen(false);
-    });
-  })();
+
+    if (!window.__ladestackHeaderDocWired) {
+      window.__ladestackHeaderDocWired = true;
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+      // Always start navigations with the drawer closed.
+      document.addEventListener('astro:before-preparation', closeMenu);
+    }
+  }
+
+  setupMobileMenu();
+  document.addEventListener('astro:page-load', setupMobileMenu);
 </script>
