@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getContent } from '@/i18n/content';
 import { useTranslations } from '@/i18n/utils';
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/Icon.astro';
 
 const defaultLang = 'en' as const;
 const t = useTranslations(defaultLang);

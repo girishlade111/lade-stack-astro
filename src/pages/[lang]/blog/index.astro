@@ -4,7 +4,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
 import { localizePost, getContent } from '@/i18n/content';
 import { nonDefaultLocales, languages, type SupportedLocale } from '@/i18n/config';
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/Icon.astro';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));

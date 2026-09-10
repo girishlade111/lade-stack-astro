@@ -5,7 +5,6 @@ import { ko } from './content-ko';
 import { ja } from './content-ja';
 import { zh } from './content-zh';
 import { tr } from './content-tr';
-import { ru } from './content-ru';
 import { ptBR } from './content-ptbr';
 import appsData from '../data/apps.json';
 
@@ -15,7 +14,6 @@ export const content: Record<SupportedLocale, LocaleContent> = {
   ja,
   zh,
   tr,
-  ru,
   'pt-BR': ptBR
 };
 

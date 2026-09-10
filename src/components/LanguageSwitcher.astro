@@ -1,7 +1,7 @@
 ---
 import { languages, type SupportedLocale } from '@/i18n/config';
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/Icon.astro';
 
 interface Props {
   currentLang: SupportedLocale;
@@ -25,7 +25,7 @@ const currentLangMeta = languages[currentLang];
     aria-label={t('nav.language')}
   >
     <span class="text-base leading-none" aria-hidden="true">{currentLangMeta.flag}</span>
-    <span class="hidden sm:inline-block">{currentLangMeta.nativeName}</span>
+    <span class="hidden sm:inline-block">{currentLangMeta.name}</span>
     <Icon name="lucide:chevron-down" class="w-3.5 h-3.5 text-muted-foreground transition-transform duration-200" />
   </button>
 
@@ -50,7 +50,7 @@ const currentLangMeta = languages[currentLang];
             role="menuitem"
           >
             <span class="text-base" aria-hidden="true">{meta.flag}</span>
-            <span>{meta.nativeName}</span>
+            <span>{meta.name}</span>
             {isSelected && <Icon name="lucide:check" class="ml-auto w-4 h-4 text-primary" />}
           </a>
         );
@@ -81,7 +81,7 @@ const currentLangMeta = languages[currentLang];
             var code = a.getAttribute('data-lang-link') || 'en';
             var parts = path.split('/').filter(Boolean);
             var sub = path;
-            if (parts.length && ['zh', 'ko', 'ja', 'tr', 'ru', 'pt-BR'].indexOf(parts[0]) !== -1) {
+            if (parts.length && ['zh', 'ko', 'ja', 'tr', 'pt-BR'].indexOf(parts[0]) !== -1) {
               sub = '/' + parts.slice(1).join('/');
               if (sub === '/') sub = '/';
             }

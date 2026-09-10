@@ -1,0 +1,16 @@
+---
+// Build-time SVG icon wrapper (Lucide).
+// Icons are inlined as static SVG during `astro build` — zero client runtime.
+import { Icon as AstroIcon } from 'astro-icon/components';
+
+interface Props {
+  /** Iconify name, e.g. "lucide:menu" */
+  name: string;
+  /** Tailwind sizing/styling classes, e.g. "w-4 h-4" */
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+---
+
+<AstroIcon name={name} class={className} aria-hidden="true" />
