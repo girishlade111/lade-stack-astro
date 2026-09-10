@@ -60,7 +60,9 @@ const currentLangMeta = languages[currentLang];
 </div>
 
 <script is:inline>
-  (function () {
+  // View-Transition safe: re-wires fresh switcher DOM after every
+  // `astro:page-load`. Document-level dismiss listeners attach once.
+  function setupLangSwitchers() {
     // Container-scoped: Header renders one switcher for desktop + one for mobile.
     document.querySelectorAll('[data-lang-switcher]').forEach(function (root) {
       // Guard: this inline script is emitted once per component instance
@@ -106,12 +108,6 @@ const currentLangMeta = languages[currentLang];
         setOpen(!isOpen());
       });
 
-      document.addEventListener('click', function (e) {
-        if (isOpen() && !root.contains(e.target)) setOpen(false);
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') setOpen(false);
-      });
       root.querySelectorAll('[data-lang-link]').forEach(function (a) {
         a.addEventListener('click', function () {
           try {
@@ -120,5 +116,37 @@ const currentLangMeta = languages[currentLang];
         });
       });
     });
-  })();
+
+    if (!window.__ladestackLangDocWired) {
+      window.__ladestackLangDocWired = true;
+      document.addEventListener('click', function (e) {
+        document.querySelectorAll('[data-lang-switcher]').forEach(function (root) {
+          var menu = root.querySelector('[data-lang-menu]');
+          var btn = root.querySelector('[data-lang-button]');
+          if (menu && !menu.classList.contains('hidden') && !root.contains(e.target)) {
+            menu.classList.add('hidden');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+            var chevron = btn ? btn.querySelector('svg') : null;
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+          }
+        });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('[data-lang-switcher] [data-lang-menu]').forEach(function (menu) {
+            menu.classList.add('hidden');
+          });
+        }
+      });
+      // Close open menus before a View Transition starts.
+      document.addEventListener('astro:before-preparation', function () {
+        document.querySelectorAll('[data-lang-switcher] [data-lang-menu]').forEach(function (menu) {
+          menu.classList.add('hidden');
+        });
+      });
+    }
+  }
+
+  setupLangSwitchers();
+  document.addEventListener('astro:page-load', setupLangSwitchers);
 </script>
