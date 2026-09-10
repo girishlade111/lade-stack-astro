@@ -1,7 +1,8 @@
 import type { LocaleContent } from './content-types';
 
 export const ptBR: LocaleContent = {
-  metaDescription: 'Ferramentas de IA gratuitas para devs: revisão de código, PDF, currículos e imagens. Sem cadastro, grátis para sempre.',
+  metaDescription:
+    'Lade Stack — Ecossistema prático de ferramentas de desenvolvimento e engenharia de IA fundado por Girish Lade. Inspeção de código, testes de API e utilitários. Grátis para sempre sem cadastro.',
   testimonials: [
     {
       quote: 'O CodeEnhance AI cortou meu tempo de iteração no frontend pela metade. As sugestões da IA em tempo real parecem pair programming com um dev sênior.',
@@ -23,7 +24,7 @@ export const ptBR: LocaleContent = {
     {
       title: 'CodeEnhance AI',
       tagline: 'Visualizador e aprimorador de código inteligente',
-      desc: 'Transforme código bruto em software pronto para produção com lint de IA em tempo real, sugestões e preview instantâneo.',
+      desc: 'Inspecione, depure e aprimore código com linting estrutural por IA em tempo real e visualização imediata no navegador.',
       icon: 'lucide:code-xml',
       link: '/ai-code-viewer-ai',
       badge: 'Popular'
@@ -31,23 +32,23 @@ export const ptBR: LocaleContent = {
     {
       title: 'API Testing Platform',
       tagline: 'Testes REST e GraphQL automatizados',
-      desc: 'Gere suítes de validação automatizadas, mocke respostas de API e rode benchmarks de segurança em segundos.',
+      desc: 'Valide endpoints de requisição, inspecione payloads de resposta estruturados, depure cabeçalhos e verifique contratos de API no navegador.',
       icon: 'lucide:network',
       link: '/apps',
       badge: 'Alta velocidade'
     },
     {
       title: 'Website Builder AI',
-      tagline: 'Gerador semântico no-code',
-      desc: 'Gere interfaces modernas e responsivas com marcação semântica e exporte para HTML/CSS padrão.',
+      tagline: 'Prototipador Web Semântico',
+      desc: 'Converta ideias de interface em protótipos web modernos e responsivos com HTML/CSS semântico e sem dependências desnecessárias.',
       icon: 'lucide:layout-template',
       link: '/apps',
       badge: 'Zero código'
     },
     {
       title: 'Secure File Hub',
-      tagline: 'Compartilhamento criptografado para devs',
-      desc: 'Compartilhamento temporário, rápido e seguro para configs, credenciais e arquivos de deploy.',
+      tagline: 'Compartilhamento Seguro de Configs e Arquivos',
+      desc: 'Compartilhamento temporário e controlado de arquivos de configuração, credenciais, variáveis de ambiente e artefatos de deploy.',
       icon: 'lucide:shield-check',
       link: '/apps',
       badge: 'Criptografado'

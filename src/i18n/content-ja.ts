@@ -1,7 +1,8 @@
 import type { LocaleContent } from './content-types';
 
 export const ja: LocaleContent = {
-  metaDescription: '無料のAI開発者ツール:コードレビュー、PDFツール、履歴書ビルダー、画像加工。登録不要でずっと無料。',
+  metaDescription:
+    'Lade Stack —— Girish Ladeが設立した、実践的な開発者ツールとAIエンジニアリングのエコシステム。コード検証、APIテスト、ファイル操作を登録不要・完全無料で提供します。',
   testimonials: [
     {
       quote: 'CodeEnhance AIのおかげでフロントエンドの試行錯誤が半分になりました。リアルタイムのAI提案は、シニアとペアプロしている感覚です。',
@@ -23,7 +24,7 @@ export const ja: LocaleContent = {
     {
       title: 'CodeEnhance AI',
       tagline: '知的なコードビューアと改善ツール',
-      desc: 'リアルタイムのAIリントと提案、即時プレビューで、荒いコードを本番品質に引き上げます。',
+      desc: 'リアルタイムのAI静的解析、構造改善の提案、ブラウザ上での即時プレビューにより、Webコードを迅速にデバッグ・リファクタリング。',
       icon: 'lucide:code-xml',
       link: '/ai-code-viewer-ai',
       badge: '人気'
@@ -31,23 +32,23 @@ export const ja: LocaleContent = {
     {
       title: 'API Testing Platform',
       tagline: 'REST・GraphQLの自動テスト',
-      desc: '自動検証スイートの生成、APIレスポンスのモック、セキュリティベンチマークを数秒で。',
+      desc: 'ブラウザから直接リクエストのエンドポイントを検証し、構造化されたレスポンスを調査し、API仕様を安全にテスト。',
       icon: 'lucide:network',
       link: '/apps',
       badge: '高速'
     },
     {
       title: 'Website Builder AI',
-      tagline: 'ノーコードのセマンティック生成',
-      desc: 'セマンティックなマークアップのモダンなレスポンシブUIを生成し、標準HTML/CSSで書き出し。',
+      tagline: 'セマンティックWebプロトタイパー',
+      desc: 'UIアイデアを、余分なフレームワーク依存のない洗練されたセマンティックHTML/CSSのモダンなレスポンシブWebプロトタイプへ変換。',
       icon: 'lucide:layout-template',
       link: '/apps',
       badge: 'コード不要'
     },
     {
       title: 'Secure File Hub',
-      tagline: '暗号化された開発者向け共有',
-      desc: '設定ファイルや認証情報、デプロイ資材を速く安全に一時共有できます。',
+      tagline: '開発者向け設定・ファイル安全共有',
+      desc: '設定ファイル、環境変数、認証情報、デプロイ資材を開発者間で迅速かつ安全に一時共有。',
       icon: 'lucide:shield-check',
       link: '/apps',
       badge: '暗号化'

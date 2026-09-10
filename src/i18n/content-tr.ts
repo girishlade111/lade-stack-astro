@@ -1,7 +1,8 @@
 import type { LocaleContent } from './content-types';
 
 export const tr: LocaleContent = {
-  metaDescription: 'Ücretsiz yapay zekâ geliştirici araçları: kod inceleme, PDF araçları, CV oluşturucu ve görsel stüdyosu. Kayıt yok.',
+  metaDescription:
+    'Lade Stack — Girish Lade tarafından kurulan pratik geliştirici araçları ve yapay zeka mühendisliği ekosistemi. Kod inceleme, API testi ve dosya araçları. Kayıt gerektirmeden sonsuza kadar ücretsiz.',
   testimonials: [
     {
       quote: 'CodeEnhance AI, frontend deneme-yanılma süremi yarıya indirdi. Canlı AI önerileri, kıdemli biriyle eşli programlama gibi hissettiriyor.',
@@ -23,7 +24,7 @@ export const tr: LocaleContent = {
     {
       title: 'CodeEnhance AI',
       tagline: 'Akıllı Kod Görüntüleyici ve İyileştirici',
-      desc: 'Gerçek zamanlı AI denetimi, öneriler ve anlık önizlemeyle ham kodu üretime hazır yazılıma dönüştürün.',
+      desc: 'Web dillerinde gerçek zamanlı yapay zeka denetimi, yapısal iyileştirme önerileri ve anlık tarayıcı önizlemesiyle kodunuzu hızla hata ayıklayın.',
       icon: 'lucide:code-xml',
       link: '/ai-code-viewer-ai',
       badge: 'Popüler'
@@ -31,23 +32,23 @@ export const tr: LocaleContent = {
     {
       title: 'API Testing Platform',
       tagline: 'Otomatik REST ve GraphQL Testi',
-      desc: 'Saniyeler içinde otomatik doğrulama paketleri üretin, API yanıtlarını taklit edin, güvenlik testleri koşturun.',
+      desc: 'Tarayıcınızda doğrudan istek uç noktalarını doğrulayın, yapılandırılmış yanıt yüklerini inceleyin ve API sözleşmelerini test edin.',
       icon: 'lucide:network',
       link: '/apps',
       badge: 'Yüksek Hız'
     },
     {
       title: 'Website Builder AI',
-      tagline: 'Kodsuz Semantik Üretici',
-      desc: 'Semantik işaretlemeli modern, duyarlı arayüzler üretin, standart HTML/CSS olarak dışa aktarın.',
+      tagline: 'Semantik Web Prototipleme',
+      desc: 'Arayüz fikirlerinizi gereksiz çerçeve bağımlılıkları olmadan temiz semantik HTML/CSS işaretlemeli modern web prototiplerine dönüştürün.',
       icon: 'lucide:layout-template',
       link: '/apps',
       badge: 'Sıfır Kod'
     },
     {
       title: 'Secure File Hub',
-      tagline: 'Şifreli Geliştirici Dosya Paylaşımı',
-      desc: 'Yapılandırma dosyaları, kimlik bilgileri ve dağıtım arşivleri için hızlı, güvenli geçici paylaşım.',
+      tagline: 'Geliştiriciler İçin Güvenli Dosya Paylaşımı',
+      desc: 'Yapılandırma dosyaları, ortam değişkenleri ve dağıtım paketleri için hızlı ve kontrollü geçici dosya paylaşımı.',
       icon: 'lucide:shield-check',
       link: '/apps',
       badge: 'Şifreli'
