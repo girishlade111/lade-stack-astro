@@ -6,31 +6,58 @@ import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Icon from '@/components/Icon.astro';
 
+import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
+
 const defaultLang = 'en' as const;
 const t = useTranslations(defaultLang);
 const c = getContent(defaultLang);
+const seo = getPageSEO('contact', defaultLang);
 
 const faqs = c.contactFaqs;
 
-const contactStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  name: 'Contact Lade Stack',
-  url: 'https://ladestack.in/contact',
-  description: 'Get in touch with Lade Stack for AI development support.',
-  mainEntity: {
-    '@type': 'Organization',
-    name: 'Lade Stack',
-    address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressRegion: 'Maharashtra', addressCountry: 'IN' },
-    contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', email: 'admin@ladestack.in', availableLanguage: 'English' }
-  }
-};
+const contactStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: seo.title,
+    url: 'https://ladestack.in/contact',
+    description: seo.description,
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Lade Stack',
+      url: 'https://ladestack.in',
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'technical support',
+        email: 'admin@ladestack.in',
+        availableLanguage: ['English', 'Russian', 'Chinese', 'Korean', 'Japanese', 'Portuguese']
+      }
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    name: `${seo.breadcrumbName} FAQs`,
+    url: 'https://ladestack.in/contact',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a }
+    }))
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: seo.breadcrumbName, url: 'https://ladestack.in/contact' },
+  ]),
+];
 ---
 
 <BaseLayout
-  title="Contact Lade Stack — 24/7 Developer Support"
-  description="Contact Lade Stack for free AI tool support, feature requests or bug reports. Email admin@ladestack.in — replies within 24 hours."
-  keywords="contact Lade Stack, developer support, AI help, Mumbai"
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={defaultLang}
   path="/contact"
   structuredData={contactStructuredData}
