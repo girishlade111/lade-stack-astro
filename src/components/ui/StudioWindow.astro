@@ -16,9 +16,9 @@ const {
 
 <div class={`studio-window w-full text-left overflow-hidden shadow-2xl ${className}`}>
   <!-- macOS-style Chrome Header -->
-  <div class="flex items-center justify-between pb-3 mb-3 border-b border-hairline-soft">
+  <div class="flex items-center justify-between pb-3 mb-3 border-b border-hairline-soft gap-2 overflow-hidden">
     <!-- Three Traffic Light Dots and Title -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 shrink-0">
       <div class="flex items-center gap-1.5" aria-hidden="true">
         <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
         <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
@@ -28,10 +28,10 @@ const {
     </div>
 
     <!-- Title or Tabs -->
-    <div class="flex items-center gap-1">
+    <div class="flex items-center gap-1 overflow-x-auto max-w-full py-0.5">
       {tabs.map((tab) => (
         <span
-          class={`btn-app-tab select-none ${tab === activeTab ? 'active' : ''}`}
+          class={`btn-app-tab select-none shrink-0 ${tab === activeTab ? 'active' : ''}`}
         >
           {tab}
         </span>

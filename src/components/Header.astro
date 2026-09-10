@@ -39,9 +39,9 @@ function isActive(path: string): boolean {
 
 <!-- DESIGN.md nav-bar-dark: sticky, 64px height, 24px px, canvas bg, no border line -->
 <header data-site-header transition:name="site-header" class="sticky top-0 z-50 w-full h-16 bg-canvas text-on-primary">
-  <div class="max-w-[1640px] mx-auto px-6 h-full flex items-center justify-between">
+  <div class="max-w-[1640px] mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
     <!-- Brand Logo with exact 12px brand-dot -->
-    <a href={getLocalizedPath('/', lang)} class="flex items-center group" aria-label="Lade Stack home">
+    <a href={getLocalizedPath('/', lang)} class="flex items-center group shrink-0" aria-label="Lade Stack home">
       <BrandMark />
     </a>
 
@@ -61,7 +61,7 @@ function isActive(path: string): boolean {
     </nav>
 
     <!-- Header Actions (Right) -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3">
       {!hideLanguageSwitcher && (
         <div class="hidden sm:flex items-center gap-2">
           <LanguageSwitcher currentLang={lang} />
@@ -69,7 +69,7 @@ function isActive(path: string): boolean {
       )}
 
       <!-- button-primary CTA (white pill on dark canvas) -->
-      <Button href={getLocalizedPath('/apps', lang)} variant="primary" class="text-sm !h-10 px-4">
+      <Button href={getLocalizedPath('/apps', lang)} variant="primary" class="text-xs xxs:text-sm !h-9 xxs:!h-10 px-2.5 xxs:px-4 shrink-0">
         {t('nav.launchApp')}
       </Button>
 
@@ -78,7 +78,7 @@ function isActive(path: string): boolean {
         type="button"
         id="mobile-menu-btn"
         data-mobile-open
-        class="sm:hidden p-2 rounded-app-md border border-hairline-soft text-on-primary hover:bg-canvas-soft focus:outline-none"
+        class="sm:hidden p-2 rounded-app-md border border-hairline-soft text-on-primary hover:bg-canvas-soft focus:outline-none shrink-0"
         aria-label="Toggle Mobile Menu"
         aria-expanded="false"
         aria-controls="mobile-drawer"
@@ -96,7 +96,7 @@ function isActive(path: string): boolean {
     role="dialog"
     aria-modal="true"
     aria-label="Mobile"
-    class="hidden sm:hidden fixed inset-x-0 top-16 bg-canvas border-b border-hairline-soft shadow-2xl z-50"
+    class="hidden sm:hidden fixed inset-x-0 top-16 bg-canvas border-b border-hairline-soft shadow-2xl z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto"
   >
     <div class="p-6 flex flex-col gap-3">
       {navLinks.map((link) => (

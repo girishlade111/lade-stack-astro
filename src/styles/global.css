@@ -780,3 +780,25 @@ main h1:not([data-reveal] h1) {
     scroll-behavior: auto;
   }
 }
+
+/* Responsive code blocks, tables & images in content/prose */
+.prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+.prose {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
