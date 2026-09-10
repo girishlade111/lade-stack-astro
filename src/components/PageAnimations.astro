@@ -11,55 +11,53 @@
 ---
 
 <script>
-  var REVEAL_SELECTOR = '[data-reveal]:not([data-reveal-wired])';
-  /** @type {IntersectionObserver | null} */
-  var observer = null;
+  const REVEAL_SELECTOR = '[data-reveal]:not([data-reveal-wired])';
+  let observer: IntersectionObserver | null = null;
 
-  function prefersReducedMotion() {
+  function prefersReducedMotion(): boolean {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  /** @param {Element} el */
-  function revealNow(el) {
+  function revealNow(el: Element): void {
     el.classList.add('is-visible');
   }
 
-  /** @returns {IntersectionObserver} */
-  function getObserver() {
+  function getObserver(): IntersectionObserver {
     if (observer) return observer;
-    observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
+    const current = new IntersectionObserver(
+      (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             revealNow(entry.target);
-            if (observer) observer.unobserve(entry.target);
+            current.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
     );
-    return observer;
+    observer = current;
+    return current;
   }
 
-  function setupReveals() {
-    var els = document.querySelectorAll(REVEAL_SELECTOR);
+  function setupReveals(): void {
+    const els = document.querySelectorAll(REVEAL_SELECTOR);
     if (!els.length) return;
 
     // Reduced motion: show everything immediately, no observer needed.
     if (prefersReducedMotion()) {
-      els.forEach(function (el) {
+      els.forEach((el) => {
         el.setAttribute('data-reveal-wired', 'true');
         revealNow(el);
       });
       return;
     }
 
-    var io = getObserver();
-    els.forEach(function (el) {
+    const io = getObserver();
+    els.forEach((el) => {
       el.setAttribute('data-reveal-wired', 'true');
-      var delay = el.getAttribute('data-reveal-delay');
+      const delay = el.getAttribute('data-reveal-delay');
       if (delay) {
-        /** @type {HTMLElement} */ (el).style.transitionDelay = delay + 'ms';
+        (el as HTMLElement).style.transitionDelay = `${delay}ms`;
       }
       io.observe(el);
     });
