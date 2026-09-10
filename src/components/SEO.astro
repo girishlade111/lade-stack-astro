@@ -83,17 +83,16 @@ const currentLangMeta = languages[lang];
 {prevUrl && <link rel="prev" href={prevUrl} />}
 {nextUrl && <link rel="next" href={nextUrl} />}
 
-<!-- International SEO: hreflang Alternates (omitted on English-only pages) -->
 {
   hreflang && (
     <>
+      <!-- International SEO: hreflang Alternates + x-default (default English route) -->
       {
         Object.keys(languages).map((loc) => {
           const localizedHref = canonicalFor(loc as SupportedLocale);
           return <link rel="alternate" hreflang={loc} href={localizedHref} />;
         })
       }
-      <!-- x-default points to default English route -->
       <link rel="alternate" hreflang="x-default" href={canonicalFor(defaultLocale)} />
     </>
   )
