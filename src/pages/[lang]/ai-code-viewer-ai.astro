@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
-import { getContent } from '../../i18n/content';
+import { getContent, localizePost } from '../../i18n/content';
 import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
+import { getCollection } from 'astro:content';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -13,6 +14,14 @@ const t = useTranslations(lang);
 const c = getContent(lang);
 
 const features = c.aicodeFeatures;
+
+// "From the blog": 2 newest AI-related posts. Blog is English-only, so links
+// point at the canonical /blog/[slug] with the localized title as label.
+const blogPosts = (await getCollection('blog'))
+  .filter((p) => ['AI Development', 'Generative AI', 'AI Production Systems'].includes(p.data.category))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2)
+  .map((post) => ({ post, loc: localizePost(post.slug, post.data, lang) }));
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -47,5 +56,21 @@ const structuredData = {
     <div class="mt-12 flex items-center justify-center gap-6 text-sm text-foreground/60">
       <span>★ 4.8 / 5</span><span>·</span><span>{t('aicode.reviews')}</span><span>·</span><span>{t('aicode.freeForever')}</span>
     </div>
+    {blogPosts.length > 0 && (
+      <div class="mt-12 rounded-3xl border border-border bg-card/60 p-6 sm:p-8 text-left">
+        <h2 class="font-serif text-2xl font-bold">{t('blog.post.related')}</h2>
+        <div class="mt-5 grid sm:grid-cols-2 gap-4">
+          {blogPosts.map(({ post, loc }) => (
+            <a href={`/blog/${post.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-sage-500/40 hover:shadow-lg transition-all">
+              <img src={post.data.coverImage} alt={loc.title} class="h-32 w-full object-cover" loading="lazy" />
+              <div class="p-5">
+                <p class="text-[11px] font-mono text-sage-600 dark:text-sage-400">{c.blogCategories[post.data.category] ?? post.data.category}</p>
+                <h3 class="mt-1.5 font-semibold leading-snug">{loc.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </BaseLayout>
