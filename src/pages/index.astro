@@ -8,8 +8,10 @@ import ProductsSection from '@/components/sections/ProductsSection.astro';
 import FreeForeverSection from '@/components/sections/FreeForeverSection.astro';
 import CommunitySection from '@/components/sections/CommunitySection.astro';
 import Testimonials from '@/components/sections/Testimonials.astro';
+import { getContent } from '@/i18n/content';
 
 const defaultLang = 'en' as const;
+const c = getContent(defaultLang);
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -18,7 +20,7 @@ const structuredData = {
   applicationCategory: 'DeveloperApplication',
   name: 'Lade Stack',
   url: 'https://ladestack.in',
-  description: 'Free AI developer tools: code review, PDF toolkit, resume builder & more.',
+  description: c.metaDescription,
   operatingSystem: 'Web Browser',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   publisher: { '@id': 'https://ladestack.in/#organization' },
@@ -27,9 +29,9 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Lade Stack — Free AI Developer Tools"
-  description="Free AI developer tools: code review, PDF toolkit, resume builder & more. No signup, no paywall."
-  keywords="AI developer tools, code editor, API testing, website builder, file sharing, Lade Stack, Girish Lade"
+  title="Lade Stack — Practical Developer Tools & AI Engineering"
+  description={c.metaDescription}
+  keywords="developer tools, AI engineering, code review, API testing, website builder, file sharing, Lade Stack, Girish Lade"
   lang={defaultLang}
   path="/"
   structuredData={structuredData}
