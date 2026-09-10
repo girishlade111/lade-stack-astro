@@ -5,28 +5,38 @@ import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Icon from '@/components/Icon.astro';
 
+import { createBreadcrumbSchema } from '@/i18n/seo';
+
 const lang = 'en' as const;
 const c = getContent(lang);
 const about = c.aboutPage;
 const timeline = c.timeline;
 const stack = ['TypeScript', 'Astro', 'Python', 'AI Systems', 'Tailwind CSS', 'PostgreSQL'];
 
-const aboutStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Girish Lade',
-  jobTitle: about.founderRole,
-  url: 'https://ladestack.in/about',
-  sameAs: [
-    'https://github.com/girishlade111',
-    'https://www.linkedin.com/in/girish-lade-075bba201/',
-  ],
-  worksFor: {
-    '@type': 'Organization',
-    name: 'Lade Stack',
-    url: 'https://ladestack.in',
+const aboutStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Girish Lade',
+    jobTitle: about.founderRole,
+    url: 'https://ladestack.in/about',
+    sameAs: [
+      'https://github.com/girishlade111',
+      'https://www.linkedin.com/in/girish-lade-075bba201/',
+      'https://www.instagram.com/girish_lade_/',
+      'https://codepen.io/Girish-Lade-the-looper'
+    ],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Lade Stack',
+      url: 'https://ladestack.in',
+    },
   },
-};
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: 'About', url: 'https://ladestack.in/about' },
+  ]),
+];
 ---
 
 <BaseLayout

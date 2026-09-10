@@ -42,23 +42,33 @@ const scored = all
 const relatedPool = scored.length ? scored : all.filter((p) => p.slug !== post.slug).slice(0, 3);
 const relatedLoc = relatedPool.map((r) => ({ r, loc: localizePost(r.slug, r.data, lang) }));
 
+import { createBreadcrumbSchema } from '../../i18n/seo';
+
 // Related tools: app IDs from frontmatter resolved via apps.json (English copy).
 const relatedTools = getLocalizedApps(lang).filter((app) => (post.data.relatedApps ?? []).includes(app.id));
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: loc.title,
-  description: loc.description,
-  image: `https://ladestack.in${post.data.coverImage}`,
-  datePublished: isoDate,
-  dateModified: isoModified,
-  author: { '@type': 'Person', name: post.data.author, url: 'https://ladestack.in/about' },
-  publisher: { '@type': 'Organization', name: 'Lade Stack', logo: { '@type': 'ImageObject', url: 'https://ladestack.in/icon-512.png', width: 512, height: 512 } },
-  articleSection: post.data.category,
-  keywords: post.data.tags.join(', '),
-  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://ladestack.in/blog/${post.slug}` }
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: loc.title,
+    description: loc.description,
+    image: `https://ladestack.in${post.data.coverImage}`,
+    datePublished: isoDate,
+    dateModified: isoModified,
+    inLanguage: 'en-US',
+    author: { '@type': 'Person', name: post.data.author, url: 'https://ladestack.in/about' },
+    publisher: { '@type': 'Organization', name: 'Lade Stack', logo: { '@type': 'ImageObject', url: 'https://ladestack.in/icon-512.png', width: 512, height: 512 } },
+    articleSection: post.data.category,
+    keywords: post.data.tags.join(', '),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://ladestack.in/blog/${post.slug}` }
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: 'Blog', url: 'https://ladestack.in/blog' },
+    { name: loc.title, url: `https://ladestack.in/blog/${post.slug}` },
+  ]),
+];
 ---
 <BaseLayout
   lang={lang}

@@ -1,24 +1,37 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getContent } from '../i18n/content';
+import { getPageSEO, createBreadcrumbSchema } from '../i18n/seo';
 
 const lang = 'en' as const;
 const c = getContent(lang);
+const seo = getPageSEO('privacy', lang);
 const updated = '2026-09-09';
 const sections = c.privacy;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: seo.title,
+    url: 'https://ladestack.in/privacy',
+    description: seo.description,
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: seo.breadcrumbName, url: 'https://ladestack.in/privacy' },
+  ]),
+];
 ---
 <BaseLayout
   lang={lang}
   path="/privacy"
-  title="Privacy Policy — Data Use & Your Rights | Lade Stack"
-  description="Lade Stack privacy policy: what minimal data we collect, how contact & newsletter info is used, cookies, and your deletion rights."
-  structuredData={{
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'Privacy Policy — Lade Stack',
-    url: 'https://ladestack.in/privacy',
-    description: 'Lade Stack privacy policy: minimal data collection, cookies, and your rights.',
-  }}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
+  structuredData={structuredData}
 >
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20">
     <h1 class="font-serif text-4xl md:text-5xl font-bold break-words">Privacy Policy</h1>

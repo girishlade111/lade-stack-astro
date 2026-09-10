@@ -11,6 +11,7 @@ import Testimonials from '@/components/sections/Testimonials.astro';
 import { languages, type SupportedLocale } from '@/i18n/config';
 import { useTranslations } from '@/i18n/utils';
 import { getContent } from '@/i18n/content';
+import { getPageSEO } from '@/i18n/seo';
 
 export function getStaticPaths() {
   // Exclude default 'en' because it lives at root index.astro
@@ -24,6 +25,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: SupportedLocale };
 const t = useTranslations(lang);
 const c = getContent(lang);
+const seo = getPageSEO('home', lang);
 
 const structuredData = [
   {
@@ -33,7 +35,7 @@ const structuredData = [
     applicationCategory: 'DeveloperApplication',
     name: 'Lade Stack',
     url: `https://ladestack.in/${lang}`,
-    description: c.metaDescription,
+    description: seo.description,
     operatingSystem: 'Web Browser',
     inLanguage: lang,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
@@ -45,7 +47,7 @@ const structuredData = [
     '@id': `https://ladestack.in/${lang}/#website`,
     name: 'Lade Stack',
     url: `https://ladestack.in/${lang}`,
-    description: c.metaDescription,
+    description: seo.description,
     inLanguage: lang,
     publisher: { '@id': 'https://ladestack.in/#organization' },
   }
@@ -53,8 +55,11 @@ const structuredData = [
 ---
 
 <BaseLayout
-  title={`${t('hero.title.part1')} ${t('hero.title.part2')} | Lade Stack`}
-  description={c.metaDescription}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={lang}
   path="/"
   structuredData={structuredData}

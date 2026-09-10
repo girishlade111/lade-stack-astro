@@ -4,6 +4,7 @@ import { getLocalizedApps, getContent } from '@/i18n/content';
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
 import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
 import Icon from '@/components/Icon.astro';
+import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -14,20 +15,30 @@ const t = useTranslations(lang);
 const c = getContent(lang);
 const apps = getLocalizedApps(lang);
 const categories: string[] = [...new Set(apps.map((a) => a.category))];
+const seo = getPageSEO('apps', lang);
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Apps Gallery – Lade Stack',
-  url: 'https://ladestack.in/apps',
-  inLanguage: lang,
-  description: t('apps.subtitle')
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: seo.title,
+    url: `https://ladestack.in/${lang}/apps`,
+    inLanguage: lang,
+    description: seo.description
+  },
+  createBreadcrumbSchema([
+    { name: 'Home', url: `https://ladestack.in/${lang}` },
+    { name: seo.breadcrumbName, url: `https://ladestack.in/${lang}/apps` },
+  ]),
+];
 ---
 
 <BaseLayout
-  title={`${t('apps.title')} | Lade Stack`}
-  description={t('apps.subtitle')}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={lang}
   path="/apps"
   structuredData={structuredData}
