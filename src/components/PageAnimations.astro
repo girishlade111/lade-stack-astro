@@ -12,16 +12,19 @@
 
 <script>
   var REVEAL_SELECTOR = '[data-reveal]:not([data-reveal-wired])';
+  /** @type {IntersectionObserver | null} */
   var observer = null;
 
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
+  /** @param {Element} el */
   function revealNow(el) {
     el.classList.add('is-visible');
   }
 
+  /** @returns {IntersectionObserver} */
   function getObserver() {
     if (observer) return observer;
     observer = new IntersectionObserver(
@@ -29,7 +32,7 @@
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             revealNow(entry.target);
-            observer.unobserve(entry.target);
+            if (observer) observer.unobserve(entry.target);
           }
         });
       },
@@ -56,7 +59,7 @@
       el.setAttribute('data-reveal-wired', 'true');
       var delay = el.getAttribute('data-reveal-delay');
       if (delay) {
-        el.style.transitionDelay = delay + 'ms';
+        /** @type {HTMLElement} */ (el).style.transitionDelay = delay + 'ms';
       }
       io.observe(el);
     });
