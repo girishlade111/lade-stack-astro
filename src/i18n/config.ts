@@ -1,5 +1,6 @@
 export const languages = {
   en: { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr', iso: 'en_US' },
+  ru: { code: 'ru', name: 'Русский', flag: '🇷🇺', dir: 'ltr', iso: 'ru_RU' },
   zh: { code: 'zh', name: '简体中文', flag: '🇨🇳', dir: 'ltr', iso: 'zh_CN' },
   ko: { code: 'ko', name: '한국어', flag: '🇰🇷', dir: 'ltr', iso: 'ko_KR' },
   ja: { code: 'ja', name: '日本語', flag: '🇯🇵', dir: 'ltr', iso: 'ja_JP' },
