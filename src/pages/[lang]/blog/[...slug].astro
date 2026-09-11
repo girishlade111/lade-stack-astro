@@ -64,8 +64,8 @@ const relatedTools = getLocalizedApps(lang).filter((app) => (post.data.relatedAp
 
 // Breadcrumb trail is emitted via SEO.astro `breadcrumbs` (single BreadcrumbList).
 const breadcrumbs = [
-  { name: 'Home', url: `https://ladestack.in${getLocalizedPath('/', lang)}` },
-  { name: 'Blog', url: `https://ladestack.in${getLocalizedPath('/blog', lang)}` },
+  { name: t('nav.home'), url: `https://ladestack.in${getLocalizedPath('/', lang)}` },
+  { name: t('nav.blog'), url: `https://ladestack.in${getLocalizedPath('/blog', lang)}` },
   { name: loc.title, url: `https://ladestack.in${getLocalizedPath(`/blog/${cleanSlug}`, lang)}` },
 ];
 
