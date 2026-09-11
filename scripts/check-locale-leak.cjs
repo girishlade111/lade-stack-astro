@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 const dist = path.join(__dirname, '..', 'dist');
-// Real production non-default locales (C8: retired stale 'ru' fixture).
-const locales = ['zh', 'ko', 'ja', 'tr', 'pt-BR'];
+// All production non-default locales
+const locales = ['zh', 'ko', 'ja', 'tr', 'pt-BR', 'ru'];
 // English UI copy that must never appear on localized CHROME (not bodies)
 const probes = [
   'Frequently Asked Questions',
@@ -69,19 +69,40 @@ for (const l of locales) {
     'products/index.html',
     'apps/index.html',
     'apps/admin/index.html',
-    // NOTE: blog is English-only (no /{locale}/blog routes) — covered by the sitemap scan below.
   ];
-  let blob = '';
+
+  // Dynamically include all localized blog routes (listing and post detail pages)
+  const blogDir = path.join(dist, l, 'blog');
+  if (fs.existsSync(blogDir)) {
+    const scanDir = (dir) => {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          scanDir(fullPath);
+        } else if (entry.name === 'index.html') {
+          files.push(path.relative(path.join(dist, l), fullPath).replace(/\\/g, '/'));
+        }
+      }
+    };
+    scanDir(blogDir);
+  }
+
   for (const f of files) {
     const p = path.join(dist, l, f);
-    if (fs.existsSync(p)) blob += fs.readFileSync(p, 'utf8');
-  }
-  // Strip HTML comments (structural notes like "Featured Card" per DESIGN.md)
-  // — they never render, so they can't be UI-string leaks.
-  blob = blob.replace(/<!--[\s\S]*?-->/g, '');
-  // Strip article bodies? Listing pages have no bodies; readers excluded from this scan.
-  for (const probe of probes) {
-    if (blob.includes(probe)) leaks.push(`${l} :: ${probe}`);
+    if (!fs.existsSync(p)) continue;
+    let pageHtml = fs.readFileSync(p, 'utf8');
+    // Strip HTML comments (structural notes like "Featured Card" per DESIGN.md)
+    pageHtml = pageHtml.replace(/<!--[\s\S]*?-->/g, '');
+    // For blog post pages, strip article bodies so probes only test UI chrome
+    if (f.startsWith('blog/') && f !== 'blog/index.html' && !/^blog\/\d+\/index\.html$/.test(f)) {
+      pageHtml = pageHtml.replace(/<div[^>]*data-article-body[^>]*>[\s\S]*?<\/div>\s*<\/div>/i, '');
+    }
+    for (const probe of probes) {
+      if (pageHtml.includes(probe)) {
+        leaks.push(`${l} (${f}) :: ${probe}`);
+      }
+    }
   }
 }
 if (leaks.length === 0) {
