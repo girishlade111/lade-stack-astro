@@ -65,6 +65,13 @@ export default defineConfig({
     // lucide icon names only), so no domains/remotePatterns needed.
     service: { entrypoint: 'astro/assets/services/sharp' }
   },
+  prefetch: {
+    // SPA-feel navigation: hover-triggered prefetch for all same-origin links
+    // (ClientRouter in BaseLayout.astro). Zero hydration impact — prefetch
+    // only fetches HTML for instant swaps on click.
+    defaultStrategy: 'hover',
+    prefetchAll: true
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ru', 'zh', 'ko', 'ja', 'tr', 'pt-BR'],

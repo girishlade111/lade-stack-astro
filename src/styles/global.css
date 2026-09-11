@@ -604,7 +604,7 @@
 /* ------------------------------------------------------------------ */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 320ms;
+  animation-duration: 180ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   animation-fill-mode: both;
 }
@@ -644,7 +644,7 @@
 ::view-transition-new(site-header),
 ::view-transition-old(site-footer),
 ::view-transition-new(site-footer) {
-  animation-duration: 320ms;
+  animation-duration: 180ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 

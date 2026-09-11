@@ -75,7 +75,12 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
 
     <!-- Performance: Zero-FOUC Theme Script (DESIGN.md Dark-First) -->
     <script is:inline>
-      (function () {
+      // Named (not IIFE): re-applied on `astro:after-swap` because View
+      // Transitions swap <body> without re-running <head> scripts. The <html>
+      // class normally persists across swaps; this is a safety net so a
+      // swapped-in page can never flash the wrong theme. <head> itself is
+      // never swapped, so this listener registers exactly once per session.
+      function __ladestackApplyTheme() {
         try {
           var t = localStorage.getItem('ladestack-theme');
           if (t === 'light') {
@@ -88,7 +93,9 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
             document.documentElement.style.colorScheme = 'dark';
           }
         } catch (e) {}
-      })();
+      }
+      __ladestackApplyTheme();
+      document.addEventListener('astro:after-swap', __ladestackApplyTheme);
     </script>
 
     <!-- Self-hosted fonts are bundled from own domain (see frontmatter imports).
