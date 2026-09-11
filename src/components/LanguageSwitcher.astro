@@ -127,11 +127,7 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
               if (sub === '/') sub = '/';
             }
             if (!sub) sub = '/';
-            if (sub === '/blog' || sub.indexOf('/blog/') === 0) {
-              a.setAttribute('href', code === 'en' ? sub : '/' + code);
-            } else {
-              a.setAttribute('href', code === 'en' ? sub : sub === '/' ? '/' + code : '/' + code + sub);
-            }
+            a.setAttribute('href', code === 'en' ? sub : sub === '/' ? '/' + code : '/' + code + sub);
           });
           menu.classList.remove('hidden');
           btn.setAttribute('aria-expanded', 'true');
