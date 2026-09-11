@@ -62,6 +62,7 @@ const {
   path = '/',
   hideLanguageSwitcher = false,
   hreflang = true,
+  breadcrumbs,
   prevUrl,
   nextUrl,
 } = Astro.props;
@@ -132,6 +133,7 @@ const currentLangMeta = languages[lang] || languages[defaultLocale];
       article={article}
       lang={lang}
       structuredData={structuredData}
+      breadcrumbs={breadcrumbs}
       hreflang={hreflang}
       prevUrl={prevUrl}
       nextUrl={nextUrl}
