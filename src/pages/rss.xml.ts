@@ -1,7 +1,7 @@
 import rss from '@astrojs/rss';
 import { getCollection, render } from 'astro:content';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-import { getBlogPostsForLocale, getPostSlug } from '@/i18n/content';
+import { getBlogPostsForLocale } from '@/i18n/content';
 import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
