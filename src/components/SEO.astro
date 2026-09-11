@@ -23,6 +23,13 @@ interface Props {
   structuredData?: object | object[];
   noIndex?: boolean;
   lang?: SupportedLocale;
+  /**
+   * Breadcrumb trail for the page (e.g. Home > Blog > Post). When provided,
+   * emits a single schema.org BreadcrumbList block. Omit on the homepage,
+   * error pages, and noindex pages. Pages must NOT also pass a BreadcrumbList
+   * via `structuredData` (would duplicate the entity for Rich Results).
+   */
+  breadcrumbs?: { name: string; url: string }[];
   /** Set false for English-only pages (e.g. /blog) — emits self-referencing canonical with no hreflang alternates. */
   hreflang?: boolean;
   /** Pagination neighbors for paginated index pages (rel="prev"/"next"). Absolute URLs. */
@@ -53,6 +60,7 @@ const {
   noIndex = false,
   lang = defaultLocale,
   hreflang = true,
+  breadcrumbs,
   prevUrl,
   nextUrl,
 } = Astro.props;
