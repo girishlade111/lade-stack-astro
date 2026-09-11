@@ -1,0 +1,266 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { localizePost, getContent, getBlogPostsForLocale, type LocaleBlogPost } from '@/i18n/content';
+import { nonDefaultLocales, languages, type SupportedLocale } from '@/i18n/config';
+import Icon from '@/components/Icon.astro';
+import type { GetStaticPaths, Page } from 'astro';
+
+// 12 posts per page, newest first → /[lang]/blog (page 1), /[lang]/blog/2, /[lang]/blog/3, …
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const allBlogPosts = await getCollection('blog');
+  return nonDefaultLocales.flatMap((lang) => {
+    const posts = getBlogPostsForLocale(lang, allBlogPosts);
+    return paginate(posts, {
+      params: { lang },
+      pageSize: 12,
+    });
+  });
+};
+
+const { lang } = Astro.params as { lang: SupportedLocale };
+const t = useTranslations(lang);
+const c = getContent(lang);
+const currentLangMeta = languages[lang] ?? languages.en;
+const { page } = Astro.props as { page: Page<LocaleBlogPost> };
+
+// Full sorted list (for category pills) — page.data holds only the current slice.
+const allBlogPosts = await getCollection('blog');
+const allSorted = getBlogPostsForLocale(lang, allBlogPosts).map((e) => e.post);
+
+const categories = ['All', ...new Set(allSorted.map((p) => p.data.category))];
+const gridPosts = page.data.map(({ post, cleanSlug, isFallback }) => ({
+  post,
+  cleanSlug,
+  isFallback,
+  loc: localizePost(cleanSlug, post.data, lang),
+}));
+
+const SITE_URL = 'https://ladestack.in';
+const canonicalPath = page.currentPage === 1 ? `/${lang}/blog` : `/${lang}/blog/${page.currentPage}`;
+const prevUrl = page.url.prev ? `${SITE_URL}${page.url.prev}` : undefined;
+const nextUrl = page.url.next ? `${SITE_URL}${page.url.next}` : undefined;
+const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
+const pageHref = (n: number) => (n === 1 ? `/${lang}/blog` : `/${lang}/blog/${n}`);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: `Lade Stack Blog — ${currentLangMeta.name}`,
+  url: `${SITE_URL}${canonicalPath}`,
+  description: 'Expert tutorials, guides, and insights on AI-powered development, API testing, and modern software engineering.',
+  publisher: { '@type': 'Organization', name: 'Lade Stack', url: SITE_URL }
+};
+---
+
+<BaseLayout
+  title={page.currentPage === 1 ? `Engineering & AI Development Blog — Page 1 | Lade Stack` : `Engineering & AI Development Blog — Page ${page.currentPage} | Lade Stack`}
+  description={page.currentPage === 1 ? `27 in-depth tutorials on AI development, RAG, MLOps & SaaS architecture — page 1 of ${page.lastPage}.` : `More AI development tutorials, RAG guides & SaaS blueprints — page ${page.currentPage} of ${page.lastPage}.`}
+  keywords="AI blog, developer tutorials, RAG, MLOps, SaaS architecture, DevOps"
+  lang={lang}
+  path={canonicalPath}
+  prevUrl={prevUrl}
+  nextUrl={nextUrl}
+  hreflang={false}
+  structuredData={structuredData}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground break-words">
+        Engineering Insights
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-muted-foreground">
+        Deep dives into AI systems, scalable SaaS architecture, and developer productivity.
+      </p>
+      <p class="mt-3 text-xs font-mono text-muted-foreground">
+        Available in English — {currentLangMeta.name} translations in progress
+      </p>
+
+      <!-- Real-time Search Input (Vanilla JS, filters this page) -->
+      <div class="mt-8 relative max-w-md mx-auto">
+        <Icon name="lucide:search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <input
+          type="text"
+          id="blog-search-input"
+          aria-label="Search blog posts"
+          placeholder="Search articles by title or topic..."
+          class="w-full pl-11 pr-4 py-3 rounded-full border border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+        />
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex flex-wrap gap-2 justify-center mt-6" id="category-filters" role="group" aria-label="Filter blog posts by category">
+        {
+          categories.map((cat, idx) => (
+            <button
+              type="button"
+              data-category={cat}
+              aria-pressed={idx === 0 ? 'true' : 'false'}
+              class={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                idx === 0
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'border border-border text-muted-foreground hover:text-foreground hover:bg-muted'
+              }`}
+            >
+              {cat === 'All' ? 'All' : (c.blogCategories[cat] ?? cat)}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="articles-grid">
+      {
+        gridPosts.map(({ post, cleanSlug, isFallback, loc }) => (
+          <article
+            class="article-card rounded-2xl border border-border bg-card/60 p-6 flex flex-col justify-between hover:border-primary/40 hover:shadow-lg transition-all group"
+            data-category={post.data.category}
+            data-title={loc.title.toLowerCase()}
+            data-desc={loc.description.toLowerCase()}
+          >
+            <div>
+              <div class="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                <span class="px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold">
+                  {c.blogCategories[post.data.category] ?? post.data.category}
+                </span>
+                <div class="flex items-center gap-2">
+                  {isFallback && (
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-muted text-muted-foreground" title="English original">
+                      EN
+                    </span>
+                  )}
+                  <span>{post.data.readTime} {t('common.minRead')}</span>
+                </div>
+              </div>
+              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-snug break-words">
+                <a href={`/${lang}/blog/${cleanSlug}`}>
+                  {loc.title}
+                </a>
+              </h2>
+              <p class="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                {loc.description}
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
+              <span>{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              <span class="font-semibold text-primary inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                Read article <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
+              </span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center text-muted-foreground">No articles match your search.</p></div>
+    <p data-blog-count class="sr-only" aria-live="polite"></p>
+
+    <!-- Pagination Controls (Page numbers + Prev / Next) -->
+    {
+      page.lastPage > 1 && (
+        <nav aria-label="Blog pagination" class="mt-12 flex items-center justify-center gap-2">
+          {page.url.prev ? (
+            <a
+              href={page.url.prev}
+              class="px-4 py-2 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors inline-flex items-center gap-1"
+              aria-label="Previous page"
+            >
+              <Icon name="lucide:arrow-left" class="w-4 h-4" /> Previous
+            </a>
+          ) : (
+            <span class="px-4 py-2 rounded-xl border border-border/40 text-sm text-muted-foreground/40 cursor-not-allowed inline-flex items-center gap-1" aria-disabled="true">
+              <Icon name="lucide:arrow-left" class="w-4 h-4" /> Previous
+            </span>
+          )}
+
+          <div class="hidden sm:flex items-center gap-1 mx-2">
+            {pageNumbers.map((n) => (
+              <a
+                href={pageHref(n)}
+                aria-current={n === page.currentPage ? 'page' : undefined}
+                class={`w-10 h-10 rounded-xl text-sm font-medium inline-flex items-center justify-center transition-colors ${
+                  n === page.currentPage
+                    ? 'bg-primary text-primary-foreground font-bold shadow-sm'
+                    : 'border border-border text-foreground hover:bg-muted'
+                }`}
+              >
+                {n}
+              </a>
+            ))}
+          </div>
+
+          {page.url.next ? (
+            <a
+              href={page.url.next}
+              class="px-4 py-2 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors inline-flex items-center gap-1"
+              aria-label="Next page"
+            >
+              Next <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </a>
+          ) : (
+            <span class="px-4 py-2 rounded-xl border border-border/40 text-sm text-muted-foreground/40 cursor-not-allowed inline-flex items-center gap-1" aria-disabled="true">
+              Next <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </span>
+          )}
+        </nav>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  // Pure Vanilla JS instant search + category filter (scoped to this page).
+  // Re-wires after view transitions via astro:page-load.
+  function setupBlogFilters() {
+    var search = document.getElementById('blog-search-input');
+    var pills = document.querySelectorAll('#category-filters button');
+    var cards = document.querySelectorAll('.article-card');
+    var empty = document.querySelector('[data-blog-empty]');
+    var live = document.querySelector('[data-blog-count]');
+    var activeCategory = 'All';
+
+    function filter() {
+      var query = (search && search.value || '').trim().toLowerCase();
+      var visible = 0;
+      cards.forEach(function (card) {
+        var cat = card.getAttribute('data-category') || '';
+        var title = card.getAttribute('data-title') || '';
+        var desc = card.getAttribute('data-desc') || '';
+        var matchesCat = activeCategory === 'All' || cat === activeCategory;
+        var matchesQuery = !query || title.indexOf(query) !== -1 || desc.indexOf(query) !== -1;
+        if (matchesCat && matchesQuery) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      if (empty) {
+        if (visible === 0) empty.classList.remove('hidden');
+        else empty.classList.add('hidden');
+      }
+      if (live) live.textContent = visible + ' articles shown';
+    }
+
+    if (search) search.addEventListener('input', filter);
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        pills.forEach(function (p) {
+          p.classList.remove('bg-primary', 'text-primary-foreground', 'shadow-sm');
+          p.classList.add('border', 'border-border', 'text-muted-foreground');
+          p.setAttribute('aria-pressed', 'false');
+        });
+        pill.classList.remove('border', 'border-border', 'text-muted-foreground');
+        pill.classList.add('bg-primary', 'text-primary-foreground', 'shadow-sm');
+        pill.setAttribute('aria-pressed', 'true');
+        activeCategory = pill.getAttribute('data-category') || 'All';
+        filter();
+      });
+    });
+  }
+
+  setupBlogFilters();
+  document.addEventListener('astro:page-load', setupBlogFilters);
+</script>
