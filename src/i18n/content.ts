@@ -105,8 +105,11 @@ export function getPostSlug(post: { slug: string }): string {
  */
 export function getPostLocale(post: { slug: string }): SupportedLocale {
   const parts = post.slug.split('/');
-  if (parts.length > 1 && parts[0] in languages) {
-    return parts[0] as SupportedLocale;
+  if (parts.length > 1) {
+    const matched = (Object.keys(languages) as SupportedLocale[]).find(
+      (l) => l.toLowerCase() === parts[0].toLowerCase()
+    );
+    if (matched) return matched;
   }
   return defaultLocale;
 }
