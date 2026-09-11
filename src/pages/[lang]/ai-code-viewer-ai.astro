@@ -66,6 +66,29 @@ const structuredData = [
       <a href="https://code.ladestack.in/" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 px-8 items-center justify-center rounded-full bg-brand text-white font-semibold hover:opacity-90">{t('aicode.ctaPrimary')} ↗</a>
       <a href={getLocalizedPath('/apps', lang)} class="inline-flex h-12 px-8 items-center justify-center rounded-full border border-border font-semibold hover:bg-muted">{t('aicode.ctaSecondary')}</a>
     </div>
+
+    <div class="mt-12 rounded-3xl border border-border bg-card/60 overflow-hidden text-left">
+      <div class="flex items-center gap-1.5 px-4 py-3 border-b border-border bg-muted/50" aria-hidden="true">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span><span class="h-3 w-3 rounded-full bg-amber-400"></span><span class="h-3 w-3 rounded-full bg-emerald-400"></span>
+        <span class="ml-2 font-mono text-xs text-foreground/55">{t('aicode.mockupTitle')}</span>
+      </div>
+      <div class="grid md:grid-cols-2">
+        <pre class="p-6 text-xs md:text-sm font-mono overflow-x-auto text-foreground/80"><code>&lt;button class="cta"&gt;{t('aicode.mockupBtn')}&lt;/button&gt;
+
+&lt;style&gt;
+.cta &#123;
+  background: #6E8F6A;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 999px;
+&#125;
+&lt;/style&gt;</code></pre>
+        <div class="p-6 border-t md:border-t-0 md:border-l border-border flex items-center justify-center bg-primary/5">
+          <span class="inline-flex h-12 px-8 items-center justify-center rounded-full text-white font-semibold" style="background:#6E8F6A">{t('aicode.mockupBtn')}</span>
+        </div>
+      </div>
+    </div>
+
     <div class="mt-12 grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
       {features.map((f) => (
         <div class="rounded-2xl border border-border bg-card/60 p-6">
@@ -74,9 +97,11 @@ const structuredData = [
         </div>
       ))}
     </div>
+
     <div class="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground/60">
       <span>★ 4.8 / 5</span><span>·</span><span>{t('aicode.reviews')}</span><span>·</span><span>{t('aicode.freeForever')}</span>
     </div>
+
     {blogPosts.length > 0 && (
       <div class="mt-12 rounded-3xl border border-border bg-card/60 p-6 sm:p-8 text-left">
         <h2 class="font-serif text-2xl font-bold break-words">{t('blog.post.related')}</h2>

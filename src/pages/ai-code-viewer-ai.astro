@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import { useTranslations, getLocalizedPath } from '../i18n/utils';
-import { getContent } from '../i18n/content';
+import { getContent, localizePost } from '../i18n/content';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { getPageSEO, createBreadcrumbSchema } from '../i18n/seo';
 
@@ -14,10 +14,11 @@ const seo = getPageSEO('aiCodeViewer', lang);
 const features = c.aicodeFeatures;
 
 // "From the blog": 2 newest posts from AI-related categories (English-only, canonical links).
-const blogPosts: CollectionEntry<'blog'>[] = (await getCollection('blog'))
+const blogPosts: { post: CollectionEntry<'blog'>; loc: { title: string; description: string } }[] = (await getCollection('blog'))
   .filter((p: CollectionEntry<'blog'>) => ['AI Development', 'Generative AI', 'AI Production Systems'].includes(p.data.category))
   .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 2);
+  .slice(0, 2)
+  .map((post: CollectionEntry<'blog'>) => ({ post, loc: localizePost(post.slug, post.data, lang) }));
 
 const structuredData = [
   {
@@ -62,10 +63,10 @@ const structuredData = [
     <div class="mt-12 rounded-3xl border border-border bg-card/60 overflow-hidden text-left">
       <div class="flex items-center gap-1.5 px-4 py-3 border-b border-border bg-muted/50" aria-hidden="true">
         <span class="h-3 w-3 rounded-full bg-red-400"></span><span class="h-3 w-3 rounded-full bg-amber-400"></span><span class="h-3 w-3 rounded-full bg-emerald-400"></span>
-        <span class="ml-2 font-mono text-xs text-foreground/55">index.html — preview</span>
+        <span class="ml-2 font-mono text-xs text-foreground/55">{t('aicode.mockupTitle')}</span>
       </div>
       <div class="grid md:grid-cols-2">
-        <pre class="p-6 text-xs md:text-sm font-mono overflow-x-auto text-foreground/80"><code>&lt;button class="cta"&gt;Ship it&lt;/button&gt;
+        <pre class="p-6 text-xs md:text-sm font-mono overflow-x-auto text-foreground/80"><code>&lt;button class="cta"&gt;{t('aicode.mockupBtn')}&lt;/button&gt;
 
 &lt;style&gt;
 .cta &#123;
@@ -76,7 +77,7 @@ const structuredData = [
 &#125;
 &lt;/style&gt;</code></pre>
         <div class="p-6 border-t md:border-t-0 md:border-l border-border flex items-center justify-center bg-primary/5">
-          <span class="inline-flex h-12 px-8 items-center justify-center rounded-full text-white font-semibold" style="background:#6E8F6A">Ship it</span>
+          <span class="inline-flex h-12 px-8 items-center justify-center rounded-full text-white font-semibold" style="background:#6E8F6A">{t('aicode.mockupBtn')}</span>
         </div>
       </div>
     </div>
@@ -96,14 +97,14 @@ const structuredData = [
 
     {blogPosts.length > 0 && (
       <div class="mt-12 rounded-3xl border border-border bg-card/60 p-6 sm:p-8 text-left">
-        <h2 class="font-serif text-2xl font-bold break-words">From the blog</h2>
+        <h2 class="font-serif text-2xl font-bold break-words">{t('blog.post.related')}</h2>
         <div class="mt-5 grid grid-cols-1 xs:grid-cols-2 gap-4">
-          {blogPosts.map((post) => (
+          {blogPosts.map(({ post, loc }) => (
             <a href={`/blog/${post.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all">
-              <Image src={post.data.coverImage} alt={`${post.data.title} — blog cover`} width={600} height={192} loading="lazy" decoding="async" class="h-32 w-full object-cover" />
+              <Image src={post.data.coverImage} alt={`${loc.title} — related article cover`} width={600} height={192} loading="lazy" decoding="async" class="h-32 w-full object-cover" />
               <div class="p-5">
-                <p class="text-[11px] font-mono text-primary">{post.data.category}</p>
-                <h3 class="mt-1.5 font-semibold leading-snug">{post.data.title}</h3>
+                <p class="text-[11px] font-mono text-primary">{c.blogCategories[post.data.category] ?? post.data.category}</p>
+                <h3 class="mt-1.5 font-semibold leading-snug">{loc.title}</h3>
               </div>
             </a>
           ))}
