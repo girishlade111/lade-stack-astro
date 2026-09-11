@@ -1,5 +1,5 @@
-import { defaultLocale, type SupportedLocale } from './config';
-import { z } from 'astro:content';
+import { defaultLocale, languages, type SupportedLocale } from './config';
+import { z, type CollectionEntry } from 'astro:content';
 import type { LocaleContent } from './content-types';
 import { en } from './content-en';
 import { ru } from './content-ru';
@@ -90,4 +90,70 @@ export function localizePost(
     title: o?.title ?? fallback.title,
     description: o?.description ?? fallback.description
   };
+}
+
+/**
+ * Strips locale prefix from blog post slug (e.g. 'en/zero-trust' -> 'zero-trust').
+ */
+export function getPostSlug(post: { slug: string }): string {
+  const parts = post.slug.split('/');
+  return parts.length > 1 ? parts.slice(1).join('/') : post.slug;
+}
+
+/**
+ * Extracts locale from a blog post slug (e.g. 'zh/zero-trust' -> 'zh', 'zero-trust' -> 'en').
+ */
+export function getPostLocale(post: { slug: string }): SupportedLocale {
+  const parts = post.slug.split('/');
+  if (parts.length > 1 && parts[0] in languages) {
+    return parts[0] as SupportedLocale;
+  }
+  return defaultLocale;
+}
+
+export type LocaleBlogPost = {
+  post: CollectionEntry<'blog'>;
+  isFallback: boolean;
+  cleanSlug: string;
+};
+
+/**
+ * Resolves posts for a given locale.
+ * - For English ('en'): returns all English posts with isFallback=false.
+ * - For non-English: checks if a translated post exists with the same clean slug in that locale's folder.
+ *   If found, uses it (isFallback=false). Otherwise falls back to the English post (isFallback=true).
+ * Results are sorted newest first by pubDate.
+ */
+export function getBlogPostsForLocale(
+  lang: SupportedLocale,
+  allPosts: CollectionEntry<'blog'>[]
+): LocaleBlogPost[] {
+  const enPosts = allPosts.filter((p) => getPostLocale(p) === defaultLocale);
+
+  if (lang === defaultLocale) {
+    return enPosts
+      .map((post) => ({
+        post,
+        isFallback: false,
+        cleanSlug: getPostSlug(post)
+      }))
+      .sort((a, b) => b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf());
+  }
+
+  const localePosts = allPosts.filter((p) => getPostLocale(p) === lang);
+  const localePostMap = new Map<string, CollectionEntry<'blog'>>();
+  for (const p of localePosts) {
+    localePostMap.set(getPostSlug(p), p);
+  }
+
+  return enPosts
+    .map((enPost) => {
+      const cleanSlug = getPostSlug(enPost);
+      const translated = localePostMap.get(cleanSlug);
+      if (translated) {
+        return { post: translated, isFallback: false, cleanSlug };
+      }
+      return { post: enPost, isFallback: true, cleanSlug };
+    })
+    .sort((a, b) => b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf());
 }
