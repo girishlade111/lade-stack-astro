@@ -8,7 +8,7 @@ import Icon from '@/components/Icon.astro';
 
 interface Props {
   lang: SupportedLocale;
-  /** Hide the locale switcher (English-only pages such as /blog). */
+  /** Hide the locale switcher (error pages such as /404, /500). */
   hideLanguageSwitcher?: boolean;
 }
 
@@ -111,16 +111,12 @@ function isActive(path: string): boolean {
           {t(link.key)}
         </a>
       ))}
-      <div class="pt-3 flex items-center justify-between text-sm text-ash">
-        {hideLanguageSwitcher ? (
-          <span class="text-xs text-muted-foreground">Blog available in English</span>
-        ) : (
-          <>
-            <span>{t('common.language')}</span>
-            <LanguageSwitcher currentLang={lang} />
-          </>
-        )}
-      </div>
+      {!hideLanguageSwitcher && (
+        <div class="pt-3 flex items-center justify-between text-sm text-ash">
+          <span>{t('common.language')}</span>
+          <LanguageSwitcher currentLang={lang} />
+        </div>
+      )}
     </div>
   </nav>
 </header>

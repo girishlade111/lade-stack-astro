@@ -108,6 +108,26 @@ assert('en href -> /about', byCode.en === '/about');
 assert('ja href -> /ja/about', byCode.ja === '/ja/about');
 assert('zh href -> /zh/about', byCode.zh === '/zh/about');
 
+// 2b. Test blog route href rewriting (/blog -> localized home)
+btn.fire('click', { stopPropagation: stopProp }); // close
+global.window.location.pathname = '/blog';
+btn.fire('click', { stopPropagation: stopProp }); // open with /blog
+const blogLinks = {};
+links.forEach((a) => { blogLinks[a.getAttribute('data-lang-link')] = a.getAttribute('href'); });
+assert('blog root: en href -> /blog', blogLinks.en === '/blog');
+assert('blog root: zh href -> /zh', blogLinks.zh === '/zh');
+assert('blog root: ja href -> /ja', blogLinks.ja === '/ja');
+
+// 2c. Test blog slug href rewriting (/blog/[slug] -> localized home)
+btn.fire('click', { stopPropagation: stopProp }); // close
+global.window.location.pathname = '/blog/zero-trust-security-web-applications';
+btn.fire('click', { stopPropagation: stopProp }); // open with /blog/...
+const blogPostLinks = {};
+links.forEach((a) => { blogPostLinks[a.getAttribute('data-lang-link')] = a.getAttribute('href'); });
+assert('blog post: en href -> /blog/zero-trust-security-web-applications', blogPostLinks.en === '/blog/zero-trust-security-web-applications');
+assert('blog post: zh href -> /zh', blogPostLinks.zh === '/zh');
+assert('blog post: ja href -> /ja', blogPostLinks.ja === '/ja');
+
 // 3. Second click closes
 btn.fire('click', { stopPropagation: stopProp });
 assert('menu closes on second click', menu.classList.contains('hidden'));
