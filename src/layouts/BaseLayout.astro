@@ -33,6 +33,11 @@ interface Props {
   structuredData?: object | object[];
   lang?: SupportedLocale;
   path?: string;
+  /**
+   * Breadcrumb trail forwarded to SEO.astro (single BreadcrumbList block).
+   * Omit on homepage, error pages, and noindex pages.
+   */
+  breadcrumbs?: { name: string; url: string }[];
   /** Hide the locale switcher (English-only pages such as /blog — no translations exist). */
   hideLanguageSwitcher?: boolean;
   /** Emit no hreflang alternates (single-language page). */
