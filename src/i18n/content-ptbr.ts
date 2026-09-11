@@ -129,7 +129,7 @@ export const ptBR: LocaleContent = {
     },
     {
       q: 'Quem está por trás do Lade Stack?',
-      a: 'O Lade Stack foi fundado e é arquitetado por Girish Lade, que atua como Fundador e Arquiteto-Chefe de Software (Founder & Lead Software Architect). Unindo uma bagagem multidisciplinar em design de UI/UX, engenharia frontend e backend, arquitetura em nuvem e IA Generativa, Girish define a direção dos produtos e constrói ferramentas para resolver problemas reais de engenharia.'
+      a: 'O Lade Stack foi fundado e é arquitetado por Girish Lade, que atua como Fundador e Arquiteto-Chefe de Software. Unindo uma bagagem multidisciplinar em design de UI/UX, engenharia frontend e backend, arquitetura em nuvem e IA Generativa, Girish define a direção dos produtos e constrói ferramentas para resolver problemas reais de engenharia.'
     },
     {
       q: 'O que diferencia o Lade Stack de outras plataformas?',
@@ -331,7 +331,7 @@ export const ptBR: LocaleContent = {
       articles: [
         {
           title: 'Privacidade por design: arquitetura no navegador',
-          text: 'O principal diferencial arquitetural do Lade Stack é a \'Privacidade por Design (Privacy by Design)\'. Ferramentas como o LS PDF Tools e o LS Image Studio operam exclusivamente na memória do seu navegador através de WebAssembly, HTML5 File API e Canvas. Documentos confidenciais, contratos e imagens privadas nunca são enviados, gravados ou analisados em servidores remotos.'
+          text: 'O principal diferencial arquitetural do Lade Stack é a \'Privacidade por Design\'. Ferramentas como o LS PDF Tools e o LS Image Studio operam exclusivamente na memória do seu navegador através de WebAssembly, HTML5 File API e Canvas. Documentos confidenciais, contratos e imagens privadas nunca são enviados, gravados ou analisados em servidores remotos.'
         },
         {
           title: 'Tráfego de dados e política de zero retenção',
@@ -695,7 +695,7 @@ export const ptBR: LocaleContent = {
   privacy: [
     {
       h: 'Visão geral e princípios de privacidade',
-      p: 'O Lade Stack é um ecossistema independente de ferramentas para desenvolvedores e engenharia de IA fundado na Índia por Girish Lade. Nosso princípio arquitetural fundamental é a privacidade por design (Privacy by Design): o software deve capacitar os usuários sem telemetria invasiva, vigilância ou monetização oculta de dados. Minimizamos rigorosamente as informações que coletamos, executamos o processamento de arquivos e a computação no navegador do usuário sempre que tecnicamente viável e nunca vendemos ou alugamos seus dados pessoais para corretores de dados ou redes de publicidade.'
+      p: 'O Lade Stack é um ecossistema independente de ferramentas para desenvolvedores e engenharia de IA fundado na Índia por Girish Lade. Nosso princípio arquitetural fundamental é a privacidade por design: o software deve capacitar os usuários sem telemetria invasiva, vigilância ou monetização oculta de dados. Minimizamos rigorosamente as informações que coletamos, executamos o processamento de arquivos e a computação no navegador do usuário sempre que tecnicamente viável e nunca vendemos ou alugamos seus dados pessoais para corretores de dados ou redes de publicidade.'
     },
     {
       h: 'Informações que você fornece diretamente',
