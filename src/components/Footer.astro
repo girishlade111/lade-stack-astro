@@ -124,7 +124,13 @@ const currentYear = new Date().getFullYear();
         <p class="caption text-ash mb-3 leading-relaxed">
           {t('footer.newsletterDesc')}
         </p>
-        <form data-newsletter data-success={t('footer.subscribed')} class="space-y-2.5" novalidate>
+        <form
+          data-newsletter
+          data-success={t('footer.subscribed')}
+          data-error={t('footer.invalidEmail')}
+          class="space-y-2.5"
+          novalidate
+        >
           <label class="sr-only" for="newsletter-email">{t('footer.newsletterTitle')}</label>
           <input
             id="newsletter-email"
@@ -132,6 +138,7 @@ const currentYear = new Date().getFullYear();
             required
             placeholder={t('common.emailPlaceholder')}
             aria-describedby="newsletter-msg"
+            data-error={t('footer.invalidEmail')}
             class="text-input-dark w-full"
           />
           <button
@@ -189,7 +196,8 @@ const currentYear = new Date().getFullYear();
             input.setAttribute('aria-invalid', 'true');
             input.style.borderColor = '#dd0000';
           }
-          showMsg('Please enter a valid email address (e.g. you@example.com).', false);
+          var errorMsg = formEl.getAttribute('data-error') || (input && input.getAttribute('data-error')) || 'Please enter a valid email address (e.g. you@example.com).';
+          showMsg(errorMsg, false);
           return;
         }
         if (input) {

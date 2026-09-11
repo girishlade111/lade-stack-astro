@@ -154,6 +154,34 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
           } catch (err) {}
         });
       });
+
+      root.addEventListener('keydown', function (e) {
+        var menuOpen = isOpen();
+        if (e.key === 'Escape' && menuOpen) {
+          e.preventDefault();
+          setOpen(false);
+          try { btn.focus(); } catch (err2) {}
+          return;
+        }
+        // B10: ArrowUp/Down + Home/End navigation inside the menu.
+        if (!menuOpen) return;
+        var items = Array.prototype.slice.call(root.querySelectorAll('[data-lang-link]'));
+        if (!items.length) return;
+        var idx = items.indexOf(/** @type {Element} */ (document.activeElement));
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          (items[idx + 1] || items[0]).focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          (items[idx - 1] || items[items.length - 1]).focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          items[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          items[items.length - 1].focus();
+        }
+      });
     });
 
     if (!window.__ladestackLangDocWired) {
@@ -162,7 +190,7 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
         document.querySelectorAll('[data-lang-switcher]').forEach(function (root) {
           var menu = root.querySelector('[data-lang-menu]');
           var btn = root.querySelector('[data-lang-button]');
-          if (menu && !menu.classList.contains('hidden') && !root.contains(e.target)) {
+          if (menu && !menu.classList.contains('hidden') && !root.contains(/** @type {Node} */ (e.target))) {
             menu.classList.add('hidden');
             if (btn) btn.setAttribute('aria-expanded', 'false');
             var chevron = btn ? btn.querySelector('svg') : null;
@@ -170,35 +198,24 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
           }
         });
       });
+
       document.addEventListener('keydown', function (e) {
-        var menuOpen = menu && !menu.classList.contains('hidden');
-        if (e.key === 'Escape' && menuOpen) {
-          setOpen(false);
-          btn.setAttribute('aria-expanded', 'false');
-          try { btn.focus(); } catch (err2) {}
-          return;
+        if (e.key === 'Escape') {
+          document.querySelectorAll('[data-lang-switcher]').forEach(function (root) {
+            var menu = root.querySelector('[data-lang-menu]');
+            var btn = root.querySelector('[data-lang-button]');
+            if (menu && !menu.classList.contains('hidden')) {
+              menu.classList.add('hidden');
+              if (btn) {
+                btn.setAttribute('aria-expanded', 'false');
+                var chevron = btn.querySelector('svg');
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+              }
+            }
+          });
         }
-        // B10: ArrowUp/Down + Home/End navigation inside the menu.
-        if (!menuOpen) return;
-        var items = Array.prototype.slice.call(root.querySelectorAll('[data-lang-link]'));
-        if (!items.length) return;
-        var idx = items.indexOf(document.activeElement);
-        if (e.key === 'ArrowDown') { e.preventDefault(); (items[idx + 1] || items[0]).focus(); }
-        else if (e.key === 'ArrowUp') { e.preventDefault(); (items[idx - 1] || items[items.length - 1]).focus(); }
-        else if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
-        else if (e.key === 'End') { e.preventDefault(); items[items.length - 1].focus(); }
       });
 
-      document.addEventListener('keydown', function (e2) {
-        if (e2.key === 'Escape') {
-          document.querySelectorAll('[data-lang-switcher] [data-lang-menu]').forEach(function (m) {
-            m.classList.add('hidden');
-          });
-          document.querySelectorAll('[data-lang-switcher] [data-lang-button]').forEach(function (b) {
-            b.setAttribute('aria-expanded', 'false');
-          });
-        }
-      });
       // Close open menus before a View Transition starts.
       document.addEventListener('astro:before-preparation', function () {
         document.querySelectorAll('[data-lang-switcher] [data-lang-menu]').forEach(function (menu) {
