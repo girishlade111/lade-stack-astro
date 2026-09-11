@@ -19,8 +19,7 @@ const route = getRouteFromUrl(Astro.url);
 const navLinks = [
   { key: 'nav.products' as const, path: '/products' },
   { key: 'nav.apps' as const, path: '/apps' },
-  // Blog is English-only: always link the canonical /blog, never a locale prefix.
-  { key: 'nav.blog' as const, path: '/blog', canonicalOnly: true },
+  { key: 'nav.blog' as const, path: '/blog' },
   { key: 'nav.about' as const, path: '/about' },
   { key: 'nav.docs' as const, path: '/docs' },
   { key: 'nav.contact' as const, path: '/contact' },
