@@ -34,6 +34,7 @@ const t = useTranslations(lang);
     </div>
     <p data-admin-status class="hidden mb-6 text-sm text-emerald-600 dark:text-emerald-400" role="status"></p>
 
+    <!-- Form for adding app -->
     <div class="p-8 rounded-3xl border border-border bg-card mb-12">
       <h2 class="text-lg font-bold text-foreground mb-6">{t('admin.newTitle')}</h2>
       <form id="add-app-form" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -55,7 +56,7 @@ const t = useTranslations(lang);
         </div>
         <div>
           <label class="block text-xs font-semibold text-foreground mb-2" for="app-url">Landing URL</label>
-          <input type="text" id="app-url" placeholder="/my-app or https://..." required class="w-full px-3.5 py-2 rounded-xl border border-border bg-background text-sm" />
+          <input type="text" id="app-url" placeholder="/my-app, https://... (empty = Coming Soon)" class="w-full px-3.5 py-2 rounded-xl border border-border bg-background text-sm" />
         </div>
         <div class="sm:col-span-2">
           <button type="submit" class="px-6 py-2.5 rounded-xl border border-border bg-card hover:bg-muted text-foreground font-semibold text-sm">
@@ -65,6 +66,7 @@ const t = useTranslations(lang);
       </form>
     </div>
 
+    <!-- Raw JSON Preview -->
     <div class="p-6 rounded-3xl border border-border bg-muted/40">
       <h3 class="text-sm font-semibold text-foreground mb-3">{t('admin.preview')}</h3>
       <pre id="json-preview" class="p-4 rounded-2xl bg-card border border-border font-mono text-xs overflow-x-auto text-foreground max-h-96">{JSON.stringify(appsData, null, 2)}</pre>
@@ -72,7 +74,7 @@ const t = useTranslations(lang);
   </div>
 </BaseLayout>
 
-<script define:vars={{ initialApps: appsData, msgAdded: t('admin.added'), msgCopied: t('admin.copied') }}>
+<script is:inline define:vars={{ initialApps: appsData, msgAdded: t('admin.added'), msgCopied: t('admin.copied') }}>
   /** @param {string} id @returns {HTMLInputElement | HTMLTextAreaElement | null} */
   function field(id) {
     return /** @type {HTMLInputElement | HTMLTextAreaElement | null} */ (document.getElementById(id));
@@ -108,9 +110,11 @@ const t = useTranslations(lang);
       var title = titleEl.value.trim();
       if (!title) return;
 
+      var urlVal = urlEl.value.trim();
+      var slug = title.toLowerCase().replace(/\s+/g, '-');
       var newApp = {
-        id: title.toLowerCase().replace(/\s+/g, '-'),
-        slug: title.toLowerCase().replace(/\s+/g, '-'),
+        id: slug,
+        slug: slug,
         title: title,
         tagline: taglineEl.value.trim(),
         description: descEl.value.trim(),
@@ -118,10 +122,16 @@ const t = useTranslations(lang);
         category: catEl.value.trim() || 'AI Tools',
         features: ['Fast', 'Free'],
         timeToValue: 'Instant',
+        integrations: ['Web'],
         lifetimeFree: true,
-        landingUrl: urlEl.value.trim(),
+        iconAlt: title + ' icon',
         popularityScore: 50,
       };
+      if (urlVal) {
+        newApp.landingUrl = urlVal;
+      } else {
+        newApp.comingSoon = true;
+      }
 
       apps.push(newApp);
       updatePreview();
@@ -132,6 +142,20 @@ const t = useTranslations(lang);
 
   if (exportBtn) {
     exportBtn.addEventListener('click', function () {
+      // B14: block export of malformed entries (mirrors appsSchema in content.ts).
+      var bad = -1;
+      var req = ['id', 'slug', 'title', 'tagline', 'description', 'icon', 'category'];
+      for (var i = 0; i < apps.length; i++) {
+        var a = apps[i] || {};
+        var ok = req.every(function (k) { return typeof a[k] === 'string' && a[k].trim(); });
+        if (a.landingUrl != null && typeof a.landingUrl !== 'string') ok = false;
+        if (a.comingSoon != null && typeof a.comingSoon !== 'boolean') ok = false;
+        if (!ok) { bad = i; break; }
+      }
+      if (bad !== -1) {
+        status('Entry #' + (bad + 1) + ' is invalid — fix required fields before exporting.');
+        return;
+      }
       var payload = JSON.stringify(apps, null, 2);
       function done() {
         status(msgCopied);

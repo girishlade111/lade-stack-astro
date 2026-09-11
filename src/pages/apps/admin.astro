@@ -69,7 +69,7 @@ const t = useTranslations(defaultLang);
   </div>
 </BaseLayout>
 
-<script define:vars={{ initialApps: appsData, msgAdded: t('admin.added'), msgCopied: t('admin.copied') }}>
+<script is:inline define:vars={{ initialApps: appsData, msgAdded: t('admin.added'), msgCopied: t('admin.copied') }}>
   /** @param {string} id @returns {HTMLInputElement | HTMLTextAreaElement | null} */
   function field(id) {
     return /** @type {HTMLInputElement | HTMLTextAreaElement | null} */ (document.getElementById(id));
