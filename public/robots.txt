@@ -22,6 +22,9 @@ Allow: /*.woff$
 Allow: /*.woff2$
 
 # Administrative & Private Dashboard (Excluded from Search)
+# NOTE: /rss.xml is intentionally crawlable (explicit Allow below) —
+# the blog feed must stay discoverable to feed readers and search engines.
+Allow: /rss.xml
 Disallow: /apps/admin
 Disallow: /apps/admin/*
 Disallow: /*/apps/admin
