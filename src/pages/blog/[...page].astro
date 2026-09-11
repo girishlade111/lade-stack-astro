@@ -2,16 +2,15 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { useTranslations } from '@/i18n/utils';
-import { localizePost, getContent } from '@/i18n/content';
+import { localizePost, getContent, getPostSlug, getBlogPostsForLocale } from '@/i18n/content';
 import Icon from '@/components/Icon.astro';
 import type { GetStaticPaths, Page } from 'astro';
 
 // 12 posts per page, newest first → /blog (page 1), /blog/2, /blog/3, …
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
-  const allPosts = (await getCollection('blog')).sort(
-    (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
-  return paginate(allPosts, { pageSize: 12 });
+  const allBlogPosts = await getCollection('blog');
+  const enPosts = getBlogPostsForLocale('en', allBlogPosts).map((e) => e.post);
+  return paginate(enPosts, { pageSize: 12 });
 };
 
 const defaultLang = 'en' as const;
@@ -20,12 +19,14 @@ const c = getContent(defaultLang);
 const { page } = Astro.props as { page: Page<CollectionEntry<'blog'>> };
 
 // Full sorted list (for category pills) — page.data holds only the current slice.
-const allSorted: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort(
-  (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const allBlogPosts = await getCollection('blog');
+const allSorted = getBlogPostsForLocale(defaultLang, allBlogPosts).map((e) => e.post);
 
 const categories = ['All', ...new Set(allSorted.map((p) => p.data.category))];
-const gridPosts = page.data.map((post) => ({ post, loc: localizePost(post.slug, post.data, defaultLang) }));
+const gridPosts = page.data.map((post) => {
+  const cleanSlug = getPostSlug(post);
+  return { post, cleanSlug, loc: localizePost(cleanSlug, post.data, defaultLang) };
+});
 
 const SITE_URL = 'https://ladestack.in';
 const canonicalPath = page.currentPage === 1 ? '/blog' : `/blog/${page.currentPage}`;
@@ -101,12 +102,11 @@ const structuredData = {
     <!-- Articles Grid -->
     <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="articles-grid">
       {
-        gridPosts.map(({ post, loc }) => (
+        gridPosts.map(({ post, cleanSlug, loc }) => (
           <article
-            class="article-card group p-6 rounded-3xl border border-border bg-card hover:border-primary/50 transition-all flex flex-col justify-between"
+            class="article-card rounded-2xl border border-border bg-card/60 p-6 flex flex-col justify-between hover:border-primary/40 hover:shadow-lg transition-all group"
             data-category={post.data.category}
             data-title={loc.title.toLowerCase()}
-            data-desc={loc.description.toLowerCase()}
           >
             <div>
               <div class="flex items-center justify-between text-xs text-muted-foreground mb-4">
@@ -116,7 +116,7 @@ const structuredData = {
                 <span>{post.data.readTime} {t('common.minRead')}</span>
               </div>
               <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-snug break-words">
-                <a href={`/blog/${post.slug}`}>
+                <a href={`/blog/${cleanSlug}`}>
                   {loc.title}
                 </a>
               </h2>
