@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { localizePost, getContent, getLocalizedApps } from '../../i18n/content';
 
 export async function getStaticPaths() {
@@ -42,10 +42,15 @@ const scored = all
 const relatedPool = scored.length ? scored : all.filter((p) => p.slug !== post.slug).slice(0, 3);
 const relatedLoc = relatedPool.map((r) => ({ r, loc: localizePost(r.slug, r.data, lang) }));
 
-import { createBreadcrumbSchema } from '../../i18n/seo';
-
 // Related tools: app IDs from frontmatter resolved via apps.json (English copy).
 const relatedTools = getLocalizedApps(lang).filter((app) => (post.data.relatedApps ?? []).includes(app.id));
+
+// Breadcrumb trail is emitted via SEO.astro `breadcrumbs` (single BreadcrumbList).
+const breadcrumbs = [
+  { name: 'Home', url: `https://ladestack.in${getLocalizedPath('/', lang)}` },
+  { name: 'Blog', url: `https://ladestack.in${getLocalizedPath('/blog', lang)}` },
+  { name: loc.title, url: `https://ladestack.in${getLocalizedPath(`/blog/${post.slug}`, lang)}` },
+];
 
 const structuredData = [
   {
@@ -63,11 +68,6 @@ const structuredData = [
     keywords: post.data.tags.join(', '),
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://ladestack.in/blog/${post.slug}` }
   },
-  createBreadcrumbSchema([
-    { name: 'Home', url: 'https://ladestack.in/' },
-    { name: 'Blog', url: 'https://ladestack.in/blog' },
-    { name: loc.title, url: `https://ladestack.in/blog/${post.slug}` },
-  ]),
 ];
 ---
 <BaseLayout
@@ -80,6 +80,7 @@ const structuredData = [
   ogImage={`https://ladestack.in${post.data.coverImage}`}
   article={{ publishedTime: isoDate, modifiedTime: isoModified, author: post.data.author, tags: post.data.tags }}
   structuredData={structuredData}
+  breadcrumbs={breadcrumbs}
   hreflang={false}
   hideLanguageSwitcher={true}
 >

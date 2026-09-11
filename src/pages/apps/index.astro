@@ -7,7 +7,7 @@ import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 
-import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
+import { getPageSEO } from '@/i18n/seo';
 
 const defaultLang = 'en' as const;
 const t = useTranslations(defaultLang);
@@ -24,10 +24,12 @@ const structuredData = [
     url: 'https://ladestack.in/apps',
     description: seo.description,
   },
-  createBreadcrumbSchema([
-    { name: 'Home', url: 'https://ladestack.in/' },
-    { name: seo.breadcrumbName, url: 'https://ladestack.in/apps' },
-  ]),
+];
+
+// Breadcrumb trail is emitted via SEO.astro `breadcrumbs` (single BreadcrumbList).
+const breadcrumbs = [
+  { name: 'Home', url: `https://ladestack.in${getLocalizedPath('/', defaultLang)}` },
+  { name: seo.breadcrumbName, url: `https://ladestack.in${getLocalizedPath('/apps', defaultLang)}` },
 ];
 ---
 
@@ -40,6 +42,7 @@ const structuredData = [
   lang={defaultLang}
   path="/apps"
   structuredData={structuredData}
+  breadcrumbs={breadcrumbs}
 >
   <div class="marketing-section-dark">
     <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
