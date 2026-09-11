@@ -447,21 +447,27 @@ export const ru: LocaleContent = {
   ],
   apps: {},
   appTime: {
-    'Instant (< 1s)': 'Мгновенно (< 1с)',
-    'Fast (< 5s)': 'Быстро (< 5с)',
-    'Interactive (< 10s)': 'Интерактивно (< 10с)'
+    'Instant': 'Мгновенно',
+    '1 minute': '1 минута',
+    '2 minutes': '2 минуты',
+    '5 minutes': '5 минут'
   },
   appCategories: {
-    'ai-tools': 'ИИ-инструменты',
-    'developer-tools': 'Инструменты разработки',
-    'web-apps': 'Веб-приложения',
-    'utilities': 'Утилиты'
+    'AI Tools': 'ИИ-инструменты',
+    'Productivity': 'Продуктивность',
+    'Utilities': 'Утилиты'
   },
   blogCategories: {
-    'AI & Engineering': 'ИИ и инженерия',
-    'Frontend Architecture': 'Фронтенд-архитектура',
-    'Cloud & DevOps': 'Облачные технологии и DevOps',
-    'Developer Productivity': 'Продуктивность разработчика'
+    'AI Development': 'Разработка ИИ',
+    'Generative AI': 'Генеративный ИИ',
+    'SaaS Architecture': 'Архитектура SaaS',
+    'Backend as a Service': 'BaaS',
+    'API Design & Scaling': 'Проектирование и масштабирование API',
+    'Cloud Computing': 'Облачные вычисления',
+    'Virtual Machines': 'Виртуальные машины',
+    'DevOps & CI/CD': 'DevOps и CI/CD',
+    'Security in Web Apps': 'Безопасность веб-приложений',
+    'AI Production Systems': 'ИИ в продакшене'
   },
   blogPosts: {}
 };
