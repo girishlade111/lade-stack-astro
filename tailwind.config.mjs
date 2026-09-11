@@ -89,8 +89,10 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'monospace'],
+        // 'Inter Fallback' / 'IBM Plex Mono Fallback' are metric-matched
+        // local faces (see global.css) that hold layout during font swap.
+        sans: ['Inter', 'Inter Fallback', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'IBM Plex Mono Fallback', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
       spacing: {
         xxs: '4px',

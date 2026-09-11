@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------ */
+/* Metric-matched font fallbacks (Fontaine method, values computed     */
+/* from the actual @fontsource files + system reference fonts:        */
+/* mean advance over printable ASCII, hhea box scaled by size-adjust). */
+/* Inter 400 latin vs Arial: size-adjust 106.58%.                     */
+/* IBM Plex Mono 400 latin vs Consolas: size-adjust 109.13%.          */
+/* These faces render instantly (local system fonts) with near-zero   */
+/* layout shift, then `font-display: swap` exchanges the webfonts in. */
+/* Browsers without override/size-adjust support ignore the           */
+/* descriptors and fall back to plain Arial/Consolas — still fine.    */
+/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 106.58%;
+  ascent-override: 90.89%;
+  descent-override: 22.63%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'IBM Plex Mono Fallback';
+  src: local('Consolas');
+  size-adjust: 109.13%;
+  ascent-override: 93.92%;
+  descent-override: 25.2%;
+  line-gap-override: 0%;
+}
+
 @layer base {
   :root {
     --background: #0b0b0b;
