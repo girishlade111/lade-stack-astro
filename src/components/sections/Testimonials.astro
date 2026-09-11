@@ -34,7 +34,7 @@ const testimonials = getContent(lang).testimonials;
       {testimonials.map((item) => (
         <FeatureCard variant="light" class="flex flex-col justify-between">
           <div>
-            <div class="text-ink text-sm tracking-widest mb-4" aria-label="5 stars rating">★★★★★</div>
+            <div class="text-ink text-sm tracking-widest mb-4" aria-label={t('home.testimonials.rating')}>★★★★★</div>
             <blockquote class="body text-ink/80 leading-relaxed italic mb-6">
               “{item.quote}”
             </blockquote>
