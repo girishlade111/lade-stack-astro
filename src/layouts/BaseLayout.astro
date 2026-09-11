@@ -38,7 +38,7 @@ interface Props {
    * Omit on homepage, error pages, and noindex pages.
    */
   breadcrumbs?: { name: string; url: string }[];
-  /** Hide the locale switcher (English-only pages such as /blog — no translations exist). */
+  /** Hide the locale switcher (error pages such as /404, /500). */
   hideLanguageSwitcher?: boolean;
   /** Emit no hreflang alternates (single-language page). */
   hreflang?: boolean;
