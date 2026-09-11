@@ -12,7 +12,7 @@
 
 **Enterprise-grade AI developer tools ecosystem, engineering portfolio, and high-performance technical knowledge hub.**
 
-[Live Production](https://ladestack.in) • [Explore Apps](https://ladestack.in/apps) • [Read the Blog](https://ladestack.in/blog) • [Founder Profile](https://ladestack.in/about) • [Documentation](https://ladestack.in/docs)
+[Live Production](https://ladestack.in) • [Explore Apps](https://ladestack.in/apps) • [Read the Blog](https://ladestack.in/blog) • [Founder Profile](https://ladestack.in/about) • [Documentation](https://ladestack.in/docs) • [Developer Guide](DEVELOPER_GUIDE.md)
 
 </div>
 
@@ -20,6 +20,7 @@
 
 ## 📖 Table of Contents
 
+- [Developer Architecture Guide & Codebase Map](DEVELOPER_GUIDE.md) *(Deep-dive for developers)*
 - [Executive Overview](#-executive-overview)
 - [Core Architectural Invariants](#-core-architectural-invariants)
 - [Key Features](#-key-features)
