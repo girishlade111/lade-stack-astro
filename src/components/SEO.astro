@@ -197,3 +197,14 @@ const currentLangMeta = languages[lang];
     />
   )
 }
+
+<!-- BreadcrumbList (single entity — only when a page passes an explicit trail) -->
+{
+  breadcrumbs && breadcrumbs.length > 0 && (
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(createBreadcrumbSchema(breadcrumbs))}
+    />
+  )
+}
