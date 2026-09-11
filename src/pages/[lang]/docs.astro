@@ -70,22 +70,24 @@ const structuredData = [
           />
         </div>
 
-        <!-- Mobile / Tablet Quick Jump Bar -->
+        <!-- Mobile / Tablet Quick Jump Bar using Button variant="app-tab" -->
         <nav aria-label="Documentation sections mobile" class="lg:hidden flex items-center gap-2 overflow-x-auto pb-2 mt-6 scrollbar-none">
           {categories.map((cat) => (
-            <a
+            <Button
               href={`#${cat.id}`}
-              class="shrink-0 app-pill btn-app-tab !h-8 !px-3 cursor-pointer"
+              variant="app-tab"
+              class="shrink-0 app-pill !h-8 !px-3 cursor-pointer"
             >
               {cat.title}
-            </a>
+            </Button>
           ))}
-          <a
+          <Button
             href="#changelog"
-            class="shrink-0 app-pill btn-app-tab !h-8 !px-3 cursor-pointer"
+            variant="app-tab"
+            class="shrink-0 app-pill !h-8 !px-3 cursor-pointer"
           >
             {t('docs.changelog')}
-          </a>
+          </Button>
         </nav>
       </div>
 
@@ -158,15 +160,16 @@ const structuredData = [
             <ol class="mt-4 space-y-3">
               {changelog.map((entry, entryIdx) => (
                 <li
-                  class="rounded-marketing border border-hairline-soft bg-canvas-soft px-5 py-4 hover:border-graphite transition-colors lift-on-hover"
                   data-reveal
                   data-reveal-delay={String((entryIdx % 4) * 60)}
                 >
-                  <p class="flex items-center gap-3">
-                    <span class="mono-micro px-2.5 py-1 rounded-full bg-canvas border border-hairline-soft text-brand font-mono font-medium">{entry.v}</span>
-                    <span class="caption text-mute">{entry.date}</span>
-                  </p>
-                  <p class="mt-2 body-sm text-ash leading-relaxed">{entry.text}</p>
+                  <FeatureCard variant="dark" class="!p-5 hover:border-graphite transition-colors lift-on-hover">
+                    <p class="flex items-center gap-3">
+                      <span class="mono-micro px-2.5 py-1 rounded-full bg-canvas border border-hairline-soft text-brand font-mono font-medium">{entry.v}</span>
+                      <span class="caption text-mute">{entry.date}</span>
+                    </p>
+                    <p class="mt-2 body-sm text-ash leading-relaxed">{entry.text}</p>
+                  </FeatureCard>
                 </li>
               ))}
             </ol>
