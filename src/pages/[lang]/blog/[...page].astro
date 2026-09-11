@@ -67,14 +67,16 @@ const structuredData = {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground break-words">
-        Engineering Insights
+        {t('blog.heading')}
       </h1>
       <p class="mt-4 text-base sm:text-lg text-muted-foreground">
-        Deep dives into AI systems, scalable SaaS architecture, and developer productivity.
+        {t('blog.subtitle')}
       </p>
-      <p class="mt-3 text-xs font-mono text-muted-foreground">
-        Available in English — {currentLangMeta.name} translations in progress
-      </p>
+      {gridPosts.some(p => p.isFallback) && (
+        <p class="mt-3 text-xs font-mono text-muted-foreground">
+          Available in English — {currentLangMeta.name} translations in progress
+        </p>
+      )}
 
       <!-- Real-time Search Input (Vanilla JS, filters this page) -->
       <div class="mt-8 relative max-w-md mx-auto">
@@ -82,8 +84,8 @@ const structuredData = {
         <input
           type="text"
           id="blog-search-input"
-          aria-label="Search blog posts"
-          placeholder="Search articles by title or topic..."
+          aria-label={t('blog.searchPlaceholder')}
+          placeholder={t('blog.searchPlaceholder')}
           class="w-full pl-11 pr-4 py-3 rounded-full border border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
         />
       </div>
@@ -102,7 +104,7 @@ const structuredData = {
                   : 'border border-border text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
             >
-              {cat === 'All' ? 'All' : (c.blogCategories[cat] ?? cat)}
+              {cat === 'All' ? t('blog.allCategories') : (c.blogCategories[cat] ?? cat)}
             </button>
           ))
         }
@@ -144,16 +146,16 @@ const structuredData = {
             </div>
 
             <div class="mt-6 pt-4 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
-              <span>{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              <span>{post.data.pubDate.toLocaleDateString(currentLangMeta.hreflang, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
               <span class="font-semibold text-primary inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Read article <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
+                {t('blog.readArticle')} <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
               </span>
             </div>
           </article>
         ))
       }
     </div>
-    <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center text-muted-foreground">No articles match your search.</p></div>
+    <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center text-muted-foreground">{t('blog.noMatch')}</p></div>
     <p data-blog-count class="sr-only" aria-live="polite"></p>
 
     <!-- Pagination Controls (Page numbers + Prev / Next) -->
@@ -166,11 +168,11 @@ const structuredData = {
               class="px-4 py-2 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors inline-flex items-center gap-1"
               aria-label="Previous page"
             >
-              <Icon name="lucide:arrow-left" class="w-4 h-4" /> Previous
+              <Icon name="lucide:arrow-left" class="w-4 h-4" /> {t('common.previous')}
             </a>
           ) : (
             <span class="px-4 py-2 rounded-xl border border-border/40 text-sm text-muted-foreground/40 cursor-not-allowed inline-flex items-center gap-1" aria-disabled="true">
-              <Icon name="lucide:arrow-left" class="w-4 h-4" /> Previous
+              <Icon name="lucide:arrow-left" class="w-4 h-4" /> {t('common.previous')}
             </span>
           )}
 
@@ -196,11 +198,11 @@ const structuredData = {
               class="px-4 py-2 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors inline-flex items-center gap-1"
               aria-label="Next page"
             >
-              Next <Icon name="lucide:arrow-right" class="w-4 h-4" />
+              {t('common.next')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </a>
           ) : (
             <span class="px-4 py-2 rounded-xl border border-border/40 text-sm text-muted-foreground/40 cursor-not-allowed inline-flex items-center gap-1" aria-disabled="true">
-              Next <Icon name="lucide:arrow-right" class="w-4 h-4" />
+              {t('common.next')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </span>
           )}
         </nav>
