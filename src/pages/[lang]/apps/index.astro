@@ -4,7 +4,7 @@ import { getLocalizedApps, getContent } from '@/i18n/content';
 import { getLocalizedPath, useTranslations } from '@/i18n/utils';
 import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
 import Icon from '@/components/Icon.astro';
-import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
+import { getPageSEO } from '@/i18n/seo';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -26,10 +26,13 @@ const structuredData = [
     inLanguage: lang,
     description: seo.description
   },
-  createBreadcrumbSchema([
-    { name: 'Home', url: `https://ladestack.in/${lang}` },
-    { name: seo.breadcrumbName, url: `https://ladestack.in/${lang}/apps` },
-  ]),
+];
+
+// Breadcrumb trail is emitted via SEO.astro `breadcrumbs` (single BreadcrumbList).
+// getLocalizedPath() keeps item URLs locale-prefixed (e.g. /zh, /zh/apps).
+const breadcrumbs = [
+  { name: 'Home', url: `https://ladestack.in${getLocalizedPath('/', lang)}` },
+  { name: seo.breadcrumbName, url: `https://ladestack.in${getLocalizedPath('/apps', lang)}` },
 ];
 ---
 
@@ -42,6 +45,7 @@ const structuredData = [
   lang={lang}
   path="/apps"
   structuredData={structuredData}
+  breadcrumbs={breadcrumbs}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <div class="text-center max-w-3xl mx-auto mb-12">
