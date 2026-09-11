@@ -3,14 +3,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import profileImg from '@/assets/profile.png';
 import { getContent } from '@/i18n/content';
+import { useTranslations } from '@/i18n/utils';
 import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Icon from '@/components/Icon.astro';
 
-import { createBreadcrumbSchema } from '@/i18n/seo';
+import { createBreadcrumbSchema, getPageSEO } from '@/i18n/seo';
 
 const lang = 'en' as const;
+const t = useTranslations(lang);
 const c = getContent(lang);
+const seo = getPageSEO('about', lang);
 const about = c.aboutPage;
 const timeline = c.timeline;
 const stack = ['TypeScript', 'Astro', 'Python', 'AI Systems', 'Tailwind CSS', 'PostgreSQL'];
@@ -35,8 +38,8 @@ const aboutStructuredData = [
     },
   },
   createBreadcrumbSchema([
-    { name: 'Home', url: 'https://ladestack.in/' },
-    { name: 'About', url: 'https://ladestack.in/about' },
+    { name: t('nav.home'), url: 'https://ladestack.in/' },
+    { name: seo.breadcrumbName, url: 'https://ladestack.in/about' },
   ]),
 ];
 ---
