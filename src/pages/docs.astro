@@ -3,6 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { useTranslations } from '../i18n/utils';
 import { getContent } from '../i18n/content';
 import { getPageSEO, createBreadcrumbSchema } from '../i18n/seo';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/Icon.astro';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
@@ -37,63 +41,136 @@ const structuredData = [
   ogDescription={seo.ogDescription}
   structuredData={structuredData}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
-    <h1 class="font-serif text-4xl md:text-6xl font-bold break-words">{t('docs.heading')}</h1>
-    <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('docs.subtitle')}</p>
-    <input type="search" data-docs-search placeholder={t('docs.searchPlaceholder')} aria-label={t('docs.searchPlaceholder')} class="mt-8 h-11 px-4 rounded-full border border-border bg-card text-sm outline-none focus:border-primary w-full md:max-w-sm" />
+  <div class="marketing-section-dark">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <MonoEyebrow color="brand" class="mb-3">DOCUMENTATION</MonoEyebrow>
+        <h1 class="display-md text-on-primary mb-4 break-words page-enter rise-in">
+          {t('docs.heading')}
+        </h1>
+        <p class="subtitle text-ash max-w-2xl mb-8">
+          {t('docs.subtitle')}
+        </p>
 
-    <!-- Mobile / Tablet Quick Jump Bar -->
-    <nav aria-label="Documentation sections mobile" class="lg:hidden flex items-center gap-2 overflow-x-auto pb-2 mt-6 scrollbar-none">
-      {categories.map((c) => (
-        <a href={`#${c.id}`} class="shrink-0 px-3 py-1.5 rounded-full border border-border bg-card/60 text-xs font-medium text-foreground/80 hover:bg-muted hover:text-foreground transition-colors">
-          {c.title}
-        </a>
-      ))}
-      <a href="#changelog" class="shrink-0 px-3 py-1.5 rounded-full border border-border bg-card/60 text-xs font-medium text-foreground/80 hover:bg-muted hover:text-foreground transition-colors">
-        {t('docs.changelog')}
-      </a>
-    </nav>
+        <!-- Search Input with lucide:search icon -->
+        <div class="relative w-full md:max-w-md">
+          <Icon name="lucide:search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ash pointer-events-none" />
+          <input
+            type="search"
+            data-docs-search
+            placeholder={t('docs.searchPlaceholder')}
+            aria-label={t('docs.searchPlaceholder')}
+            class="text-input-dark w-full !pl-11 pr-4 !h-11 border border-hairline-soft"
+          />
+        </div>
 
-    <div class="mt-8 grid lg:grid-cols-[240px_1fr] gap-8 items-start">
-      <nav aria-label="Documentation sections" class="hidden lg:block sticky top-24 rounded-2xl border border-border bg-card/60 p-4">
-        <ul class="space-y-1 text-sm">
-          {categories.map((c) => (
-            <li><a href={`#${c.id}`} class="block px-3 py-2 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground">{c.title}</a></li>
+        <!-- Mobile / Tablet Quick Jump Bar using Button variant="app-tab" -->
+        <nav aria-label="Documentation sections mobile" class="lg:hidden flex items-center gap-2 overflow-x-auto pb-2 mt-6 scrollbar-none">
+          {categories.map((cat) => (
+            <Button
+              href={`#${cat.id}`}
+              variant="app-tab"
+              class="shrink-0 app-pill !h-8 !px-3 cursor-pointer"
+            >
+              {cat.title}
+            </Button>
           ))}
-          <li><a href="#changelog" class="block px-3 py-2 rounded-lg text-foreground/70 hover:bg-muted hover:text-foreground">{t('docs.changelog')}</a></li>
-        </ul>
-      </nav>
+          <Button
+            href="#changelog"
+            variant="app-tab"
+            class="shrink-0 app-pill !h-8 !px-3 cursor-pointer"
+          >
+            {t('docs.changelog')}
+          </Button>
+        </nav>
+      </div>
 
-      <div class="space-y-10 min-w-0">
-        {categories.map((c) => (
-          <section id={c.id} data-docs-section scroll-mt-24>
-            <h2 class="font-serif text-2xl font-bold break-words">{c.title}</h2>
-            <div class="mt-4 space-y-3">
-              {c.articles.map((a) => (
-                <details data-docs-article={` ${a.title} ${a.text}`.toLowerCase()} class="group rounded-2xl border border-border bg-card/60 px-5 py-4 open:border-primary/40">
-                  <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3">
-                    <span class="break-words">{a.title}</span>
-                    <span aria-hidden="true" class="text-primary transition-transform group-open:rotate-45 text-xl leading-none shrink-0">+</span>
-                  </summary>
-                  <p class="mt-3 text-sm text-foreground/65 leading-relaxed break-words">{a.text}</p>
-                </details>
-              ))}
-            </div>
-          </section>
-        ))}
-
-        <section id="changelog" scroll-mt-24>
-          <h2 class="font-serif text-2xl font-bold">{t('docs.changelog')}</h2>
-          <ol class="mt-4 space-y-3">
-            {changelog.map((c) => (
-              <li class="rounded-2xl border border-border bg-card/60 px-5 py-4">
-                <p class="flex items-center gap-3 text-sm"><span class="font-mono font-semibold text-primary">{c.v}</span><span class="text-foreground/55">{c.date}</span></p>
-                <p class="mt-1 text-sm text-foreground/70">{c.text}</p>
+      <!-- Main Grid: Sidebar + Content -->
+      <div class="mt-8 grid lg:grid-cols-[280px_1fr] gap-8 xl:gap-12 items-start">
+        <!-- Desktop Sticky Sidebar Navigation -->
+        <nav aria-label="Documentation sections" class="hidden lg:block sticky top-24 bg-canvas-soft border border-hairline-soft rounded-marketing p-5">
+          <p class="mono-caps text-mute px-3 mb-2">SECTIONS</p>
+          <ul class="space-y-1">
+            {categories.map((cat) => (
+              <li>
+                <a
+                  href={`#${cat.id}`}
+                  class="docs-nav-link block px-3 py-2 rounded-app-md caption text-ash hover:text-on-primary hover:bg-graphite/40 transition-colors [&.active]:border-l-2 [&.active]:border-brand [&.active]:text-on-primary [&.active]:bg-graphite/40"
+                >
+                  {cat.title}
+                </a>
               </li>
             ))}
-          </ol>
-        </section>
-        <p data-docs-empty class="hidden text-foreground/60">{t('common.noResults')}</p>
+            <li>
+              <a
+                href="#changelog"
+                class="docs-nav-link block px-3 py-2 rounded-app-md caption text-ash hover:text-on-primary hover:bg-graphite/40 transition-colors [&.active]:border-l-2 [&.active]:border-brand [&.active]:text-on-primary [&.active]:bg-graphite/40"
+              >
+                {t('docs.changelog')}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="space-y-12 min-w-0">
+          {categories.map((cat, catIdx) => (
+            <section
+              id={cat.id}
+              data-docs-section
+              scroll-mt-24
+              data-reveal
+              data-reveal-delay={String((catIdx % 4) * 80)}
+            >
+              <div class="mb-4">
+                <span class="mono-micro px-2 py-0.5 rounded-full bg-canvas-soft border border-hairline-soft text-ash mb-2 inline-block">
+                  SECTION {String(catIdx + 1).padStart(2, '0')}
+                </span>
+                <h2 class="heading-md text-on-primary break-words">{cat.title}</h2>
+              </div>
+              <div class="mt-4 space-y-3">
+                {cat.articles.map((art) => (
+                  <details
+                    data-docs-article={` ${art.title} ${art.text}`.toLowerCase()}
+                    class="group rounded-marketing border border-hairline-soft bg-canvas-soft px-5 py-4 open:border-graphite hover:border-graphite transition-all lift-on-hover"
+                  >
+                    <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3 select-none">
+                      <span class="heading-sm text-on-primary group-hover:text-brand transition-colors break-words">{art.title}</span>
+                      <span aria-hidden="true" class="text-brand text-xl font-bold transition-transform duration-200 group-open:rotate-45 shrink-0 leading-none select-none">+</span>
+                    </summary>
+                    <p class="mt-3 body-sm text-ash leading-relaxed break-words">{art.text}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ))}
+
+          <!-- Changelog Section -->
+          <section id="changelog" scroll-mt-24 data-reveal>
+            <div class="mb-4">
+              <MonoEyebrow color="brand" class="mb-1">UPDATES</MonoEyebrow>
+              <h2 class="heading-md text-on-primary">{t('docs.changelog')}</h2>
+            </div>
+            <ol class="mt-4 space-y-3">
+              {changelog.map((entry, entryIdx) => (
+                <li
+                  data-reveal
+                  data-reveal-delay={String((entryIdx % 4) * 60)}
+                >
+                  <FeatureCard variant="dark" class="!p-5 hover:border-graphite transition-colors lift-on-hover">
+                    <p class="flex items-center gap-3">
+                      <span class="mono-micro px-2.5 py-1 rounded-full bg-canvas border border-hairline-soft text-brand font-mono font-medium">{entry.v}</span>
+                      <span class="caption text-mute">{entry.date}</span>
+                    </p>
+                    <p class="mt-2 body-sm text-ash leading-relaxed">{entry.text}</p>
+                  </FeatureCard>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <p data-docs-empty class="hidden body-sm text-ash py-8 text-center">{t('common.noResults')}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -126,6 +203,38 @@ const structuredData = [
     });
   }
 
-  setupDocsSearch();
-  document.addEventListener('astro:page-load', setupDocsSearch);
+  function setupDocsNavActive() {
+    var sections = document.querySelectorAll('[data-docs-section], #changelog');
+    var navLinks = document.querySelectorAll('.docs-nav-link');
+    if (!sections.length || !navLinks.length) return;
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.getAttribute('id');
+            navLinks.forEach(function (link) {
+              if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+
+      sections.forEach(function (sec) {
+        observer.observe(sec);
+      });
+    }
+  }
+
+  function initDocs() {
+    setupDocsSearch();
+    setupDocsNavActive();
+  }
+
+  initDocs();
+  document.addEventListener('astro:page-load', initDocs);
 </script>
