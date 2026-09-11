@@ -13,20 +13,26 @@ const blogDates = new Map();
 try {
   const blogDir = path.resolve('src/content/blog');
   if (fsSync.existsSync(blogDir)) {
-    const files = fsSync.readdirSync(blogDir);
-    for (const file of files) {
-      if (file.endsWith('.md')) {
-        const slug = file.replace(/\.md$/, '');
-        const content = fsSync.readFileSync(path.join(blogDir, file), 'utf8');
-        const updatedMatch = content.match(/updatedDate:\s*([^\r\n]+)/);
-        const pubMatch = content.match(/pubDate:\s*([^\r\n]+)/);
-        const rawDate = ((updatedMatch && updatedMatch[1]) || (pubMatch && pubMatch[1]) || '').trim().replace(/['"]/g, '');
-        const d = new Date(rawDate);
-        if (rawDate && !isNaN(d.getTime())) {
-          blogDates.set(slug, d.toISOString());
+    const scanDir = (dir) => {
+      const entries = fsSync.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          scanDir(fullPath);
+        } else if (entry.name.endsWith('.md')) {
+          const slug = entry.name.replace(/\.md$/, '');
+          const content = fsSync.readFileSync(fullPath, 'utf8');
+          const updatedMatch = content.match(/updatedDate:\s*([^\r\n]+)/);
+          const pubMatch = content.match(/pubDate:\s*([^\r\n]+)/);
+          const rawDate = ((updatedMatch && updatedMatch[1]) || (pubMatch && pubMatch[1]) || '').trim().replace(/['"]/g, '');
+          const d = new Date(rawDate);
+          if (rawDate && !isNaN(d.getTime())) {
+            blogDates.set(slug, d.toISOString());
+          }
         }
       }
-    }
+    };
+    scanDir(blogDir);
   }
 } catch (e) {
   console.warn('Could not read blog dates for sitemap:', e.message);
