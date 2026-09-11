@@ -3,18 +3,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
-import { localizePost, getContent, getLocalizedApps } from '../../i18n/content';
+import { localizePost, getContent, getLocalizedApps, getPostSlug, getBlogPostsForLocale } from '../../i18n/content';
 
 export async function getStaticPaths() {
-  const posts: CollectionEntry<'blog'>[] = await getCollection('blog');
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+  const allPosts: CollectionEntry<'blog'>[] = await getCollection('blog');
+  const enPosts = getBlogPostsForLocale('en', allPosts);
+  return enPosts.map(({ post, cleanSlug }) => ({
+    params: { slug: cleanSlug },
+    props: { post, cleanSlug }
+  }));
 }
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
 const c = getContent(lang);
-const { post } = Astro.props as { post: CollectionEntry<'blog'> };
-const loc = localizePost(post.slug, post.data, lang);
+const { post, cleanSlug: propsSlug } = Astro.props as { post: CollectionEntry<'blog'>; cleanSlug?: string };
+const cleanSlug = propsSlug ?? getPostSlug(post);
+const loc = localizePost(cleanSlug, post.data, lang);
 const { Content, headings } = await render(post);
 type TocHeading = { depth: number; slug: string; text: string };
 const toc: TocHeading[] = (headings as TocHeading[]).filter((h) => h.depth <= 3);
@@ -26,9 +31,9 @@ const isoModified = modifiedDate.toISOString();
 
 // Related posts: score by shared category (+2) and overlapping tags (+1 each),
 // newest first, excluding the current post, max 3.
-const all: CollectionEntry<'blog'>[] = (await getCollection('blog')).sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const all: CollectionEntry<'blog'>[] = getBlogPostsForLocale(lang, await getCollection('blog')).map((e) => e.post);
 const scored = all
-  .filter((p) => p.slug !== post.slug)
+  .filter((p) => getPostSlug(p) !== cleanSlug)
   .map((p) => {
     let score = 0;
     if (p.data.category === post.data.category) score += 2;
@@ -39,8 +44,11 @@ const scored = all
   .sort((a, b) => b.score - a.score || b.p.data.pubDate.valueOf() - a.p.data.pubDate.valueOf())
   .slice(0, 3)
   .map(({ p }) => p);
-const relatedPool = scored.length ? scored : all.filter((p) => p.slug !== post.slug).slice(0, 3);
-const relatedLoc = relatedPool.map((r) => ({ r, loc: localizePost(r.slug, r.data, lang) }));
+const relatedPool = scored.length ? scored : all.filter((p) => getPostSlug(p) !== cleanSlug).slice(0, 3);
+const relatedLoc = relatedPool.map((r) => {
+  const rSlug = getPostSlug(r);
+  return { r, cleanSlug: rSlug, loc: localizePost(rSlug, r.data, lang) };
+});
 
 // Related tools: app IDs from frontmatter resolved via apps.json (English copy).
 const relatedTools = getLocalizedApps(lang).filter((app) => (post.data.relatedApps ?? []).includes(app.id));
@@ -49,7 +57,7 @@ const relatedTools = getLocalizedApps(lang).filter((app) => (post.data.relatedAp
 const breadcrumbs = [
   { name: 'Home', url: `https://ladestack.in${getLocalizedPath('/', lang)}` },
   { name: 'Blog', url: `https://ladestack.in${getLocalizedPath('/blog', lang)}` },
-  { name: loc.title, url: `https://ladestack.in${getLocalizedPath(`/blog/${post.slug}`, lang)}` },
+  { name: loc.title, url: `https://ladestack.in${getLocalizedPath(`/blog/${cleanSlug}`, lang)}` },
 ];
 
 const structuredData = [
@@ -66,13 +74,13 @@ const structuredData = [
     publisher: { '@type': 'Organization', name: 'Lade Stack', logo: { '@type': 'ImageObject', url: 'https://ladestack.in/icon-512.png', width: 512, height: 512 } },
     articleSection: post.data.category,
     keywords: post.data.tags.join(', '),
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://ladestack.in/blog/${post.slug}` }
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://ladestack.in/blog/${cleanSlug}` }
   },
 ];
 ---
 <BaseLayout
   lang={lang}
-  path={`/blog/${post.slug}`}
+  path={`/blog/${cleanSlug}`}
   title={`${loc.title} | Lade Stack Blog`}
   description={loc.description}
   keywords={post.data.tags.join(', ')}
@@ -172,8 +180,8 @@ const structuredData = [
     <section class="mt-16" aria-label={t('blog.post.related')}>
       <h2 class="font-serif text-2xl md:text-3xl font-bold break-words">{t('blog.post.related')}</h2>
       <div class="mt-6 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4">
-        {relatedLoc.map(({ r, loc }) => (
-          <a href={`/blog/${r.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all">
+        {relatedLoc.map(({ r, cleanSlug: rSlug, loc }) => (
+          <a href={`/blog/${rSlug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all">
             <Image src={r.data.coverImage} alt={`${loc.title} — related article cover`} width={600} height={216} loading="lazy" decoding="async" class="h-36 w-full object-cover" />
             <div class="p-5">
               <p class="text-[11px] font-mono text-primary">{r.data.category}</p>
