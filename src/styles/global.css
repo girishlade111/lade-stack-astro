@@ -754,7 +754,8 @@ noscript [data-reveal] {
   }
 }
 
-.page-enter {
+.page-enter,
+.rise-in {
   animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .page-enter-late {
