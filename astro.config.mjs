@@ -58,6 +58,13 @@ export default defineConfig({
   build: {
     format: 'directory'
   },
+  image: {
+    // Sharp (default service when installed) powers astro:assets optimization:
+    // AVIF primary output via format="avif" per <Image />, WebP kept as the
+    // widely-supported alternative. No remote images in use (apps.json uses
+    // lucide icon names only), so no domains/remotePatterns needed.
+    service: { entrypoint: 'astro/assets/services/sharp' }
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ru', 'zh', 'ko', 'ja', 'tr', 'pt-BR'],
