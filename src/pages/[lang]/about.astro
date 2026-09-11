@@ -72,13 +72,15 @@ const aboutStructuredData = [
       <FeatureCard variant="dark" class="mb-16">
         <div class="flex flex-col sm:flex-row items-center gap-8">
           <div class="w-44 sm:w-52 aspect-[2/3] shrink-0 rounded-2xl border border-hairline-soft bg-canvas p-1.5 shadow-lg overflow-hidden flex items-center justify-center">
-            <img
-              src="/images/profile.png"
+            <Image
+              src={profileImg}
               alt={about.imageAlt}
-              width="1024"
-              height="1536"
+              widths={[208, 416]}
+              sizes="(max-width: 640px) 176px, 208px"
+              format="avif"
               class="w-full h-full object-contain rounded-xl"
               loading="eager"
+              fetchpriority="high"
               decoding="async"
             />
           </div>

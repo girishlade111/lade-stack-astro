@@ -100,7 +100,7 @@ const structuredData = [
         <div class="mt-5 grid grid-cols-1 xs:grid-cols-2 gap-4">
           {blogPosts.map((post) => (
             <a href={`/blog/${post.slug}`} class="rounded-2xl border border-border bg-card/60 overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all">
-              <Image src={post.data.coverImage} alt={`${post.data.title} — blog cover`} width={600} height={192} loading="lazy" class="h-32 w-full object-cover" />
+              <Image src={post.data.coverImage} alt={`${post.data.title} — blog cover`} width={600} height={192} loading="lazy" decoding="async" class="h-32 w-full object-cover" />
               <div class="p-5">
                 <p class="text-[11px] font-mono text-primary">{post.data.category}</p>
                 <h3 class="mt-1.5 font-semibold leading-snug">{post.data.title}</h3>
