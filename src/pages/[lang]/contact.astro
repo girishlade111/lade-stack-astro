@@ -3,6 +3,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations } from '@/i18n/utils';
 import { getContent } from '@/i18n/content';
 import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
 
@@ -66,96 +69,108 @@ const contactStructuredData = [
   path="/contact"
   structuredData={contactStructuredData}
 >
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-14 md:py-20">
-    <div class="text-center mb-16">
-      <span class="text-xs font-semibold text-primary uppercase tracking-widest">Get In Touch</span>
-      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground mt-2 break-words">
+  <!-- Hero Section: marketing-section-dark -->
+  <section class="marketing-section-dark !pb-16 text-center">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
+      <MonoEyebrow color="brand" class="mb-3">
+        GET IN TOUCH
+      </MonoEyebrow>
+      <h1 class="display-md text-on-primary mb-4 break-words">
         {t('contact.title')}
       </h1>
-      <p class="mt-4 text-sm sm:text-base text-muted-foreground">
+      <p class="subtitle text-ash max-w-xl mx-auto">
         {t('contact.subtitle')}
       </p>
     </div>
+  </section>
 
-    <div class="grid grid-cols-1 xs:grid-cols-2 gap-8 md:gap-12 mb-16 md:mb-20">
-      <div class="space-y-6">
-        <div class="p-6 rounded-3xl border border-border bg-card">
-          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <Icon name="lucide:mail" class="w-5 h-5" />
-          </div>
-          <h3 class="text-base font-bold text-foreground">{t('contact.infoEmail')}</h3>
-          <p class="text-xs text-muted-foreground mt-1">{t('contact.infoEmailSub')}</p>
-          <a href="mailto:admin@ladestack.in" class="mt-3 inline-block text-sm font-semibold text-primary hover:underline">
-            admin@ladestack.in
-          </a>
+  <!-- Form & Details: marketing-section-light [POLARITY FLIP] -->
+  <section class="marketing-section-light">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 xs:grid-cols-2 gap-8 md:gap-12 mb-16 md:mb-20">
+        <!-- Contact Info Cards in feature-card-light -->
+        <div class="space-y-6">
+          <FeatureCard variant="light">
+            <div class="w-10 h-10 rounded-app-md bg-canvas text-on-primary flex items-center justify-center mb-4">
+              <Icon name="lucide:mail" class="w-5 h-5" />
+            </div>
+            <h3 class="heading-sm text-ink mb-1">{t('contact.infoEmail')}</h3>
+            <p class="caption text-ink/70 mb-3">{t('contact.infoEmailSub')}</p>
+            <a href="mailto:admin@ladestack.in" class="body-sm font-semibold text-link-blue hover:underline">
+              admin@ladestack.in
+            </a>
+          </FeatureCard>
+
+          <FeatureCard variant="light">
+            <div class="w-10 h-10 rounded-app-md bg-canvas text-on-primary flex items-center justify-center mb-4">
+              <Icon name="lucide:map-pin" class="w-5 h-5" />
+            </div>
+            <h3 class="heading-sm text-ink mb-1">{t('contact.infoLocation')}</h3>
+            <p class="caption text-ink/70 mb-3">{t('contact.infoLocationSub')}</p>
+            <p class="body-sm font-semibold text-ink">Mumbai, India</p>
+          </FeatureCard>
         </div>
 
-        <div class="p-6 rounded-3xl border border-border bg-card">
-          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-            <Icon name="lucide:map-pin" class="w-5 h-5" />
+        <!-- Contact Form with exact text-input and btn-primary-on-light -->
+        <FeatureCard variant="light">
+          <h2 class="heading-sm text-ink mb-6">{t('contact.sendTitle')}</h2>
+          <form id="contact-form" class="space-y-4" data-endpoint="https://formspree.io/f/xayvkzgw" novalidate>
+            <div>
+              <label class="block caption-tight text-ink mb-1.5" for="c-name">{t('contact.formName')}</label>
+              <input type="text" id="c-name" name="name" required minlength="2" autocomplete="name" class="text-input w-full" aria-describedby="c-form-msg" />
+            </div>
+            <div>
+              <label class="block caption-tight text-ink mb-1.5" for="c-email">{t('contact.formEmail')}</label>
+              <input type="email" id="c-email" name="email" required autocomplete="email" class="text-input w-full" aria-describedby="c-form-msg" />
+            </div>
+            <div>
+              <label class="block caption-tight text-ink mb-1.5" for="c-msg">{t('contact.formMessage')}</label>
+              <textarea id="c-msg" name="message" rows="4" required minlength="10" class="text-input w-full !h-auto py-2.5" aria-describedby="c-form-msg"></textarea>
+            </div>
+            <p id="c-form-error" class="hidden text-sm font-medium text-error" role="alert"></p>
+            <Button
+              type="submit"
+              id="c-submit-btn"
+              data-sending={t('common.loading')}
+              variant="primary-on-light"
+              class="w-full"
+            >
+              {t('contact.formSubmit')}
+            </Button>
+          </form>
+          <!-- Exact alert-banner component from DESIGN.md -->
+          <div id="c-success-msg" class="hidden mt-4 alert-banner text-center" role="status" aria-live="polite" tabindex="-1">
+            {t('contact.formSuccess')}
           </div>
-          <h3 class="text-base font-bold text-foreground">{t('contact.infoLocation')}</h3>
-          <p class="text-xs text-muted-foreground mt-1">{t('contact.infoLocationSub')}</p>
-          <p class="mt-3 text-sm font-semibold text-foreground">Mumbai, India</p>
-        </div>
+        </FeatureCard>
       </div>
 
-      <div class="p-8 rounded-3xl border border-border bg-card shadow-sm">
-        <h2 class="text-xl font-bold text-foreground mb-6">{t('contact.sendTitle')}</h2>
-        <form id="contact-form" class="space-y-4" data-endpoint="https://formspree.io/f/xayvkzgw" novalidate>
-          <div>
-            <label class="block text-xs font-semibold text-foreground mb-1.5" for="c-name">{t('contact.formName')}</label>
-            <input type="text" id="c-name" name="name" required minlength="2" autocomplete="name" class="w-full px-3.5 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:outline-none" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-foreground mb-1.5" for="c-email">{t('contact.formEmail')}</label>
-            <input type="email" id="c-email" name="email" required autocomplete="email" class="w-full px-3.5 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:outline-none" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-foreground mb-1.5" for="c-msg">{t('contact.formMessage')}</label>
-            <textarea id="c-msg" name="message" rows="4" required minlength="10" class="w-full px-3.5 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:outline-none"></textarea>
-          </div>
-          <p id="c-form-error" class="hidden text-sm font-medium text-error" role="alert"></p>
-          <button
-            type="submit"
-            id="c-submit-btn"
-            data-sending={t('common.loading')}
-            class="w-full py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-all shadow-sm"
-          >
-            {t('contact.formSubmit')}
-          </button>
-        </form>
-        <div id="c-success-msg" class="hidden mt-4 p-4 rounded-xl bg-primary/10 border border-primary/30 text-xs font-semibold text-primary text-center" role="status" aria-live="polite" tabindex="-1">
-          {t('contact.formSuccess')}
-        </div>
-      </div>
-    </div>
-
-    <div class="max-w-3xl mx-auto">
-      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-foreground text-center mb-8">
-        {t('contact.faqTitle')}
-      </h2>
-      <div class="space-y-4">
-        {
-          faqs.map((faq) => (
-            <details class="group p-6 rounded-2xl border border-border bg-card transition-all [&_summary::-webkit-details-marker]:hidden">
-              <summary class="flex items-center justify-between cursor-pointer font-semibold text-foreground text-sm list-none gap-3">
+      <!-- FAQ Accordion -->
+      <div class="max-w-3xl mx-auto">
+        <h2 class="heading-md text-ink text-center mb-8">
+          {t('contact.faqTitle')}
+        </h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <details class="group p-4 rounded-app-lg border border-hairline bg-canvas-light transition-all [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex items-center justify-between cursor-pointer font-medium text-ink text-sm list-none gap-3">
                 <span class="break-words">{faq.q}</span>
-                <Icon name="lucide:chevron-down" class="w-4 h-4 text-muted-foreground group-open:rotate-180 transition-transform shrink-0" />
+                <Icon name="lucide:chevron-down" class="w-4 h-4 text-mute group-open:rotate-180 transition-transform shrink-0" />
               </summary>
-              <p class="mt-4 text-sm text-muted-foreground leading-relaxed pt-4 border-t border-border/50 break-words">
+              <p class="body-sm text-ink/75 leading-relaxed pt-3 mt-3 border-t border-hairline">
                 {faq.a}
               </p>
             </details>
-          ))
-        }
+          ))}
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </BaseLayout>
 
 <script is:inline>
-  /** Real submission (Formspree) + validation + a11y focus (A10). */
+  // A10: real submission via Formspree (set data-endpoint to your form ID).
+  // Replace xayvkzgw with the real Formspree form ID before launch.
   function setupContactForm() {
     var form = /** @type {HTMLFormElement | null} */ (document.getElementById('contact-form'));
     var success = document.getElementById('c-success-msg');
@@ -165,7 +180,13 @@ const contactStructuredData = [
     if (form.hasAttribute('data-wired')) return;
     form.setAttribute('data-wired', 'true');
     var idleLabel = btn.innerText;
-    function showError(msg) { if (!errBox) return; errBox.textContent = msg; errBox.classList.remove('hidden'); try { errBox.focus(); } catch (e) {} }
+    function showError(msg) {
+      if (!errBox) return;
+      errBox.textContent = msg;
+      errBox.classList.remove('hidden');
+      errBox.focus && errBox.setAttribute('tabindex', '-1');
+      try { errBox.focus(); } catch (e) {}
+    }
     function clearError() { if (errBox) { errBox.textContent = ''; errBox.classList.add('hidden'); } }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -182,10 +203,21 @@ const contactStructuredData = [
       btn.innerText = btn.getAttribute('data-sending') || 'Sending...';
       btn.disabled = true;
       var endpoint = form.getAttribute('data-endpoint') || '';
-      function onOk() { form.reset(); form.style.display = 'none'; success.classList.remove('hidden'); try { success.focus(); } catch (err) {} }
-      function onFail() { btn.disabled = false; btn.innerText = idleLabel; showError('Something went wrong. Please try again or email admin@ladestack.in.'); }
+      var payload = { name: nameV, email: emailV, message: msgV };
+      function onOk() {
+        form.reset();
+        form.style.display = 'none';
+        if (errBox) errBox.classList.add('hidden');
+        success.classList.remove('hidden');
+        try { success.focus(); } catch (err) {}
+      }
+      function onFail() {
+        btn.disabled = false;
+        btn.innerText = idleLabel;
+        showError('Something went wrong sending your message. Please try again or email admin@ladestack.in.');
+      }
       if (!endpoint) { window.setTimeout(onOk, 600); return; }
-      fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: nameV, email: emailV, message: msgV }) })
+      fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) { if (!r.ok) throw new Error('bad status'); onOk(); })
         .catch(onFail);
     });
@@ -194,3 +226,4 @@ const contactStructuredData = [
   setupContactForm();
   document.addEventListener('astro:page-load', setupContactForm);
 </script>
+
