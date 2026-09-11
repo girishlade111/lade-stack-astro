@@ -115,18 +115,18 @@ btn.fire('click', { stopPropagation: stopProp }); // open with /blog
 const blogLinks = {};
 links.forEach((a) => { blogLinks[a.getAttribute('data-lang-link')] = a.getAttribute('href'); });
 assert('blog root: en href -> /blog', blogLinks.en === '/blog');
-assert('blog root: zh href -> /zh', blogLinks.zh === '/zh');
-assert('blog root: ja href -> /ja', blogLinks.ja === '/ja');
+assert('blog root: zh href -> /zh/blog', blogLinks.zh === '/zh/blog');
+assert('blog root: ja href -> /ja/blog', blogLinks.ja === '/ja/blog');
 
-// 2c. Test blog slug href rewriting (/blog/[slug] -> localized home)
+// 2c. Test blog slug href rewriting (/blog/[slug] -> /[lang]/blog/[slug])
 btn.fire('click', { stopPropagation: stopProp }); // close
 global.window.location.pathname = '/blog/zero-trust-security-web-applications';
 btn.fire('click', { stopPropagation: stopProp }); // open with /blog/...
 const blogPostLinks = {};
 links.forEach((a) => { blogPostLinks[a.getAttribute('data-lang-link')] = a.getAttribute('href'); });
 assert('blog post: en href -> /blog/zero-trust-security-web-applications', blogPostLinks.en === '/blog/zero-trust-security-web-applications');
-assert('blog post: zh href -> /zh', blogPostLinks.zh === '/zh');
-assert('blog post: ja href -> /ja', blogPostLinks.ja === '/ja');
+assert('blog post: zh href -> /zh/blog/zero-trust-security-web-applications', blogPostLinks.zh === '/zh/blog/zero-trust-security-web-applications');
+assert('blog post: ja href -> /ja/blog/zero-trust-security-web-applications', blogPostLinks.ja === '/ja/blog/zero-trust-security-web-applications');
 
 // 3. Second click closes
 btn.fire('click', { stopPropagation: stopProp });
