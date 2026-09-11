@@ -1,5 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 
+// Blog collection: supports per-locale content folders (en/, zh/, ru/, ja/, ko/, tr/, pt-BR/)
+// Frontmatter schema is shared across all locales.
 const blog = defineCollection({
   type: 'content',
   schema: z.object({
