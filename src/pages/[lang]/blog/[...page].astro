@@ -59,10 +59,9 @@ const structuredData = {
   description={page.currentPage === 1 ? `27 in-depth tutorials on AI development, RAG, MLOps & SaaS architecture — page 1 of ${page.lastPage}.` : `More AI development tutorials, RAG guides & SaaS blueprints — page ${page.currentPage} of ${page.lastPage}.`}
   keywords="AI blog, developer tutorials, RAG, MLOps, SaaS architecture, DevOps"
   lang={lang}
-  path={canonicalPath}
+  path={page.currentPage === 1 ? '/blog' : `/blog/${page.currentPage}`}
   prevUrl={prevUrl}
   nextUrl={nextUrl}
-  hreflang={false}
   structuredData={structuredData}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">

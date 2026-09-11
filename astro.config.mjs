@@ -119,8 +119,6 @@ export default defineConfig({
         const { pathname } = new URL(page);
         // No /en/ prefixed duplicates (prefixDefaultLocale: false — English lives at root).
         if (pathname === '/en' || pathname === '/en/' || pathname.startsWith('/en/')) return false;
-        // Blog is English-only: drop localized blog paths entirely (no hreflang signal).
-        if (/^\/(ru|zh|ko|ja|tr|pt-BR)\/blog(\/|$)/.test(pathname)) return false;
         return true;
       },
       serialize(item) {
@@ -154,8 +152,8 @@ export default defineConfig({
           item.changefreq = 'weekly';
           const key = pathname.split('/').filter(Boolean).pop() ?? '/';
           item.lastmod = staticLastmod(key === pathname.replace('/', '') ? key : key);
-        } else if (/^\/blog(\/\d+)?$/.test(pathname)) {
-          // Paginated blog index (English only): lower than post pages (0.7).
+        } else if (/^\/(?:(ru|zh|ko|ja|tr|pt-BR)\/)?blog(\/\d+)?$/.test(pathname)) {
+          // Paginated blog index: lower than post pages (0.7).
           item.priority = 0.6;
           item.changefreq = 'weekly';
           item.lastmod = blogDates.size

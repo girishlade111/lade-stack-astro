@@ -10,8 +10,7 @@ interface Props {
 
 /**
  * A1: routes that exist ONLY in English (root, no [lang]/ equivalent).
- * Note: /blog is English-only content, but the switcher remains enabled on blog
- * pages to allow navigating to localized homepages (/[lang]).
+ * Note: /blog and /blog/[slug] have localized equivalents in all locales.
  */
 const ENGLISH_ONLY_ROUTES = [
   '/api-testing-platform',
@@ -117,7 +116,8 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
       function setOpen(open) {
         if (open) {
           // Refresh hrefs from the live URL so context survives SPA-less navigation.
-          var path = window.location.pathname || '/';
+          var rawPath = window.location.pathname || '/';
+          var path = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath;
           root.querySelectorAll('[data-lang-link]').forEach(function (a) {
             var code = a.getAttribute('data-lang-link') || 'en';
             var parts = path.split('/').filter(Boolean);

@@ -30,7 +30,7 @@ interface Props {
    * via `structuredData` (would duplicate the entity for Rich Results).
    */
   breadcrumbs?: { name: string; url: string }[];
-  /** Set false for English-only pages (e.g. /blog) — emits self-referencing canonical with no hreflang alternates. */
+  /** Set false for English-only pages (error pages or unlocalized tools) — emits self-referencing canonical with no hreflang alternates. */
   hreflang?: boolean;
   /** Pagination neighbors for paginated index pages (rel="prev"/"next"). Absolute URLs. */
   prevUrl?: string;
@@ -91,7 +91,7 @@ const currentLangMeta = languages[lang];
     : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
 />
 
-<!-- Canonical Tag (self-referencing; blog posts exist in English only) -->
+<!-- Canonical Tag -->
 <link rel="canonical" href={fullCanonical} />
 {prevUrl && <link rel="prev" href={prevUrl} />}
 {nextUrl && <link rel="next" href={nextUrl} />}
@@ -122,7 +122,7 @@ const currentLangMeta = languages[lang];
 <meta property="og:image:height" content="630" />
 <meta property="og:site_name" content={SITE_NAME} />
 <meta property="og:locale" content={currentLangMeta.iso} />
-{['en_US', 'zh_CN', 'ko_KR', 'ja_JP', 'tr_TR', 'pt_BR'].filter((iso) => iso !== currentLangMeta.iso).map((iso) => (
+{Object.values(languages).map((l) => l.iso).filter((iso) => iso !== currentLangMeta.iso).map((iso) => (
   <meta property="og:locale:alternate" content={iso} />
 ))}
 
