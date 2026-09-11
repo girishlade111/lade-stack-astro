@@ -1,17 +1,17 @@
 import rss from '@astrojs/rss';
 import { getCollection, render } from 'astro:content';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
+import { getBlogPostsForLocale, getPostSlug } from '@/i18n/content';
 import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
-  // English-only blog: canonical frontmatter copy (no localized variants exist).
-  const posts = (await getCollection('blog')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
+  // English-only blog: canonical frontmatter copy (source of truth).
+  const allPosts = await getCollection('blog');
+  const posts = getBlogPostsForLocale('en', allPosts);
 
   const container = await AstroContainer.create();
   const items = [];
-  for (const post of posts) {
+  for (const { post, cleanSlug } of posts) {
     // Full article body rendered to HTML for content:encoded.
     const { Content } = await render(post);
     const content = await container.renderToString(Content);
@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.pubDate,
-      link: `/blog/${post.slug}`,
+      link: `/blog/${cleanSlug}`,
       content,
       author: post.data.author,
       categories: [post.data.category, ...post.data.tags],
