@@ -4,6 +4,9 @@ import { getCollection } from 'astro:content';
 import { useTranslations } from '@/i18n/utils';
 import { localizePost, getContent, getBlogPostsForLocale, type LocaleBlogPost } from '@/i18n/content';
 import { nonDefaultLocales, languages, type SupportedLocale } from '@/i18n/config';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/Icon.astro';
 import type { GetStaticPaths, Page } from 'astro';
 
@@ -64,204 +67,229 @@ const structuredData = {
   nextUrl={nextUrl}
   structuredData={structuredData}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <h1 class="font-serif text-4xl sm:text-6xl font-bold text-foreground break-words">
-        {t('blog.heading')}
-      </h1>
-      <p class="mt-4 text-base sm:text-lg text-muted-foreground">
-        {t('blog.subtitle')}
-      </p>
-      {gridPosts.some(p => p.isFallback) && (
-        <p class="mt-3 text-xs font-mono text-muted-foreground">
-          Available in English — {currentLangMeta.name} translations in progress
+  <div class="marketing-section-dark">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16" data-reveal>
+        <MonoEyebrow color="brand" class="mb-3">INSIGHTS</MonoEyebrow>
+        <h1 class="display-md text-on-primary mb-4 break-words page-enter">
+          {t('blog.heading')}
+        </h1>
+        <p class="subtitle text-ash mb-8">
+          {t('blog.subtitle')}
         </p>
-      )}
+        {gridPosts.some(p => p.isFallback) && (
+          <p class="caption text-ash mb-4">
+            Available in English — {currentLangMeta.name} translations in progress
+          </p>
+        )}
 
-      <!-- Real-time Search Input (Vanilla JS, filters this page) -->
-      <div class="mt-8 relative max-w-md mx-auto">
-        <Icon name="lucide:search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-        <input
-          type="text"
-          id="blog-search-input"
-          aria-label={t('blog.searchPlaceholder')}
-          placeholder={t('blog.searchPlaceholder')}
-          class="w-full pl-11 pr-4 py-3 rounded-full border border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-        />
+        <!-- Real-time Search Input (Vanilla JS, filters this page) -->
+        <div class="mt-8 relative max-w-md mx-auto">
+          <Icon name="lucide:search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ash pointer-events-none" />
+          <input
+            type="text"
+            id="blog-search-input"
+            aria-label={t('blog.searchPlaceholder')}
+            placeholder={t('blog.searchPlaceholder')}
+            class="text-input-dark w-full !pl-11 pr-4"
+          />
+        </div>
+
+        <!-- Category Filter Pills using btn-app-tab tokens -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-6" id="category-pills" role="group" aria-label="Filter blog posts by category">
+          {
+            categories.map((cat, idx) => (
+              <button
+                type="button"
+                aria-pressed={idx === 0 ? 'true' : 'false'}
+                class={`category-pill btn-app-tab !h-8 !px-3 cursor-pointer ${idx === 0 ? 'active' : ''}`}
+                data-category={cat}
+              >
+                {cat === 'All' ? t('blog.allCategories') : (c.blogCategories[cat] ?? cat)}
+              </button>
+            ))
+          }
+        </div>
       </div>
 
-      <!-- Category Filter Pills -->
-      <div class="flex flex-wrap gap-2 justify-center mt-6" id="category-filters" role="group" aria-label="Filter blog posts by category">
+      <!-- Articles Grid -->
+      <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="articles-grid">
         {
-          categories.map((cat, idx) => (
-            <button
-              type="button"
-              data-category={cat}
-              aria-pressed={idx === 0 ? 'true' : 'false'}
-              class={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                idx === 0
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'border border-border text-muted-foreground hover:text-foreground hover:bg-muted'
-              }`}
+          gridPosts.map(({ post, cleanSlug, isFallback, loc }, index) => (
+            <div
+              class="article-card flex"
+              data-category={post.data.category}
+              data-title={loc.title.toLowerCase()}
+              data-desc={loc.description.toLowerCase()}
+              data-reveal
+              data-reveal-delay={String((index % 6) * 80)}
             >
-              {cat === 'All' ? t('blog.allCategories') : (c.blogCategories[cat] ?? cat)}
-            </button>
+              <FeatureCard variant="dark" class="flex flex-col justify-between w-full hover:border-graphite transition-colors lift-on-hover">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="mono-micro px-2 py-1 rounded-full bg-canvas-soft border border-hairline-soft text-ash">
+                      {c.blogCategories[post.data.category] ?? post.data.category}
+                    </span>
+                    <div class="flex items-center gap-2">
+                      {isFallback && (
+                        <span class="mono-micro px-2 py-0.5 rounded-full bg-canvas-soft border border-hairline-soft text-ash" title="English original">
+                          EN
+                        </span>
+                      )}
+                      <span class="caption text-ash">{post.data.readTime} {t('common.minRead')}</span>
+                    </div>
+                  </div>
+                  <h2 class="heading-sm text-on-primary mb-2 break-words">
+                    <a href={`/${lang}/blog/${cleanSlug}`} class="hover:text-brand transition-colors">
+                      {loc.title}
+                    </a>
+                  </h2>
+                  <p class="body-sm text-ash leading-relaxed line-clamp-3 mb-6">
+                    {loc.description}
+                  </p>
+                </div>
+
+                <div class="mt-auto pt-6 border-t border-hairline-soft flex items-center justify-between flex-wrap gap-2">
+                  <span class="caption text-ash">{post.data.pubDate.toLocaleDateString(currentLangMeta.hreflang, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                  <Button
+                    href={`/${lang}/blog/${cleanSlug}`}
+                    variant="secondary-dark"
+                    class="!h-8 !px-3 text-xs group"
+                  >
+                    <span>{t('blog.readArticle')}</span>
+                    <Icon name="lucide:arrow-right" class="w-3 h-3 ml-1.5 group-hover:translate-x-0.5 transition-transform" />
+                  </Button>
+                </div>
+              </FeatureCard>
+            </div>
           ))
         }
       </div>
-    </div>
+      <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center caption text-ash">{t('blog.noMatch')}</p></div>
+      <p data-blog-count class="sr-only" aria-live="polite"></p>
 
-    <!-- Articles Grid -->
-    <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="articles-grid">
-      {
-        gridPosts.map(({ post, cleanSlug, isFallback, loc }) => (
-          <article
-            class="article-card rounded-2xl border border-border bg-card/60 p-6 flex flex-col justify-between hover:border-primary/40 hover:shadow-lg transition-all group"
-            data-category={post.data.category}
-            data-title={loc.title.toLowerCase()}
-            data-desc={loc.description.toLowerCase()}
-          >
-            <div>
-              <div class="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                <span class="px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold">
-                  {c.blogCategories[post.data.category] ?? post.data.category}
-                </span>
-                <div class="flex items-center gap-2">
-                  {isFallback && (
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-muted text-muted-foreground" title="English original">
-                      EN
-                    </span>
-                  )}
-                  <span>{post.data.readTime} {t('common.minRead')}</span>
-                </div>
-              </div>
-              <h2 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-snug break-words">
-                <a href={`/${lang}/blog/${cleanSlug}`}>
-                  {loc.title}
-                </a>
-              </h2>
-              <p class="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                {loc.description}
-              </p>
-            </div>
-
-            <div class="mt-6 pt-4 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
-              <span>{post.data.pubDate.toLocaleDateString(currentLangMeta.hreflang, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-              <span class="font-semibold text-primary inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                {t('blog.readArticle')} <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-    <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center text-muted-foreground">{t('blog.noMatch')}</p></div>
-    <p data-blog-count class="sr-only" aria-live="polite"></p>
-
-    <!-- Pagination Controls (Page numbers + Prev / Next) -->
-    {
-      page.lastPage > 1 && (
-        <nav aria-label="Blog pagination" class="mt-12 flex items-center justify-center gap-2">
+      <!-- Pagination Controls -->
+      {page.lastPage > 1 && (
+        <nav aria-label="Blog pagination" class="mt-16 flex items-center justify-center gap-2 flex-wrap" data-reveal>
           {page.url.prev ? (
-            <a
+            <Button
               href={page.url.prev}
-              class="px-4 py-2 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors inline-flex items-center gap-1"
-              aria-label="Previous page"
+              rel="prev"
+              variant="secondary-dark"
+              class="!h-9 !px-3.5 !text-xs"
             >
-              <Icon name="lucide:arrow-left" class="w-4 h-4" /> {t('common.previous')}
-            </a>
+              ← {t('common.previous')}
+            </Button>
           ) : (
-            <span class="px-4 py-2 rounded-xl border border-border/40 text-sm text-muted-foreground/40 cursor-not-allowed inline-flex items-center gap-1" aria-disabled="true">
-              <Icon name="lucide:arrow-left" class="w-4 h-4" /> {t('common.previous')}
-            </span>
+            <Button
+              variant="secondary-dark"
+              class="!h-9 !px-3.5 !text-xs opacity-40 cursor-not-allowed"
+              disabled
+              aria-disabled="true"
+            >
+              ← {t('common.previous')}
+            </Button>
           )}
-
-          <div class="hidden sm:flex items-center gap-1 mx-2">
-            {pageNumbers.map((n) => (
-              <a
-                href={pageHref(n)}
-                aria-current={n === page.currentPage ? 'page' : undefined}
-                class={`w-10 h-10 rounded-xl text-sm font-medium inline-flex items-center justify-center transition-colors ${
-                  n === page.currentPage
-                    ? 'bg-primary text-primary-foreground font-bold shadow-sm'
-                    : 'border border-border text-foreground hover:bg-muted'
-                }`}
+          {pageNumbers.map((n) => (
+            n === page.currentPage ? (
+              <Button
+                variant="primary"
+                class="!h-9 !px-3.5 !text-xs font-semibold"
+                aria-current="page"
               >
                 {n}
-              </a>
-            ))}
-          </div>
-
+              </Button>
+            ) : (
+              <Button
+                href={pageHref(n)}
+                aria-label={`Go to page ${n}`}
+                variant="secondary-dark"
+                class="!h-9 !px-3.5 !text-xs"
+              >
+                {n}
+              </Button>
+            )
+          ))}
           {page.url.next ? (
-            <a
+            <Button
               href={page.url.next}
-              class="px-4 py-2 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors inline-flex items-center gap-1"
-              aria-label="Next page"
+              rel="next"
+              variant="secondary-dark"
+              class="!h-9 !px-3.5 !text-xs"
             >
-              {t('common.next')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
-            </a>
+              {t('common.next')} →
+            </Button>
           ) : (
-            <span class="px-4 py-2 rounded-xl border border-border/40 text-sm text-muted-foreground/40 cursor-not-allowed inline-flex items-center gap-1" aria-disabled="true">
-              {t('common.next')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
-            </span>
+            <Button
+              variant="secondary-dark"
+              class="!h-9 !px-3.5 !text-xs opacity-40 cursor-not-allowed"
+              disabled
+              aria-disabled="true"
+            >
+              {t('common.next')} →
+            </Button>
           )}
         </nav>
-      )
-    }
+      )}
+    </div>
   </div>
 </BaseLayout>
 
-<script is:inline>
-  // Pure Vanilla JS instant search + category filter (scoped to this page).
-  // Re-wires after view transitions via astro:page-load.
-  function setupBlogFilters() {
-    var search = document.getElementById('blog-search-input');
-    var pills = document.querySelectorAll('#category-filters button');
-    var cards = document.querySelectorAll('.article-card');
-    var empty = document.querySelector('[data-blog-empty]');
-    var live = document.querySelector('[data-blog-count]');
-    var activeCategory = 'All';
+<script>
+  function setupBlogSearch(): void {
+    const input = document.getElementById('blog-search-input') as HTMLInputElement | null;
+    const cards = document.querySelectorAll<HTMLElement>('.article-card');
+    const pills = document.querySelectorAll<HTMLButtonElement>('.category-pill');
+    const empty = document.querySelector<HTMLElement>('[data-blog-empty]');
+    const counter = document.querySelector<HTMLElement>('[data-blog-count]');
 
-    function filter() {
-      var query = (search && search.value || '').trim().toLowerCase();
-      var visible = 0;
-      cards.forEach(function (card) {
-        var cat = card.getAttribute('data-category') || '';
-        var title = card.getAttribute('data-title') || '';
-        var desc = card.getAttribute('data-desc') || '';
-        var matchesCat = activeCategory === 'All' || cat === activeCategory;
-        var matchesQuery = !query || title.indexOf(query) !== -1 || desc.indexOf(query) !== -1;
-        if (matchesCat && matchesQuery) {
-          card.classList.remove('hidden');
-          visible++;
-        } else {
-          card.classList.add('hidden');
-        }
+    let currentCategory = 'All';
+    let currentQuery = '';
+
+    function filterPosts(): void {
+      let visible = 0;
+      cards.forEach((card) => {
+        const cat = card.getAttribute('data-category') || '';
+        const title = card.getAttribute('data-title') || '';
+        const desc = card.getAttribute('data-desc') || '';
+
+        const matchesCat = currentCategory === 'All' || cat === currentCategory;
+        const matchesQuery =
+          currentQuery === '' || title.includes(currentQuery) || desc.includes(currentQuery);
+
+        card.style.display = matchesCat && matchesQuery ? 'flex' : 'none';
+        if (matchesCat && matchesQuery) visible++;
       });
-      if (empty) {
-        if (visible === 0) empty.classList.remove('hidden');
-        else empty.classList.add('hidden');
-      }
-      if (live) live.textContent = visible + ' articles shown';
+      if (empty) empty.classList.toggle('hidden', visible !== 0);
+      if (counter) counter.textContent = `${visible} article${visible === 1 ? '' : 's'} shown.`;
     }
 
-    if (search) search.addEventListener('input', filter);
-    pills.forEach(function (pill) {
-      pill.addEventListener('click', function () {
-        pills.forEach(function (p) {
-          p.classList.remove('bg-primary', 'text-primary-foreground', 'shadow-sm');
-          p.classList.add('border', 'border-border', 'text-muted-foreground');
+    if (input) {
+      input.addEventListener('input', (e: Event) => {
+        currentQuery = ((e.target as HTMLInputElement).value || '').toLowerCase().trim();
+        filterPosts();
+      });
+    }
+
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        pills.forEach((p) => {
+          p.classList.remove('active');
           p.setAttribute('aria-pressed', 'false');
         });
-        pill.classList.remove('border', 'border-border', 'text-muted-foreground');
-        pill.classList.add('bg-primary', 'text-primary-foreground', 'shadow-sm');
+        pill.classList.add('active');
         pill.setAttribute('aria-pressed', 'true');
-        activeCategory = pill.getAttribute('data-category') || 'All';
-        filter();
+
+        currentCategory = pill.getAttribute('data-category') || 'All';
+        filterPosts();
       });
     });
   }
 
-  setupBlogFilters();
-  document.addEventListener('astro:page-load', setupBlogFilters);
+  setupBlogSearch();
+  document.addEventListener('astro:page-load', setupBlogSearch);
 </script>
+
+<style>
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
