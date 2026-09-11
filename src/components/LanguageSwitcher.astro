@@ -10,11 +10,10 @@ interface Props {
 
 /**
  * A1: routes that exist ONLY in English (root, no [lang]/ equivalent).
- * These get hideLanguageSwitcher upstream; the menu below additionally
- * disables those locale options as a defense-in-depth.
+ * Note: /blog is English-only content, but the switcher remains enabled on blog
+ * pages to allow navigating to localized homepages (/[lang]).
  */
 const ENGLISH_ONLY_ROUTES = [
-  '/blog',
   '/api-testing-platform',
   '/website-builder-project',
   '/file-sharing-platform',
@@ -128,7 +127,11 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
               if (sub === '/') sub = '/';
             }
             if (!sub) sub = '/';
-            a.setAttribute('href', code === 'en' ? sub : sub === '/' ? '/' + code : '/' + code + sub);
+            if (sub === '/blog' || sub.indexOf('/blog/') === 0) {
+              a.setAttribute('href', code === 'en' ? sub : '/' + code);
+            } else {
+              a.setAttribute('href', code === 'en' ? sub : sub === '/' ? '/' + code : '/' + code + sub);
+            }
           });
           menu.classList.remove('hidden');
           btn.setAttribute('aria-expanded', 'true');
