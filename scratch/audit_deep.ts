@@ -6,7 +6,7 @@ import { ko } from '../src/i18n/content-ko';
 import { ja } from '../src/i18n/content-ja';
 import { tr } from '../src/i18n/content-tr';
 import { ptBR } from '../src/i18n/content-ptbr';
-import { pageSEO, getPageSEO } from '../src/i18n/seo';
+import { seoData, getPageSEO } from '../src/i18n/seo';
 import appsData from '../src/data/apps.json';
 
 const allLocales = {
@@ -75,27 +75,31 @@ for (const [locName, locObj] of Object.entries(allLocales)) {
   const diff = deepCompare(en, locObj, locName);
   console.log(`\n--- Locale: ${locName} ---`);
   console.log(`Missing fields: ${diff.missing.length}`);
-  if (diff.missing.length > 0) console.log(diff.missing);
+  if (diff.missing.length > 0) console.log('  ', diff.missing);
   console.log(`Empty strings (where en has content): ${diff.empty.length}`);
-  if (diff.empty.length > 0) console.log(diff.empty);
+  if (diff.empty.length > 0) console.log('  ', diff.empty);
   console.log(`Type mismatches: ${diff.typeMismatch.length}`);
-  if (diff.typeMismatch.length > 0) console.log(diff.typeMismatch);
+  if (diff.typeMismatch.length > 0) console.log('  ', diff.typeMismatch);
   console.log(`Length mismatches (arrays): ${diff.lengthMismatch.length}`);
-  if (diff.lengthMismatch.length > 0) console.log(diff.lengthMismatch);
+  if (diff.lengthMismatch.length > 0) console.log('  ', diff.lengthMismatch);
 }
 
 console.log('\n=== SECTION 6 AUDIT: SEO metadata parity in src/i18n/seo.ts ===');
-console.log('pageSEO keys (pages):', Object.keys(pageSEO));
+console.log('Locales in seoData:', Object.keys(seoData));
 
 const localesForSEO = ['en', 'ru', 'zh', 'ko', 'ja', 'tr', 'pt-BR'] as const;
 const seoFields = ['title', 'description', 'keywords', 'ogTitle', 'ogDescription', 'breadcrumbName'] as const;
 
-for (const [pageKey, pageData] of Object.entries(pageSEO)) {
+// Get all pages from en
+const pagesInSEO = Object.keys(seoData.en || {});
+console.log('Pages defined in en:', pagesInSEO);
+
+for (const pageKey of pagesInSEO) {
   console.log(`\nPage: ${pageKey}`);
   for (const loc of localesForSEO) {
-    const dataForLoc = (pageData as any)[loc];
+    const dataForLoc = (seoData as any)[loc]?.[pageKey];
     if (!dataForLoc) {
-      console.log(`  [MISSING ENTIRE LOCALE] ${loc}`);
+      console.log(`  [MISSING ENTIRE LOCALE/PAGE] ${loc}.${pageKey}`);
       continue;
     }
     const missingFields: string[] = [];
@@ -109,15 +113,6 @@ for (const [pageKey, pageData] of Object.entries(pageSEO)) {
     }
     if (missingFields.length > 0 || emptyFields.length > 0) {
       console.log(`  Locale ${loc}: missing=[${missingFields.join(', ')}], empty=[${emptyFields.join(', ')}]`);
-    } else {
-      // Check if it's identical to en (untranslated fallback)
-      const enData = (pageData as any)['en'];
-      if (loc !== 'en' && enData) {
-        const identical = seoFields.filter(f => dataForLoc[f] === enData[f]);
-        if (identical.length > 0) {
-          console.log(`  Locale ${loc}: identical to EN for fields: ${identical.join(', ')}`);
-        }
-      }
     }
   }
 }
@@ -127,9 +122,10 @@ const categoriesInApps = Array.from(new Set(appsData.map((a: any) => a.category)
 console.log('Categories found in apps.json:', categoriesInApps);
 
 for (const [locName, locObj] of Object.entries({ en, ...allLocales })) {
-  console.log(`\nLocale ${locName} appCategories:`, locObj.appCategories);
   const missingCat = categoriesInApps.filter(c => !locObj.appCategories || !locObj.appCategories[c]);
   if (missingCat.length > 0) {
-    console.log(`  MISSING translation for categories:`, missingCat);
+    console.log(`Locale ${locName} MISSING translation for categories:`, missingCat);
+  } else {
+    console.log(`Locale ${locName} translates all ${categoriesInApps.length} categories: OK`);
   }
 }
