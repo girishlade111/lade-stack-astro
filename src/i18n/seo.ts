@@ -120,6 +120,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Read Lade Stack’s privacy policy. Learn about our client-side processing architecture, zero-retention policy, and user rights.',
       keywords:
         'Lade Stack privacy policy, client-side data privacy, zero retention AI tools, in-browser file processing, developer data security',
+      ogTitle: 'Privacy Policy — In-Browser Data Safety | Lade Stack',
+      ogDescription:
+        'Client-side processing architecture, zero-retention policy, and developer privacy standards for Lade Stack tools.',
       breadcrumbName: 'Privacy Policy',
     },
     terms: {
@@ -128,6 +131,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Review the terms of service for Lade Stack. Understand our free personal and commercial use license, fair-use policies, and guidelines.',
       keywords:
         'Lade Stack terms of service, developer tools license, free commercial use, acceptable use policy, API fair use',
+      ogTitle: 'Terms of Service — Free-Use License | Lade Stack',
+      ogDescription:
+        'Terms of service, free personal and commercial use license, and acceptable use guidelines for Lade Stack utilities.',
       breadcrumbName: 'Terms of Service',
     },
   },
@@ -230,6 +236,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Политика конфиденциальности Lade Stack: локальная обработка файлов в браузере, нулевое хранение сниппетов кода и права пользователей.',
       keywords:
         'политика конфиденциальности Lade Stack, безопасность данных разработчиков, клиентская обработка в браузере, защита данных',
+      ogTitle: 'Политика конфиденциальности — Защита данных | Lade Stack',
+      ogDescription:
+        'Локальная обработка файлов в браузере, нулевое хранение кода и стандарты конфиденциальности Lade Stack.',
       breadcrumbName: 'Конфиденциальность',
     },
     terms: {
@@ -238,6 +247,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Правила и условия сервисов Lade Stack: бессрочная бесплатная лицензия для личных и коммерческих проектов, правила добросовестного использования.',
       keywords:
         'условия использования Lade Stack, бесплатная лицензия разработчика, коммерческое использование, правила платформы',
+      ogTitle: 'Условия использования — Бесплатная лицензия | Lade Stack',
+      ogDescription:
+        'Условия обслуживания, бесплатная лицензия для личных и коммерческих проектов и правила добросовестного использования.',
       breadcrumbName: 'Условия использования',
     },
   },
@@ -340,6 +352,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stack 개인정보 처리방침: 브라우저 내부 파일 처리, AI 입력 데이터 미보관 정책 및 사용자 권리를 확인하세요.',
       keywords:
         'Lade Stack 개인정보 처리방침, 클라이언트 데이터 보안, 노-리텐션 정책, 브라우저 파일 안전성',
+      ogTitle: '개인정보 처리방침 — 브라우저 내 데이터 보안 | Lade Stack',
+      ogDescription:
+        '브라우저 로컬 데이터 처리 아키텍처, 입력 코드 미보관 원칙 및 개발자 개인정보 보호 기준 안내.',
       breadcrumbName: '개인정보 처리방침',
     },
     terms: {
@@ -348,6 +363,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stack 서비스 이용약관: 개인 및 상업적 목적의 무료 사용 라이선스, 공정 이용 정책 및 서비스 보증 안내.',
       keywords:
         'Lade Stack 이용약관, 개발자 무료 라이선스, 상업적 무료 사용, 서비스 이용 규칙',
+      ogTitle: '이용약관 — 무료 이용 라이선스 안내 | Lade Stack',
+      ogDescription:
+        'Lade Stack 도구의 개인 및 상업적 무료 이용 라이선스, 공정 이용 정책 및 서비스 이용 약관.',
       breadcrumbName: '이용약관',
     },
   },
@@ -450,6 +468,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Política de privacidade da Lade Stack: processamento local de arquivos, política de não retenção de código e direitos do usuário.',
       keywords:
         'política de privacidade Lade Stack, privacidade de dados dev, processamento no navegador, segurança de código',
+      ogTitle: 'Política de Privacidade — Segurança no Navegador | Lade Stack',
+      ogDescription:
+        'Processamento local no navegador, política de zero retenção de dados e segurança para desenvolvedores na Lade Stack.',
       breadcrumbName: 'Privacidade',
     },
     terms: {
@@ -458,6 +479,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Termos de uso da Lade Stack: licença gratuita para uso pessoal e comercial, diretrizes de uso justo e garantias.',
       keywords:
         'termos de serviço Lade Stack, licença gratuita para programadores, uso comercial permitido, regras de uso da API',
+      ogTitle: 'Termos de Serviço — Licença Gratuita de Uso | Lade Stack',
+      ogDescription:
+        'Termos de serviço, licença gratuita para uso pessoal e comercial e diretrizes de uso da plataforma Lade Stack.',
       breadcrumbName: 'Termos de Serviço',
     },
   },
@@ -560,6 +584,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stack 隐私政策：所有文件均在本地浏览器处理，零外部存储，严格保护您的源代码与机密数据。',
       keywords:
         'Lade Stack 隐私政策, 开发者数据安全, 浏览器端离线处理, 零存储原则, 用户数据权益',
+      ogTitle: '隐私政策 — 浏览器端数据安全与不保留原则 | Lade Stack',
+      ogDescription:
+        '详解 Lade Stack 浏览器端本地数据处理机制、代码零存储原则与开发者隐私安全标准。',
       breadcrumbName: '隐私政策',
     },
     terms: {
@@ -568,6 +595,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stack 平台服务条款：允许个人及商业项目完全免费使用，公平资源调用规则与责任声明。',
       keywords:
         'Lade Stack 服务条款, 开发者免费许可, 商业免费使用协议, 接口公平使用规范',
+      ogTitle: '服务条款 — 免费个人与商业使用许可 | Lade Stack',
+      ogDescription:
+        'Lade Stack 平台服务条款、个人与商业项目完全免费使用许可及接口合理使用规范。',
       breadcrumbName: '服务条款',
     },
   },
@@ -670,6 +700,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stackのプライバシーポリシー：ブラウザ内での完全ローカル処理、コード保持ゼロ方針、ユーザーの権利について。',
       keywords:
         'Lade Stackプライバシーポリシー, 開発者データ保護, ブラウザ内処理, データ非保持ポリシー',
+      ogTitle: 'プライバシーポリシー — ブラウザ完結のデータ保護 | Lade Stack',
+      ogDescription:
+        'ブラウザ内完全ローカル処理、コード非保持方針、開発者のデータプライバシー保護基準について。',
       breadcrumbName: 'プライバシーポリシー',
     },
     terms: {
@@ -678,6 +711,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stack利用規約：個人および商用プロジェクトでの完全無料ライセンス、利用ガイドライン、免責事項。',
       keywords:
         'Lade Stack利用規約, 開発者無料ライセンス, 商用無料利用, API利用規定',
+      ogTitle: '利用規約 — 無料商用・個人利用ライセンス | Lade Stack',
+      ogDescription:
+        'Lade Stackツールの個人・商用プロジェクト向け無料利用ライセンス、利用規約およびガイドライン。',
       breadcrumbName: '利用規約',
     },
   },
@@ -780,6 +816,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stack gizlilik politikası: yerel tarayıcı içi işlem, veri saklamama prensibi ve kullanıcı hakları.',
       keywords:
         'Lade Stack gizlilik politikası, geliştirici veri güvenliği, tarayıcıda işleme, veri gizliliği',
+      ogTitle: 'Gizlilik Politikası — Tarayıcı İçi Güvenlik | Lade Stack',
+      ogDescription:
+        'Tarayıcı içi yerel işleme, sıfır veri saklama prensibi ve geliştirici veri gizliliği standartları.',
       breadcrumbName: 'Gizlilik Politikası',
     },
     terms: {
@@ -788,6 +827,9 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stack kullanım şartları: kişisel ve ticari projeler için ücretsiz lisans ve adil kullanım politikaları.',
       keywords:
         'Lade Stack kullanım koşulları, ücretsiz geliştirici lisansı, ticari kullanım şartları',
+      ogTitle: 'Kullanım Koşulları — Ücretsiz Kullanım Lisansı | Lade Stack',
+      ogDescription:
+        'Lade Stack araçları için ücretsiz kişisel ve ticari kullanım lisansı, şartlar ve adil kullanım politikası.',
       breadcrumbName: 'Kullanım Koşulları',
     },
   },
