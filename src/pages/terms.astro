@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/utils';
 import { getContent } from '../i18n/content';
 import { getPageSEO, createBreadcrumbSchema } from '../i18n/seo';
 
 const lang = 'en' as const;
+const t = useTranslations(lang);
 const c = getContent(lang);
 const seo = getPageSEO('terms', lang);
 const updated = '2026-09-09';
@@ -18,7 +20,7 @@ const structuredData = [
     description: seo.description,
   },
   createBreadcrumbSchema([
-    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: t('nav.home'), url: 'https://ladestack.in/' },
     { name: seo.breadcrumbName, url: 'https://ladestack.in/terms' },
   ]),
 ];
@@ -34,8 +36,8 @@ const structuredData = [
   structuredData={structuredData}
 >
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20">
-    <h1 class="font-serif text-4xl md:text-5xl font-bold break-words">Terms of Service</h1>
-    <p class="mt-3 text-sm text-foreground/55">Last updated: {updated}</p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold break-words">{c.footerLinks.terms}</h1>
+    <p class="mt-3 text-sm text-foreground/55">{t('legal.lastUpdated')}: {updated}</p>
     <div class="mt-8 space-y-8">
       {sections.map((s) => (
         <section>
