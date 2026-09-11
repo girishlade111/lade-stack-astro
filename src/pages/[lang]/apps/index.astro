@@ -34,7 +34,7 @@ const structuredData = [
 // Breadcrumb trail is emitted via SEO.astro `breadcrumbs` (single BreadcrumbList).
 // getLocalizedPath() keeps item URLs locale-prefixed (e.g. /zh, /zh/apps).
 const breadcrumbs = [
-  { name: 'Home', url: `https://ladestack.in${getLocalizedPath('/', lang)}` },
+  { name: t('nav.home'), url: `https://ladestack.in${getLocalizedPath('/', lang)}` },
   { name: seo.breadcrumbName, url: `https://ladestack.in${getLocalizedPath('/apps', lang)}` },
 ];
 ---
