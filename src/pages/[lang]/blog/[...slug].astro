@@ -119,11 +119,11 @@ const structuredData = [
       <div class="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
         <span>{t('common.byAuthor')} {post.data.author}</span>
         <span aria-hidden="true" class="hidden xxs:inline">•</span>
-        <span>{post.data.pubDate.toLocaleDateString(currentLangMeta.iso, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+        <span>{post.data.pubDate.toLocaleDateString(currentLangMeta.hreflang, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
         {post.data.updatedDate && (
           <>
             <span aria-hidden="true" class="hidden xxs:inline">•</span>
-            <span>Updated {post.data.updatedDate.toLocaleDateString(currentLangMeta.iso, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span>Updated {post.data.updatedDate.toLocaleDateString(currentLangMeta.hreflang, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
           </>
         )}
         <span aria-hidden="true" class="hidden xxs:inline">•</span>
