@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProductsSection from '@/components/sections/ProductsSection.astro';
+import { useTranslations } from '@/i18n/utils';
 import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
 
 const defaultLang = 'en' as const;
+const t = useTranslations(defaultLang);
 const seo = getPageSEO('products', defaultLang);
 
 const structuredData = [
@@ -15,7 +17,7 @@ const structuredData = [
     description: seo.description,
   },
   createBreadcrumbSchema([
-    { name: 'Home', url: 'https://ladestack.in/' },
+    { name: t('nav.home'), url: 'https://ladestack.in/' },
     { name: seo.breadcrumbName, url: 'https://ladestack.in/products' },
   ]),
 ];
