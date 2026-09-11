@@ -33,15 +33,6 @@ export function getLocalizedPath(path: string, lang: SupportedLocale): string {
   }
   if (subPath === '') subPath = '/';
 
-  // Blog content is English-only (Invariant #5).
-  // When switching to a non-default language from a blog route, redirect to localized home (`/${lang}`).
-  if (subPath === '/blog' || subPath.startsWith('/blog/')) {
-    if (lang === defaultLocale) {
-      return subPath;
-    }
-    return `/${lang}`;
-  }
-
   if (lang === defaultLocale) {
     return subPath;
   }
