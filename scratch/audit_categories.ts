@@ -15,14 +15,14 @@ function getFiles(dir, exts = ['.astro', '.ts']) {
   return files;
 }
 
-const allFiles = getFiles(path.join(__dirname, '../src'));
+const allFiles = getFiles(path.join(process.cwd(), 'src'));
 
 console.log('Searching for app category usage in src...');
 
 const matches = [];
 
 for (const file of allFiles) {
-  const rel = path.relative(path.join(__dirname, '..'), file).replace(/\\/g, '/');
+  const rel = path.relative(process.cwd(), file).replace(/\\/g, '/');
   const content = fs.readFileSync(file, 'utf-8');
   const lines = content.split('\n');
   lines.forEach((line, idx) => {
