@@ -129,7 +129,7 @@ export const tr: LocaleContent = {
     },
     {
       q: 'Lade Stack’in arkasında kim var?',
-      a: 'Lade Stack, Kurucu ve Baş Yazılım Mimarı (Founder & Lead Software Architect) olarak görev yapan Girish Lade tarafından kurulmuş ve tasarlanmıştır. UI/UX tasarımı, ön uç ve arka uç mühendisliği, bulut mimarisi ve Üretken Yapay Zekâ alanlarındaki disiplinler arası birikimiyle Girish, ürün yönünü belirler ve gerçek mühendislik sorunlarını çözen araçlar inşa eder.'
+      a: 'Lade Stack, Kurucu ve Baş Yazılım Mimarı olarak görev yapan Girish Lade tarafından kurulmuş ve tasarlanmıştır. UI/UX tasarımı, ön uç ve arka uç mühendisliği, bulut mimarisi ve Üretken Yapay Zekâ alanlarındaki disiplinler arası birikimiyle Girish, ürün yönünü belirler ve gerçek mühendislik sorunlarını çözen araçlar inşa eder.'
     },
     {
       q: 'Lade Stack’i diğer yazılım platformlarından farklı kılan nedir?',
@@ -331,7 +331,7 @@ export const tr: LocaleContent = {
       articles: [
         {
           title: 'Tasarımda gizlilik: tarayıcı içi yerel hesaplama mimarisi',
-          text: 'Lade Stack\'in en belirgin mimari farkı \'Tasarımda Gizlilik (Privacy by Design)\' prensibidir. LS PDF Tools ve LS Image Studio gibi temel araçlar; modern WebAssembly, HTML5 File API ve Canvas teknolojilerini kullanarak tüm işlemleri doğrudan tarayıcınızın belleğinde tamamlar. Gizli sözleşmeleriniz, belgeleriniz ve özel fotoğraflarınız asla harici sunuculara yüklenmez veya aktarılmaz.'
+          text: 'Lade Stack\'in en belirgin mimari farkı \'Tasarımda Gizlilik\' prensibidir. LS PDF Tools ve LS Image Studio gibi temel araçlar; modern WebAssembly, HTML5 File API ve Canvas teknolojilerini kullanarak tüm işlemleri doğrudan tarayıcınızın belleğinde tamamlar. Gizli sözleşmeleriniz, belgeleriniz ve özel fotoğraflarınız asla harici sunuculara yüklenmez veya aktarılmaz.'
         },
         {
           title: 'Veri iletimi ve sıfır-saklama (Zero-retention) politikası',
@@ -695,7 +695,7 @@ export const tr: LocaleContent = {
   privacy: [
     {
       h: 'Genel bakış ve gizlilik ilkeleri',
-      p: 'Lade Stack, Hindistan\'da Girish Lade tarafından kurulan bağımsız bir geliştirici araçları ve üretken yapay zekâ mühendisliği ekosistemidir. Temel tasarım ilkemiz tasarımdan gelen gizliliktir (Privacy by Design): yazılımlar istilacı telemetri, gözetim veya gizli veri ticarileştirmesi olmadan kullanıcılara değer sunmalıdır. Topladığımız verileri teknik olarak mümkün olan en alt seviyede tutuyor, dosya işleme ve hesaplamaları mümkün olduğunca tarayıcınızın yerel ortamında yürütüyor ve kişisel bilgilerinizi veri simsarlarına ya da reklam ağlarına asla satmıyor veya kiralamıyoruz.'
+      p: 'Lade Stack, Hindistan\'da Girish Lade tarafından kurulan bağımsız bir geliştirici araçları ve üretken yapay zekâ mühendisliği ekosistemidir. Temel tasarım ilkemiz tasarımdan gelen gizliliktir: yazılımlar istilacı telemetri, gözetim veya gizli veri ticarileştirmesi olmadan kullanıcılara değer sunmalıdır. Topladığımız verileri teknik olarak mümkün olan en alt seviyede tutuyor, dosya işleme ve hesaplamaları mümkün olduğunca tarayıcınızın yerel ortamında yürütüyor ve kişisel bilgilerinizi veri simsarlarına ya da reklam ağlarına asla satmıyor veya kiralamıyoruz.'
     },
     {
       h: 'Doğrudan sağladığınız bilgiler',
