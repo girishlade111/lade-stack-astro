@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProductsSection from '@/components/sections/ProductsSection.astro';
+import { useTranslations } from '@/i18n/utils';
 import { nonDefaultLocales, type SupportedLocale } from '@/i18n/config';
 import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
 
@@ -9,6 +10,7 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params as { lang: SupportedLocale };
+const t = useTranslations(lang);
 const seo = getPageSEO('products', lang);
 
 const structuredData = [
