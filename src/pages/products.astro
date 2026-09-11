@@ -1,16 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getLocalizedPath } from '@/i18n/utils';
-import { getContent } from '@/i18n/content';
-import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
-import FeatureCard from '@/components/ui/FeatureCard.astro';
-import Button from '@/components/ui/Button.astro';
-import Icon from '@/components/Icon.astro';
-
+import ProductsSection from '@/components/sections/ProductsSection.astro';
 import { getPageSEO, createBreadcrumbSchema } from '@/i18n/seo';
 
 const defaultLang = 'en' as const;
-const products = getContent(defaultLang).products;
 const seo = getPageSEO('products', defaultLang);
 
 const structuredData = [
@@ -38,87 +31,6 @@ const structuredData = [
   path="/products"
   structuredData={structuredData}
 >
-  <div class="marketing-section-dark">
-    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <MonoEyebrow color="brand" class="mb-3">ECOSYSTEM</MonoEyebrow>
-        <h1 class="display-md text-on-primary mb-4 break-words">
-          Flagship AI Developer Tools
-        </h1>
-        <p class="subtitle text-ash">
-          Every tool is purpose-built to eliminate repetitive dev chores and accelerate your release cycles.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 xs:grid-cols-2 gap-6 md:gap-8 mb-16">
-        {
-          products.map((p, index) => {
-            const isBrandCard = index === 0;
-            return isBrandCard ? (
-              <FeatureCard variant="brand" class="flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-6">
-                    <span class="mono-micro px-2 py-1 rounded-full bg-ink text-on-primary">
-                      {p.badge} • FLAGSHIP
-                    </span>
-                    <Icon name={p.icon} class="w-6 h-6 text-ink" />
-                  </div>
-                  <h2 class="heading-md text-ink mb-2 break-words">
-                    {p.title}
-                  </h2>
-                  <p class="caption-tight text-ink/80 mb-3">{p.tagline}</p>
-                  <p class="body text-ink/90 leading-relaxed">{p.desc}</p>
-                </div>
-                <div class="mt-8 pt-6 border-t border-ink/20 flex items-center justify-between">
-                  <Button
-                    href={p.link.startsWith('http') ? p.link : getLocalizedPath(p.link, defaultLang)}
-                    variant="primary-on-light"
-                    target={p.link.startsWith('http') ? '_blank' : '_self'}
-                    rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    class="!h-10 text-sm"
-                  >
-                    <span>Launch Tool</span>
-                    <Icon name="lucide:arrow-up-right" class="w-4 h-4 ml-1.5" />
-                  </Button>
-                </div>
-              </FeatureCard>
-            ) : (
-              <FeatureCard variant="dark" class="flex flex-col justify-between hover:border-graphite transition-colors">
-                <div>
-                  <div class="flex items-center justify-between mb-6">
-                    <span class="mono-micro px-2 py-1 rounded-full bg-canvas-soft border border-hairline-soft text-ash">
-                      {p.badge}
-                    </span>
-                    <Icon name={p.icon} class="w-6 h-6 text-brand" />
-                  </div>
-                  <h2 class="heading-md text-on-primary mb-2 break-words">
-                    {p.title}
-                  </h2>
-                  <p class="caption-tight text-ash mb-3">{p.tagline}</p>
-                  <p class="body text-ash leading-relaxed">{p.desc}</p>
-                </div>
-                <div class="mt-8 pt-6 border-t border-hairline-soft flex items-center justify-between">
-                  <Button
-                    href={p.link.startsWith('http') ? p.link : getLocalizedPath(p.link, defaultLang)}
-                    variant="secondary-dark"
-                    target={p.link.startsWith('http') ? '_blank' : '_self'}
-                    rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  >
-                    <span>Launch Tool</span>
-                    <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 ml-1.5" />
-                  </Button>
-                </div>
-              </FeatureCard>
-            );
-          })
-        }
-      </div>
-
-      <div class="text-center">
-        <Button href={getLocalizedPath('/apps', defaultLang)} variant="primary" class="px-8">
-          View all apps
-        </Button>
-      </div>
-    </div>
-  </div>
+  <ProductsSection lang="en" />
 </BaseLayout>
+
