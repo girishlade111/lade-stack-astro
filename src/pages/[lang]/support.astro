@@ -28,7 +28,7 @@ const structuredData = [
     mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
   },
   createBreadcrumbSchema([
-    { name: 'Home', url: `https://ladestack.in/${lang}` },
+    { name: t('nav.home'), url: `https://ladestack.in/${lang}` },
     { name: seo.breadcrumbName, url: `https://ladestack.in/${lang}/support` },
   ]),
 ];
