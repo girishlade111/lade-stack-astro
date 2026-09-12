@@ -44,7 +44,7 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
   <button
     type="button"
     data-lang-button
-    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-border bg-card/60 hover:bg-muted text-sm font-medium text-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
+    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-border bg-card/60 hover:bg-muted text-sm font-medium text-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand"
     aria-expanded="false"
     aria-haspopup="menu"
     aria-controls="lang-menu"
@@ -72,7 +72,7 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
             data-lang-link={code}
             class={`flex items-center gap-3 px-4 py-2 text-sm transition-colors ${
               isSelected
-                ? 'bg-primary/10 text-primary font-semibold'
+                ? 'bg-brand/10 text-brand font-semibold'
                 : 'text-foreground hover:bg-muted/60'
             }`}
             role="menuitem"
@@ -80,7 +80,7 @@ function routeExistsForLocale(route: string, locale: SupportedLocale): boolean {
           >
             <span class="text-base" aria-hidden="true">{meta.flag}</span>
             <span>{meta.name}</span>
-            {isSelected && <Icon name="lucide:check" class="ml-auto w-4 h-4 text-primary" />}
+            {isSelected && <Icon name="lucide:check" class="ml-auto w-4 h-4 text-brand" />}
           </a>
         ) : (
           <span
