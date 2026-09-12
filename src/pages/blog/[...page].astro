@@ -20,6 +20,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 const defaultLang = 'en' as const;
 const t = useTranslations(defaultLang);
 const c = getContent(defaultLang);
+const seo = getPageSEO('blogListing', defaultLang);
 const { page } = Astro.props as { page: Page<CollectionEntry<'blog'>> };
 
 // Full sorted list (for category pills) — page.data holds only the current slice.
@@ -39,25 +40,36 @@ const nextUrl = page.url.next ? `${SITE_URL}${page.url.next}` : undefined;
 const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
 const pageHref = (n: number) => (n === 1 ? '/blog' : `/blog/${n}`);
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Blog',
-  name: 'Lade Stack Blog',
-  url: `${SITE_URL}${canonicalPath}`,
-  description: 'Expert tutorials, guides, and insights on AI-powered development, API testing, and modern software engineering.',
-  publisher: { '@type': 'Organization', name: 'Lade Stack', url: SITE_URL }
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: seo.title,
+    url: `${SITE_URL}${canonicalPath}`,
+    description: seo.description,
+    publisher: { '@type': 'Organization', name: 'Lade Stack', url: SITE_URL }
+  }
+];
+
+// Breadcrumb trail is emitted via SEO.astro `breadcrumbs` (single BreadcrumbList).
+const breadcrumbs = [
+  { name: t('nav.home'), url: `https://ladestack.in${getLocalizedPath('/', defaultLang)}` },
+  { name: seo.breadcrumbName, url: `https://ladestack.in${getLocalizedPath('/blog', defaultLang)}` },
+];
 ---
 
 <BaseLayout
-  title={page.currentPage === 1 ? 'Engineering & AI Development Blog — Page 1 | Lade Stack' : `Engineering & AI Development Blog — Page ${page.currentPage} | Lade Stack`}
-  description={page.currentPage === 1 ? `27 in-depth tutorials on AI development, RAG, MLOps & SaaS architecture — page 1 of ${page.lastPage}.` : `More AI development tutorials, RAG guides & SaaS blueprints — page ${page.currentPage} of ${page.lastPage}.`}
-  keywords="AI blog, developer tutorials, RAG, MLOps, SaaS architecture, DevOps"
+  title={`${seo.title} — Page ${page.currentPage} | Lade Stack`}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={defaultLang}
   path={canonicalPath}
   prevUrl={prevUrl}
   nextUrl={nextUrl}
   structuredData={structuredData}
+  breadcrumbs={breadcrumbs}
 >
   <div class="marketing-section-dark">
     <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
