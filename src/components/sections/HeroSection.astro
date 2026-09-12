@@ -53,14 +53,8 @@ const t = useTranslations(lang);
         title="LadeStack Studio — terminal & code intelligence"
         tabs={['ai-code-viewer.ts', 'api-testing.json', 'preview.html']}
         activeTab="ai-code-viewer.ts"
-      >
-        <div class="p-4 space-y-1.5 font-mono text-xs text-ash">
-          <p class="text-mute">// 100% Server-Rendered Developer Engine • Multi-Language SSG</p>
-          <p><span class="text-brand">const</span> engine = <span class="text-link-blue-soft">initLadeStack</span>(&#123; locale: <span class="text-success">'{lang}'</span>, runtime: <span class="text-brand">0</span> &#125;);</p>
-          <p class="text-on-primary">&#62; <span class="text-success">BUILD COMPLETE</span>: 27 blog posts, 10 developer tools, 0kb client js runtime</p>
-          <p class="text-mute">&#62; Ready on <span class="text-link-blue-soft underline">https://ladestack.in</span></p>
-        </div>
-      </StudioWindow>
+        lang={lang}
+      />
     </div>
 
     <!-- Key Metrics Grid: canvas-soft (#212121), hairline-soft (#353535) -->
