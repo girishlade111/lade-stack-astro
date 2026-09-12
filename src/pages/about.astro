@@ -45,9 +45,11 @@ const aboutStructuredData = [
 ---
 
 <BaseLayout
-  title={`${about.metaTitle} | Lade Stack`}
-  description={about.metaDescription}
-  keywords={about.metaKeywords}
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  ogTitle={seo.ogTitle}
+  ogDescription={seo.ogDescription}
   lang={lang}
   path="/about"
   structuredData={aboutStructuredData}
