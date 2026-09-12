@@ -59,7 +59,7 @@ const breadcrumbs = [
 ---
 
 <BaseLayout
-  title={`${seo.title} — Page ${page.currentPage} | Lade Stack`}
+  title={page.currentPage === 1 ? seo.title : `${seo.title.replace(/ \| Lade Stack$/, '')} — Page ${page.currentPage} | Lade Stack`}
   description={seo.description}
   keywords={seo.keywords}
   ogTitle={seo.ogTitle}
