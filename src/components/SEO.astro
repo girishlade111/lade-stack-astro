@@ -181,6 +181,14 @@ const currentLangMeta = languages[lang];
         "name": "Lade Stack",
         "publisher": {
           "@id": "https://ladestack.in/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://ladestack.in/docs?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
         }
       }
     ]
