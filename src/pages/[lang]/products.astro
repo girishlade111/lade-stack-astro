@@ -20,7 +20,41 @@ const structuredData = [
     name: seo.title,
     url: `https://ladestack.in/${lang}/products`,
     inLanguage: lang,
-    description: seo.description
+    description: seo.description,
+    mainEntity: [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'CodeEnhance AI',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Web Browser',
+        url: `https://ladestack.in/${lang}/ai-code-viewer-ai`,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+      },
+      {
+        '@type': 'SoftwareApplication',
+        name: 'API Testing Platform',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Web Browser',
+        url: `https://ladestack.in/${lang}/products`,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+      },
+      {
+        '@type': 'SoftwareApplication',
+        name: 'Website Builder AI',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Web Browser',
+        url: `https://ladestack.in/${lang}/products`,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+      },
+      {
+        '@type': 'SoftwareApplication',
+        name: 'Secure File Hub',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Web Browser',
+        url: `https://ladestack.in/${lang}/products`,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+      }
+    ]
   },
   createBreadcrumbSchema([
     { name: t('nav.home'), url: `https://ladestack.in/${lang}` },
@@ -39,6 +73,6 @@ const structuredData = [
   path="/products"
   structuredData={structuredData}
 >
-  <ProductsSection lang={lang} />
+  <ProductsSection lang={lang} isPage={true} />
 </BaseLayout>
 
