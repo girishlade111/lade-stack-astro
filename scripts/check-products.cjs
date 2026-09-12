@@ -62,8 +62,8 @@ console.log(`sitemap /products: ${smOk ? 'OK' : 'BROKEN'}`);
 // apps.json registry count check (B13). NOTE: update EXPECTED_APPS + EXPECTED_TITLES
 // whenever entries are added/removed in src/data/apps.json, or this gate will fail.
 const appsData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'apps.json'), 'utf8'));
-const EXPECTED_APPS = 9;
-const EXPECTED_TITLES = ['CodeEnhance AI', 'LS PDF Tools', 'LS Image Studio', 'Swift Resume', 'Bharat Land Records', 'API Testing Platform', 'Website Builder', 'File Management', 'Documentation AI'];
+const EXPECTED_APPS = 12;
+const EXPECTED_TITLES = ['CodeEnhance AI', 'LS PDF Tools', 'LS Image Studio', 'Swift Resume', 'Bharat Land Records', 'GameHub', 'Driving Vibes', 'GB Coder', 'API Testing Platform', 'Website Builder', 'File Management', 'Documentation AI'];
 const appsCountOk = appsData.length === EXPECTED_APPS;
 const appsTitlesOk = EXPECTED_TITLES.every((t) => appsData.some((a) => a.title === t));
 if (!appsCountOk || !appsTitlesOk) fail2 = true;
