@@ -848,5 +848,27 @@ export const ptBR: LocaleContent = {
     'implementing-oauth2-openid-connect': { title: 'Implementando OAuth2 e OpenID Connect', description: 'Authorization code + PKCE, guarda de tokens, rotação e logout — certo de primeira.' },
     'mlops-deploying-ml-models-production': { title: 'MLOps: modelos em produção', description: 'Registries, serving canário, feature store e rollback — modelos confiáveis.' },
     'monitoring-ai-systems-in-production': { title: 'Monitorando sistemas de IA em prod', description: 'Qualidade, drift, custo e latência das features de IA — com evals e guardrails.' }
+  },
+  studioWindow: {
+    readyStatus: 'pronto',
+    viewer: {
+      comment: '// @ladestack/engine — SSG de borda autônomo e inteligência de código',
+      buildStatus: 'BUILD CONCLUÍDO',
+      buildDetails: '27 artigos, 9 ferramentas, 0kb de runtime no cliente',
+      readyText: 'Disponível em',
+      readySuffix: '(0ms TTFB)'
+    },
+    api: {
+      resultText: '> 2/2 testes aprovados (42ms) • SSL Verificado'
+    },
+    preview: {
+      comment: '<!-- Gerado por Website Builder AI • Componente Semântico Astro -->',
+      badge: 'SISTEMA PRONTO',
+      heading: 'Projetado para Velocidade Extrema',
+      subtitle: 'Zero runtime JS no cliente com 100% SSG.',
+      button: 'Explorar Ferramentas',
+      compiledStatus: 'COMPILADO',
+      compiledDetails: 'output/dist/index.html (3.4kb gzip, 100/100 LH)'
+    }
   }
 };

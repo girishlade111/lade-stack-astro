@@ -848,5 +848,27 @@ export const tr: LocaleContent = {
     'implementing-oauth2-openid-connect': { title: 'OAuth2 ve OpenID Connect Uygulamak', description: 'PKCE’li yetkilendirme kodu, jeton saklama, döndürme ve çıkış — ilk seferde doğru.' },
     'mlops-deploying-ml-models-production': { title: 'MLOps: ML Modellerini Üretime Almak', description: 'Kayıt defteri, kanarya sunumu, öznitelik deposu ve geri alma planlarıyla güven veren modeller.' },
     'monitoring-ai-systems-in-production': { title: 'Üretimde YZ Sistemlerini İzlemek', description: 'Değerlendirme ve korkuluklarla YZ özelliklerinin kalite, kayma, maliyet ve gecikmesini takip.' }
+  },
+  studioWindow: {
+    readyStatus: 'hazır',
+    viewer: {
+      comment: '// @ladestack/engine — Bağımsız Edge SSG ve Kod Zekası Motoru',
+      buildStatus: 'DERLEME TAMAMLANDI',
+      buildDetails: '27 makale, 9 geliştirici aracı, 0kb istemci çalışma zamanı',
+      readyText: 'Hazır',
+      readySuffix: '(0ms TTFB)'
+    },
+    api: {
+      resultText: '> 2/2 test başarılı (42ms) • SSL Doğrulandı'
+    },
+    preview: {
+      comment: '<!-- Website Builder AI ile üretildi • Semantik Astro Bileşeni -->',
+      badge: 'SİSTEM HAZIR',
+      heading: 'Üstün Hız İçin Tasarlandı',
+      subtitle: '%100 SSG ile sıfır istemci JS çalışma zamanı.',
+      button: 'Araçları Keşfet',
+      compiledStatus: 'DERLENDİ',
+      compiledDetails: 'output/dist/index.html (3.4kb gzip, 100/100 LH)'
+    }
   }
 };
