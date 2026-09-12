@@ -773,6 +773,7 @@ export const en: LocaleContent = {
     'DevOps & CI/CD': 'DevOps & CI/CD',
     'Security in Web Apps': 'Security in Web Apps',
     'AI Production Systems': 'AI Production Systems'
+  },
   blogPosts: {},
   studioWindow: {
     readyStatus: 'ready',

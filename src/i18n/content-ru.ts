@@ -773,6 +773,7 @@ export const ru: LocaleContent = {
     'DevOps & CI/CD': 'DevOps и CI/CD',
     'Security in Web Apps': 'Безопасность веб-приложений',
     'AI Production Systems': 'ИИ в продакшене'
+  },
   blogPosts: {},
   studioWindow: {
     readyStatus: 'готово',
