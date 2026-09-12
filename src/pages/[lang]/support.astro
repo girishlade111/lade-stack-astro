@@ -4,6 +4,10 @@ import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { getContent } from '../../i18n/content';
 import { nonDefaultLocales, type SupportedLocale } from '../../i18n/config';
 import { getPageSEO, createBreadcrumbSchema } from '../../i18n/seo';
+import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
+import FeatureCard from '@/components/ui/FeatureCard.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/Icon.astro';
 
 export function getStaticPaths() {
   return nonDefaultLocales.map((lang) => ({ params: { lang } }));
@@ -43,36 +47,63 @@ const structuredData = [
   ogDescription={seo.ogDescription}
   structuredData={structuredData}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
-    <h1 class="font-serif text-4xl md:text-6xl font-bold break-words">{t('support.heading')}</h1>
-    <p class="mt-3 text-foreground/65 max-w-2xl md:text-lg">{t('support.subtitle')}</p>
+  <section class="marketing-section-dark">
+    <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
+      <!-- Hero -->
+      <div class="text-center max-w-3xl mx-auto mb-16" data-reveal>
+        <MonoEyebrow color="brand" class="mb-3">SUPPORT</MonoEyebrow>
+        <h1 class="display-md text-on-primary mb-4 break-words">{t('support.heading')}</h1>
+        <p class="subtitle text-ash max-w-2xl mx-auto">{t('support.subtitle')}</p>
+      </div>
 
-    <div class="mt-8 grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 gap-4">
-      {topics.map((topic) => (
-        <div class="rounded-2xl border border-border bg-card/60 p-5">
-          <h2 class="font-semibold break-words">{topic.title}</h2>
-          <p class="mt-2 text-sm text-foreground/65 leading-relaxed break-words">{topic.text}</p>
+      <!-- Topics -->
+      <div class="grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 md:mb-20">
+        {topics.map((topic, topicIdx) => (
+          <div
+            class="flex"
+            data-reveal
+            data-reveal-delay={String((topicIdx % 4) * 80)}
+          >
+            <FeatureCard variant="dark" class="w-full hover:border-graphite transition-colors lift-on-hover">
+              <h2 class="heading-sm text-on-primary break-words">{topic.title}</h2>
+              <p class="mt-2 body-sm text-ash leading-relaxed break-words">{topic.text}</p>
+            </FeatureCard>
+          </div>
+        ))}
+      </div>
+
+      <!-- FAQ Accordion (contact.astro pattern) -->
+      <div class="max-w-3xl mx-auto mb-16 md:mb-20">
+        <h2 class="heading-md text-on-primary text-center mb-8" data-reveal>{t('support.faqTitle')}</h2>
+        <div class="space-y-4">
+          {faqs.map((f, faqIdx) => (
+            <details
+              data-reveal
+              data-reveal-delay={String((faqIdx % 4) * 60)}
+              class="group p-4 rounded-app-lg border border-hairline bg-canvas-light transition-all [&_summary::-webkit-details-marker]:hidden"
+            >
+              <summary class="flex items-center justify-between cursor-pointer font-medium text-ink text-sm list-none gap-3">
+                <span class="break-words">{f.q}</span>
+                <Icon name="lucide:chevron-down" class="w-4 h-4 text-mute group-open:rotate-180 transition-transform shrink-0" />
+              </summary>
+              <p class="body-sm text-ink/75 leading-relaxed pt-3 mt-3 border-t border-hairline">
+                {f.a}
+              </p>
+            </details>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
 
-    <h2 class="font-serif text-2xl md:text-3xl font-bold mt-12 break-words">{t('support.faqTitle')}</h2>
-    <div class="mt-5 grid lg:grid-cols-2 gap-3 items-start">
-      {faqs.map((f) => (
-        <details class="rounded-2xl border border-border bg-card/60 px-5 py-4 open:border-primary/40">
-          <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3">
-            <span class="break-words">{f.q}</span>
-            <span aria-hidden="true" class="text-primary text-xl leading-none shrink-0">+</span>
-          </summary>
-          <p class="mt-3 text-sm text-foreground/65 leading-relaxed break-words">{f.a}</p>
-        </details>
-      ))}
+      <!-- CTA -->
+      <div class="max-w-3xl mx-auto" data-reveal>
+        <FeatureCard variant="dark" class="text-center hover:border-graphite transition-colors lift-on-hover">
+          <h2 class="heading-md text-on-primary mb-4 break-words">{t('support.stillStuck')}</h2>
+          <p class="body text-ash max-w-xl mx-auto mb-6">{t('support.respondNote')}</p>
+          <Button href={getLocalizedPath('/contact', lang)} variant="primary">
+            {t('support.contactCta')}
+          </Button>
+        </FeatureCard>
+      </div>
     </div>
-
-    <div class="mt-10 rounded-3xl bg-brand text-white p-6 sm:p-8 text-center">
-      <h2 class="font-serif text-2xl font-bold break-words">{t('support.stillStuck')}</h2>
-      <p class="mt-2 text-white/85 max-w-xl mx-auto">{t('support.respondNote')}</p>
-      <a href={getLocalizedPath('/contact', lang)} class="mt-5 inline-flex h-11 px-7 items-center justify-center rounded-full bg-white text-ink font-semibold max-w-full">{t('support.contactCta')}</a>
-    </div>
-  </div>
+  </section>
 </BaseLayout>
