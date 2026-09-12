@@ -1,14 +1,30 @@
 # Lade Stack — https://ladestack.in
 # AI-crawler friendly index for ladestack.in
 
-> Lade Stack is an AI-powered developer tools ecosystem founded by Girish Lade.
+> Lade Stack is a free, privacy-first AI developer tools ecosystem founded by Girish Lade.
+> In-browser code inspection, visual API testing, PDF utilities, image optimization, and technical tutorials.
 > Contact: admin@ladestack.in
 
-## Pages
-- [Home](https://ladestack.in/): AI-powered developer platform
-- [About](https://ladestack.in/about): Founder story and vision
-- [Apps](https://ladestack.in/apps): AI developer tools gallery
-- [Blog](https://ladestack.in/blog): AI development insights
-- [Docs](https://ladestack.in/docs): Developer documentation
-- [Contact](https://ladestack.in/contact): Support and contact
-- [Support](https://ladestack.in/support): Help center
+## Core Pages
+- [Home](https://ladestack.in/): Free AI developer platform & coding utilities
+- [Flagship Products](https://ladestack.in/products): Production-grade AI developer tools suite
+- [CodeEnhance AI](https://ladestack.in/ai-code-viewer-ai): Real-time frontend code inspection, linter, and live preview sandbox
+- [Apps Gallery](https://ladestack.in/apps): Free browser-based developer utilities collection
+- [Documentation](https://ladestack.in/docs): Step-by-step developer guides, API specifications, Git export, and Vercel deployment checklists
+- [Engineering Blog](https://ladestack.in/blog): 27 in-depth technical tutorials covering AI systems, RAG architecture, MLOps, and SaaS scalability
+- [About](https://ladestack.in/about): Founder story, engineering principles, and technical philosophy of Girish Lade
+- [Support Center](https://ladestack.in/support): Developer FAQs, troubleshooting guides, and client-side help desk
+- [Contact](https://ladestack.in/contact): Direct engineering team feedback, bug reports, and technical collaboration
+- [Privacy Policy](https://ladestack.in/privacy): In-browser data safety, client-side processing, and zero-retention policy
+- [Terms of Service](https://ladestack.in/terms): Perpetual free-use license for personal and commercial development
+
+## Web Applications & Utilities
+- [CodeEnhance AI](https://ladestack.in/ai-code-viewer-ai): In-browser HTML/CSS/JS optimizer and live code sandbox
+- [LS PDF Tools](https://pdf.ladestack.in/): Client-side PDF merge, split, compress, and conversion utilities
+- [LS Image Studio](https://img.ladestack.in/): In-browser batch image compression and format converter
+- [Swift Resume](https://resume.ladestack.in/): ATS-friendly developer resume builder with live PDF preview
+- [Bharat Land Records](https://land.ladestack.in/): Clean, high-speed land record lookup utility for India
+
+## Feeds & Sitemaps
+- [RSS Feed](https://ladestack.in/rss.xml): Latest engineering tutorials and platform updates
+- [Sitemap](https://ladestack.in/sitemap.xml): Complete XML sitemap index covering all locales and routes
