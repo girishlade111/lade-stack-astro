@@ -221,6 +221,7 @@ const en = {
   'docs.heading': 'Docs',
   'docs.changelog': 'Changelog',
   'apps.heading': 'Apps',
+  'apps.eyebrow': 'GALLERY',
 
   // 404
   'notFound.title': '404 — Page not found',
@@ -706,6 +707,7 @@ const zh: Record<UIKeys, string> = {
   'docs.heading': '文档',
   'docs.changelog': '更新日志',
   'apps.heading': '应用',
+  'apps.eyebrow': '工具库',
   'notFound.title': '404 —— 页面未找到',
   'notFound.description': '您访问的页面不存在或已被移动。',
   'notFound.backHome': '返回首页',
@@ -1669,6 +1671,7 @@ const ptBR: Record<UIKeys, string> = {
   'docs.heading': 'Documentação',
   'docs.changelog': 'Registro de Alterações',
   'apps.heading': 'Apps',
+  'apps.eyebrow': 'GALERIA',
   'notFound.title': '404 — Página não encontrada',
   'notFound.description': 'A página que você procura não existe ou foi movida.',
   'notFound.backHome': 'Voltar ao início',

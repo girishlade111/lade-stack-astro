@@ -50,7 +50,7 @@ const structuredData = [
   <div class="marketing-section-dark">
     <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
       <div class="max-w-3xl mb-12">
-        <MonoEyebrow color="brand" class="mb-3">DOCUMENTATION</MonoEyebrow>
+        <MonoEyebrow color="brand" class="mb-3">{t('docs.eyebrow')}</MonoEyebrow>
         <h1 class="display-md text-on-primary mb-4 break-words page-enter rise-in">
           {t('docs.heading')}
         </h1>
@@ -95,7 +95,7 @@ const structuredData = [
       <div class="mt-8 grid lg:grid-cols-[280px_1fr] gap-8 xl:gap-12 items-start">
         <!-- Desktop Sticky Sidebar Navigation -->
         <nav aria-label="Documentation sections" class="hidden lg:block sticky top-24 bg-canvas-soft border border-hairline-soft rounded-marketing p-5">
-          <p class="mono-caps text-mute px-3 mb-2">SECTIONS</p>
+          <p class="mono-caps text-mute px-3 mb-2">{t('docs.sectionsLabel')}</p>
           <ul class="space-y-1">
             {categories.map((cat) => (
               <li>
@@ -130,14 +130,14 @@ const structuredData = [
             >
               <div class="mb-4">
                 <span class="mono-micro px-2 py-0.5 rounded-full bg-canvas-soft border border-hairline-soft text-ash mb-2 inline-block">
-                  SECTION {String(catIdx + 1).padStart(2, '0')}
+                  {t('docs.sectionBadge').replace('{n}', String(catIdx + 1).padStart(2, '0'))}
                 </span>
                 <h2 class="heading-md text-on-primary break-words">{cat.title}</h2>
               </div>
               <div class="mt-4 space-y-3">
                 {cat.articles.map((art) => (
                   <details
-                    data-docs-article={` ${art.title} ${art.text}`.toLowerCase()}
+                    data-docs-article={` ${art.title} ${art.text}`.toLocaleLowerCase(lang)}
                     class="group rounded-marketing border border-hairline-soft bg-canvas-soft px-5 py-4 open:border-graphite hover:border-graphite transition-all lift-on-hover"
                   >
                     <summary class="cursor-pointer font-medium list-none flex items-center justify-between gap-3 select-none">
@@ -154,7 +154,7 @@ const structuredData = [
           <!-- Changelog Section -->
           <section id="changelog" scroll-mt-24 data-reveal>
             <div class="mb-4">
-              <MonoEyebrow color="brand" class="mb-1">UPDATES</MonoEyebrow>
+              <MonoEyebrow color="brand" class="mb-1">{t('docs.updatesEyebrow')}</MonoEyebrow>
               <h2 class="heading-md text-on-primary">{t('docs.changelog')}</h2>
             </div>
             <ol class="mt-4 space-y-3">
@@ -191,7 +191,7 @@ const structuredData = [
     var articles = Array.prototype.slice.call(document.querySelectorAll('[data-docs-article]'));
     var empty = document.querySelector('[data-docs-empty]');
     input.addEventListener('input', function () {
-      var q = input.value.trim().toLowerCase();
+      var q = input.value.trim().toLocaleLowerCase();
       var visible = 0;
       articles.forEach(function (a) {
         var text = a.getAttribute('data-docs-article') || '';
