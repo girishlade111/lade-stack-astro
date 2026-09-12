@@ -64,11 +64,8 @@ const en = {
     'The complete AI-powered development ecosystem. Intelligent tools for coding, API testing, website building, file sharing, and documentation — all free. Built for modern developers.',
   'home.hero.ctaPrimary': 'Explore Apps',
   'home.hero.ctaSecondary': 'Read the Blog',
-  'home.hero.statTools': '9+',
   'home.hero.statToolsLabel': 'AI developer tools',
-  'home.hero.statUsers': '8K+',
   'home.hero.statUsersLabel': 'Developers empowered',
-  'home.hero.statFree': '100%',
   'home.hero.statFreeLabel': 'Free forever',
 
   // Home — sections
@@ -257,7 +254,8 @@ const en = {
 export type UIKeys = keyof typeof en;
 
 const ru: Record<UIKeys, string> = {
-  ...en,
+  // NOTE: no ...en spread here on purpose — every UIKeys entry must be
+  // listed explicitly so tsc (npm run build gate) fails on missing translations.
   'nav.home': 'Главная',
   'nav.about': 'О нас',
   'nav.apps': 'Каталог приложений',
@@ -481,7 +479,8 @@ const ru: Record<UIKeys, string> = {
 };
 
 const zh: Record<UIKeys, string> = {
-  ...en,
+  // NOTE: no ...en spread here on purpose — every UIKeys entry must be
+  // listed explicitly so tsc (npm run build gate) fails on missing translations.
   'nav.home': '首页',
   'nav.about': '关于',
   'nav.apps': '应用库',
@@ -705,7 +704,8 @@ const zh: Record<UIKeys, string> = {
 };
 
 const ko: Record<UIKeys, string> = {
-  ...en,
+  // NOTE: no ...en spread here on purpose — every UIKeys entry must be
+  // listed explicitly so tsc (npm run build gate) fails on missing translations.
   'nav.home': '홈',
   'nav.about': '소개',
   'nav.apps': '앱 갤러리',
@@ -929,7 +929,8 @@ const ko: Record<UIKeys, string> = {
 };
 
 const ja: Record<UIKeys, string> = {
-  ...en,
+  // NOTE: no ...en spread here on purpose — every UIKeys entry must be
+  // listed explicitly so tsc (npm run build gate) fails on missing translations.
   'nav.home': 'ホーム',
   'nav.about': '会社概要',
   'nav.apps': 'アプリ一覧',
@@ -1153,7 +1154,8 @@ const ja: Record<UIKeys, string> = {
 };
 
 const tr: Record<UIKeys, string> = {
-  ...en,
+  // NOTE: no ...en spread here on purpose — every UIKeys entry must be
+  // listed explicitly so tsc (npm run build gate) fails on missing translations.
   'nav.home': 'Ana Sayfa',
   'nav.about': 'Hakkımızda',
   'nav.apps': 'Uygulama Galerisi',
@@ -1377,7 +1379,8 @@ const tr: Record<UIKeys, string> = {
 };
 
 const ptBR: Record<UIKeys, string> = {
-  ...en,
+  // NOTE: no ...en spread here on purpose — every UIKeys entry must be
+  // listed explicitly so tsc (npm run build gate) fails on missing translations.
   'nav.home': 'Início',
   'nav.about': 'Sobre',
   'nav.apps': 'Galeria de Apps',
