@@ -73,7 +73,7 @@ const contactStructuredData = [
   <section class="marketing-section-dark !pb-16 text-center">
     <div class="max-w-[1640px] mx-auto px-4 sm:px-6">
       <MonoEyebrow color="brand" class="mb-3">
-        GET IN TOUCH
+        {t('contact.eyebrow')}
       </MonoEyebrow>
       <h1 class="display-md text-on-primary mb-4 break-words">
         {t('contact.title')}
@@ -114,7 +114,16 @@ const contactStructuredData = [
         <!-- Contact Form with exact text-input and btn-primary-on-light -->
         <FeatureCard variant="light">
           <h2 class="heading-sm text-ink mb-6">{t('contact.sendTitle')}</h2>
-          <form id="contact-form" class="space-y-4" data-endpoint="https://formspree.io/f/xayvkzgw" novalidate>
+          <form
+            id="contact-form"
+            class="space-y-4"
+            data-endpoint="https://formspree.io/f/xayvkzgw"
+            data-err-name={t('contact.errName')}
+            data-err-email={t('contact.errEmail')}
+            data-err-message={t('contact.errMessage')}
+            data-err-generic={t('contact.errGeneric')}
+            novalidate
+          >
             <div>
               <label class="block caption-tight text-ink mb-1.5" for="c-name">{t('contact.formName')}</label>
               <input type="text" id="c-name" name="name" required minlength="2" autocomplete="name" class="text-input w-full" aria-describedby="c-form-msg" />
@@ -180,6 +189,10 @@ const contactStructuredData = [
     if (form.hasAttribute('data-wired')) return;
     form.setAttribute('data-wired', 'true');
     var idleLabel = btn.innerText;
+    var errName = form.getAttribute('data-err-name') || 'Please enter your name (at least 2 characters).';
+    var errEmail = form.getAttribute('data-err-email') || 'Please enter a valid email address.';
+    var errMessage = form.getAttribute('data-err-message') || 'Please write a message of at least 10 characters.';
+    var errGeneric = form.getAttribute('data-err-generic') || 'Something went wrong sending your message. Please try again or email admin@ladestack.in.';
     function showError(msg) {
       if (!errBox) return;
       errBox.textContent = msg;
@@ -197,9 +210,9 @@ const contactStructuredData = [
       var nameV = name && name.value ? name.value.trim() : '';
       var emailV = email && email.value ? email.value.trim() : '';
       var msgV = msg && msg.value ? msg.value.trim() : '';
-      if (nameV.length < 2) { showError('Please enter your name (at least 2 characters).'); return; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailV)) { showError('Please enter a valid email address.'); return; }
-      if (msgV.length < 10) { showError('Please write a message of at least 10 characters.'); return; }
+      if (nameV.length < 2) { showError(errName); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailV)) { showError(errEmail); return; }
+      if (msgV.length < 10) { showError(errMessage); return; }
       btn.innerText = btn.getAttribute('data-sending') || 'Sending...';
       btn.disabled = true;
       var endpoint = form.getAttribute('data-endpoint') || '';
@@ -214,7 +227,7 @@ const contactStructuredData = [
       function onFail() {
         btn.disabled = false;
         btn.innerText = idleLabel;
-        showError('Something went wrong sending your message. Please try again or email admin@ladestack.in.');
+        showError(errGeneric);
       }
       if (!endpoint) { window.setTimeout(onOk, 600); return; }
       fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
