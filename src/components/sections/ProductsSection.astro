@@ -9,9 +9,10 @@ import Icon from '@/components/Icon.astro';
 
 interface Props {
   lang: SupportedLocale;
+  isPage?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, isPage = false } = Astro.props;
 const t = useTranslations(lang);
 const products = getContent(lang).products;
 ---
@@ -23,9 +24,15 @@ const products = getContent(lang).products;
       <MonoEyebrow color="brand" class="mb-3">
         {t('home.products.eyebrow')}
       </MonoEyebrow>
-      <h2 class="display-md text-on-primary mb-4">
-        {t('home.products.title')}
-      </h2>
+      {isPage ? (
+        <h1 class="display-md text-on-primary mb-4">
+          {t('home.products.title')}
+        </h1>
+      ) : (
+        <h2 class="display-md text-on-primary mb-4">
+          {t('home.products.title')}
+        </h2>
+      )}
       <p class="subtitle text-ash">
         {t('home.products.subtitle')}
       </p>
