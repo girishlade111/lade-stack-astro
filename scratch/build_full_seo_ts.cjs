@@ -1,9 +1,10 @@
 const fs = require('fs');
 
-// Load verified CJK descriptions
-const cjkCode = fs.readFileSync('scratch/verify_cjk_final.cjs', 'utf8');
-const fn = new Function(`${cjkCode}; return { zhDesc, koDesc, jaDesc };`);
-const { zhDesc, koDesc, jaDesc } = fn();
+// Load verified CJK descriptions directly from module
+// In verify_cjk_final.cjs, export them or define
+const cjk = require('./verify_cjk_final.cjs');
+// Let's check what's in verify_cjk_final.cjs or read the json file directly!
+
 
 const seoData = {
   // =========================================================================
