@@ -19,7 +19,8 @@ export type SEOPageKey =
   | 'support'
   | 'contact'
   | 'privacy'
-  | 'terms';
+  | 'terms'
+  | 'blogListing';
 
 export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
   // =========================================================================
@@ -135,6 +136,17 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
       ogDescription:
         'Terms of service, free personal and commercial use license, and acceptable use guidelines for Lade Stack utilities.',
       breadcrumbName: 'Terms of Service',
+    },
+    blogListing: {
+      title: 'Engineering & AI Development Blog',
+      description:
+        '27 in-depth tutorials on AI development, RAG, MLOps & SaaS architecture.',
+      keywords:
+        'AI blog, developer tutorials, RAG, MLOps, SaaS architecture, DevOps',
+      ogTitle: 'Engineering & AI Development Blog | Lade Stack',
+      ogDescription:
+        'In-depth tutorials on AI development, RAG, MLOps & SaaS architecture from the Lade Stack engineering team.',
+      breadcrumbName: 'Blog',
     },
   },
 
@@ -252,6 +264,17 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Условия обслуживания, бесплатная лицензия для личных и коммерческих проектов и правила добросовестного использования.',
       breadcrumbName: 'Условия использования',
     },
+    blogListing: {
+      title: 'Блог — разработка с ИИ и инженерия',
+      description:
+        'Подробные руководства по ИИ-разработке, RAG, MLOps и SaaS-архитектуре.',
+      keywords:
+        'блог разработчиков, руководства по ИИ, RAG, MLOps, SaaS архитектура, DevOps',
+      ogTitle: 'Блог — разработка с ИИ и инженерия | Lade Stack',
+      ogDescription:
+        'Подробные руководства по ИИ-разработке, RAG, MLOps и SaaS-архитектуре от команды Lade Stack.',
+      breadcrumbName: 'Блог',
+    },
   },
 
   // =========================================================================
@@ -367,6 +390,17 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
       ogDescription:
         'Lade Stack 도구의 개인 및 상업적 무료 이용 라이선스, 공정 이용 정책 및 서비스 이용 약관.',
       breadcrumbName: '이용약관',
+    },
+    blogListing: {
+      title: '엔지니어링 및 AI 개발 블로그',
+      description:
+        'AI 개발, RAG, MLOps 및 SaaS 아키텍처에 대한 심층 튜토리얼.',
+      keywords:
+        'AI 블로그, 개발자 튜토리얼, RAG, MLOps, SaaS 아키텍처, DevOps',
+      ogTitle: '엔지니어링 및 AI 개발 블로그 | Lade Stack',
+      ogDescription:
+        'Lade Stack 엔지니어링 팀의 AI 개발, RAG, MLOps 및 SaaS 아키텍처 심층 튜토리얼.',
+      breadcrumbName: '블로그',
     },
   },
 
@@ -484,6 +518,17 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Termos de serviço, licença gratuita para uso pessoal e comercial e diretrizes de uso da plataforma Lade Stack.',
       breadcrumbName: 'Termos de Serviço',
     },
+    blogListing: {
+      title: 'Blog de Engenharia e Desenvolvimento com IA',
+      description:
+        'Tutoriais aprofundados sobre desenvolvimento com IA, RAG, MLOps e arquitetura SaaS.',
+      keywords:
+        'blog de IA, tutoriais para desenvolvedores, RAG, MLOps, arquitetura SaaS, DevOps',
+      ogTitle: 'Blog de Engenharia e Desenvolvimento com IA | Lade Stack',
+      ogDescription:
+        'Tutoriais aprofundados sobre desenvolvimento com IA, RAG, MLOps e arquitetura SaaS da equipe Lade Stack.',
+      breadcrumbName: 'Blog',
+    },
   },
 
   // =========================================================================
@@ -599,6 +644,17 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
       ogDescription:
         'Lade Stack 平台服务条款、个人与商业项目完全免费使用许可及接口合理使用规范。',
       breadcrumbName: '服务条款',
+    },
+    blogListing: {
+      title: '工程与 AI 开发博客',
+      description:
+        '关于 AI 开发、RAG、MLOps 与 SaaS 架构的深度教程。',
+      keywords:
+        'AI 博客, 开发者教程, RAG, MLOps, SaaS 架构, DevOps',
+      ogTitle: '工程与 AI 开发博客 | Lade Stack',
+      ogDescription:
+        '来自 Lade Stack 工程团队的 AI 开发、RAG、MLOps 与 SaaS 架构深度教程。',
+      breadcrumbName: '博客',
     },
   },
 
@@ -716,6 +772,17 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
         'Lade Stackツールの個人・商用プロジェクト向け無料利用ライセンス、利用規約およびガイドライン。',
       breadcrumbName: '利用規約',
     },
+    blogListing: {
+      title: 'エンジニアリング＆AI開発ブログ',
+      description:
+        'AI開発、RAG、MLOps、SaaSアーキテクチャに関する詳細チュートリアル。',
+      keywords:
+        'AIブログ, 開発者チュートリアル, RAG, MLOps, SaaSアーキテクチャ, DevOps',
+      ogTitle: 'エンジニアリング＆AI開発ブログ | Lade Stack',
+      ogDescription:
+        'Lade StackエンジニアリングチームによるAI開発、RAG、MLOps、SaaSアーキテクチャの詳細チュートリアル。',
+      breadcrumbName: 'ブログ',
+    },
   },
 
   // =========================================================================
@@ -831,6 +898,17 @@ export const seoData: Record<SupportedLocale, Record<SEOPageKey, PageSEO>> = {
       ogDescription:
         'Lade Stack araçları için ücretsiz kişisel ve ticari kullanım lisansı, şartlar ve adil kullanım politikası.',
       breadcrumbName: 'Kullanım Koşulları',
+    },
+    blogListing: {
+      title: 'Mühendislik ve Yapay Zeka Geliştirme Blogu',
+      description:
+        'YZ geliştirme, RAG, MLOps ve SaaS mimarisi üzerine kapsamlı eğitimler.',
+      keywords:
+        'YZ blog, geliştirici eğitimleri, RAG, MLOps, SaaS mimarisi, DevOps',
+      ogTitle: 'Mühendislik ve Yapay Zeka Geliştirme Blogu | Lade Stack',
+      ogDescription:
+        'Lade Stack mühendislik ekibinden YZ geliştirme, RAG, MLOps ve SaaS mimarisi eğitimleri.',
+      breadcrumbName: 'Blog',
     },
   },
 };
