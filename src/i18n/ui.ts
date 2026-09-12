@@ -256,6 +256,13 @@ export type UIKeys = keyof typeof en;
 const ru: Record<UIKeys, string> = {
   // NOTE: no ...en spread here on purpose — every UIKeys entry must be
   // listed explicitly so tsc (npm run build gate) fails on missing translations.
+  // Locale-invariant values below intentionally keep the EN form (documented
+  // EN-fallback acceptance, Prompt 5.1): Latin email example + bare numerals.
+  'common.emailPlaceholder': 'you@example.com',
+  'home.impact.s1value': '8K+',
+  'home.impact.s2value': '9+',
+  'home.impact.s3value': '27+',
+  'home.impact.s4value': '100%',
   'nav.home': 'Главная',
   'nav.about': 'О нас',
   'nav.apps': 'Каталог приложений',
@@ -481,6 +488,13 @@ const ru: Record<UIKeys, string> = {
 const zh: Record<UIKeys, string> = {
   // NOTE: no ...en spread here on purpose — every UIKeys entry must be
   // listed explicitly so tsc (npm run build gate) fails on missing translations.
+  // Locale-invariant values below intentionally keep the EN form (documented
+  // EN-fallback acceptance, Prompt 5.1): Latin email example + bare numerals.
+  'common.emailPlaceholder': 'you@example.com',
+  'home.impact.s1value': '8K+',
+  'home.impact.s2value': '9+',
+  'home.impact.s3value': '27+',
+  'home.impact.s4value': '100%',
   'nav.home': '首页',
   'nav.about': '关于',
   'nav.apps': '应用库',
@@ -706,6 +720,13 @@ const zh: Record<UIKeys, string> = {
 const ko: Record<UIKeys, string> = {
   // NOTE: no ...en spread here on purpose — every UIKeys entry must be
   // listed explicitly so tsc (npm run build gate) fails on missing translations.
+  // Locale-invariant values below intentionally keep the EN form (documented
+  // EN-fallback acceptance, Prompt 5.1): Latin email example + bare numerals.
+  'common.emailPlaceholder': 'you@example.com',
+  'home.impact.s1value': '8K+',
+  'home.impact.s2value': '9+',
+  'home.impact.s3value': '27+',
+  'home.impact.s4value': '100%',
   'nav.home': '홈',
   'nav.about': '소개',
   'nav.apps': '앱 갤러리',
@@ -931,6 +952,13 @@ const ko: Record<UIKeys, string> = {
 const ja: Record<UIKeys, string> = {
   // NOTE: no ...en spread here on purpose — every UIKeys entry must be
   // listed explicitly so tsc (npm run build gate) fails on missing translations.
+  // Locale-invariant values below intentionally keep the EN form (documented
+  // EN-fallback acceptance, Prompt 5.1): Latin email example + bare numerals.
+  'common.emailPlaceholder': 'you@example.com',
+  'home.impact.s1value': '8K+',
+  'home.impact.s2value': '9+',
+  'home.impact.s3value': '27+',
+  'home.impact.s4value': '100%',
   'nav.home': 'ホーム',
   'nav.about': '会社概要',
   'nav.apps': 'アプリ一覧',
@@ -1156,6 +1184,13 @@ const ja: Record<UIKeys, string> = {
 const tr: Record<UIKeys, string> = {
   // NOTE: no ...en spread here on purpose — every UIKeys entry must be
   // listed explicitly so tsc (npm run build gate) fails on missing translations.
+  // Locale-invariant values below intentionally keep the EN form (documented
+  // EN-fallback acceptance, Prompt 5.1): Latin email example + bare numerals.
+  'common.emailPlaceholder': 'you@example.com',
+  'home.impact.s1value': '8K+',
+  'home.impact.s2value': '9+',
+  'home.impact.s3value': '27+',
+  'home.impact.s4value': '100%',
   'nav.home': 'Ana Sayfa',
   'nav.about': 'Hakkımızda',
   'nav.apps': 'Uygulama Galerisi',
@@ -1381,6 +1416,13 @@ const tr: Record<UIKeys, string> = {
 const ptBR: Record<UIKeys, string> = {
   // NOTE: no ...en spread here on purpose — every UIKeys entry must be
   // listed explicitly so tsc (npm run build gate) fails on missing translations.
+  // Locale-invariant values below intentionally keep the EN form (documented
+  // EN-fallback acceptance, Prompt 5.1): Latin email example + bare numerals.
+  'common.emailPlaceholder': 'you@example.com',
+  'home.impact.s1value': '8K+',
+  'home.impact.s2value': '9+',
+  'home.impact.s3value': '27+',
+  'home.impact.s4value': '100%',
   'nav.home': 'Início',
   'nav.about': 'Sobre',
   'nav.apps': 'Galeria de Apps',
