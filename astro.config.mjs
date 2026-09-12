@@ -6,6 +6,7 @@ import icon from 'astro-icon';
 import fsSync from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Preload blog dates from frontmatter for accurate <lastmod>.
 // Prefers `updatedDate` (set only when a post is edited post-publish) over `pubDate`.
@@ -44,10 +45,22 @@ function sitemapXmlAlias() {
     hooks: {
       'astro:build:done': async ({ dir }) => {
         try {
+          const dirPath = fileURLToPath(dir);
+          const entries = await fs.readdir(dirPath);
+          const sitemapFiles = entries.filter((f) => f.startsWith('sitemap') && f.endsWith('.xml'));
+          for (const file of sitemapFiles) {
+            const filePath = path.join(dirPath, file);
+            let content = await fs.readFile(filePath, 'utf8');
+            if (content.includes('https://ladestack.in/sitemap-style.xsl')) {
+              content = content.replace(/https:\/\/ladestack\.in\/sitemap-style\.xsl/g, '/sitemap-style.xsl');
+              await fs.writeFile(filePath, content, 'utf8');
+            }
+          }
+
           const sitemapIndex = new URL('sitemap-index.xml', dir);
           const sitemapTarget = new URL('sitemap.xml', dir);
           await fs.copyFile(sitemapIndex, sitemapTarget);
-          console.log('[@astrojs/sitemap] Created sitemap.xml from sitemap-index.xml');
+          console.log('[@astrojs/sitemap] Created sitemap.xml from sitemap-index.xml with /sitemap-style.xsl');
         } catch (err) {
           console.warn('[@astrojs/sitemap] Could not create sitemap.xml:', err.message);
         }
@@ -89,6 +102,7 @@ export default defineConfig({
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
+      xslURL: '/sitemap-style.xsl',
       i18n: {
         defaultLocale: 'en',
         locales: {
