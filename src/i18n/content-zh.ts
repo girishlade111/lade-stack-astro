@@ -848,5 +848,27 @@ export const zh: LocaleContent = {
     'implementing-oauth2-openid-connect': { title: '落地 OAuth2 和 OpenID Connect', description: 'PKCE 授权码、令牌存哪、怎么轮换、怎么登出，一次做对。' },
     'mlops-deploying-ml-models-production': { title: 'MLOps：模型上线生产环境', description: '模型仓库、金丝雀 serving、特征平台、回滚预案，稳稳上线。' },
     'monitoring-ai-systems-in-production': { title: '生产 AI 系统监控', description: '配上评估和护栏，把 AI 功能的质量、漂移、成本、延迟盯住。' }
+  },
+  studioWindow: {
+    readyStatus: '就绪',
+    viewer: {
+      comment: '// @ladestack/engine — 边缘自研 SSG 引擎与智能代码辅助',
+      buildStatus: '构建完成',
+      buildDetails: '27 篇文章，9 款开发工具，0kb 客户端运行时',
+      readyText: '运行于',
+      readySuffix: '(0ms TTFB)'
+    },
+    api: {
+      resultText: '> 2/2 项测试通过 (42ms) • SSL 已验证'
+    },
+    preview: {
+      comment: '<!-- 由 Website Builder AI 生成 • 语义化 Astro 组件 -->',
+      badge: '系统就绪',
+      heading: '为极致性能而设计',
+      subtitle: '100% 静态预渲染，零客户端 JS 运行时。',
+      button: '探索开发工具',
+      compiledStatus: '已编译',
+      compiledDetails: 'output/dist/index.html (3.4kb gzip, 100/100 LH)'
+    }
   }
 };

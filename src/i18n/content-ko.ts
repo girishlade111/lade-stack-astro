@@ -848,5 +848,27 @@ export const ko: LocaleContent = {
     'implementing-oauth2-openid-connect': { title: 'OAuth2·OpenID Connect 구현하기', description: 'PKCE 인증 코드, 토큰 저장, 로테이션, 로그아웃 — 처음부터 제대로.' },
     'mlops-deploying-ml-models-production': { title: 'MLOps: ML 모델 프로덕션 배포', description: '레지스트리, 카나리 서빙, 피처 스토어, 롤백 플랜 — 신뢰받는 모델 운영.' },
     'monitoring-ai-systems-in-production': { title: '프로덕션 AI 시스템 모니터링', description: '평가·가드레일을 곁들인 AI 기능의 품질, 드리프트, 비용, 지연시간 추적.' }
+  },
+  studioWindow: {
+    readyStatus: '준비완료',
+    viewer: {
+      comment: '// @ladestack/engine — 엣지 가속 SSG 엔진 & 인텔리전트 코드',
+      buildStatus: '빌드 완료',
+      buildDetails: '27개 포스트, 9개 도구, 클라이언트 런타임 0kb',
+      readyText: '준비됨',
+      readySuffix: '(0ms TTFB)'
+    },
+    api: {
+      resultText: '> 2/2 테스트 통과 (42ms) • SSL 검증됨'
+    },
+    preview: {
+      comment: '<!-- Website Builder AI 생성 • 시맨틱 Astro 타겟 -->',
+      badge: '시스템 준비됨',
+      heading: '극대화된 성능을 위한 아키텍처',
+      subtitle: '100% SSG 및 제로 클라이언트 JS 런타임.',
+      button: '도구 모음 탐색',
+      compiledStatus: '컴파일 완료',
+      compiledDetails: 'output/dist/index.html (3.4kb gzip, 100/100 LH)'
+    }
   }
 };

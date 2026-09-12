@@ -166,4 +166,35 @@ export interface LocaleContent {
   blogCategories: Record<string, string>;
   /** Per-post title/description overrides keyed by slug. Missing posts fall back to frontmatter. */
   blogPosts: Record<string, BlogOverride>;
+  /** Translatable content for StudioWindow terminal code mockup. */
+  studioWindow: StudioWindowContent;
+}
+
+export interface StudioWindowTabViewer {
+  comment: string;
+  buildStatus: string;
+  buildDetails: string;
+  readyText: string;
+  readySuffix: string;
+}
+
+export interface StudioWindowTabApi {
+  resultText: string;
+}
+
+export interface StudioWindowTabPreview {
+  comment: string;
+  badge: string;
+  heading: string;
+  subtitle: string;
+  button: string;
+  compiledStatus: string;
+  compiledDetails: string;
+}
+
+export interface StudioWindowContent {
+  readyStatus: string;
+  viewer: StudioWindowTabViewer;
+  api: StudioWindowTabApi;
+  preview: StudioWindowTabPreview;
 }

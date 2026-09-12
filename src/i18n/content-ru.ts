@@ -773,6 +773,27 @@ export const ru: LocaleContent = {
     'DevOps & CI/CD': 'DevOps и CI/CD',
     'Security in Web Apps': 'Безопасность веб-приложений',
     'AI Production Systems': 'ИИ в продакшене'
-  },
-  blogPosts: {}
+  blogPosts: {},
+  studioWindow: {
+    readyStatus: 'готово',
+    viewer: {
+      comment: '// @ladestack/engine — автономный генератор SSG и умный ассистент кода',
+      buildStatus: 'СБОРКА ЗАВЕРШЕНА',
+      buildDetails: '27 статей, 9 инструментов, 0 КБ рантайма',
+      readyText: 'Запущено на',
+      readySuffix: '(TTFB 0 мс)'
+    },
+    api: {
+      resultText: '> 2/2 теста пройдено (42 мс) • SSL подтверждён'
+    },
+    preview: {
+      comment: '<!-- Сгенерировано Website Builder AI • Семантический компонент Astro -->',
+      badge: 'СИСТЕМА ГОТОВА',
+      heading: 'Создано для предельной скорости',
+      subtitle: 'Полный SSG без клиентского JS-рантайма.',
+      button: 'Каталог инструментов',
+      compiledStatus: 'СКОМПИЛИРОВАНО',
+      compiledDetails: 'output/dist/index.html (3.4 КБ gzip, 100/100 LH)'
+    }
+  }
 };

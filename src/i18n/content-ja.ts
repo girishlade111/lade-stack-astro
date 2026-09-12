@@ -848,5 +848,27 @@ export const ja: LocaleContent = {
     'implementing-oauth2-openid-connect': { title: 'OAuth2・OpenID Connect実装', description: 'PKCE認可コード、トークン保管、ローテーション、ログアウトを最初から正しく。' },
     'mlops-deploying-ml-models-production': { title: 'MLOps:MLモデルの本番デプロイ', description: 'レジストリ、カナリア配信、フィーチャーストア、ロールバック計画。信頼される運用へ。' },
     'monitoring-ai-systems-in-production': { title: '本番AIシステムの監視', description: '評価とガードレールを添えたAI機能の品質・ドリフト・コスト・遅延の追跡。' }
+  },
+  studioWindow: {
+    readyStatus: '待機完了',
+    viewer: {
+      comment: '// @ladestack/engine — エッジ最適化 SSG エンジンと AI コード支援',
+      buildStatus: 'ビルド完了',
+      buildDetails: '27 件の記事、9 つのツール、クライアント JS ランタイム 0kb',
+      readyText: '稼働中',
+      readySuffix: '(0ms TTFB)'
+    },
+    api: {
+      resultText: '> 2/2 テスト合格 (42ms) • SSL 検証済み'
+    },
+    preview: {
+      comment: '<!-- Website Builder AI により生成 • セマンティック Astro ターゲット -->',
+      badge: 'システム準備完了',
+      heading: '究極のスピードを追求した設計',
+      subtitle: '100% SSG によるゼロ・クライアント JS ランタイム。',
+      button: 'ツール一覧を見る',
+      compiledStatus: 'コンパイル完了',
+      compiledDetails: 'output/dist/index.html (3.4kb gzip, 100/100 LH)'
+    }
   }
 };
