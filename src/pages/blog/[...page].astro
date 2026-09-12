@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { useTranslations } from '@/i18n/utils';
+import { useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { localizePost, getContent, getPostSlug, getBlogPostsForLocale } from '@/i18n/content';
+import { getPageSEO } from '@/i18n/seo';
 import MonoEyebrow from '@/components/ui/MonoEyebrow.astro';
 import FeatureCard from '@/components/ui/FeatureCard.astro';
 import Button from '@/components/ui/Button.astro';
