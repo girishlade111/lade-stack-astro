@@ -111,7 +111,7 @@ const breadcrumbs = [
         </div>
 
         <!-- Category Filter Pills using btn-app-tab tokens -->
-        <div class="flex flex-wrap items-center justify-center gap-2 mt-6" id="category-pills" role="group" aria-label="Filter blog posts by category">
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-6" id="category-pills" role="group" aria-label={t('blog.filterLabel')}>
           {
             categories.map((cat, idx) => (
               <button
@@ -181,7 +181,13 @@ const breadcrumbs = [
         }
       </div>
       <div aria-live="polite"><p data-blog-empty class="hidden mt-8 text-center caption text-ash">{t('blog.noMatch')}</p></div>
-      <p data-blog-count class="sr-only" aria-live="polite"></p>
+      <p
+        data-blog-count
+        class="sr-only"
+        aria-live="polite"
+        data-count-one={t('blog.countOne')}
+        data-count-other={t('blog.countOther')}
+      ></p>
 
       <!-- Pagination Controls -->
       {page.lastPage > 1 && (
@@ -276,7 +282,11 @@ const breadcrumbs = [
         if (matchesCat && matchesQuery) visible++;
       });
       if (empty) empty.classList.toggle('hidden', visible !== 0);
-      if (counter) counter.textContent = `${visible} article${visible === 1 ? '' : 's'} shown.`;
+      if (counter) {
+        const oneText = counter.getAttribute('data-count-one') || '1 article shown.';
+        const otherText = counter.getAttribute('data-count-other') || '{n} articles shown.';
+        counter.textContent = visible === 1 ? oneText : otherText.replace('{n}', String(visible));
+      }
     }
 
     if (input) {
