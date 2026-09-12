@@ -64,3 +64,5 @@ if (fail === 0) {
   // Save to a json file to assemble full seoData easily
   fs.writeFileSync('scratch/cjk_descriptions.json', JSON.stringify({ zh: zhDesc, ko: koDesc, ja: jaDesc }, null, 2));
 }
+
+module.exports = { zhDesc, koDesc, jaDesc };
