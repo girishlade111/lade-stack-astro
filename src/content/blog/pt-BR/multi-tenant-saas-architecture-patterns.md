@@ -5,7 +5,7 @@ pubDate: 2024-09-01
 author: "Girish Lade"
 category: "SaaS Architecture"
 readTime: 11
-coverImage: "/blog-covers/saas-arch.svg"
+coverImage: "/blog-covers/saas-architecture.svg"
 featured: true
 tags: ["Multi-Tenant", "SaaS", "Arquitetura"]
 ---
